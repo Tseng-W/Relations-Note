@@ -1,0 +1,52 @@
+PODS:
+  - FSCalendar (2.8.2)
+  - IQKeyboardManagerSwift (6.5.6)
+  - JGProgressHUD (2.2)
+  - KeychainAccess (4.2.2)
+  - Kingfisher (6.2.1)
+  - MJRefresh (3.5.0)
+  - Reusable (4.1.1):
+    - Reusable/Storyboard (= 4.1.1)
+    - Reusable/View (= 4.1.1)
+  - Reusable/Storyboard (4.1.1)
+  - Reusable/View (4.1.1)
+  - SwiftLint (0.43.1)
+  - TagListView (1.4.1)
+
+DEPENDENCIES:
+  - FSCalendar
+  - IQKeyboardManagerSwift
+  - JGProgressHUD
+  - KeychainAccess
+  - Kingfisher
+  - MJRefresh
+  - Reusable
+  - SwiftLint
+  - TagListView (~> 1.0)
+
+SPEC REPOS:
+  trunk:
+    - FSCalendar
+    - IQKeyboardManagerSwift
+    - JGProgressHUD
+    - KeychainAccess
+    - Kingfisher
+    - MJRefresh
+    - Reusable
+    - SwiftLint
+    - TagListView
+
+SPEC CHECKSUMS:
+  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  Reusable: 53a9acf5c536f229b31b5865782414b508252ddb
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+  TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
+
+PODFILE CHECKSUM: 66243fa535a9677e5dada9152e9000168ec679ef
+
+COCOAPODS: 1.10.1
