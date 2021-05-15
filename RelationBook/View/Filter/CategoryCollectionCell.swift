@@ -8,5 +8,13 @@
 import UIKit
 
 class CategoryCollectionCell: UICollectionViewCell {
-    
+
+
+  @IBOutlet var iconImageView: UIImageView!
+
+  @IBOutlet var titleLabel: UILabel!
+
+  var icon: Icon?
+
+  
 }

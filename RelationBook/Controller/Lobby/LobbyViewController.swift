@@ -55,7 +55,7 @@ class LobbyViewController: UIViewController {
 
     RelationViewModel.shared.fetchRelations(id: -1)
 
-    EventViewModel.shared.addEvent(id: -1, event: EventViewModel.shared.mockEvent)
+//    EventViewModel.shared.addEvent(id: -1, event: EventViewModel.shared.mockEvent)
     EventViewModel.shared.fetchEvents(id: -1)
     
     view.addGestureRecognizer(scopeGesture)

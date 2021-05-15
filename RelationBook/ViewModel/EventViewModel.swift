@@ -12,9 +12,15 @@ class EventViewModel: BaseProvider {
 
   static let shared = EventViewModel()
 
-  let events: Box<[Event]?> = Box(nil)
+  let value: Box<[Event]?> = Box(nil)
 
-  let mockEvent = Event(id: nil, type: EventCategory(type: .deal, category: Category(title: "cT", imageData: "ciD", isCustom: true, subData: [SubCategory(title: "sT", imageData: "siD", isCustom: true, description: "sD")], description: "cD")), owner: -1, relations: ["blea4enJDRoW7x7kdoT1"], interval: Timestamp(date: Date()), occurTime: Timestamp(date: Date()))
+  let mockEvent = Event(id: "mockEvent",
+                        type: .deal,
+                        categoryIndex: 0,
+                        owner: -1,
+                        relations: ["mockRelation"],
+                        interval: Timestamp(date: Date()),
+                        occurTime: Timestamp(date: Date()))
 
   func addEvent(id userID: Int, event: Event) {
     FirebaseManager.shared.addEvent(userID: userID, data: event)
@@ -30,14 +36,14 @@ class EventViewModel: BaseProvider {
   }
 
   func onEventAdded(event: Event) {
-    events.value?.append(event)
+    value.value?.append(event)
   }
 
   func onEventModified(event: Event) {
-    events.value?[(events.value?.firstIndex(where: { $0.id == event.id }))!] = event
+    value.value?[(value.value?.firstIndex(where: { $0.id == event.id }))!] = event
   }
 
   func onEventDeleted(event: Event) {
-    events.value?.remove(at: (events.value?.firstIndex(where: { $0.id == event.id }))!)
+    value.value?.remove(at: (value.value?.firstIndex(where: { $0.id == event.id }))!)
   }
 }

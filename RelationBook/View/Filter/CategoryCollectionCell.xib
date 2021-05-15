@@ -22,10 +22,15 @@
                             <constraint firstAttribute="width" secondItem="spm-tP-hUQ" secondAttribute="height" multiplier="1:1" id="HFY-mT-SYy"/>
                             <constraint firstAttribute="width" constant="40" id="jqE-QL-I79"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUO-TO-rqQ">
-                        <rect key="frame" x="36.5" y="58" width="42" height="51"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KUO-TO-rqQ">
+                        <rect key="frame" x="41" y="58" width="33" height="59"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -35,10 +40,14 @@
                     <constraint firstItem="KUO-TO-rqQ" firstAttribute="centerX" secondItem="spm-tP-hUQ" secondAttribute="centerX" id="Bl3-Lf-ebH"/>
                     <constraint firstItem="spm-tP-hUQ" firstAttribute="centerX" secondItem="d6h-cE-usV" secondAttribute="centerX" id="JXZ-le-GGp"/>
                     <constraint firstItem="spm-tP-hUQ" firstAttribute="top" secondItem="d6h-cE-usV" secondAttribute="top" constant="10" id="JvI-yF-fiD"/>
-                    <constraint firstAttribute="bottom" secondItem="KUO-TO-rqQ" secondAttribute="bottom" constant="8" id="nz7-g2-9Gc"/>
+                    <constraint firstAttribute="bottom" secondItem="KUO-TO-rqQ" secondAttribute="bottom" id="nz7-g2-9Gc"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="115" height="117"/>
+            <connections>
+                <outlet property="iconImageView" destination="spm-tP-hUQ" id="uCa-wu-Bbs"/>
+                <outlet property="titleLabel" destination="KUO-TO-rqQ" id="1e3-2f-JdA"/>
+            </connections>
             <point key="canvasLocation" x="290.57971014492756" y="57.924107142857139"/>
         </collectionViewCell>
     </objects>
