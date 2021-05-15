@@ -17,14 +17,10 @@ class AddRelationViewController: UIViewController {
       searchTextField.layer.borderWidth = 1
     }
   }
-  
-  @IBOutlet var collectionView: UICollectionView! {
-    didSet {
-      collectionView.delegate = self
-      collectionView.dataSource = self
-    }
-  }
-  
+
+
+  @IBOutlet var filterView: FilterView!
+
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.delegate = self
@@ -36,11 +32,12 @@ class AddRelationViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    filterView.setUp(type: .relation)
   }
   
   @IBAction func confirm(_ sender: UIButton) {
     print("confirm")
+    filterView.reloadDate()
   }
   
   @IBAction func close(_ sender: UIButton) {

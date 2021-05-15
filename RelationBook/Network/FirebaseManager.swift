@@ -54,13 +54,13 @@ class FirebaseManager {
   }
 
   func addRelation(userID: Int, data: Relation) {
-    let id = try? db.collection(Collections.relation.rawValue).addDocument(from: data) { error in
+    _ = try? db.collection(Collections.relation.rawValue).addDocument(from: data) { error in
       if let error = error { print(error) }
     }
   }
 
   func addEvent(userID: Int, data: Event) {
-    let id = try? db.collection(Collections.event.rawValue).addDocument(from: data) { error in
+    _ = try? db.collection(Collections.event.rawValue).addDocument(from: data) { error in
       if let error = error { print(error) }
     }
   }

@@ -14,14 +14,10 @@ enum EventType: Int, Codable {
   case feature = 1
 }
 
-struct EventCategory: Codable {
-  var type: EventType
-  var category: Category
-}
-
 struct Event: Codable {
   @DocumentID var id: String?
-  var type: EventCategory
+  var type: EventType
+  var categoryIndex: Int
   var owner: Int?
   var relations: [String]?
   var interval: Timestamp?

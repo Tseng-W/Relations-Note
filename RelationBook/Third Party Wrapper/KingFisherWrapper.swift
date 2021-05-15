@@ -12,10 +12,32 @@ extension UIImageView {
 
     func loadImage(_ urlString: String?, placeHolder: UIImage? = nil) {
 
-        guard urlString != nil else { return }
+      guard let urlString = urlString else { return }
         
-        let url = URL(string: urlString!)
+        let url = URL(string: urlString)
 
         self.kf.setImage(with: url, placeholder: placeHolder)
     }
+}
+
+
+extension UIImage {
+
+  static func loadImage(_ urlString: String?, completion: @escaping  (UIImage?) -> Void ) {
+
+    guard let urlString = urlString,
+          let url = URL(string: urlString) else { completion(nil); return }
+
+    let resource = ImageResource(downloadURL: url)
+
+    KingfisherManager.shared.retrieveImage(with: resource, options: .none, progressBlock: nil) { result in
+      switch result {
+      case .success(let value):
+        completion(value.image)
+      case .failure(let error):
+        print(error)
+        completion(nil)
+      }
+    }
+  }
 }

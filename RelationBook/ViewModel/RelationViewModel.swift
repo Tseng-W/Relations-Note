@@ -12,26 +12,15 @@ class RelationViewModel: BaseProvider {
 
   static let shared = RelationViewModel()
 
-  var relations: Box<[Relation]?> = Box(nil)
+  var value: Box<[Relation]?> = Box(nil)
 
-  var mockRelation = Relation(id: nil,
-                              type: RelationCategory(isPublic: true,
-                                                     category: Category(title: "cTitle",
-                                                                        imageData: "iData",
-                                                                        isCustom: true,
-                                                                        subData: [SubCategory(title: "sT",
-                                                                                              imageData: "siD",
-                                                                                              isCustom: true,
-                                                                                              subData: nil,
-                                                                                              description: "desc")
-                                                                        ],
-                                                                        description: "cDesc")
-                              ),
+  var mockRelation = Relation(id: "mockRelation",
+                              isPublic: false,
+                              categoryIndex: 1,
                               owner: -1,
-                              feature: [],
+                              feature: [0: "mockFeature"],
                               createdTime: Timestamp(date: Date()),
-                              lastContactTime: Timestamp(date: Date())
-           )
+                              lastContactTime: Timestamp(date: Date()))
 
   func fetchRelations(id userID: Int) {
     FirebaseManager.shared.fetchRelationsMock(userID: userID)
@@ -42,15 +31,15 @@ class RelationViewModel: BaseProvider {
   }
 
   func onRelationAdded(relation: Relation) {
-    relations.value?.append(relation)
+    value.value?.append(relation)
   }
 
   func onRelationModified(relation: Relation) {
-    relations.value?[(relations.value?.firstIndex(where: { $0.id == relation.id }))!] = relation
+    value.value?[(value.value?.firstIndex(where: { $0.id == relation.id }))!] = relation
   }
 
   func onRelationDeleted(relation: Relation) {
-    relations.value?.remove(at: (relations.value?.firstIndex(where: { $0.id == relation.id }))!)
+    value.value?.remove(at: (value.value?.firstIndex(where: { $0.id == relation.id }))!)
   }
 
   func getCategories() -> [Category] {

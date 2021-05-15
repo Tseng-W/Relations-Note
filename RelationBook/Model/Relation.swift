@@ -9,16 +9,12 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-struct RelationCategory: Codable {
-  var isPublic: Bool
-  var category: Category
-}
-
 struct Relation: Codable {
   @DocumentID var id: String?
-  var type: RelationCategory
+  var isPublic: Bool
+  var categoryIndex: Int
   var owner: Int
-  var feature: [Category]
+  var feature: [Int: String]
   var createdTime: Timestamp
   var lastContactTime: Timestamp
 }

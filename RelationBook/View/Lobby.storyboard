@@ -158,22 +158,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SMq-dj-lyA">
-                                <rect key="frame" x="0.0" y="148" width="414" height="100"/>
-                                <color key="backgroundColor" name="LableB4"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="ZDy-WE-wWD"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CRH-Bx-yGO">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMv-Yv-bDe">
-                                <rect key="frame" x="16" y="264" width="382" height="153"/>
+                                <rect key="frame" x="16" y="356" width="382" height="153"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lu0-hA-Mxq">
                                         <rect key="frame" x="0.0" y="1" width="107" height="104.5"/>
@@ -262,9 +248,19 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-84-9Ze">
-                                <rect key="frame" x="0.0" y="433" width="414" height="429"/>
+                                <rect key="frame" x="0.0" y="525" width="414" height="337"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="148" width="414" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" identifier="height" id="0Tl-0V-QU1"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="filterViewHeightConstraint" destination="0Tl-0V-QU1" id="v3s-oB-50r"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbt-MQ-fzz"/>
                         <color key="backgroundColor" name="Background"/>
@@ -276,27 +272,27 @@
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="cg1-84-9Ze" secondAttribute="trailing" id="AD0-PK-lew"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="width" secondItem="pm9-hl-yyz" secondAttribute="height" multiplier="1:1" id="Bkg-PC-1qr"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="top" secondItem="hbt-MQ-fzz" secondAttribute="top" constant="16" id="Mri-mG-jEe"/>
-                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="SMq-dj-lyA" secondAttribute="trailing" id="OoK-aM-CIh"/>
                             <constraint firstItem="4Xr-BS-Fa0" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="SXo-dn-Cwe"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="4Xr-BS-Fa0" secondAttribute="trailing" constant="16" id="Tl9-uk-SME"/>
+                            <constraint firstItem="FMv-Yv-bDe" firstAttribute="top" secondItem="nvv-iT-43H" secondAttribute="bottom" constant="8" id="U8d-OL-4SP"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="VKq-bp-Od5"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="FMv-Yv-bDe" secondAttribute="trailing" constant="16" id="ZLG-3k-nwe"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="bottom" secondItem="cg1-84-9Ze" secondAttribute="bottom" id="abP-Rf-52Y"/>
+                            <constraint firstItem="nvv-iT-43H" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="eUZ-EM-i8f"/>
                             <constraint firstItem="FMv-Yv-bDe" firstAttribute="height" secondItem="ieI-wr-BJH" secondAttribute="height" multiplier="0.170759" id="fg9-jg-l5X"/>
-                            <constraint firstItem="SMq-dj-lyA" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="hXv-zG-tZv"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="centerX" secondItem="ieI-wr-BJH" secondAttribute="centerX" id="oDT-Tu-MuI"/>
-                            <constraint firstItem="SMq-dj-lyA" firstAttribute="top" secondItem="4Xr-BS-Fa0" secondAttribute="bottom" constant="8" id="oWS-dw-mmG"/>
+                            <constraint firstItem="nvv-iT-43H" firstAttribute="top" secondItem="4Xr-BS-Fa0" secondAttribute="bottom" constant="8" id="okA-ca-KMM"/>
                             <constraint firstItem="cg1-84-9Ze" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="pcN-C6-ngC"/>
-                            <constraint firstItem="FMv-Yv-bDe" firstAttribute="top" secondItem="SMq-dj-lyA" secondAttribute="bottom" constant="16" id="pkR-La-38Y"/>
                             <constraint firstItem="FMv-Yv-bDe" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="qSc-cf-ydV"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="pm9-hl-yyz" secondAttribute="trailing" constant="16" id="uJG-Sg-tlR"/>
                             <constraint firstItem="4Xr-BS-Fa0" firstAttribute="top" secondItem="U6H-wL-9Dr" secondAttribute="bottom" constant="16" id="uO3-Mi-Q3r"/>
+                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="nvv-iT-43H" secondAttribute="trailing" id="uX4-8Z-D6O"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="vm7-b9-7Sv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uBQ-wQ-sob"/>
                     <connections>
-                        <outlet property="collectionView" destination="SMq-dj-lyA" id="J0E-8D-X3G"/>
+                        <outlet property="filterView" destination="nvv-iT-43H" id="WlU-ze-cSN"/>
                         <outlet property="imageView" destination="lu0-hA-Mxq" id="PNk-3W-kn3"/>
                         <outlet property="searchTextField" destination="4Xr-BS-Fa0" id="x4k-dB-wmg"/>
                         <outlet property="tableView" destination="cg1-84-9Ze" id="Ric-8x-RWw"/>
