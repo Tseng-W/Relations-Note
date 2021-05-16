@@ -11,13 +11,15 @@ class FilterView: UIView {
 
   @IBOutlet var filterViewHeightConstraint: NSLayoutConstraint!
 
-  let eventViewModel = EventViewModel.shared
-  let relationViewModel = RelationViewModel.shared
-  let userViewModel = UserViewModel.shared
+  let eventViewModel = EventViewModel()
+  let relationViewModel = RelationViewModel()
+  let userViewModel = UserViewModel()
+
+  var onSelected: (([Category]) -> Void)?
 
   var filterSource: [String] = []
-  var dataSource: [Category] = []
-  var selectedCategory: Category? = nil
+  var selectedCategories: [Category] = []
+  var isEditing = false
 
   var filterIndex: Int = 0
   var categoryViews: [CategoryCollectionView] = []
@@ -35,7 +37,6 @@ class FilterView: UIView {
   let categoryScrollView: UIScrollView = {
 
     let scrollView = UIScrollView()
-
     scrollView.isPagingEnabled = true
     scrollView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -54,7 +55,6 @@ class FilterView: UIView {
 
     scrollHeight = categoryScrollView.frame.height
 
-    addFilterButtons()
     addCategoryCollectionViews(type: type)
   }
 
@@ -62,12 +62,16 @@ class FilterView: UIView {
     filterScrollView.delegate = self
     filterScrollView.datasource = self
     filterScrollView.translatesAutoresizingMaskIntoConstraints = false
+
     addSubview(filterScrollView)
 
+    let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
+    topConstraint.priority = .required
+
     NSLayoutConstraint.activate([
-      filterScrollView.topAnchor.constraint(equalTo: topAnchor),
+      topConstraint,
       filterScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      filterScrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
+      filterScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
     ])
 
 
@@ -82,7 +86,6 @@ class FilterView: UIView {
   }
 
   private func addScrollView() {
-    //    scrollViewConstraint = NSLayoutConstraint
 
     addSubview(categoryScrollView)
     NSLayoutConstraint.activate([
@@ -107,10 +110,19 @@ class FilterView: UIView {
 
       let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
       collectionView.setUp(type: type, categories: categoryData)
-      collectionView.onSelectedSubCategory = { categories in
+      collectionView.onSelectedSubCategory = { category in
+        if let category = category {
+          self.selectedCategories.append(category)
+          self.onSelected?(self.selectedCategories)
+        }
+
+        self.onHiddenFilter(isHidden: true)
+        return self.selectedCategories
       }
 
-      collectionView.onContinueEdit = {
+      collectionView.onContinueEdit = { index in
+        self.isEditing = index == -1
+        self.onHiddenFilter(isHidden: false)
       }
 
       categoryScrollView.addSubview(collectionView)
@@ -120,28 +132,19 @@ class FilterView: UIView {
     categoryScrollView.contentSize = CGSize(width: x, height: categoryScrollView.frame.size.height)
   }
 
-  private func addFilterButtons() {
+  private func onHiddenFilter(isHidden: Bool) {
+
+      filterHeightConstraint?.constant = isHidden ? 0 : 40
+      filterScrollView.indicatorView.isHidden = isHidden
+//      self.filterViewHeightConstraint.constant -= self.scrollHeight / 2 // 向上通知縮小
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        self.categoryScrollView.isScrollEnabled = !isHidden
+        self.layoutIfNeeded()
+      }
   }
 
   func reloadDate() {
-
-//    let currentPaging = filterScrollView.contentOffset.x / filterScrollView.frame.size.width
-
-    if filterHeightConstraint?.constant == 40 {
-      filterHeightConstraint?.constant = 0
-      filterViewHeightConstraint.constant -= scrollHeight / 2
-      categoryScrollView.isScrollEnabled = false
-//      categoryViews[Int(currentPaging)].selectedCategories = [Category(id: 0, isCustom: false, superIndex: 0, title: "test", imageLink: "")]
-    } else {
-      filterHeightConstraint?.constant = 40
-      filterViewHeightConstraint.constant += scrollHeight / 2
-      categoryScrollView.isScrollEnabled = true
-//      categoryViews[Int(currentPaging)].selectedCategories = []
-    }
-
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-      self.layoutIfNeeded()
-    }
+    onHiddenFilter(isHidden: filterHeightConstraint?.constant != 0)
   }
 }
 
@@ -156,7 +159,11 @@ extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
   }
 
   func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    print(index)
+
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.categoryScrollView.contentOffset.x = self.categoryScrollView.frame.width * CGFloat(index)
+      self.layoutIfNeeded()
+    }
   }
 
   func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor {

@@ -10,8 +10,6 @@ import Firebase
 
 class EventViewModel: BaseProvider {
 
-  static let shared = EventViewModel()
-
   let value: Box<[Event]?> = Box(nil)
 
   let mockEvent = Event(id: "mockEvent",

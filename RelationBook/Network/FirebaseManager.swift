@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+//import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class FirebaseManager {
@@ -14,6 +15,10 @@ class FirebaseManager {
   static let shared = FirebaseManager()
 
   let db = Firestore.firestore()
+
+  let relationViewModel = RelationViewModel()
+
+  let eventViewModel = EventViewModel()
 
   func fetchRelationsMock(userID: Int) {
     db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: userID).addSnapshotListener { snapShot, error in
@@ -24,11 +29,11 @@ class FirebaseManager {
         guard let relation = try? diff.document.data(as: Relation.self) else { return }
         switch diff.type {
           case .added:
-            RelationViewModel.shared.onRelationAdded(relation: relation)
+            self.relationViewModel.onRelationAdded(relation: relation)
           case.modified:
-            RelationViewModel.shared.onRelationModified(relation: relation)
+            self.relationViewModel.onRelationModified(relation: relation)
           case.removed:
-            RelationViewModel.shared.onRelationDeleted(relation: relation)
+            self.relationViewModel.onRelationDeleted(relation: relation)
         }
       })
     }
@@ -43,11 +48,11 @@ class FirebaseManager {
         guard let event = try? diff.document.data(as: Event.self) else { return }
         switch diff.type {
           case .added:
-            EventViewModel.shared.onEventAdded(event: event)
+            self.eventViewModel.onEventAdded(event: event)
           case.modified:
-            EventViewModel.shared.onEventModified(event: event)
+            self.eventViewModel.onEventModified(event: event)
           case.removed:
-            EventViewModel.shared.onEventDeleted(event: event)
+            self.eventViewModel.onEventDeleted(event: event)
         }
       })
     }

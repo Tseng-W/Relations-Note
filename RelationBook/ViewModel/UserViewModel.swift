@@ -14,17 +14,19 @@ enum CategoryType {
   case relation
 
   case feature
+
+  case motion
 }
 
 class UserViewModel {
-
-  static let shared = UserViewModel()
 
   private var mockRelationFilterTitle = ["同學", "家人", "同事", "點頭之交"]
 
   private var mockEventFilterTitle = ["偶遇", "日常會面", "會議"]
 
   private var mockFeatureFilterTitle = ["無"]
+
+  private var mockMotionFilterTitle = ["情緒"]
 
   private var mockFeatureCategory: [Category] = [
     Category(id: 0, isCustom: false, superIndex: 0, title: "求學", imageLink: ""),
@@ -83,6 +85,14 @@ class UserViewModel {
     Category(id: 2, isCustom: false, superIndex: 2, title: "會議", imageLink: "")
   ]
 
+  private var mockMotionCategory: [Category] = [
+    Category(id: 0, isCustom: false, superIndex: 0, title: "生氣", imageLink: ""),
+    Category(id: 0, isCustom: false, superIndex: 0, title: "難過", imageLink: ""),
+    Category(id: 0, isCustom: false, superIndex: 0, title: "無聊", imageLink: ""),
+    Category(id: 0, isCustom: false, superIndex: 0, title: "愉快", imageLink: ""),
+    Category(id: 0, isCustom: false, superIndex: 0, title: "興奮", imageLink: "")
+  ]
+
   func getCategoriesWithSuperIndex(type: CategoryType, index: Int) -> [Category] {
     switch type {
     case .event:
@@ -91,6 +101,8 @@ class UserViewModel {
       return mockFeatureCategory.filter { $0.superIndex == index }
     case .relation:
       return mockRelationCategory.filter { $0.superIndex == index }
+    case .motion:
+      return mockMotionCategory.filter { $0.superIndex == index }
     }
   }
 
@@ -102,6 +114,8 @@ class UserViewModel {
       return mockFeatureSubCategory.filter { $0.superIndex == id }
     case .relation:
       return mockRelationSubCategory.filter { $0.superIndex == id }
+    case .motion:
+      return []
     }
   }
 
@@ -113,6 +127,8 @@ class UserViewModel {
       return mockFeatureFilterTitle
     case .relation:
       return mockRelationFilterTitle
+    case .motion:
+      return mockMotionFilterTitle
     }
   }
 
@@ -127,6 +143,9 @@ class UserViewModel {
     case .relation:
       guard index < mockRelationCategory.count else { return nil}
       return mockRelationCategory[index]
+    case .motion:
+      guard index < mockMotionCategory.count else { return nil}
+      return mockMotionCategory[index]
     }
   }
 
@@ -141,6 +160,8 @@ class UserViewModel {
     case .relation:
       guard index < mockRelationSubCategory.count else { return nil}
       return mockRelationSubCategory[index]
+    case .motion:
+      return nil
     }
   }
 }

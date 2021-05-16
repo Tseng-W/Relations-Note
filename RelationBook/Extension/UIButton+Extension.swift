@@ -16,6 +16,7 @@ extension UIButton {
     set {
       if newValue {
         layer.cornerRadius = frame.size.height / 2
+        layer.masksToBounds = true
       }
     }
     get {
