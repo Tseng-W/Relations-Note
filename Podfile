@@ -16,9 +16,11 @@ target 'RelationBook' do
   pod 'FSCalendar'
   pod 'TagListView', '~> 1.0'
   pod 'Firebase'
+  pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'AMPopTip'
 
   target 'RelationBookTests' do
     inherit! :search_paths

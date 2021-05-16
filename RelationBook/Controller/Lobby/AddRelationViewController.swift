@@ -18,7 +18,6 @@ class AddRelationViewController: UIViewController {
     }
   }
 
-
   @IBOutlet var filterView: FilterView!
 
   @IBOutlet var tableView: UITableView! {
@@ -33,6 +32,9 @@ class AddRelationViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     filterView.setUp(type: .relation)
+    filterView.onSelected = { categories in
+
+    }
   }
   
   @IBAction func confirm(_ sender: UIButton) {

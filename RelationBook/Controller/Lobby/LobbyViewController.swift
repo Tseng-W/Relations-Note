@@ -12,6 +12,10 @@ import FSCalendar
 
 
 class LobbyViewController: UIViewController {
+
+  let relationViewModel = RelationViewModel()
+
+  let eventViewModel = EventViewModel()
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
@@ -53,10 +57,10 @@ class LobbyViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    RelationViewModel.shared.fetchRelations(id: -1)
+    relationViewModel.fetchRelations(id: -1)
 
 //    EventViewModel.shared.addEvent(id: -1, event: EventViewModel.shared.mockEvent)
-    EventViewModel.shared.fetchEvents(id: -1)
+    eventViewModel.fetchEvents(id: -1)
     
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)

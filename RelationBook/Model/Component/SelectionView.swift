@@ -54,7 +54,7 @@ class SelectionView: UIView {
 
   var indicatorView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
-  var indicatorConstraint: NSLayoutConstraint?
+  var indicatorConstraints: [NSLayoutConstraint] = []
 
   weak var datasource: SelectionViewDatasource? {
     didSet {
@@ -88,13 +88,14 @@ class SelectionView: UIView {
   }
 
   private func moveIndicatorView(reference: UIButton, duration: Double = 0.3) {
-    if let constraint = indicatorConstraint {
-      constraint.isActive = false
-    }
-    indicatorConstraint = indicatorView.centerXAnchor.constraint(equalTo: reference.centerXAnchor)
-    indicatorConstraint!.isActive = true
-    indicatorView.widthAnchor.constraint(equalTo: reference.widthAnchor, multiplier: 0.5).isActive = true
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseIn) {
+    
+    indicatorConstraints.forEach { $0.isActive = false }
+    indicatorConstraints.removeAll()
+    indicatorConstraints.append(indicatorView.widthAnchor.constraint(equalTo: reference.widthAnchor))
+    indicatorConstraints.append(indicatorView.centerXAnchor.constraint(equalTo: reference.centerXAnchor))
+    indicatorConstraints.forEach { $0.isActive = true }
+
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveLinear) {
       self.layoutIfNeeded()
     }
   }
@@ -127,10 +128,11 @@ class SelectionView: UIView {
       } else {
         NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: padding)])
       }
-      NSLayoutConstraint.activate([
-        button.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-        button.topAnchor.constraint(equalTo: scrollView.topAnchor)
-      ])
+//      NSLayoutConstraint.activate([
+//        button.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//        button.topAnchor.constraint(equalTo: scrollView.topAnchor)
+//      ])
+      NSLayoutConstraint.activate([button.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)])
 
       lastButton = button
     }

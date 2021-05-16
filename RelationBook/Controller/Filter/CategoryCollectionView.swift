@@ -12,12 +12,12 @@ class CategoryCollectionView: UICollectionView {
   enum Status {
     case mainCategory
     case subCategory
-    case selcted
+    case selected
   }
 
-  var onSelectedSubCategory: ((Category?) -> Void)?
+  var onSelectedSubCategory: ((Category?) -> [Category])?
 
-  var onContinueEdit: (() -> Void)?
+  var onContinueEdit: ((Int) -> Void)?
 
   var type: CategoryType?
 
@@ -27,7 +27,7 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
-  let userViewModel = UserViewModel.shared
+  let userViewModel = UserViewModel()
 
   var selectedIndex: Int? {
     didSet {
@@ -50,7 +50,7 @@ class CategoryCollectionView: UICollectionView {
 
   var selectedCategories: [Category] = [] {
     didSet {
-      status = selectedCategories.count > 0 ? .selcted : .mainCategory
+      status = selectedCategories.count > 0 ? .selected : .mainCategory
       reloadData()
     }
   }
@@ -81,7 +81,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
     case .subCategory:
       guard let index = selectedIndex else { return 0 }
       return subCategories[index].count + 1
-    case .selcted:
+    case .selected:
       return selectedCategories.count + 1
     }
   }
@@ -106,7 +106,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         } else {
           cell.titleLabel.text = subCategories[selectedIndex!][indexPath.row - 1].title
         }
-      case .selcted:
+      case .selected:
         if indexPath.row == selectedCategories.count {
           cell.titleLabel.text = "新增"
         } else {
@@ -137,14 +137,15 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         status = .mainCategory
       } else {
         guard let index = selectedIndex else { status = .mainCategory; return }
-        onSelectedSubCategory?(subCategories[index][indexPath.row - 1])
-        status = .mainCategory
+        selectedCategories = onSelectedSubCategory?(subCategories[index][indexPath.row - 1]) ?? []
       }
-    case .selcted:
+    case .selected:
       if indexPath.row == selectedCategories.count {
-        onSelectedSubCategory?(nil)
+        onContinueEdit?(-1)
+        status = .mainCategory
       } else {
-        onSelectedSubCategory?(selectedCategories[indexPath.row])
+        onContinueEdit?(indexPath.row)
+        status = .mainCategory
       }
     }
   }
