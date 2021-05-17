@@ -5,7 +5,7 @@
 //  Created by 曾問 on 2021/5/11.
 //
 
-import Foundation
+import UIKit
 
 enum CategoryType {
 
@@ -14,83 +14,79 @@ enum CategoryType {
   case relation
 
   case feature
-
-  case motion
 }
 
 class UserViewModel {
 
-  private var mockRelationFilterTitle = ["同學", "家人", "同事", "點頭之交"]
+  var moodsData = Box([Category]())
 
-  private var mockEventFilterTitle = ["偶遇", "日常會面", "會議"]
+  var mockRelationFilterTitle = ["同學", "家人", "同事", "點頭之交"]
 
-  private var mockFeatureFilterTitle = ["無"]
+  var mockEventFilterTitle = ["偶遇", "日常會面", "會議"]
 
-  private var mockMotionFilterTitle = ["情緒"]
+  var mockFeatureFilterTitle = ["無"]
 
-  private var mockFeatureCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "求學", imageLink: ""),
-    Category(id: 1, isCustom: false, superIndex: 0, title: "事業", imageLink: "")
+  var mockFeatureCategory: [Category] = [
+    Category(id: 0, isCustom: false, superIndex: 0, title: "求學", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 1, isCustom: false, superIndex: 0, title: "事業", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor())
   ]
 
-  private var mockFeatureSubCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "畢業", imageLink: ""),
-    Category(id: 1, isCustom: false, superIndex: 0, title: "任職", imageLink: "")
+  var mockFeatureSubCategory: [Category] = [
+    Category(id: 0, isCustom: false, superIndex: 0, title: "畢業", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 1, isCustom: false, superIndex: 0, title: "任職", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor())
   ]
 
-  private var mockRelationCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "大學同學", imageLink: ""),
-    Category(id: 1, isCustom: false, superIndex: 0, title: "高中同學", imageLink: ""),
-    Category(id: 2, isCustom: false, superIndex: 0, title: "國中同學", imageLink: ""),
-    Category(id: 3, isCustom: false, superIndex: 0, title: "小學同學", imageLink: ""),
-    Category(id: 4, isCustom: false, superIndex: 1, title: "父母", imageLink: ""),
-    Category(id: 5, isCustom: false, superIndex: 1, title: "親戚", imageLink: ""),
-    Category(id: 6, isCustom: false, superIndex: 1, title: "兒女", imageLink: ""),
-    Category(id: 7, isCustom: false, superIndex: 1, title: "配偶", imageLink: ""),
-    Category(id: 8, isCustom: false, superIndex: 2, title: "XX公司", imageLink: ""),
-    Category(id: 9, isCustom: false, superIndex: 2, title: "OO公司", imageLink: ""),
-    Category(id: 10, isCustom: false, superIndex: 2, title: "YY公司", imageLink: ""),
-    Category(id: 11, isCustom: false, superIndex: 2, title: "配偶", imageLink: ""),
-    Category(id: 12, isCustom: false, superIndex: 3, title: "路人", imageLink: "")
-  ]
+  var mockRelationCategory: [Category] = [
+  Category(id: 0, isCustom: false, superIndex: 0, title: "大學同學", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+  Category(id: 1, isCustom: false, superIndex: 0, title: "高中同學", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+  Category(id: 2, isCustom: false, superIndex: 0, title: "國中同學", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+  Category(id: 3, isCustom: false, superIndex: 0, title: "小學同學", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+  Category(id: 4, isCustom: false, superIndex: 1, title: "父母", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+  Category(id: 5, isCustom: false, superIndex: 1, title: "親戚", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+  Category(id: 6, isCustom: false, superIndex: 1, title: "兒女", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+  Category(id: 7, isCustom: false, superIndex: 1, title: "配偶", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+  Category(id: 8, isCustom: false, superIndex: 2, title: "XX公司", imageLink: "", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+  Category(id: 9, isCustom: false, superIndex: 2, title: "OO公司", imageLink: "", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+  Category(id: 10, isCustom: false, superIndex: 2, title: "YY公司", imageLink: "", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+  Category(id: 11, isCustom: false, superIndex: 3, title: "路人", imageLink: "", backgroundColor: UIColor.systemGray.StringFromUIColor())
+]
 
-  private var mockRelationSubCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "陳某某", imageLink: ""),
-    Category(id: 1, isCustom: false, superIndex: 0, title: "洪某某", imageLink: ""),
-    Category(id: 2, isCustom: false, superIndex: 1, title: "曾某某", imageLink: ""),
-    Category(id: 3, isCustom: false, superIndex: 1, title: "林某某", imageLink: ""),
-    Category(id: 4, isCustom: false, superIndex: 2, title: "曾某某", imageLink: ""),
-    Category(id: 5, isCustom: false, superIndex: 2, title: "林某某", imageLink: ""),
-    Category(id: 6, isCustom: false, superIndex: 3, title: "曾某某", imageLink: ""),
-    Category(id: 7, isCustom: false, superIndex: 4, title: "林某某", imageLink: ""),
-    Category(id: 8, isCustom: false, superIndex: 5, title: "曾某某", imageLink: ""),
-    Category(id: 9, isCustom: false, superIndex: 6, title: "林某某", imageLink: ""),
-    Category(id: 10, isCustom: false, superIndex: 7, title: "陳某某", imageLink: ""),
-    Category(id: 11, isCustom: false, superIndex: 8, title: "洪某某", imageLink: ""),
-    Category(id: 12, isCustom: false, superIndex: 9, title: "曾某某", imageLink: ""),
-    Category(id: 13, isCustom: false, superIndex: 10, title: "林某某", imageLink: ""),
-    Category(id: 14, isCustom: false, superIndex: 11, title: "曾某某", imageLink: ""),
-    Category(id: 15, isCustom: false, superIndex: 12, title: "林某某", imageLink: "")
+  var mockRelationSubCategory: [Category] = [
+    Category(id: 0, isCustom: false, superIndex: 0, title: "陳某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 1, isCustom: false, superIndex: 0, title: "洪某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 2, isCustom: false, superIndex: 1, title: "曾某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 3, isCustom: false, superIndex: 1, title: "林某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 4, isCustom: false, superIndex: 2, title: "曾某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 5, isCustom: false, superIndex: 2, title: "林某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 6, isCustom: false, superIndex: 3, title: "曾某某", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 7, isCustom: false, superIndex: 4, title: "林某某", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+    Category(id: 8, isCustom: false, superIndex: 5, title: "曾某某", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+    Category(id: 9, isCustom: false, superIndex: 6, title: "林某某", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+    Category(id: 10, isCustom: false, superIndex: 7, title: "陳某某", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+    Category(id: 11, isCustom: false, superIndex: 8, title: "洪某某", imageLink: "", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+    Category(id: 12, isCustom: false, superIndex: 9, title: "曾某某", imageLink: "", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+    Category(id: 13, isCustom: false, superIndex: 10, title: "林某某", imageLink: "", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+    Category(id: 14, isCustom: false, superIndex: 11, title: "曾某某", imageLink: "", backgroundColor: UIColor.systemGray.StringFromUIColor())
   ]
 
   private var mockEventCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "招呼", imageLink: ""),
-    Category(id: 1, isCustom: false, superIndex: 1, title: "閒聊", imageLink: ""),
-    Category(id: 2, isCustom: false, superIndex: 2, title: "會議", imageLink: "")
+    Category(id: 0, isCustom: false, superIndex: 0, title: "招呼", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 1, isCustom: false, superIndex: 1, title: "閒聊", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+    Category(id: 2, isCustom: false, superIndex: 2, title: "會議", imageLink: "", backgroundColor: UIColor.systemGreen.StringFromUIColor())
   ]
 
   private var mockEventSubCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "新認識", imageLink: ""),
-    Category(id: 1, isCustom: false, superIndex: 1, title: "", imageLink: ""),
-    Category(id: 2, isCustom: false, superIndex: 2, title: "會議", imageLink: "")
+    Category(id: 0, isCustom: false, superIndex: 0, title: "新認識", imageLink: "", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+    Category(id: 1, isCustom: false, superIndex: 1, title: "聊天", imageLink: "", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+    Category(id: 2, isCustom: false, superIndex: 2, title: "會議", imageLink: "", backgroundColor: UIColor.systemGreen.StringFromUIColor())
   ]
 
-  private var mockMotionCategory: [Category] = [
-    Category(id: 0, isCustom: false, superIndex: 0, title: "生氣", imageLink: ""),
-    Category(id: 0, isCustom: false, superIndex: 0, title: "難過", imageLink: ""),
-    Category(id: 0, isCustom: false, superIndex: 0, title: "無聊", imageLink: ""),
-    Category(id: 0, isCustom: false, superIndex: 0, title: "愉快", imageLink: ""),
-    Category(id: 0, isCustom: false, superIndex: 0, title: "興奮", imageLink: "")
+  var mockMoodData: [(title: String, imageName: String, colorString: String)] = [
+    ("憤怒", "face.smiling.fill", UIColor.systemRed.StringFromUIColor()),
+    ("傷心", "face.smiling.fill", UIColor.systemBlue.StringFromUIColor()),
+    ("無聊", "face.smiling.fill", UIColor.systemYellow.StringFromUIColor()),
+    ("輕鬆", "face.smiling.fill", UIColor.systemTeal.StringFromUIColor()),
+    ("快樂", "face.smiling.fill", UIColor.systemGreen.StringFromUIColor())
   ]
 
   func getCategoriesWithSuperIndex(type: CategoryType, index: Int) -> [Category] {
@@ -101,8 +97,6 @@ class UserViewModel {
       return mockFeatureCategory.filter { $0.superIndex == index }
     case .relation:
       return mockRelationCategory.filter { $0.superIndex == index }
-    case .motion:
-      return mockMotionCategory.filter { $0.superIndex == index }
     }
   }
 
@@ -114,8 +108,6 @@ class UserViewModel {
       return mockFeatureSubCategory.filter { $0.superIndex == id }
     case .relation:
       return mockRelationSubCategory.filter { $0.superIndex == id }
-    case .motion:
-      return []
     }
   }
 
@@ -127,8 +119,6 @@ class UserViewModel {
       return mockFeatureFilterTitle
     case .relation:
       return mockRelationFilterTitle
-    case .motion:
-      return mockMotionFilterTitle
     }
   }
 
@@ -143,9 +133,6 @@ class UserViewModel {
     case .relation:
       guard index < mockRelationCategory.count else { return nil}
       return mockRelationCategory[index]
-    case .motion:
-      guard index < mockMotionCategory.count else { return nil}
-      return mockMotionCategory[index]
     }
   }
 
@@ -160,8 +147,14 @@ class UserViewModel {
     case .relation:
       guard index < mockRelationSubCategory.count else { return nil}
       return mockRelationSubCategory[index]
-    case .motion:
-      return nil
+    }
+  }
+
+  func fetchMood() {
+    mockMoodData.forEach { (title ,image, color) in
+      moodsData.value.append(
+        Category(id: moodsData.value.count, isCustom: false, superIndex: -1, title: title, imageLink: image, backgroundColor: color)
+      )
     }
   }
 }

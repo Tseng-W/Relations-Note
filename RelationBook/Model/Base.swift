@@ -26,15 +26,21 @@ protocol Icon: Codable {
   var title: String { get }
 
   var imageLink: String { get }
+
+  var backgroundColor: String { get }
 }
 
 extension Icon {
 
   func getImage(completion: @escaping (UIImage?) -> Void) {
     if isCustom {
-      completion(UIImage(systemName: imageLink))
+      UIImage.loadImage(imageLink, completion: completion)
     }
-    UIImage.loadImage(imageLink, completion: completion)
+    completion(UIImage(systemName: imageLink))
+  }
+
+  func getColor() -> UIColor {
+    return UIColor.UIColorFromString(string: backgroundColor)
   }
 }
 
@@ -49,4 +55,6 @@ struct Category: Icon {
   var title: String
 
   var imageLink: String
+
+  var backgroundColor: String
 }

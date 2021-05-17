@@ -39,7 +39,10 @@ class FilterView: UIView {
     let scrollView = UIScrollView()
     scrollView.isPagingEnabled = true
     scrollView.translatesAutoresizingMaskIntoConstraints = false
-
+    scrollView.showsVerticalScrollIndicator = false
+    scrollView.showsHorizontalScrollIndicator = false
+    scrollView.alwaysBounceVertical = false
+    scrollView.alwaysBounceHorizontal = false
     return scrollView
   }()
   var scrollHeight: CGFloat = 0
@@ -95,7 +98,7 @@ class FilterView: UIView {
       categoryScrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
     ])
   }
-
+  
   private func addCategoryCollectionViews(type: CategoryType) {
 
     let viewWidth = categoryScrollView.frame.width

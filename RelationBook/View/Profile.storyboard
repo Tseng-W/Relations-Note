@@ -27,6 +27,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bOm-17-DqX">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jog-aF-t4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y1m-lM-h59" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4gF-1E-7Tg">
@@ -38,7 +39,6 @@
                         <segue destination="kGY-ak-nz1" kind="relationship" relationship="rootViewController" id="tU1-ZL-tNP"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jog-aF-t4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="489.85507246376818" y="29.464285714285712"/>
         </scene>

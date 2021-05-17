@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4712C23226526C62008D8386 /* RelationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4712C23126526C62008D8386 /* RelationTableCell.xib */; };
+		4712C23426526D16008D8386 /* RelationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4712C23326526D16008D8386 /* RelationTableCell.swift */; };
+		4712C23626526E0E008D8386 /* RelationTableHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4712C23526526E0E008D8386 /* RelationTableHeaderCell.xib */; };
+		4712C23826526F1F008D8386 /* RelationTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4712C23726526F1F008D8386 /* RelationTableHeaderCell.swift */; };
 		472D1371264CD1ED001F3B85 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */; };
 		47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E45263C2D6F0092860F /* AppDelegate.swift */; };
 		47339E48263C2D6F0092860F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E47263C2D6F0092860F /* SceneDelegate.swift */; };
-		47339E4A263C2D6F0092860F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E49263C2D6F0092860F /* ViewController.swift */; };
+		47339E4A263C2D6F0092860F /* RelationshipViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */; };
 		47339E4D263C2D6F0092860F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339E4B263C2D6F0092860F /* Main.storyboard */; };
 		47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47339E4E263C2D700092860F /* PersonBook.xcdatamodeld */; };
 		47339E52263C2D710092860F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47339E51263C2D710092860F /* Assets.xcassets */; };
@@ -44,6 +48,8 @@
 		476D2ECC264BC5D800A9200A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 476D2ECB264BC5D800A9200A /* GoogleService-Info.plist */; };
 		476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2ED4264BDD3700A9200A /* CategoryCollectionCell.swift */; };
 		476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */; };
+		4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786930126516EC100BFA750 /* PopMoodSelectView.swift */; };
+		478693042651F2E800BFA750 /* SelectEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478693032651F2E800BFA750 /* SelectEventViewController.swift */; };
 		479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3CC26412613000E2CFC /* UITableView+Extension.swift */; };
 		479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */; };
 		479DE3D726412896000E2CFC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D626412896000E2CFC /* String+Extension.swift */; };
@@ -84,11 +90,15 @@
 /* Begin PBXFileReference section */
 		078999D47D88E871FCEB533F /* Pods-PersonBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonBookTests.debug.xcconfig"; path = "Target Support Files/Pods-PersonBookTests/Pods-PersonBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		34B1B65FA44F4ADD7948785C /* Pods-PersonBook-PersonBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonBook-PersonBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-PersonBook-PersonBookUITests/Pods-PersonBook-PersonBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4712C23126526C62008D8386 /* RelationTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelationTableCell.xib; sourceTree = "<group>"; };
+		4712C23326526D16008D8386 /* RelationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTableCell.swift; sourceTree = "<group>"; };
+		4712C23526526E0E008D8386 /* RelationTableHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelationTableHeaderCell.xib; sourceTree = "<group>"; };
+		4712C23726526F1F008D8386 /* RelationTableHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTableHeaderCell.swift; sourceTree = "<group>"; };
 		472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
 		47339E42263C2D6F0092860F /* RelationBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47339E45263C2D6F0092860F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47339E47263C2D6F0092860F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		47339E49263C2D6F0092860F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationshipViewContoller.swift; sourceTree = "<group>"; };
 		47339E4C263C2D6F0092860F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47339E4F263C2D700092860F /* PersonBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonBook.xcdatamodel; sourceTree = "<group>"; };
 		47339E51263C2D710092860F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +137,8 @@
 		476D2ECB264BC5D800A9200A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		476D2ED4264BDD3700A9200A /* CategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionCell.swift; sourceTree = "<group>"; };
 		476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionCell.xib; sourceTree = "<group>"; };
+		4786930126516EC100BFA750 /* PopMoodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoodSelectView.swift; sourceTree = "<group>"; };
+		478693032651F2E800BFA750 /* SelectEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventViewController.swift; sourceTree = "<group>"; };
 		479DE3CC26412613000E2CFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D626412896000E2CFC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -186,6 +198,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4712C23026526C49008D8386 /* Relation */ = {
+			isa = PBXGroup;
+			children = (
+				4712C23126526C62008D8386 /* RelationTableCell.xib */,
+				4712C23326526D16008D8386 /* RelationTableCell.swift */,
+				4712C23526526E0E008D8386 /* RelationTableHeaderCell.xib */,
+				4712C23726526F1F008D8386 /* RelationTableHeaderCell.swift */,
+			);
+			path = Relation;
+			sourceTree = "<group>";
+		};
 		472D136F264CD1DC001F3B85 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,8 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				47339E44263C2D6F0092860F /* RelationBook */,
-				47339E5E263C2D710092860F /* RelationTests */,
-				47339E69263C2D710092860F /* RelationUITests */,
+				47339E5E263C2D710092860F /* RelationBookTests */,
+				47339E69263C2D710092860F /* RelationBookUITests */,
 				47339E43263C2D6F0092860F /* Products */,
 				B3BE359D8CCF66AA8535907B /* Pods */,
 				98BAD812F7F035E42F19F73B /* Frameworks */,
@@ -236,27 +259,28 @@
 			path = RelationBook;
 			sourceTree = "<group>";
 		};
-		47339E5E263C2D710092860F /* RelationTests */ = {
+		47339E5E263C2D710092860F /* RelationBookTests */ = {
 			isa = PBXGroup;
 			children = (
 				47339E5F263C2D710092860F /* RelationBookTests.swift */,
 				47339E61263C2D710092860F /* Info.plist */,
 			);
-			path = RelationTests;
+			path = RelationBookTests;
 			sourceTree = "<group>";
 		};
-		47339E69263C2D710092860F /* RelationUITests */ = {
+		47339E69263C2D710092860F /* RelationBookUITests */ = {
 			isa = PBXGroup;
 			children = (
 				47339E6A263C2D710092860F /* RelationUITests.swift */,
 				47339E6C263C2D710092860F /* Info.plist */,
 			);
-			path = RelationUITests;
+			path = RelationBookUITests;
 			sourceTree = "<group>";
 		};
 		47339E9C263C33190092860F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4712C23026526C49008D8386 /* Relation */,
 				476D2ECD264BD3F500A9200A /* Filter */,
 				47A957D3263FA40D0015A1CC /* Lobby */,
 				47339E4B263C2D6F0092860F /* Main.storyboard */,
@@ -335,7 +359,7 @@
 		47339EE0263C41BF0092860F /* Relationship */ = {
 			isa = PBXGroup;
 			children = (
-				47339E49263C2D6F0092860F /* ViewController.swift */,
+				47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */,
 			);
 			path = Relationship;
 			sourceTree = "<group>";
@@ -404,6 +428,8 @@
 			children = (
 				47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */,
 				47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */,
+				4786930126516EC100BFA750 /* PopMoodSelectView.swift */,
+				478693032651F2E800BFA750 /* SelectEventViewController.swift */,
 			);
 			path = Lobby;
 			sourceTree = "<group>";
@@ -567,6 +593,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4712C23226526C62008D8386 /* RelationTableCell.xib in Resources */,
 				47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */,
 				47339EA4263C35C60092860F /* Book.storyboard in Resources */,
 				47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */,
@@ -575,6 +602,7 @@
 				47339EA9263C374F0092860F /* Profile.storyboard in Resources */,
 				47339EAE263C37680092860F /* Timeline.storyboard in Resources */,
 				47339E52263C2D710092860F /* Assets.xcassets in Resources */,
+				4712C23626526E0E008D8386 /* RelationTableHeaderCell.xib in Resources */,
 				47339E4D263C2D6F0092860F /* Main.storyboard in Resources */,
 				476D2ECC264BC5D800A9200A /* GoogleService-Info.plist in Resources */,
 				47E6EF0E263D725F000172DC /* Lobby.storyboard in Resources */,
@@ -726,13 +754,15 @@
 				47339EB9263C3ABC0092860F /* PBTabBarViewController.swift in Sources */,
 				47E7032726464AB000C82A9C /* UIColor+Extension.swift in Sources */,
 				476D2EC6264B8E2800A9200A /* FirebaseManager.swift in Sources */,
+				478693042651F2E800BFA750 /* SelectEventViewController.swift in Sources */,
 				476D2EBD264ADD5800A9200A /* EventViewModel.swift in Sources */,
 				47339ECD263C3E760092860F /* UIImage+Extension.swift in Sources */,
 				47339EE9263C41FF0092860F /* TimelineViewContoller.swift in Sources */,
-				47339E4A263C2D6F0092860F /* ViewController.swift in Sources */,
+				47339E4A263C2D6F0092860F /* RelationshipViewContoller.swift in Sources */,
 				4765B1772650129700A6D18D /* SelectionView.swift in Sources */,
 				47339EC2263C3C140092860F /* UIStoryboard+Extension.swift in Sources */,
 				47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */,
+				4712C23426526D16008D8386 /* RelationTableCell.swift in Sources */,
 				476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */,
 				476D2ECA264BBA3600A9200A /* Date+Extension.swift in Sources */,
 				47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */,
@@ -749,8 +779,10 @@
 				479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */,
 				4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */,
 				47E6EF17263D732D000172DC /* LobbyViewController.swift in Sources */,
+				4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */,
 				47E702DF2644C82100C82A9C /* LoginViewController.swift in Sources */,
 				476D2EC8264B8EAE00A9200A /* Relation.swift in Sources */,
+				4712C23826526F1F008D8386 /* RelationTableHeaderCell.swift in Sources */,
 				47339EF8263C42620092860F /* BookViewController.swift in Sources */,
 				476D2EB5264ABD8E00A9200A /* Event.swift in Sources */,
 				476D2EB3264A9FB900A9200A /* Box.swift in Sources */,
