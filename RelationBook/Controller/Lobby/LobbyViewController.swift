@@ -14,7 +14,6 @@ import FSCalendar
 class LobbyViewController: UIViewController {
 
   let relationViewModel = RelationViewModel()
-
   let eventViewModel = EventViewModel()
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
@@ -43,6 +42,7 @@ class LobbyViewController: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
+      tableView.lk_registerCellWithNib(identifier: String(describing: LobbyEventTableCell.self), bundle: nil)
     }
   }
   
@@ -59,8 +59,10 @@ class LobbyViewController: UIViewController {
 
     relationViewModel.fetchRelations(id: -1)
 
-//    EventViewModel.shared.addEvent(id: -1, event: EventViewModel.shared.mockEvent)
-    eventViewModel.fetchEvents(id: -1)
+    eventViewModel.fetchMockEvent()
+    eventViewModel.events.bind { events in
+      self.tableView.reloadData()
+    }
     
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
@@ -96,11 +98,26 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, UIGestu
 extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    0
+    eventViewModel.events.value.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return UITableViewCell()
+
+    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventTableCell.self), for: indexPath)
+
+    if let cell = cell as? LobbyEventTableCell {
+      cell.event = eventViewModel.events.value[indexPath.row]
+    }
+
+    return cell
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    80
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.cellForRow(at: indexPath)?.isSelected = false
   }
 }
 

@@ -16,6 +16,17 @@ enum EventType: Int, Codable {
 
 struct Event: Codable {
   @DocumentID var id: String?
+  var relations: [Category]
+  var mood: Category
+  var event: Category
+  var location: GeoPoint
+  var locationName: String?
+  var time: Timestamp
+  var subEvents: [SubEvent]
+}
+
+struct SubEvent: Codable {
+  @DocumentID var id: String?
   var type: EventType
   var categoryIndex: Int
   var owner: Int?

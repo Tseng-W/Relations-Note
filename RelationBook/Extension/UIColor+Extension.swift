@@ -28,4 +28,18 @@ extension UIColor {
   static let lableB8: UIColor = UIColor(named: "LabelB8")!
   
   static let lableB9: UIColor = UIColor(named: "LabelB9")!
+
+  func StringFromUIColor() -> String {
+    guard let components = self.cgColor.components else { return "" }
+    return "[\(components[0]), \(components[1]), \(components[2]), \(components[3])]"
+  }
+
+  static func UIColorFromString(string: String) -> UIColor {
+    let componentsString = string.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
+    let components = componentsString.components(separatedBy: ", ")
+    return UIColor(red: CGFloat((components[0] as NSString).floatValue),
+           green: CGFloat((components[1] as NSString).floatValue),
+            blue: CGFloat((components[2] as NSString).floatValue),
+           alpha: CGFloat((components[3] as NSString).floatValue))
+  }
 }
