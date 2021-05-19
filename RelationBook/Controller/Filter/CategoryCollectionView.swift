@@ -149,4 +149,14 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
       }
     }
   }
+
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    cell.alpha = 0
+    layoutIfNeeded()
+
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0.2, options: .curveLinear) {
+      cell.alpha = 1
+      self.layoutIfNeeded()
+    }
+  }
 }

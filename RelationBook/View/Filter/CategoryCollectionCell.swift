@@ -16,5 +16,8 @@ class CategoryCollectionCell: UICollectionViewCell {
 
   var icon: Icon?
 
-  
+  override func awakeFromNib() {
+
+    super.awakeFromNib()
+  }
 }
