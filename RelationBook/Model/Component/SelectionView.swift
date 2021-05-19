@@ -50,18 +50,31 @@ extension SelectionViewDatasource {
 
 class SelectionView: UIView {
 
+  enum ViewType {
+    case stack
+    case scroll
+  }
+
   var numberOfButton: Int?
+  var buttons: [UIButton] = []
+
+  var type: ViewType = .scroll
 
   var indicatorView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
-  var indicatorConstraints: [NSLayoutConstraint] = []
+  private var indicatorConstraints: [NSLayoutConstraint] = []
 
   weak var datasource: SelectionViewDatasource? {
     didSet {
       guard let datasource = datasource else { return }
 
       let numberOfButton = datasource.numberOfButton(self)
-      addScrollViewContent(numberOfButton: numberOfButton)
+      switch type {
+      case .scroll:
+        addScrollViewContent(numberOfButton)
+      case .stack:
+        addStatckViewContent(numberOfButton)
+      }
 
       let index = datasource.initialButtonIndex(self)
       addIndicatorView(index: index)
@@ -69,6 +82,13 @@ class SelectionView: UIView {
   }
 
   weak var delegate: SelectionViewDelegate?
+
+  func moveIndicatorToIndex(index: Int) {
+
+    guard index < buttons.count else { return }
+
+    moveIndicatorView(reference: buttons[index])
+  }
 
   @objc private func shouldSelect(sender: UIButton) {
     guard let delegate = delegate,
@@ -100,11 +120,13 @@ class SelectionView: UIView {
     }
   }
 
-  private func addScrollViewContent(numberOfButton: Int) {
+  private func addScrollViewContent(_ numberOfButton: Int) {
 
     guard let datasource = datasource else { return }
 
     let scrollView = UIScrollView()
+    scrollView.showsVerticalScrollIndicator = false
+    scrollView.showsHorizontalScrollIndicator = false
 
     var lastButton: ResizableButton? = nil
     let padding: CGFloat = 16
@@ -128,28 +150,59 @@ class SelectionView: UIView {
       } else {
         NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: padding)])
       }
-//      NSLayoutConstraint.activate([
-//        button.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//        button.topAnchor.constraint(equalTo: scrollView.topAnchor)
-//      ])
       NSLayoutConstraint.activate([button.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)])
-
+      buttons.append(button)
       lastButton = button
     }
-    layoutIfNeeded()
-
-    var width: CGFloat = 0
-    scrollView.subviews.forEach { width += $0.frame.width }
-    scrollView.contentSize = CGSize(width: width, height: scrollView.frame.height)
-    layoutIfNeeded()
 
     self.addSubview(scrollView)
 
     scrollView.translatesAutoresizingMaskIntoConstraints = false
-    scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-    scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-    scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-    scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    scrollView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    scrollView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    scrollView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+    scrollView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+
+    layoutIfNeeded()
+    var width: CGFloat = 0
+    width = scrollView.subviews.reduce(width) { sum, view in
+      return sum + view.frame.width
+    }
+    scrollView.contentSize = CGSize(width: width, height: scrollView.frame.height)
+  }
+
+  private func addStatckViewContent(_ numberOfButton: Int) {
+
+    guard let datasource = datasource else { return }
+
+    let statckView = UIStackView()
+    statckView.alignment = .fill
+    statckView.distribution = .fillEqually
+    statckView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(statckView)
+    NSLayoutConstraint.activate([
+      statckView.topAnchor.constraint(equalTo: topAnchor),
+      statckView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      statckView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      statckView.trailingAnchor.constraint(equalTo: trailingAnchor)
+    ])
+
+    var lastButton: ResizableButton? = nil
+
+    for index in 0..<numberOfButton {
+
+      let title = datasource.selectionView(self, titleForButtonAt: index)
+      let textColor = datasource.selectionView(self, textColorForButtonAt: index)
+
+      let button = ResizableButton()
+      button.translatesAutoresizingMaskIntoConstraints = false
+      button.tag = index
+      button.setTitle(title, for: .normal)
+      button.setTitleColor(textColor, for: .normal)
+      button.addTarget(self, action: #selector(shouldSelect(sender:)), for: .touchUpInside)
+      buttons.append(button)
+      statckView.addArrangedSubview(button)
+    }
   }
 
   private func addIndicatorView(index: Int) {

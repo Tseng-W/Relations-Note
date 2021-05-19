@@ -8,14 +8,13 @@
 import UIKit
 
 class FilterView: UIView {
-
-  @IBOutlet var filterViewHeightConstraint: NSLayoutConstraint!
-
+  
   let eventViewModel = EventViewModel()
   let relationViewModel = RelationViewModel()
   let userViewModel = UserViewModel()
 
   var onSelected: (([Category]) -> Void)?
+  var onStartEdit: (() -> Void)?
 
   var filterSource: [String] = []
   var selectedCategories: [Category] = []
@@ -64,42 +63,24 @@ class FilterView: UIView {
   private func addFilterBar() {
     filterScrollView.delegate = self
     filterScrollView.datasource = self
-    filterScrollView.translatesAutoresizingMaskIntoConstraints = false
 
     addSubview(filterScrollView)
 
     let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
     topConstraint.priority = .required
 
-    NSLayoutConstraint.activate([
-      topConstraint,
-      filterScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      filterScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-    ])
-
-
-    filterHeightConstraint = NSLayoutConstraint(item: filterScrollView,
-                                                attribute: .height,
-                                                relatedBy: .equal,
-                                                toItem: nil,
-                                                attribute: .notAnAttribute,
-                                                multiplier: 1,
-                                                constant: 50)
-    filterHeightConstraint?.isActive = true
+    filterScrollView.addConstarint(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
   }
 
   private func addScrollView() {
 
     addSubview(categoryScrollView)
-    NSLayoutConstraint.activate([
-      categoryScrollView.topAnchor.constraint(equalTo: filterScrollView.bottomAnchor),
-      categoryScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      categoryScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      categoryScrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
-    ])
+    categoryScrollView.addConstarint(top: filterScrollView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
   }
-  
+
   private func addCategoryCollectionViews(type: CategoryType) {
+
+    categoryScrollView.delegate = self
 
     let viewWidth = categoryScrollView.frame.width
     let viewHeight = categoryScrollView.frame.height
@@ -126,24 +107,26 @@ class FilterView: UIView {
       collectionView.onContinueEdit = { index in
         self.isEditing = index == -1
         self.onHiddenFilter(isHidden: false)
+        self.onStartEdit?()
       }
 
       categoryScrollView.addSubview(collectionView)
       categoryViews.append(collectionView)
       x = collectionView.frame.origin.x + viewWidth
     }
+
     categoryScrollView.contentSize = CGSize(width: x, height: categoryScrollView.frame.size.height)
   }
 
   private func onHiddenFilter(isHidden: Bool) {
 
-      filterHeightConstraint?.constant = isHidden ? 0 : 40
-      filterScrollView.indicatorView.isHidden = isHidden
-//      self.filterViewHeightConstraint.constant -= self.scrollHeight / 2 // 向上通知縮小
+    filterHeightConstraint?.constant = isHidden ? 0 : 40
+    filterScrollView.indicatorView.isHidden = isHidden
+
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        self.categoryScrollView.isScrollEnabled = !isHidden
-        self.layoutIfNeeded()
-      }
+      self.categoryScrollView.isScrollEnabled = !isHidden
+      self.layoutIfNeeded()
+    }
   }
 
   func reloadDate() {
@@ -171,5 +154,13 @@ extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
 
   func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor {
     .systemGray2
+  }
+}
+
+extension FilterView: UIScrollViewDelegate {
+
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    let paging: CGFloat = scrollView.contentOffset.x / scrollView.frame.width
+    filterScrollView.moveIndicatorToIndex(index: Int(paging))
   }
 }

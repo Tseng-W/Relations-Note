@@ -21,6 +21,7 @@ class AddRelationViewController: UIViewController {
   }
 
   @IBOutlet var filterView: FilterView!
+  @IBOutlet var filterHeightConstraint: NSLayoutConstraint!
 
   // MARK: Buttons.
   @IBOutlet var tableView: UITableView! {
@@ -33,67 +34,87 @@ class AddRelationViewController: UIViewController {
   @IBOutlet var eventButton: UIButton!
   @IBOutlet var locationButton: UIButton!
   @IBOutlet var imageView: UIImageView!
+  @IBOutlet var dayButton: UIButton!
+  @IBOutlet var timeButton: UIButton!
 
   let popTip = PopTip()
   let userViewModel = UserViewModel()
   let eventViewModel = EventViewModel()
-  let selectEventView: SelectEventViewController = {
-    let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent")
+  let selectFloatView: SelectFloatViewController = {
+    let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
 
-    vc.view.isHidden = true
-    return vc as! SelectEventViewController
+    return vc
   }()
 
   // MARK: Event datas.
+  var relations: [Category] = []
   var mood: Category?
   var event: Category?
   var location: GeoPoint?
   var locationName: String?
-  var time: Timestamp?
-  var subEvents: [SubEvent] = []
-
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    if let controller = segue.destination as? SelectEventViewController {
-      controller.onSelected = { category in
-        print(category)
-      }
+  var date = Date() {
+    didSet {
+      dayButton.setTitle(date.getDayString(type: .day), for: .normal)
+      timeButton.setTitle(date.getDayString(type: .time), for: .normal)
     }
   }
+  var subEvents: [SubEvent] = []
 
   override func viewDidLoad() {
+
     super.viewDidLoad()
 
-    view.layoutIfNeeded()
+    date = Date()
 
-    filterView.setUp(type: .relation)
-    filterView.onSelected = { categories in
-      print(categories)
-    }
-
-    view.addSubview(selectEventView.view)
-
-    NSLayoutConstraint.activate([
-      selectEventView.view.topAnchor.constraint(equalTo: view.topAnchor),
-      selectEventView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      selectEventView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      selectEventView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-    ])
-
-    selectEventView.onSelected = { event in
-      self.event = event
-      self.selectEventView.onDismiss?()
-    }
-    selectEventView.onDismiss = {
-      self.selectEventView.view.isHidden = true
-    }
+    relationFilterSetup()
+    selectionViewSetup()
 
     let suggestEvent = eventViewModel.mockEvent
+
     suggestEvent.mood.getImage { image in
       self.moodButton.setImage(image, for: .normal)
     }
 
     moodButton.backgroundColor = suggestEvent.mood.getColor()
+  }
+
+  private func relationFilterSetup() {
+    view.layoutIfNeeded()
+    filterView.setUp(type: .relation)
+    filterView.onSelected = { categories in
+      self.relations = categories
+      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        self.filterHeightConstraint.constant /= 2
+        self.view.layoutIfNeeded()
+      }
+    }
+    filterView.onStartEdit = {
+      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        self.filterHeightConstraint.constant *= 2
+        self.view.layoutIfNeeded()
+      }
+    }
+  }
+
+  private func selectionViewSetup() {
+
+    view.addSubview(selectFloatView.view)
+
+    selectFloatView.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+
+    selectFloatView.onEventSelected = { event in
+      self.event = event
+      self.eventButton.setTitle(event.title, for: .normal)
+    }
+
+    selectFloatView.onDateSelected = { type, date in
+      switch type {
+      case .time, .day:
+        self.date = date
+      default:
+        return
+      }
+    }
   }
 
   @IBAction func confirm(_ sender: UIButton) {
@@ -105,8 +126,15 @@ class AddRelationViewController: UIViewController {
     dismiss(animated: true)
   }
 
+  @IBAction func showLocation(_ sender: UIButton) {
+
+    selectFloatView.display(type: .location)
+  }
+
   @IBAction func showChangeMood(_ sender: UIButton) {
+
     let popChangeMood = PopMoodSelectView(frame: CGRect(x: 0, y: 0, width: 232, height: 40))
+
     popChangeMood.onSelected = { [weak self] (image, color) in
       self?.moodButton.setImage(image, for: .normal)
       self?.moodButton.backgroundColor = color
@@ -116,7 +144,15 @@ class AddRelationViewController: UIViewController {
   }
 
   @IBAction func showSetEvent(_ sender: UIButton) {
-    selectEventView.view.isHidden = false
+    selectFloatView.display(type: .event)
+  }
+
+  @IBAction func showSetDatePicker(_ sender: UIButton) {
+    if sender.tag == 0 {
+      selectFloatView.display(type: .day)
+    } else {
+      selectFloatView.display(type: .time)
+    }
   }
 }
 
