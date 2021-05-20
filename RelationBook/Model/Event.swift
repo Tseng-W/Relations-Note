@@ -15,14 +15,22 @@ enum EventType: Int, Codable {
 }
 
 struct Event: Codable {
-  @DocumentID var id: String?
-  var relations: [Category]
+  @DocumentID var docID: String?
+  var owner: String
+  var relations: [Int]
   var mood: Category
   var event: Category
   var location: GeoPoint
   var locationName: String?
   var time: Timestamp
   var subEvents: [SubEvent]
+
+  func getRelationImage() -> Category? {
+    let userViewModel = UserViewModel()
+    guard let relationID = relations.first,
+          relationID < userViewModel.mockRelationSubCategory.count else { return nil }
+    return userViewModel.mockRelationSubCategory[relationID]
+  }
 }
 
 struct SubEvent: Codable {

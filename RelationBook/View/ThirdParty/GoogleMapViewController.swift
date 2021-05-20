@@ -21,6 +21,7 @@ class GoogleMapView: UIView {
       mapView.delegate = self
     }
   }
+
   var locationManager = CLLocationManager()
   weak var delegate: GoogleMapViewDelegate? {
     didSet {
@@ -33,9 +34,10 @@ class GoogleMapView: UIView {
         locationManager.startUpdatingLocation()
       }
 
-//      let mapId = GMSMapID(identifier: Bundle.valueForString(key: "Google map id"))
+      //      let mapId = GMSMapID(identifier: Bundle.valueForString(key: "Google map id"))
 
       mapView = GMSMapView(frame: frame)
+      mapView?.isMyLocationEnabled = true
 
       addSubview(mapView!)
 
@@ -67,16 +69,11 @@ extension GoogleMapView: CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
-    guard let userLocation = locations.last,
-          let mapView = mapView else { return }
+    guard let location = locations.last else { return }
 
-//    let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 19.0)
+    centerLocation(location: location.coordinate)
 
-    centerLocation(location: userLocation.coordinate)
-
-    mapView.isMyLocationEnabled = true
-
-    addMarker(title: "幫前位置", snippet: "世界的中心", position: userLocation.coordinate)
+    addMarker(title: "幫前位置", snippet: "世界的中心", position: location.coordinate)
 
     locationManager.stopUpdatingLocation()
   }

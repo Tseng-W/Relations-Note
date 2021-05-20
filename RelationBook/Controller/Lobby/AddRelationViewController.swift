@@ -38,9 +38,9 @@ class AddRelationViewController: UIViewController {
   @IBOutlet var timeButton: UIButton!
 
   let popTip = PopTip()
-  let userViewModel = UserViewModel()
-  let eventViewModel = EventViewModel()
-  let selectFloatView: SelectFloatViewController = {
+  var userViewModel: UserViewModel?
+  var eventViewModel: EventViewModel?
+  let selectFloatViewController: SelectFloatViewController = {
     let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
 
     return vc
@@ -69,18 +69,22 @@ class AddRelationViewController: UIViewController {
     relationFilterSetup()
     selectionViewSetup()
 
-    let suggestEvent = eventViewModel.mockEvent
+    if let mockEvent = eventViewModel?.mockEvent {
 
-    suggestEvent.mood.getImage { image in
-      self.moodButton.setImage(image, for: .normal)
+      mood = mockEvent.mood
+
+      mockEvent.mood.getImage { image in
+        self.moodButton.setImage(image, for: .normal)
+      }
+
+      moodButton.backgroundColor = mockEvent.mood.getColor()
     }
-
-    moodButton.backgroundColor = suggestEvent.mood.getColor()
   }
 
   private func relationFilterSetup() {
     view.layoutIfNeeded()
-    filterView.setUp(type: .relation)
+    guard let userViewModel = userViewModel else { return }
+    filterView.setUp(viewModel: userViewModel, type: .relation)
     filterView.onSelected = { categories in
       self.relations = categories
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
@@ -98,16 +102,18 @@ class AddRelationViewController: UIViewController {
 
   private func selectionViewSetup() {
 
-    view.addSubview(selectFloatView.view)
+    view.addSubview(selectFloatViewController.view)
 
-    selectFloatView.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    selectFloatViewController.userViewModel = userViewModel
 
-    selectFloatView.onEventSelected = { event in
+    selectFloatViewController.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+
+    selectFloatViewController.onEventSelected = { event in
       self.event = event
       self.eventButton.setTitle(event.title, for: .normal)
     }
 
-    selectFloatView.onDateSelected = { type, date in
+    selectFloatViewController.onDateSelected = { type, date in
       switch type {
       case .time, .day:
         self.date = date
@@ -115,11 +121,40 @@ class AddRelationViewController: UIViewController {
         return
       }
     }
+
+    selectFloatViewController.onLocationSelected = { geoPoint in
+      self.location = geoPoint
+      self.locationName = "當前位置"
+    }
   }
 
   @IBAction func confirm(_ sender: UIButton) {
     print("confirm")
-    filterView.reloadDate()
+    guard let mood = mood,
+          let event = event,
+          let location = location,
+          let locationName = locationName,
+          let userViewModel = userViewModel,
+          let eventViewModel = eventViewModel else { return }
+    guard let userID = userViewModel.user.value?.docId else { return }
+    var newEvent = Event(docID: "",
+                         owner: userID,
+                         relations: [0],
+                         mood: mood,
+                         event: event,
+                         location: location,
+                         locationName: locationName,
+                         time: Timestamp(date: date),
+                         subEvents: subEvents)
+    eventViewModel.postEvent(event: newEvent) { result in
+      switch result {
+      case .success(let docID):
+        newEvent.docID = docID
+        self.dismiss(animated: true)
+      case .failure(let error):
+        print(error)
+      }
+    }
   }
 
   @IBAction func close(_ sender: UIButton) {
@@ -128,7 +163,7 @@ class AddRelationViewController: UIViewController {
 
   @IBAction func showLocation(_ sender: UIButton) {
 
-    selectFloatView.display(type: .location)
+    selectFloatViewController.display(type: .location)
   }
 
   @IBAction func showChangeMood(_ sender: UIButton) {
@@ -144,26 +179,15 @@ class AddRelationViewController: UIViewController {
   }
 
   @IBAction func showSetEvent(_ sender: UIButton) {
-    selectFloatView.display(type: .event)
+    selectFloatViewController.display(type: .event)
   }
 
   @IBAction func showSetDatePicker(_ sender: UIButton) {
     if sender.tag == 0 {
-      selectFloatView.display(type: .day)
+      selectFloatViewController.display(type: .day)
     } else {
-      selectFloatView.display(type: .time)
+      selectFloatViewController.display(type: .time)
     }
-  }
-}
-
-extension AddRelationViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    0
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    UICollectionViewCell()
   }
 }
 

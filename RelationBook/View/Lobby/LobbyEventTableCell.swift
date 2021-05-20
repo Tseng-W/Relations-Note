@@ -10,8 +10,6 @@ import TagListView
 
 class LobbyEventTableCell: UITableViewCell {
 
-//  var
-
   @IBOutlet var userIcon: UIImageView!
   @IBOutlet var eventLabel: UILabel!
   @IBOutlet var moreUserView: UIView!
@@ -19,7 +17,7 @@ class LobbyEventTableCell: UITableViewCell {
 
   var event: Event? {
     didSet {
-      guard let relation = event?.relations.first else { return }
+      guard let relation = event?.getRelationImage() else { return }
       relation.getImage { self.userIcon.image = $0 }
       eventLabel.text = event?.event.title
       tagListView.addTag("qweq")
