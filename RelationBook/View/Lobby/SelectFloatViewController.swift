@@ -18,10 +18,7 @@ class SelectFloatViewController: FloatingViewController {
     case location = "地點"
   }
 
-
   @IBOutlet var titleLabel: UILabel!
-
-  @IBOutlet var todayButton: UIButton!
   @IBOutlet var datePicker: UIDatePicker!
   @IBOutlet var filterView: FilterView!
   @IBOutlet var mapView: GoogleMapView! {
@@ -29,9 +26,9 @@ class SelectFloatViewController: FloatingViewController {
       mapView.delegate = self
     }
   }
-  @IBOutlet var nowButton: UIButton! {
+  @IBOutlet var resetButton: UIButton! {
     didSet {
-      nowButton.addTarget(self, action: #selector(onResetButtonTapped(sender:)), for: .touchUpInside)
+      resetButton.addTarget(self, action: #selector(onResetButtonTapped(sender:)), for: .touchUpInside)
     }
   }
   @IBOutlet var cancelButton: UIButton!
@@ -41,42 +38,45 @@ class SelectFloatViewController: FloatingViewController {
   var onDateSelected: ((SelectType, Date) -> Void)?
   var onLocationSelected: ((GeoPoint) -> Void)?
 
+  var userViewModel: UserViewModel?  {
+    didSet {
+      guard let viewModel = userViewModel else { return }
+      filterView.setUp(viewModel: viewModel, type: .event)
+    }
+  }
+
   var dateDate = Date()
 
   var type: SelectType = .event {
     didSet {
       titleLabel.text = type.rawValue
-      todayButton.isHidden = true
       datePicker.isHidden = true
       filterView.isHidden = true
       mapView.isHidden = true
-      nowButton.isHidden = true
-      cancelButton.isHidden = true
-      confirmButton.isHidden = true
+      resetButton.isHidden = true
+      cancelButton.superview!.isHidden = true
 
       switch type {
       case .event:
         filterView.isHidden = false
       case .day, .time :
-        nowButton.isHidden = false
+        resetButton.isHidden = false
         datePicker.isHidden = false
-        cancelButton.isHidden = false
-        confirmButton.isHidden = false
+        cancelButton.superview!.isHidden = false
 
         if type == .day {
-          nowButton.setTitle("今天", for: .normal)
+          resetButton.setTitle("今天", for: .normal)
           datePicker.datePickerMode = .date
         } else {
-          nowButton.setTitle("現在", for: .normal)
+          resetButton.setTitle("現在", for: .normal)
           datePicker.datePickerMode = .time
         }
       case .location:
         titleLabel.text = "AppWorksSchool"
-        nowButton.isHidden = false
-        cancelButton.isHidden = false
-        confirmButton.isHidden = false
+        resetButton.isHidden = false
+        cancelButton.superview!.isHidden = false
         mapView.isHidden = false
-        nowButton.setTitle("當前", for: .normal)
+        resetButton.setTitle("當前", for: .normal)
       }
     }
   }
@@ -92,7 +92,6 @@ class SelectFloatViewController: FloatingViewController {
 
     googleMapSetup()
 
-    filterView.setUp(type: .event)
     filterView.onSelected = { categories in
       self.onEventSelected?(categories.first!)
       self.isVisable = false

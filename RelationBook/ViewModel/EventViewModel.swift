@@ -12,10 +12,9 @@ class EventViewModel: BaseProvider {
 
   let events = Box([Event]())
 
-  let mockEvent = Event(id: "-1",
-                        relations: [
-                          Category(id: 0, isCustom: false, superIndex: 0, title: "man", imageLink: "person.fill", backgroundColor: UIColor.systemRed.StringFromUIColor())
-                        ],
+  let mockEvent = Event(docID: "",
+                        owner: "-1",
+                        relations: [0],
                         mood: Category(id: 0, isCustom: false, superIndex: -1, title: "憤怒", imageLink: "face.smiling.fill", backgroundColor: UIColor.systemRed.StringFromUIColor()),
                         event: Category(id: 0, isCustom: false, superIndex: -1, title: "事件", imageLink: "", backgroundColor: ""),
                         location: GeoPoint(latitude: 0.0, longitude: 0.0),
@@ -41,15 +40,22 @@ class EventViewModel: BaseProvider {
   }
 
   func onEventModified(event: Event) {
-    events.value[(events.value.firstIndex(where: { $0.id == event.id }))!] = event
+    events.value[(events.value.firstIndex(where: { $0.docID == event.docID }))!] = event
   }
 
   func onEventDeleted(event: Event) {
-    events.value.remove(at: (events.value.firstIndex(where: { $0.id == event.id }))!)
+    events.value.remove(at: (events.value.firstIndex(where: { $0.docID == event.docID }))!)
   }
 
-  func postEvent(event: inout Event, completion: @escaping ((Result<Bool, Error>) -> Void)) {
-    
+  func postEvent(event: Event, completion: @escaping ((Result<String, Error>) -> Void)) {
+    FirebaseManager.shared.addEvent(userID: -1, data: event) { result in
+      switch result {
+      case .success(let docID):
+        completion(.success(docID))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
   }
 
   func fetchMockEvent() {

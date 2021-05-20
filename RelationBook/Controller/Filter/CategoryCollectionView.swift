@@ -27,7 +27,7 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
-  let userViewModel = UserViewModel()
+  var userViewModel: UserViewModel?
 
   var selectedIndex: Int? {
     didSet {
@@ -39,7 +39,8 @@ class CategoryCollectionView: UICollectionView {
     didSet {
       mainCategories.forEach { category in
         guard let type = type,
-              let subCategory = userViewModel.getSubCategoriesWithSuperIndex(type: type, id: category.id) else { return }
+              let viewModel = userViewModel,
+              let subCategory = viewModel.getSubCategoriesWithSuperIndex(type: type, index: category.id) else { return }
         subCategories.append(subCategory)
       }
       reloadData()
@@ -80,7 +81,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
       return mainCategories.count + 1
     case .subCategory:
       guard let index = selectedIndex else { return 0 }
-      return subCategories[index].count + 1
+      return subCategories[index].count + 2
     case .selected:
       return selectedCategories.count + 1
     }
@@ -93,24 +94,29 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
       for: indexPath)
 
     if let cell = cell as? CategoryCollectionCell {
+
+
       switch status {
       case .mainCategory:
         if indexPath.row == mainCategories.count {
-          cell.titleLabel.text = "新增"
+          cell.defaultType = .add
+          return cell
         } else {
-          cell.titleLabel.text = mainCategories[indexPath.row].title
+          cell.category = mainCategories[indexPath.row]
         }
       case .subCategory:
         if indexPath.row == 0 {
-          cell.titleLabel.text = "返回"
+          cell.defaultType = .back
+        } else if indexPath.row == subCategories[selectedIndex!].count + 1 {
+          cell.defaultType = .add
         } else {
-          cell.titleLabel.text = subCategories[selectedIndex!][indexPath.row - 1].title
+          cell.category = subCategories[selectedIndex!][indexPath.row - 1]
         }
       case .selected:
         if indexPath.row == selectedCategories.count {
-          cell.titleLabel.text = "新增"
+          cell.defaultType = .add
         } else {
-          cell.titleLabel.text = selectedCategories[indexPath.row].title
+          cell.category = selectedCategories[indexPath.row]
         }
       }
     }

@@ -10,9 +10,10 @@ import FirebaseFirestoreSwift
 
 struct User: Codable{
   @DocumentID var docId: String?
-  var id: Int
+  var appleID: String
   var name: String
   var displayName: String
-  var features: [Category]
-  var customFeatures: [Category]
+  var relationSet: CategoryViewModel = CategoryViewModel.init(type: .relation)
+  var featureSet: CategoryViewModel = CategoryViewModel.init(type: .feature)
+  var eventSet: CategoryViewModel = CategoryViewModel.init(type: .event)
 }

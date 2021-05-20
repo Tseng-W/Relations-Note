@@ -18,6 +18,8 @@ enum CategoryType {
 
 class UserViewModel {
 
+  var user: Box<User?> = Box(nil)
+
   var moodsData = Box([Category]())
 
   var mockRelationFilterTitle = ["同學", "家人", "同事", "點頭之交"]
@@ -81,6 +83,22 @@ class UserViewModel {
     Category(id: 2, isCustom: false, superIndex: 2, title: "會議", imageLink: "", backgroundColor: UIColor.systemGreen.StringFromUIColor())
   ]
 
+  func fetchUserDate() {
+    let appleID = "mock"
+    FirebaseManager.shared.fetchUser(appleID: appleID) { result in
+      switch result {
+      case .success(let data):
+        if let data = data {
+          self.user.value = data
+        } else {
+          self.initialUser(appleID: appleID)
+        }
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
+  }
+
   var mockMoodData: [(title: String, imageName: String, colorString: String)] = [
     ("憤怒", "face.smiling.fill", UIColor.systemRed.StringFromUIColor()),
     ("傷心", "face.smiling.fill", UIColor.systemBlue.StringFromUIColor()),
@@ -92,61 +110,42 @@ class UserViewModel {
   func getCategoriesWithSuperIndex(type: CategoryType, index: Int) -> [Category] {
     switch type {
     case .event:
-      return mockEventCategory.filter { $0.superIndex == index }
+      return user.value?.eventSet.getMainCategories(superIndex: index) ?? []
+//      return mockEventCategory.filter { $0.superIndex == index }
     case .feature:
-      return mockFeatureCategory.filter { $0.superIndex == index }
+      return user.value?.featureSet.getMainCategories(superIndex: index) ?? []
+//      return mockFeatureCategory.filter { $0.superIndex == index }
     case .relation:
-      return mockRelationCategory.filter { $0.superIndex == index }
+      return user.value?.relationSet.getMainCategories(superIndex: index) ?? []
+//      return mockRelationCategory.filter { $0.superIndex == index }
     }
   }
 
-  func getSubCategoriesWithSuperIndex(type: CategoryType, id: Int) -> [Category]? {
+  func getSubCategoriesWithSuperIndex(type: CategoryType, index: Int) -> [Category]? {
     switch type {
     case .event:
-      return mockEventSubCategory.filter { $0.superIndex == id }
+      return user.value?.eventSet.getSubCategories(superIndex: index) ?? []
+//      return mockEventSubCategory.filter { $0.superIndex == id }
     case .feature:
-      return mockFeatureSubCategory.filter { $0.superIndex == id }
+      return user.value?.featureSet.getSubCategories(superIndex: index) ?? []
+//      return mockFeatureSubCategory.filter { $0.superIndex == id }
     case .relation:
-      return mockRelationSubCategory.filter { $0.superIndex == id }
+      return user.value?.relationSet.getSubCategories(superIndex: index) ?? []
+//      return mockRelationSubCategory.filter { $0.superIndex == id }
     }
   }
 
   func getFilter(type: CategoryType) -> [String] {
     switch type {
     case .event:
-      return mockEventFilterTitle
+      return user.value?.eventSet.filter ?? []
+//      return mockEventFilterTitle
     case .feature:
-      return mockFeatureFilterTitle
+      return user.value?.featureSet.filter ?? []
+//      return mockFeatureFilterTitle
     case .relation:
-      return mockRelationFilterTitle
-    }
-  }
-
-  func getCategoryAtIndex(type: CategoryType, index: Int) -> Category? {
-    switch type {
-    case .event:
-      guard index < mockEventCategory.count else { return nil}
-      return mockEventCategory[index]
-    case .feature:
-      guard index < mockFeatureCategory.count else { return nil}
-      return mockFeatureCategory[index]
-    case .relation:
-      guard index < mockRelationCategory.count else { return nil}
-      return mockRelationCategory[index]
-    }
-  }
-
-  func getSubCategoryAtIndex(type: CategoryType, index: Int) -> Category? {
-    switch type {
-    case .event:
-      guard index < mockEventSubCategory.count else { return nil}
-      return mockEventSubCategory[index]
-    case .feature:
-      guard index < mockFeatureSubCategory.count else { return nil}
-      return mockFeatureSubCategory[index]
-    case .relation:
-      guard index < mockRelationSubCategory.count else { return nil}
-      return mockRelationSubCategory[index]
+      return user.value?.relationSet.filter ?? []
+//      return mockRelationFilterTitle
     }
   }
 
@@ -156,5 +155,13 @@ class UserViewModel {
         Category(id: moodsData.value.count, isCustom: false, superIndex: -1, title: title, imageLink: image, backgroundColor: color)
       )
     }
+  }
+
+  private func initialUser(appleID: String) {
+    var newUser = User(docId: "",
+                       appleID: appleID,
+                       name: "mockName",
+                       displayName: "mockDisplayName")
+    FirebaseManager.shared.addUser(user: &newUser)
   }
 }

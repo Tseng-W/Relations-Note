@@ -8,10 +8,8 @@
 import UIKit
 
 class FilterView: UIView {
-  
-  let eventViewModel = EventViewModel()
-  let relationViewModel = RelationViewModel()
-  let userViewModel = UserViewModel()
+
+  var userViewModel: UserViewModel?
 
   var onSelected: (([Category]) -> Void)?
   var onStartEdit: (() -> Void)?
@@ -25,8 +23,9 @@ class FilterView: UIView {
 
   var type: CategoryType? {
     didSet {
-      guard let type = type else { return }
-      filterSource = userViewModel.getFilter(type: type)
+      guard let type = type,
+            let viewModel = userViewModel else { return }
+      filterSource = viewModel.getFilter(type: type)
     }
   }
 
@@ -46,8 +45,9 @@ class FilterView: UIView {
   }()
   var scrollHeight: CGFloat = 0
 
-  func setUp(type: CategoryType) {
+  func setUp(viewModel: UserViewModel, type: CategoryType) {
 
+    self.userViewModel = viewModel
     self.type = type
     filterIndex = 0
 
@@ -70,6 +70,7 @@ class FilterView: UIView {
     topConstraint.priority = .required
 
     filterScrollView.addConstarint(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+    filterHeightConstraint = filterScrollView.constraints.first(where: { $0.constant == 50 })
   }
 
   private func addScrollView() {
@@ -79,6 +80,8 @@ class FilterView: UIView {
   }
 
   private func addCategoryCollectionViews(type: CategoryType) {
+
+    guard let userViewModel = userViewModel else { return }
 
     categoryScrollView.delegate = self
 
@@ -93,6 +96,7 @@ class FilterView: UIView {
       layout.itemSize = CGSize(width: 60, height: 70)
 
       let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
+      collectionView.userViewModel = userViewModel
       collectionView.setUp(type: type, categories: categoryData)
       collectionView.onSelectedSubCategory = { category in
         if let category = category {

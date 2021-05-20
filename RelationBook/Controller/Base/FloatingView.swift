@@ -13,6 +13,7 @@ class FloatingViewController: UIViewController {
 
   var isVisable: Bool = false {
     didSet {
+      view.layoutIfNeeded()
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
         self.view.isUserInteractionEnabled = self.isVisable
         self.view.alpha = self.isVisable ? 1 : 0
