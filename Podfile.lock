@@ -274,6 +274,7 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
+  - FlexColorPicker (1.4.2)
   - FSCalendar (2.8.2)
   - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
@@ -349,6 +350,7 @@ PODS:
     - Reusable/View (= 4.1.1)
   - Reusable/Storyboard (4.1.1)
   - Reusable/View (4.1.1)
+  - SCLAlertView (0.8)
   - SwiftLint (0.43.1)
   - TagListView (1.4.1)
 
@@ -359,6 +361,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Firestore
   - FirebaseFirestoreSwift
+  - FlexColorPicker
   - FSCalendar
   - GoogleMaps (= 5.0.0)
   - IQKeyboardManagerSwift
@@ -367,6 +370,7 @@ DEPENDENCIES:
   - Kingfisher
   - MJRefresh
   - Reusable
+  - SCLAlertView
   - SwiftLint
   - TagListView (~> 1.0)
 
@@ -383,6 +387,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseFirestoreSwift
     - FirebaseInstallations
+    - FlexColorPicker
     - FSCalendar
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -400,6 +405,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Reusable
+    - SCLAlertView
     - SwiftLint
     - TagListView
 
@@ -415,6 +421,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 9b2f1b9b9a6f2f0b6fb7484b9e32ab7e39243554
   FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FlexColorPicker: d7ed5cfd8ceb936f2930e4e30629f9448967a5f8
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
@@ -432,9 +439,10 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Reusable: 53a9acf5c536f229b31b5865782414b508252ddb
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
 
-PODFILE CHECKSUM: 387f13f7c6980a283cb0370d7b106d26c8f47bd4
+PODFILE CHECKSUM: bf85bd16b9d0b3730dcc1277d638f82dea9e1f86
 
 COCOAPODS: 1.10.1

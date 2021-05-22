@@ -17,8 +17,7 @@ class LobbyEventTableCell: UITableViewCell {
 
   var event: Event? {
     didSet {
-      guard let relation = event?.getRelationImage() else { return }
-      relation.getImage { self.userIcon.image = $0 }
+      event?.getRelationImage { self.userIcon.image = $0 }
       eventLabel.text = event?.event.title
       tagListView.addTag("qweq")
       tagListView.addTag("fghjkjik")

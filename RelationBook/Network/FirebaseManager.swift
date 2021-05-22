@@ -39,7 +39,7 @@ class FirebaseManager {
     }
   }
 
-  func fetchEventsMock(userID: Int) {
+  func fetchEventsMock(userID: String) {
     db.collection(Collections.event.rawValue).whereField("owner", isEqualTo: userID).addSnapshotListener { snapShot, error in
 
       if let error = error { print(error) }
@@ -64,7 +64,7 @@ class FirebaseManager {
     }
   }
 
-  func addEvent(userID: Int, data: Event, completion: @escaping (Result<String, Error>) -> Void = {_ in }) {
+  func addEvent(data: Event, completion: @escaping (Result<String, Error>) -> Void = {_ in }) {
     let newEvent = try? db.collection(Collections.event.rawValue).addDocument(from: data) { error in
       if let error = error { completion(.failure(error)) }
     }
@@ -75,25 +75,47 @@ class FirebaseManager {
   func fetchUser(appleID: String, completion: @escaping (Result<User?, Error>) -> Void) {
     let docRef = db.collection(Collections.user.rawValue).whereField("appleID", in: [appleID])
 
-    docRef.getDocuments { snapshot, error in
+    docRef.addSnapshotListener { snapshot, error in
       if let error = error {
+
         print("Error getting document: \(error.localizedDescription)")
         completion(.failure(error))
+
       } else {
-        let user = snapshot?.documents.compactMap { document in
-          try? document.data(as: User.self)
-        }.first
-        completion(.success(user))
+
+        snapshot?.documentChanges.forEach({ documentChange in
+
+          switch documentChange.type {
+          case .added, .modified:
+
+            let user = try? documentChange.document.data(as: User.self)
+            completion(.success(user))
+          case .removed:
+            break
+          }
+        })
       }
     }
   }
 
-  func addUser(user: inout User) {
+  func addUser(user: User, completion: @escaping (User) -> Void) {
     let document = db.collection(Collections.user.rawValue).document()
+    var newUser = user
+    newUser.docId = document.documentID
     try? document.setData(from: user) { error in
       if let error = error {
         print("Set data error \(error.localizedDescription)")
       }
+      completion(newUser)
+    }
+  }
+
+  func updateDocument(docID: String, dict: [String: Any], completion: @escaping ((Error?)) -> Void) {
+
+    let userDoc = db.collection(Collections.user.rawValue).document(docID)
+    try? userDoc.updateData(dict) { error in
+      if let error = error { completion(error) ; return }
+      completion(nil)
     }
   }
 }

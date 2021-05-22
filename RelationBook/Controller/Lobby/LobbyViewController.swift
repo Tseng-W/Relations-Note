@@ -13,7 +13,7 @@ import FSCalendar
 
 class LobbyViewController: UIViewController {
 
-  let userViewModel = UserViewModel()
+  let userViewModel = UserViewModel.shared
   let relationViewModel = RelationViewModel()
   let eventViewModel = EventViewModel()
   
@@ -49,7 +49,6 @@ class LobbyViewController: UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let vc = segue.destination as? AddRelationViewController {
-      vc.userViewModel = userViewModel
       vc.eventViewModel = eventViewModel
     }
   }
@@ -62,14 +61,14 @@ class LobbyViewController: UIViewController {
     super.viewDidLoad()
 
     userViewModel.user.bind { value in
-      print(value)
+      guard let user = value else { return }
+      self.eventViewModel.fetchEvents(id: user.docId!)
     }
 
     userViewModel.fetchUserDate()
 
     relationViewModel.fetchRelations(id: -1)
 
-    eventViewModel.fetchMockEvent()
     eventViewModel.events.bind { events in
       self.tableView.reloadData()
     }

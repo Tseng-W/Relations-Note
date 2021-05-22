@@ -19,6 +19,8 @@ class CategoryCollectionView: UICollectionView {
 
   var onContinueEdit: ((Int) -> Void)?
 
+  var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
+
   var type: CategoryType?
 
   var status: Status = .mainCategory {
@@ -39,8 +41,16 @@ class CategoryCollectionView: UICollectionView {
     didSet {
       mainCategories.forEach { category in
         guard let type = type,
-              let viewModel = userViewModel,
-              let subCategory = viewModel.getSubCategoriesWithSuperIndex(type: type, index: category.id) else { return }
+              let user = userViewModel?.user.value else { return }
+        var subCategory: [Category] = []
+        switch type {
+        case .event:
+          subCategory = user.eventSet.getSubCategories(superIndex: category.id)
+        case .feature:
+          subCategory = user.featureSet.getSubCategories(superIndex: category.id)
+        case .relation:
+          subCategory = user.featureSet.getSubCategories(superIndex: category.id)
+        }
         subCategories.append(subCategory)
       }
       reloadData()
@@ -69,7 +79,6 @@ class CategoryCollectionView: UICollectionView {
     self.type = type
     self.mainCategories = categories
   }
-
 }
 
 extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -120,7 +129,6 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         }
       }
     }
-
     return cell
   }
 
@@ -128,28 +136,42 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
 
     switch status {
 
-    case .mainCategory:  // 主分類頁，最後按鈕為新增主分類，點其他進入子分類
+    case .mainCategory:  // 主分類頁，最後按鈕為新增主 分類，點其他進入子分類
       if indexPath.row < mainCategories.count {
-        selectedIndex = indexPath.row
-        status = .subCategory
+        if !mainCategories[indexPath.row].isSubEnable {
+          selectedCategories = onSelectedSubCategory?(mainCategories[indexPath.row]) ?? []
+        } else {
+          selectedIndex = indexPath.row
+          status = .subCategory
+        }
       } else {
-        // 新增
-//        status = .wait
+        // 新增選項
+        guard let superIndex = mainCategories.first?.superIndex,
+              let type = type else { return }
+        onAddCategory?(type, .main, superIndex)
         break
       }
     case .subCategory:  // 子分類頁，第一個按鈕為返回
+      guard let selectedMainIndex = selectedIndex else { status = .mainCategory; return }
       if indexPath.row == 0 {
+        // 返回
         selectedIndex = nil
         status = .mainCategory
+      } else if indexPath.row == subCategories[selectedMainIndex].count + 1 {
+        // 新增選項
+        guard let superIndex = subCategories[selectedMainIndex].first?.superIndex,
+              let type = type else { return }
+        onAddCategory?(type, .sub, superIndex)
       } else {
-        guard let index = selectedIndex else { status = .mainCategory; return }
-        selectedCategories = onSelectedSubCategory?(subCategories[index][indexPath.row - 1]) ?? []
+        selectedCategories = onSelectedSubCategory?(subCategories[selectedMainIndex][indexPath.row - 1]) ?? []
       }
     case .selected:
       if indexPath.row == selectedCategories.count {
+        // 新增項目
         onContinueEdit?(-1)
         status = .mainCategory
       } else {
+        // 修改
         onContinueEdit?(indexPath.row)
         status = .mainCategory
       }

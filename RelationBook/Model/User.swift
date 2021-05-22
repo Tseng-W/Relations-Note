@@ -16,4 +16,26 @@ struct User: Codable{
   var relationSet: CategoryViewModel = CategoryViewModel.init(type: .relation)
   var featureSet: CategoryViewModel = CategoryViewModel.init(type: .feature)
   var eventSet: CategoryViewModel = CategoryViewModel.init(type: .event)
+
+  func getFilter(type: CategoryType) -> [String] {
+    switch type {
+    case .event:
+      return eventSet.filter
+    case .feature:
+      return featureSet.filter
+    case .relation:
+      return relationSet.filter
+    }
+  }
+
+  func getCategoriesWithSuperIndex(type: CategoryType, filterIndex index: Int) -> [Category] {
+    switch type {
+    case .event:
+      return eventSet.getMainCategories(superIndex: index)
+    case .feature:
+      return featureSet.getMainCategories(superIndex: index)
+    case .relation:
+      return relationSet.getMainCategories(superIndex: index)
+    }
+  }
 }

@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class RelationViewModel: BaseProvider {
+class RelationViewModel {
 
   let userViewModel = UserViewModel()
 
@@ -34,18 +34,5 @@ class RelationViewModel: BaseProvider {
 
   func onRelationDeleted(relation: Relation) {
     relations.value.remove(at: (relations.value.firstIndex(where: { $0.id == relation.id }))!)
-  }
-
-  func getCategories() -> [Category] {
-    let categories: [Category] = []
-    return categories
-  }
-
-  func fetchMockData() {
-    let count = userViewModel.mockRelationSubCategory.count
-    for index in 0..<count {
-      let newRelation = Relation(id: "mock", isPublic: false, categoryIndex: index, owner: -1, feature: [0: ""], createdTime: Timestamp(date: Date()), lastContactTime: Timestamp(date: Date()))
-      relations.value.append(newRelation)
-    }
   }
 }

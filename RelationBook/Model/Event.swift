@@ -25,11 +25,8 @@ struct Event: Codable {
   var time: Timestamp
   var subEvents: [SubEvent]
 
-  func getRelationImage() -> Category? {
-    let userViewModel = UserViewModel()
-    guard let relationID = relations.first,
-          relationID < userViewModel.mockRelationSubCategory.count else { return nil }
-    return userViewModel.mockRelationSubCategory[relationID]
+  func getRelationImage(completion: @escaping (UIImage?) -> Void) {
+    event.getImage{ completion($0) }
   }
 }
 
