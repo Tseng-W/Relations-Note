@@ -22,6 +22,8 @@ target 'RelationBook' do
   pod 'FirebaseFirestoreSwift'
   pod 'AMPopTip'
   pod 'GoogleMaps', '5.0.0'
+  pod 'FlexColorPicker'
+  pod 'SCLAlertView'
 
   target 'RelationBookTests' do
     inherit! :search_paths

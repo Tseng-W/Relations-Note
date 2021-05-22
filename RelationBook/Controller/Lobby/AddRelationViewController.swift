@@ -38,13 +38,22 @@ class AddRelationViewController: UIViewController {
   @IBOutlet var timeButton: UIButton!
 
   let popTip = PopTip()
-  var userViewModel: UserViewModel?
+  var userViewModel = UserViewModel.shared
   var eventViewModel: EventViewModel?
   let selectFloatViewController: SelectFloatViewController = {
     let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
 
     return vc
   }()
+
+  let addCategoryViewController: AddCategoryViewController = {
+    let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addCategory") as! AddCategoryViewController
+
+    return vc
+  }()
+
+  // MARK: New Categoty data.
+  var newCategotySetting: (type: CategoryType, hierarchy:  CategoryHierarchy, superIndex: Int)?
 
   // MARK: Event datas.
   var relations: [Category] = []
@@ -63,28 +72,26 @@ class AddRelationViewController: UIViewController {
   override func viewDidLoad() {
 
     super.viewDidLoad()
+    
+    addCategoryViewController.delegate = self
 
     date = Date()
 
     relationFilterSetup()
     selectionViewSetup()
+    addCategoryViewSetup()
 
-    if let mockEvent = eventViewModel?.mockEvent {
-
-      mood = mockEvent.mood
-
-      mockEvent.mood.getImage { image in
+    if let radomMood = userViewModel.moodsData.value.randomElement() {
+      radomMood.getImage { image in
         self.moodButton.setImage(image, for: .normal)
       }
-
-      moodButton.backgroundColor = mockEvent.mood.getColor()
+      moodButton.backgroundColor = radomMood.getColor()
     }
   }
 
   private func relationFilterSetup() {
     view.layoutIfNeeded()
-    guard let userViewModel = userViewModel else { return }
-    filterView.setUp(viewModel: userViewModel, type: .relation)
+    filterView.setUp(type: .relation)
     filterView.onSelected = { categories in
       self.relations = categories
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
@@ -92,10 +99,25 @@ class AddRelationViewController: UIViewController {
         self.view.layoutIfNeeded()
       }
     }
+
     filterView.onStartEdit = {
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
         self.filterHeightConstraint.constant *= 2
         self.view.layoutIfNeeded()
+      }
+    }
+
+    filterView.onAddCategory = { type, hierarchy, superIndex in
+
+      self.newCategotySetting = (type, hierarchy, superIndex)
+
+      switch type {
+      case .event, .feature:
+        self.addCategoryViewController.isVisable = true
+      case .relation:
+        if hierarchy == .main {
+          self.addCategoryViewController.isVisable = true
+        }
       }
     }
   }
@@ -103,8 +125,6 @@ class AddRelationViewController: UIViewController {
   private func selectionViewSetup() {
 
     view.addSubview(selectFloatViewController.view)
-
-    selectFloatViewController.userViewModel = userViewModel
 
     selectFloatViewController.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
 
@@ -126,6 +146,27 @@ class AddRelationViewController: UIViewController {
       self.location = geoPoint
       self.locationName = "當前位置"
     }
+
+    selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in
+      switch type {
+      case .event, .feature:
+        self.addCategoryViewController.isVisable = true
+        self.newCategotySetting = (type, hierarchy, superIndex)
+      case .relation:
+        break
+      }
+    }
+  }
+
+  private func addCategoryViewSetup() {
+
+    view.addSubview(addCategoryViewController.view)
+
+    addCategoryViewController.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+
+    addCategoryViewController.onIconCreated = { category in
+
+    }
   }
 
   @IBAction func confirm(_ sender: UIButton) {
@@ -134,7 +175,6 @@ class AddRelationViewController: UIViewController {
           let event = event,
           let location = location,
           let locationName = locationName,
-          let userViewModel = userViewModel,
           let eventViewModel = eventViewModel else { return }
     guard let userID = userViewModel.user.value?.docId else { return }
     var newEvent = Event(docID: "",
@@ -146,7 +186,7 @@ class AddRelationViewController: UIViewController {
                          locationName: locationName,
                          time: Timestamp(date: date),
                          subEvents: subEvents)
-    eventViewModel.postEvent(event: newEvent) { result in
+    eventViewModel.addEvent(event: newEvent) { result in
       switch result {
       case .success(let docID):
         newEvent.docID = docID
@@ -206,5 +246,23 @@ extension AddRelationViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     print(textField.text!)
+  }
+}
+
+extension AddRelationViewController: AddCategoryViewDelegate {
+
+  func typeOfCategory(controller: AddCategoryViewController) -> CategoryType? {
+    guard let setting = newCategotySetting else { return nil }
+    return setting.type
+  }
+
+  func superIndexOfCategory(controller: AddCategoryViewController) -> Int {
+    guard let setting = newCategotySetting else { return -1 }
+    return setting.superIndex
+  }
+
+  func hierarchyOfCategory(controller: AddCategoryViewController) -> CategoryHierarchy? {
+    guard let setting = newCategotySetting else { return nil }
+    return setting.hierarchy
   }
 }

@@ -9,10 +9,11 @@ import UIKit
 
 class FilterView: UIView {
 
-  var userViewModel: UserViewModel?
+  var userViewModel = UserViewModel.shared
 
   var onSelected: (([Category]) -> Void)?
   var onStartEdit: (() -> Void)?
+  var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
   var filterSource: [String] = []
   var selectedCategories: [Category] = []
@@ -24,8 +25,8 @@ class FilterView: UIView {
   var type: CategoryType? {
     didSet {
       guard let type = type,
-            let viewModel = userViewModel else { return }
-      filterSource = viewModel.getFilter(type: type)
+            let user = userViewModel.user.value else { return }
+      filterSource = user.getFilter(type: type)
     }
   }
 
@@ -45,9 +46,8 @@ class FilterView: UIView {
   }()
   var scrollHeight: CGFloat = 0
 
-  func setUp(viewModel: UserViewModel, type: CategoryType) {
+  func setUp(type: CategoryType) {
 
-    self.userViewModel = viewModel
     self.type = type
     filterIndex = 0
 
@@ -81,7 +81,7 @@ class FilterView: UIView {
 
   private func addCategoryCollectionViews(type: CategoryType) {
 
-    guard let userViewModel = userViewModel else { return }
+    guard let user = userViewModel.user.value else { return }
 
     categoryScrollView.delegate = self
 
@@ -90,7 +90,7 @@ class FilterView: UIView {
     var x: CGFloat = 0
 
     for index in 0..<filterSource.count {
-      let categoryData = userViewModel.getCategoriesWithSuperIndex(type: type, index: index)
+      let categoryData = user.getCategoriesWithSuperIndex(type: type, filterIndex: index)
 
       let layout = UICollectionViewFlowLayout()
       layout.itemSize = CGSize(width: 60, height: 70)
@@ -112,6 +112,9 @@ class FilterView: UIView {
         self.isEditing = index == -1
         self.onHiddenFilter(isHidden: false)
         self.onStartEdit?()
+      }
+      collectionView.onAddCategory = { type, hierarchy, superIndex in
+        self.onAddCategory?(type, hierarchy, superIndex)
       }
 
       categoryScrollView.addSubview(collectionView)

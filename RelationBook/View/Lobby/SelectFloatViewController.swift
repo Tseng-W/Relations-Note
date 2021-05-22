@@ -37,13 +37,9 @@ class SelectFloatViewController: FloatingViewController {
   var onEventSelected: ((Category) -> Void)?
   var onDateSelected: ((SelectType, Date) -> Void)?
   var onLocationSelected: ((GeoPoint) -> Void)?
+  var onAddCategorySelected: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
-  var userViewModel: UserViewModel?  {
-    didSet {
-      guard let viewModel = userViewModel else { return }
-      filterView.setUp(viewModel: viewModel, type: .event)
-    }
-  }
+  var userViewModel = UserViewModel.shared
 
   var dateDate = Date()
 
@@ -92,9 +88,13 @@ class SelectFloatViewController: FloatingViewController {
 
     googleMapSetup()
 
+    filterView.setUp(type: .event)
     filterView.onSelected = { categories in
       self.onEventSelected?(categories.first!)
       self.isVisable = false
+    }
+    filterView.onAddCategory = { type, hierarchy, superIndex in
+      self.onAddCategorySelected?(type, hierarchy, superIndex)
     }
     setBlurBackground()
   }

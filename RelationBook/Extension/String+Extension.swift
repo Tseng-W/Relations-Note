@@ -26,4 +26,11 @@ extension String {
     }
     return nil
   }
+
+  static func verifyUrl(urlString: String) -> Bool {
+    if let urlString = URL(string: urlString) {
+      return true
+    }
+    return false
+  }
 }
