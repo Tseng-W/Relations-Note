@@ -20,6 +20,7 @@ class FloatingViewController: UIViewController {
         self.view.layoutIfNeeded()
       }
 
+      onVisibleChanged(isVisible: isVisable)
       if !isVisable {
         onDismiss?()
       }
@@ -29,6 +30,10 @@ class FloatingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     isVisable = false
+  }
+
+  func onVisibleChanged(isVisible: Bool) {
+
   }
 
   func setBlurBackground() {

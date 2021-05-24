@@ -89,10 +89,13 @@ class SelectFloatViewController: FloatingViewController {
     googleMapSetup()
 
     filterView.setUp(type: .event)
+    filterView.canScrollBeHidden = false
+
     filterView.onSelected = { categories in
-      self.onEventSelected?(categories.first!)
+      self.onEventSelected?(categories.last!)
       self.isVisable = false
     }
+
     filterView.onAddCategory = { type, hierarchy, superIndex in
       self.onAddCategorySelected?(type, hierarchy, superIndex)
     }

@@ -38,10 +38,11 @@ class AddCategoryViewController: FloatingViewController {
   private var canConfirm = false {
     didSet {
       confirmButton.isEnabled = canConfirm
-      confirmButton.backgroundColor = canConfirm ? UIColor.systemGray2 : UIColor.systemGray4
+      confirmButton.backgroundColor = canConfirm ? UIColor.systemGray3 : UIColor.systemGray2
     }
   }
   private let colorPicker = ColorPickerController()
+  private let defaultIcon = UIImage(systemName: "camera")
   private var iconSelectAlerts: [(String, Selector)] = [
     ("內建圖示", #selector(setIconFromLocalIcon)),
     ("照片", #selector(setIconFromPicture)),
@@ -52,7 +53,6 @@ class AddCategoryViewController: FloatingViewController {
   var onIconCreated: ((Category) -> Void)?
   var userViewModel = UserViewModel.shared
   var newIconImageString: String?
-  var newIconColor: UIColor?
   weak var delegate: AddCategoryViewDelegate?
 
   override func viewDidLoad() {
@@ -102,10 +102,15 @@ class AddCategoryViewController: FloatingViewController {
 
   }
 
+  override func onVisibleChanged(isVisible: Bool) {
+    if isVisable {
+      iconImageView.image = defaultIcon
+    }
+  }
+
   @IBAction private func onConfirm(_ sender: UIButton) {
     guard let title = iconTextField.text,
           let imageString = newIconImageString,
-          let iconColor = newIconColor,
           let type = delegate?.typeOfCategory(controller: self),
           let superIndex = delegate?.superIndexOfCategory(controller: self),
           let hierarchy = delegate?.hierarchyOfCategory(controller: self) else { dismiss(animated: true); return }
@@ -118,27 +123,22 @@ class AddCategoryViewController: FloatingViewController {
       isSubEnable: false,
       title: title,
       imageLink: imageString,
-      backgroundColor: iconColor.StringFromUIColor())
+      backgroundColor: color.StringFromUIColor())
 
     userViewModel.addCategoryAt(type: type, hierarchy: hierarchy, category: &category) { error in
       if let error = error { print(error) }
-      else {
-        self.onDismiss?()
-      }
     }
+
+    isVisable = false
   }
 
   @IBAction private func onCancel(_ sender: UIButton) {
-    dismiss(animated: true) {
-      self.onDismiss?()
-    }
+    isVisable = false
   }
 }
 
 extension AddCategoryViewController: ColorPickerDelegate {
   func colorPicker(_ colorPicker: ColorPickerController, selectedColor: UIColor, usingControl: ColorControl) {
-
-    newIconColor = selectedColor
     iconImageView.backgroundColor = selectedColor
   }
 }

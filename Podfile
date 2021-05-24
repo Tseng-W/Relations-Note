@@ -24,6 +24,9 @@ target 'RelationBook' do
   pod 'GoogleMaps', '5.0.0'
   pod 'FlexColorPicker'
   pod 'SCLAlertView'
+  pod 'IBAnimatable'
+  pod 'lottie-ios'
+  pod 'SwiftyMenu', '~> 0.6.5'
 
   target 'RelationBookTests' do
     inherit! :search_paths
