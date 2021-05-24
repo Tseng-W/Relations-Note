@@ -11,10 +11,12 @@ class FilterView: UIView {
 
   var userViewModel = UserViewModel.shared
 
+  // MARK: Event closures
   var onSelected: (([Category]) -> Void)?
   var onStartEdit: (() -> Void)?
   var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
+  // MARK: Datas
   var filterSource: [String] = []
   var selectedCategories: [Category] = []
   var isEditing = false
@@ -30,6 +32,7 @@ class FilterView: UIView {
       filterSource = user.getFilter(type: type)
     }
   }
+  var isMainOnly: Bool = false
 
   let filterScrollView = SelectionView()
   var filterHeightConstraint: NSLayoutConstraint?
@@ -47,9 +50,13 @@ class FilterView: UIView {
   }()
   var scrollHeight: CGFloat = 0
 
-  func setUp(type: CategoryType) {
+  func setUp(type: CategoryType, isMainOnly: Bool = false) {
 
     self.type = type
+    self.isMainOnly = isMainOnly
+
+    backgroundColor = .systemBackground
+
     filterIndex = 0
 
     addFilterBar()
@@ -103,7 +110,7 @@ class FilterView: UIView {
 
       let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
       
-      collectionView.setUp(type: type, categories: categoryData)
+      collectionView.setUp(type: type, categories: categoryData, isMainOnly: isMainOnly)
 
       categoryScrollView.addSubview(collectionView)
       categoryViews.append(collectionView)

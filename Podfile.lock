@@ -353,10 +353,7 @@ PODS:
   - Reusable/Storyboard (4.1.1)
   - Reusable/View (4.1.1)
   - SCLAlertView (0.8)
-  - SnapKit (5.0.1)
   - SwiftLint (0.43.1)
-  - SwiftyMenu (0.6.5):
-    - SnapKit (~> 5.0.1)
   - TagListView (1.4.1)
 
 DEPENDENCIES:
@@ -379,7 +376,6 @@ DEPENDENCIES:
   - Reusable
   - SCLAlertView
   - SwiftLint
-  - SwiftyMenu (~> 0.6.5)
   - TagListView (~> 1.0)
 
 SPEC REPOS:
@@ -416,9 +412,7 @@ SPEC REPOS:
     - PromisesObjC
     - Reusable
     - SCLAlertView
-    - SnapKit
     - SwiftLint
-    - SwiftyMenu
     - TagListView
 
 SPEC CHECKSUMS:
@@ -454,11 +448,9 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Reusable: 53a9acf5c536f229b31b5865782414b508252ddb
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
-  SwiftyMenu: 9f38e9a22fb9c01b889d33cc362ffc12de042dd2
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
 
-PODFILE CHECKSUM: c804d05352c9fbfc58328f2e04dabb3b7f3e1572
+PODFILE CHECKSUM: 029e8c4d0eff00701447c0986d3e62e14f63fe3d
 
 COCOAPODS: 1.10.1

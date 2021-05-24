@@ -741,7 +741,7 @@
                                         <rect key="frame" x="0.0" y="207.5" width="382" height="98.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9u-O2-6g0" customClass="RectangularPaletteControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="0.0" y="0.0" width="382" height="98.5"/>
+                                                <rect key="frame" x="-16" y="-16" width="414" height="130.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -757,7 +757,7 @@
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="0.0" y="11" width="300" height="15"/>
+                                                <rect key="frame" x="0.0" y="-5" width="300" height="47"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -827,10 +827,10 @@
             </objects>
             <point key="canvasLocation" x="3257.971014492754" y="979.6875"/>
         </scene>
-        <!--Add Category View Controller-->
+        <!--Add Relation Flow View Controller-->
         <scene sceneID="98B-Q3-HeD">
             <objects>
-                <viewController storyboardIdentifier="addRelation" id="amo-q3-OLn" customClass="AddCategoryViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addRelation" id="amo-q3-OLn" customClass="AddRelationFlowViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wpQ-Mg-5eY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -868,7 +868,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCancel:" destination="amo-q3-OLn" eventType="touchUpInside" id="3xT-Op-TnZ"/>
+                                                            <action selector="onTapButton:" destination="amo-q3-OLn" eventType="touchUpInside" id="hll-dh-bOc"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -902,7 +902,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onConfirm:" destination="amo-q3-OLn" eventType="touchUpInside" id="Mp7-zg-xUV"/>
+                                                            <action selector="onTapButton:" destination="amo-q3-OLn" eventType="touchUpInside" id="Wuf-Eh-Vxq"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -935,42 +935,50 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="名稱"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="image">
-                                                <imageReference key="value" image="camera" catalog="system" symbolScale="small"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="imageBackgroundColor">
                                                 <color key="value" systemColor="systemOrangeColor"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="imageTintColor">
                                                 <color key="value" systemColor="secondaryLabelColor"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="camera" catalog="system"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npY-Xc-zSE" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="253.5" width="350" height="30"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xoh-bJ-uZ8" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="253.5" width="350" height="36"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Hjv-4G-WwP"/>
-                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="關係"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0x-Nl-loy" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="305.5" width="350" height="36"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="特徵興趣"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="f6i-ll-UGe" firstAttribute="width" secondItem="Tyh-BC-dc9" secondAttribute="width" multiplier="0.4" id="5sX-Gr-zxQ"/>
-                                    <constraint firstItem="npY-Xc-zSE" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="7yC-dG-Tn3"/>
                                     <constraint firstItem="f6i-ll-UGe" firstAttribute="top" secondItem="1Jr-an-lUc" secondAttribute="bottom" constant="16" id="9HN-wH-uw8"/>
                                     <constraint firstAttribute="trailing" secondItem="1Jr-an-lUc" secondAttribute="trailing" id="9Iy-eU-pig"/>
                                     <constraint firstAttribute="trailing" secondItem="aU0-hc-4kW" secondAttribute="trailing" id="A7i-dd-Ld5"/>
                                     <constraint firstAttribute="bottom" secondItem="aU0-hc-4kW" secondAttribute="bottom" id="C52-Vh-9bS"/>
-                                    <constraint firstItem="npY-Xc-zSE" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" constant="16" id="Fum-ri-3vs"/>
+                                    <constraint firstAttribute="trailing" secondItem="B0x-Nl-loy" secondAttribute="trailing" constant="16" id="CaE-Qu-NdE"/>
                                     <constraint firstItem="H6e-so-0hH" firstAttribute="top" secondItem="Tyh-BC-dc9" secondAttribute="top" constant="16" id="Ktm-fA-CKs"/>
                                     <constraint firstItem="aU0-hc-4kW" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" id="Npo-k3-osw"/>
+                                    <constraint firstItem="B0x-Nl-loy" firstAttribute="top" secondItem="xoh-bJ-uZ8" secondAttribute="bottom" constant="16" id="V7t-gl-Nah"/>
+                                    <constraint firstItem="xoh-bJ-uZ8" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="WbC-4O-T6J"/>
                                     <constraint firstItem="f6i-ll-UGe" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="ZKC-UI-3Ur"/>
+                                    <constraint firstItem="B0x-Nl-loy" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" constant="16" id="bjW-Zf-KH2"/>
+                                    <constraint firstItem="xoh-bJ-uZ8" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" constant="16" id="hQW-wy-JVV"/>
                                     <constraint firstItem="1Jr-an-lUc" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" id="j3Y-pc-8E3"/>
-                                    <constraint firstItem="npY-Xc-zSE" firstAttribute="top" secondItem="f6i-ll-UGe" secondAttribute="bottom" constant="16" id="jY8-nW-8YM"/>
-                                    <constraint firstAttribute="trailing" secondItem="npY-Xc-zSE" secondAttribute="trailing" constant="16" id="k6c-8Q-nqW"/>
                                     <constraint firstItem="H6e-so-0hH" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="n3b-7Q-UVF"/>
                                     <constraint firstItem="1Jr-an-lUc" firstAttribute="top" secondItem="H6e-so-0hH" secondAttribute="bottom" constant="16" id="ock-0B-Mca"/>
+                                    <constraint firstAttribute="trailing" secondItem="xoh-bJ-uZ8" secondAttribute="trailing" constant="16" id="pPN-bf-ZD3"/>
+                                    <constraint firstItem="xoh-bJ-uZ8" firstAttribute="top" secondItem="f6i-ll-UGe" secondAttribute="bottom" constant="16" id="rae-Yq-0xL"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -988,12 +996,15 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="confirmButton" destination="8yX-2T-Gcd" id="VP9-3u-qTx"/>
+                        <outlet property="confirmButton" destination="8yX-2T-Gcd" id="Dzu-gb-H1c"/>
+                        <outlet property="featureButton" destination="B0x-Nl-loy" id="Ohu-2o-sb9"/>
+                        <outlet property="iconSelectView" destination="f6i-ll-UGe" id="cng-Wv-0mj"/>
+                        <outlet property="relationButton" destination="xoh-bJ-uZ8" id="SiD-n0-Eiq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHN-ZO-W9z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4184" y="980"/>
+            <point key="canvasLocation" x="4182.608695652174" y="979.6875"/>
         </scene>
     </scenes>
     <resources>

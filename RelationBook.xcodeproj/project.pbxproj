@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47055320265B597300DCEC1D /* AddRelationFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705531F265B597300DCEC1D /* AddRelationFlowViewController.swift */; };
 		47101B962654D4C200D7D171 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47101B952654D4C200D7D171 /* Bundle+Extension.swift */; };
 		47101B992655366C00D7D171 /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47101B982655366C00D7D171 /* GoogleMapViewController.swift */; };
 		4712C23226526C62008D8386 /* RelationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4712C23126526C62008D8386 /* RelationTableCell.xib */; };
@@ -62,8 +63,6 @@
 		47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217EA265A42BD0096149C /* IconSelectView.xib */; };
 		47A217ED265A43FF0096149C /* IconSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EC265A43FF0096149C /* IconSelectView.swift */; };
 		47A217F0265A71840096149C /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EF265A71840096149C /* NibLoadable.swift */; };
-		47A217F3265A851C0096149C /* TitledInputTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217F2265A851C0096149C /* TitledInputTableCell.swift */; };
-		47A217F5265A85460096149C /* TitledInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217F4265A85460096149C /* TitledInputView.xib */; };
 		47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */; };
 		47A957DA263FA7040015A1CC /* LobbyEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */; };
 		47B6B903265340860090218C /* BookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B902265340860090218C /* BookTableCell.swift */; };
@@ -81,6 +80,8 @@
 		47E6EF17263D732D000172DC /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6EF16263D732D000172DC /* LobbyViewController.swift */; };
 		47E702DF2644C82100C82A9C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E702DE2644C82100C82A9C /* LoginViewController.swift */; };
 		47E7032726464AB000C82A9C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7032626464AB000C82A9C /* UIColor+Extension.swift */; };
+		47ECF075265B49B60063E294 /* TitledInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47ECF074265B49B60063E294 /* TitledInputView.xib */; };
+		47ECF077265B4A040063E294 /* TitledInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECF076265B4A040063E294 /* TitledInputView.swift */; };
 		52E9CF052299DFA140D65B94 /* Pods_RelationBook_RelationBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D1B23F58AC75BC76DDBA3 /* Pods_RelationBook_RelationBookUITests.framework */; };
 		5580F8D852196F68D0E25E41 /* Pods_RelationBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49CCD50E63F407DBFB810FF /* Pods_RelationBook.framework */; };
 		F9F7BDABA96057C7DA27121D /* Pods_RelationBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49E91A5B1DD9E74644760CB /* Pods_RelationBookTests.framework */; };
@@ -106,6 +107,7 @@
 /* Begin PBXFileReference section */
 		121DF67FC86D21C342913CB3 /* Pods-RelationBook-RelationBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBook-RelationBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-RelationBook-RelationBookUITests/Pods-RelationBook-RelationBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		27F3E153079052449F28606A /* Pods-RelationBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBook.debug.xcconfig"; path = "Target Support Files/Pods-RelationBook/Pods-RelationBook.debug.xcconfig"; sourceTree = "<group>"; };
+		4705531F265B597300DCEC1D /* AddRelationFlowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRelationFlowViewController.swift; sourceTree = "<group>"; };
 		47101B952654D4C200D7D171 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		47101B982655366C00D7D171 /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		4712C23126526C62008D8386 /* RelationTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelationTableCell.xib; sourceTree = "<group>"; };
@@ -167,8 +169,6 @@
 		47A217EA265A42BD0096149C /* IconSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconSelectView.xib; sourceTree = "<group>"; };
 		47A217EC265A43FF0096149C /* IconSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectView.swift; sourceTree = "<group>"; };
 		47A217EF265A71840096149C /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
-		47A217F2265A851C0096149C /* TitledInputTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledInputTableCell.swift; sourceTree = "<group>"; };
-		47A217F4265A85460096149C /* TitledInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitledInputView.xib; sourceTree = "<group>"; };
 		47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LobbyEventTableCell.xib; sourceTree = "<group>"; };
 		47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyEventTableCell.swift; sourceTree = "<group>"; };
 		47B6B902265340860090218C /* BookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableCell.swift; sourceTree = "<group>"; };
@@ -187,6 +187,8 @@
 		47E6EF16263D732D000172DC /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		47E702DE2644C82100C82A9C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		47E7032626464AB000C82A9C /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		47ECF074265B49B60063E294 /* TitledInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitledInputView.xib; sourceTree = "<group>"; };
+		47ECF076265B4A040063E294 /* TitledInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledInputView.swift; sourceTree = "<group>"; };
 		7898020D9382947FDE363FE4 /* Pods-RelationBook-RelationBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBook-RelationBookUITests.release.xcconfig"; path = "Target Support Files/Pods-RelationBook-RelationBookUITests/Pods-RelationBook-RelationBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9CF1F1500C1E1D67027E6056 /* Pods-RelationBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBookTests.release.xcconfig"; path = "Target Support Files/Pods-RelationBookTests/Pods-RelationBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		A49E91A5B1DD9E74644760CB /* Pods_RelationBookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelationBookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -488,8 +490,9 @@
 			children = (
 				47A217EA265A42BD0096149C /* IconSelectView.xib */,
 				47A217EC265A43FF0096149C /* IconSelectView.swift */,
-				47A217F2265A851C0096149C /* TitledInputTableCell.swift */,
-				47A217F4265A85460096149C /* TitledInputView.xib */,
+				47ECF074265B49B60063E294 /* TitledInputView.xib */,
+				47ECF076265B4A040063E294 /* TitledInputView.swift */,
+				4705531F265B597300DCEC1D /* AddRelationFlowViewController.swift */,
 			);
 			path = AddRelation;
 			sourceTree = "<group>";
@@ -684,7 +687,7 @@
 				47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */,
 				47339EA4263C35C60092860F /* Book.storyboard in Resources */,
 				47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */,
-				47A217F5265A85460096149C /* TitledInputView.xib in Resources */,
+				47ECF075265B49B60063E294 /* TitledInputView.xib in Resources */,
 				476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */,
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
 				47339EA9263C374F0092860F /* Profile.storyboard in Resources */,
@@ -878,12 +881,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				47339EB9263C3ABC0092860F /* PBTabBarViewController.swift in Sources */,
+				47ECF077265B4A040063E294 /* TitledInputView.swift in Sources */,
 				47E7032726464AB000C82A9C /* UIColor+Extension.swift in Sources */,
 				47101B992655366C00D7D171 /* GoogleMapViewController.swift in Sources */,
 				476D2EC6264B8E2800A9200A /* FirebaseManager.swift in Sources */,
 				47B6B90C26535C490090218C /* ProfileTableViewCell.swift in Sources */,
 				47B6B903265340860090218C /* BookTableCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
+				47055320265B597300DCEC1D /* AddRelationFlowViewController.swift in Sources */,
 				476D2EBD264ADD5800A9200A /* EventViewModel.swift in Sources */,
 				47101B962654D4C200D7D171 /* Bundle+Extension.swift in Sources */,
 				47339ECD263C3E760092860F /* UIImage+Extension.swift in Sources */,
@@ -920,7 +925,6 @@
 				47339EF8263C42620092860F /* BookViewController.swift in Sources */,
 				476D2EB5264ABD8E00A9200A /* Event.swift in Sources */,
 				47A217ED265A43FF0096149C /* IconSelectView.swift in Sources */,
-				47A217F3265A851C0096149C /* TitledInputTableCell.swift in Sources */,
 				476D2EB3264A9FB900A9200A /* Box.swift in Sources */,
 				47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */,
 				47339E48263C2D6F0092860F /* SceneDelegate.swift in Sources */,

@@ -26,7 +26,6 @@ target 'RelationBook' do
   pod 'SCLAlertView'
   pod 'IBAnimatable'
   pod 'lottie-ios'
-  pod 'SwiftyMenu', '~> 0.6.5'
 
   target 'RelationBookTests' do
     inherit! :search_paths
