@@ -57,6 +57,13 @@
 		479DE3D726412896000E2CFC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D626412896000E2CFC /* String+Extension.swift */; };
 		479DE3DD264128C7000E2CFC /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3DC264128C7000E2CFC /* KingFisherWrapper.swift */; };
 		479DE3E5264128F5000E2CFC /* MJRefreshWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3E4264128F5000E2CFC /* MJRefreshWrapper.swift */; };
+		47A217E7265A2EE50096149C /* LabelInputTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217E6265A2EE50096149C /* LabelInputTableCell.xib */; };
+		47A217E9265A2FB60096149C /* LabelInputTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217E8265A2FB60096149C /* LabelInputTableCell.swift */; };
+		47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217EA265A42BD0096149C /* IconSelectView.xib */; };
+		47A217ED265A43FF0096149C /* IconSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EC265A43FF0096149C /* IconSelectView.swift */; };
+		47A217F0265A71840096149C /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EF265A71840096149C /* NibLoadable.swift */; };
+		47A217F3265A851C0096149C /* TitledInputTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217F2265A851C0096149C /* TitledInputTableCell.swift */; };
+		47A217F5265A85460096149C /* TitledInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217F4265A85460096149C /* TitledInputView.xib */; };
 		47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */; };
 		47A957DA263FA7040015A1CC /* LobbyEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */; };
 		47B6B903265340860090218C /* BookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B902265340860090218C /* BookTableCell.swift */; };
@@ -155,6 +162,13 @@
 		479DE3D626412896000E2CFC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		479DE3DC264128C7000E2CFC /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		479DE3E4264128F5000E2CFC /* MJRefreshWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJRefreshWrapper.swift; sourceTree = "<group>"; };
+		47A217E6265A2EE50096149C /* LabelInputTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelInputTableCell.xib; sourceTree = "<group>"; };
+		47A217E8265A2FB60096149C /* LabelInputTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelInputTableCell.swift; sourceTree = "<group>"; };
+		47A217EA265A42BD0096149C /* IconSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconSelectView.xib; sourceTree = "<group>"; };
+		47A217EC265A43FF0096149C /* IconSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectView.swift; sourceTree = "<group>"; };
+		47A217EF265A71840096149C /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		47A217F2265A851C0096149C /* TitledInputTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledInputTableCell.swift; sourceTree = "<group>"; };
+		47A217F4265A85460096149C /* TitledInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitledInputView.xib; sourceTree = "<group>"; };
 		47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LobbyEventTableCell.xib; sourceTree = "<group>"; };
 		47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyEventTableCell.swift; sourceTree = "<group>"; };
 		47B6B902265340860090218C /* BookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableCell.swift; sourceTree = "<group>"; };
@@ -263,16 +277,16 @@
 		47339E44263C2D6F0092860F /* RelationBook */ = {
 			isa = PBXGroup;
 			children = (
-				476D2ECB264BC5D800A9200A /* GoogleService-Info.plist */,
 				476D2EC4264B8E0500A9200A /* Network */,
-				47DD642D264419A800D3CD9C /* RelationBook.entitlements */,
 				479DE3DB264128AF000E2CFC /* Third Party Wrapper */,
-				47339E56263C2D710092860F /* Info.plist */,
 				47339EC0263C3BF60092860F /* Extension */,
 				47339E9D263C33220092860F /* Model */,
 				47B806D42646A32500EC711D /* ViewModel */,
 				47339E9E263C33580092860F /* Controller */,
 				47339E9C263C33190092860F /* View */,
+				476D2ECB264BC5D800A9200A /* GoogleService-Info.plist */,
+				47DD642D264419A800D3CD9C /* RelationBook.entitlements */,
+				47339E56263C2D710092860F /* Info.plist */,
 				47339E45263C2D6F0092860F /* AppDelegate.swift */,
 				47339E47263C2D6F0092860F /* SceneDelegate.swift */,
 			);
@@ -300,6 +314,7 @@
 		47339E9C263C33190092860F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				47A217EE265A716D0096149C /* Base */,
 				47101B972655364A00D7D171 /* ThirdParty */,
 				47B6B90626535BBD0090218C /* Profile */,
 				47B6B901265340760090218C /* Book */,
@@ -448,14 +463,44 @@
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
+		47A217E5265A2E360096149C /* AddCategory */ = {
+			isa = PBXGroup;
+			children = (
+				478693032651F2E800BFA750 /* SelectFloatViewController.swift */,
+				47181876265786DD00F34AA4 /* AddCategoryViewController.swift */,
+				4786930126516EC100BFA750 /* PopMoodSelectView.swift */,
+				47A217E6265A2EE50096149C /* LabelInputTableCell.xib */,
+				47A217E8265A2FB60096149C /* LabelInputTableCell.swift */,
+			);
+			path = AddCategory;
+			sourceTree = "<group>";
+		};
+		47A217EE265A716D0096149C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				47A217EF265A71840096149C /* NibLoadable.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		47A217F1265A838C0096149C /* AddRelation */ = {
+			isa = PBXGroup;
+			children = (
+				47A217EA265A42BD0096149C /* IconSelectView.xib */,
+				47A217EC265A43FF0096149C /* IconSelectView.swift */,
+				47A217F2265A851C0096149C /* TitledInputTableCell.swift */,
+				47A217F4265A85460096149C /* TitledInputView.xib */,
+			);
+			path = AddRelation;
+			sourceTree = "<group>";
+		};
 		47A957D3263FA40D0015A1CC /* Lobby */ = {
 			isa = PBXGroup;
 			children = (
+				47A217F1265A838C0096149C /* AddRelation */,
+				47A217E5265A2E360096149C /* AddCategory */,
 				47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */,
 				47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */,
-				4786930126516EC100BFA750 /* PopMoodSelectView.swift */,
-				478693032651F2E800BFA750 /* SelectFloatViewController.swift */,
-				47181876265786DD00F34AA4 /* AddCategoryViewController.swift */,
 			);
 			path = Lobby;
 			sourceTree = "<group>";
@@ -639,11 +684,14 @@
 				47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */,
 				47339EA4263C35C60092860F /* Book.storyboard in Resources */,
 				47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */,
+				47A217F5265A85460096149C /* TitledInputView.xib in Resources */,
 				476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */,
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
 				47339EA9263C374F0092860F /* Profile.storyboard in Resources */,
 				47339EAE263C37680092860F /* Timeline.storyboard in Resources */,
 				47339E52263C2D710092860F /* Assets.xcassets in Resources */,
+				47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */,
+				47A217E7265A2EE50096149C /* LabelInputTableCell.xib in Resources */,
 				4712C23626526E0E008D8386 /* RelationTableHeaderCell.xib in Resources */,
 				47B6B905265340A80090218C /* BookTableCell.xib in Resources */,
 				47339E4D263C2D6F0092860F /* Main.storyboard in Resources */,
@@ -847,9 +895,11 @@
 				4712C23426526D16008D8386 /* RelationTableCell.swift in Sources */,
 				476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */,
 				476D2ECA264BBA3600A9200A /* Date+Extension.swift in Sources */,
+				47A217F0265A71840096149C /* NibLoadable.swift in Sources */,
 				47B6B9102653C2E20090218C /* FloatingView.swift in Sources */,
 				47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */,
 				479DE3E5264128F5000E2CFC /* MJRefreshWrapper.swift in Sources */,
+				47A217E9265A2FB60096149C /* LabelInputTableCell.swift in Sources */,
 				47B806D62647D5AD00EC711D /* AddRelationViewController.swift in Sources */,
 				476D2EBF264B70EE00A9200A /* FilterView.swift in Sources */,
 				476D2EAA264A119100A9200A /* UIView+Extension.swift in Sources */,
@@ -869,6 +919,8 @@
 				4712C23826526F1F008D8386 /* RelationTableHeaderCell.swift in Sources */,
 				47339EF8263C42620092860F /* BookViewController.swift in Sources */,
 				476D2EB5264ABD8E00A9200A /* Event.swift in Sources */,
+				47A217ED265A43FF0096149C /* IconSelectView.swift in Sources */,
+				47A217F3265A851C0096149C /* TitledInputTableCell.swift in Sources */,
 				476D2EB3264A9FB900A9200A /* Box.swift in Sources */,
 				47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */,
 				47339E48263C2D6F0092860F /* SceneDelegate.swift in Sources */,

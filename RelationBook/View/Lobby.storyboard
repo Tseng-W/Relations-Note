@@ -446,7 +446,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edu-sy-UzP">
                                                 <rect key="frame" x="0.0" y="0.0" width="167" height="30"/>
-                                                <color key="backgroundColor" name="LableB6"/>
+                                                <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                 <state key="normal" title="取消">
                                                     <color key="titleColor" systemColor="systemGray5Color"/>
                                                 </state>
@@ -679,7 +679,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCancel:" destination="jLZ-fT-M6o" eventType="touchUpInside" id="uDt-bf-I6i"/>
+                                                            <action selector="onCancel:" destination="jLZ-fT-M6o" eventType="touchUpInside" id="6lM-oN-Csx"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -713,7 +713,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onConfirm:" destination="jLZ-fT-M6o" eventType="touchUpInside" id="25l-ha-JNE"/>
+                                                            <action selector="onConfirm:" destination="jLZ-fT-M6o" eventType="touchUpInside" id="FqN-Kt-uH4"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -741,7 +741,7 @@
                                         <rect key="frame" x="0.0" y="207.5" width="382" height="98.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9u-O2-6g0" customClass="RectangularPaletteControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="-16" y="-16" width="414" height="130.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="98.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -756,8 +756,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qss-sz-KCA">
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="-16" y="-5" width="332" height="47"/>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
+                                                <rect key="frame" x="0.0" y="11" width="300" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -827,12 +827,175 @@
             </objects>
             <point key="canvasLocation" x="3257.971014492754" y="979.6875"/>
         </scene>
+        <!--Add Category View Controller-->
+        <scene sceneID="98B-Q3-HeD">
+            <objects>
+                <viewController storyboardIdentifier="addRelation" id="amo-q3-OLn" customClass="AddCategoryViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wpQ-Mg-5eY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyh-BC-dc9">
+                                <rect key="frame" x="16" y="224" width="382" height="448"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Jr-an-lUc" userLabel="Bar">
+                                        <rect key="frame" x="0.0" y="52.5" width="382" height="1"/>
+                                        <color key="backgroundColor" name="LableB3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Nl8-77-H46"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新增關係" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6e-so-0hH">
+                                        <rect key="frame" x="156.5" y="16" width="69.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aU0-hc-4kW">
+                                        <rect key="frame" x="0.0" y="388" width="382" height="60"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUX-oM-O42">
+                                                <rect key="frame" x="0.0" y="0.0" width="191" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bik-Yh-mve">
+                                                        <rect key="frame" x="10" y="15" width="171" height="30"/>
+                                                        <color key="backgroundColor" name="LableB4"/>
+                                                        <state key="normal" title="取消">
+                                                            <color key="titleColor" name="Background"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="onCancel:" destination="amo-q3-OLn" eventType="touchUpInside" id="3xT-Op-TnZ"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="bik-Yh-mve" firstAttribute="centerY" secondItem="eUX-oM-O42" secondAttribute="centerY" id="5My-1t-8LC"/>
+                                                    <constraint firstItem="bik-Yh-mve" firstAttribute="centerX" secondItem="eUX-oM-O42" secondAttribute="centerX" id="Gue-Xb-1YW"/>
+                                                    <constraint firstItem="bik-Yh-mve" firstAttribute="leading" secondItem="eUX-oM-O42" secondAttribute="leading" constant="10" id="JjE-3g-Uu4"/>
+                                                    <constraint firstItem="bik-Yh-mve" firstAttribute="top" secondItem="eUX-oM-O42" secondAttribute="top" constant="15" id="LsY-Li-epb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="bik-Yh-mve" secondAttribute="bottom" constant="15" id="Yc8-9I-wb2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bik-Yh-mve" secondAttribute="trailing" constant="10" id="mVV-ux-nH8"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q5g-ZR-dg9">
+                                                <rect key="frame" x="191" y="0.0" width="191" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yX-2T-Gcd">
+                                                        <rect key="frame" x="10" y="15" width="171" height="30"/>
+                                                        <color key="backgroundColor" name="LableB4"/>
+                                                        <state key="normal" title="確定">
+                                                            <color key="titleColor" name="Background"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="onConfirm:" destination="amo-q3-OLn" eventType="touchUpInside" id="Mp7-zg-xUV"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="8yX-2T-Gcd" firstAttribute="centerY" secondItem="Q5g-ZR-dg9" secondAttribute="centerY" id="78X-Bq-eiD"/>
+                                                    <constraint firstItem="8yX-2T-Gcd" firstAttribute="leading" secondItem="Q5g-ZR-dg9" secondAttribute="leading" constant="10" id="LhB-Ui-ChA"/>
+                                                    <constraint firstAttribute="bottom" secondItem="8yX-2T-Gcd" secondAttribute="bottom" constant="15" id="Qpg-dc-9xH"/>
+                                                    <constraint firstItem="8yX-2T-Gcd" firstAttribute="top" secondItem="Q5g-ZR-dg9" secondAttribute="top" constant="15" id="Skg-pG-jme"/>
+                                                    <constraint firstItem="8yX-2T-Gcd" firstAttribute="centerX" secondItem="Q5g-ZR-dg9" secondAttribute="centerX" id="lNb-IS-OGT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8yX-2T-Gcd" secondAttribute="trailing" constant="10" id="t3I-Ng-dkl"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="zip-hS-Jqn"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-ll-UGe" customClass="IconSelectView" customModule="RelationBook" customModuleProvider="target">
+                                        <rect key="frame" x="114.5" y="69.5" width="153" height="168"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="tintColor" systemColor="systemPinkColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="f6i-ll-UGe" secondAttribute="height" multiplier="10:11" id="XCz-DV-A5W"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="名稱"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="image">
+                                                <imageReference key="value" image="camera" catalog="system" symbolScale="small"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="imageBackgroundColor">
+                                                <color key="value" systemColor="systemOrangeColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="imageTintColor">
+                                                <color key="value" systemColor="secondaryLabelColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npY-Xc-zSE" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="253.5" width="350" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Hjv-4G-WwP"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="f6i-ll-UGe" firstAttribute="width" secondItem="Tyh-BC-dc9" secondAttribute="width" multiplier="0.4" id="5sX-Gr-zxQ"/>
+                                    <constraint firstItem="npY-Xc-zSE" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="7yC-dG-Tn3"/>
+                                    <constraint firstItem="f6i-ll-UGe" firstAttribute="top" secondItem="1Jr-an-lUc" secondAttribute="bottom" constant="16" id="9HN-wH-uw8"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Jr-an-lUc" secondAttribute="trailing" id="9Iy-eU-pig"/>
+                                    <constraint firstAttribute="trailing" secondItem="aU0-hc-4kW" secondAttribute="trailing" id="A7i-dd-Ld5"/>
+                                    <constraint firstAttribute="bottom" secondItem="aU0-hc-4kW" secondAttribute="bottom" id="C52-Vh-9bS"/>
+                                    <constraint firstItem="npY-Xc-zSE" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" constant="16" id="Fum-ri-3vs"/>
+                                    <constraint firstItem="H6e-so-0hH" firstAttribute="top" secondItem="Tyh-BC-dc9" secondAttribute="top" constant="16" id="Ktm-fA-CKs"/>
+                                    <constraint firstItem="aU0-hc-4kW" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" id="Npo-k3-osw"/>
+                                    <constraint firstItem="f6i-ll-UGe" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="ZKC-UI-3Ur"/>
+                                    <constraint firstItem="1Jr-an-lUc" firstAttribute="leading" secondItem="Tyh-BC-dc9" secondAttribute="leading" id="j3Y-pc-8E3"/>
+                                    <constraint firstItem="npY-Xc-zSE" firstAttribute="top" secondItem="f6i-ll-UGe" secondAttribute="bottom" constant="16" id="jY8-nW-8YM"/>
+                                    <constraint firstAttribute="trailing" secondItem="npY-Xc-zSE" secondAttribute="trailing" constant="16" id="k6c-8Q-nqW"/>
+                                    <constraint firstItem="H6e-so-0hH" firstAttribute="centerX" secondItem="Tyh-BC-dc9" secondAttribute="centerX" id="n3b-7Q-UVF"/>
+                                    <constraint firstItem="1Jr-an-lUc" firstAttribute="top" secondItem="H6e-so-0hH" secondAttribute="bottom" constant="16" id="ock-0B-Mca"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="G6Z-Ko-vCi"/>
+                        <constraints>
+                            <constraint firstItem="Tyh-BC-dc9" firstAttribute="centerY" secondItem="wpQ-Mg-5eY" secondAttribute="centerY" id="SDf-aN-WaK"/>
+                            <constraint firstItem="Tyh-BC-dc9" firstAttribute="leading" secondItem="G6Z-Ko-vCi" secondAttribute="leading" constant="16" id="a2O-jk-f9D"/>
+                            <constraint firstItem="Tyh-BC-dc9" firstAttribute="height" secondItem="wpQ-Mg-5eY" secondAttribute="height" multiplier="0.5" id="c7C-rV-3SC"/>
+                            <constraint firstItem="G6Z-Ko-vCi" firstAttribute="trailing" secondItem="Tyh-BC-dc9" secondAttribute="trailing" constant="16" id="xu9-1b-IdZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="8yX-2T-Gcd" id="VP9-3u-qTx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LHN-ZO-W9z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4184" y="980"/>
+        </scene>
     </scenes>
-    <designables>
-        <designable name="c5y-Bn-Hgx">
-            <size key="intrinsicContentSize" width="414" height="15"/>
-        </designable>
-    </designables>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
@@ -868,6 +1031,9 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

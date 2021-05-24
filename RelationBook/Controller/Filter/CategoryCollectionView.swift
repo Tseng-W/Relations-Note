@@ -29,7 +29,7 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
-  var userViewModel: UserViewModel?
+  var userViewModel = UserViewModel.shared
 
   var selectedIndex: Int? {
     didSet {
@@ -41,7 +41,7 @@ class CategoryCollectionView: UICollectionView {
     didSet {
       mainCategories.forEach { category in
         guard let type = type,
-              let user = userViewModel?.user.value else { return }
+              let user = userViewModel.user.value else { return }
         var subCategory: [Category] = []
         switch type {
         case .event:

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="546" height="68"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6i-zB-KNr">
+                    <rect key="frame" x="16" y="23.5" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5mb-NA-CHa">
+                    <rect key="frame" x="74" y="25" width="456" height="18.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvs-I4-RTr" customClass="SwiftyMenu" customModule="SwiftyMenu">
+                    <rect key="frame" x="74" y="16" width="456" height="36"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="H6i-zB-KNr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="9Ft-Se-OlP"/>
+                <constraint firstItem="H6i-zB-KNr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ATV-jS-oSy"/>
+                <constraint firstItem="Jvs-I4-RTr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="EwF-AP-ay8"/>
+                <constraint firstItem="5mb-NA-CHa" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="KLE-qN-xBu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Jvs-I4-RTr" secondAttribute="trailing" constant="16" id="M8q-hN-Ri6"/>
+                <constraint firstItem="5mb-NA-CHa" firstAttribute="leading" secondItem="H6i-zB-KNr" secondAttribute="trailing" constant="16" id="WJO-Vu-0aQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5mb-NA-CHa" secondAttribute="trailing" constant="16" id="Ygr-mA-9tU"/>
+                <constraint firstAttribute="bottom" secondItem="Jvs-I4-RTr" secondAttribute="bottom" constant="16" id="eOi-bA-bwj"/>
+                <constraint firstItem="Jvs-I4-RTr" firstAttribute="leading" secondItem="H6i-zB-KNr" secondAttribute="trailing" constant="16" id="sGo-Z1-BLX"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="16"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" systemColor="systemGray5Color"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="selectBar" destination="Jvs-I4-RTr" id="1fG-YZ-InD"/>
+                <outlet property="textField" destination="5mb-NA-CHa" id="ucF-uL-Stn"/>
+                <outlet property="titleLabel" destination="H6i-zB-KNr" id="WkF-gm-IwP"/>
+            </connections>
+            <point key="canvasLocation" x="192.75362318840581" y="-200.89285714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

@@ -21,6 +21,7 @@ class FilterView: UIView {
 
   var filterIndex: Int = 0
   var categoryViews: [CategoryCollectionView] = []
+  var canScrollBeHidden = true
 
   var type: CategoryType? {
     didSet {
@@ -61,10 +62,15 @@ class FilterView: UIView {
   }
 
   private func addFilterBar() {
+
     filterScrollView.delegate = self
     filterScrollView.datasource = self
 
     addSubview(filterScrollView)
+
+    userViewModel.user.bind { [weak self] _ in
+      self?.filterScrollView.reloadDate()
+    }
 
     let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
     topConstraint.priority = .required
@@ -96,32 +102,43 @@ class FilterView: UIView {
       layout.itemSize = CGSize(width: 60, height: 70)
 
       let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
-      collectionView.userViewModel = userViewModel
+      
       collectionView.setUp(type: type, categories: categoryData)
-      collectionView.onSelectedSubCategory = { category in
-        if let category = category {
-          self.selectedCategories.append(category)
-          self.onSelected?(self.selectedCategories)
-        }
-
-        self.onHiddenFilter(isHidden: true)
-        return self.selectedCategories
-      }
-
-      collectionView.onContinueEdit = { index in
-        self.isEditing = index == -1
-        self.onHiddenFilter(isHidden: false)
-        self.onStartEdit?()
-      }
-      collectionView.onAddCategory = { type, hierarchy, superIndex in
-        self.onAddCategory?(type, hierarchy, superIndex)
-      }
 
       categoryScrollView.addSubview(collectionView)
       categoryViews.append(collectionView)
       x = collectionView.frame.origin.x + viewWidth
-    }
 
+      userViewModel.user.bind { user in
+        guard let user = user else { return }
+        collectionView.mainCategories = user.getCategoriesWithSuperIndex(type: type, filterIndex: index)
+      }
+
+      collectionView.onSelectedSubCategory = { [weak self] category in
+        if let category = category {
+          self?.selectedCategories.append(category)
+          self?.onSelected?(self?.selectedCategories ?? [])
+        }
+
+        if let strongSelf = self {
+          if strongSelf.canScrollBeHidden {
+            strongSelf.onHiddenFilter(isHidden: true)
+          }
+        }
+        
+        return self?.selectedCategories ?? []
+      }
+
+      collectionView.onContinueEdit = { [weak self] index in
+        self?.isEditing = index == -1
+        self?.onHiddenFilter(isHidden: false)
+        self?.onStartEdit?()
+      }
+
+      collectionView.onAddCategory = { [weak self] type, hierarchy, superIndex in
+        self?.onAddCategory?(type, hierarchy, superIndex)
+      }
+    }
     categoryScrollView.contentSize = CGSize(width: x, height: categoryScrollView.frame.size.height)
   }
 
