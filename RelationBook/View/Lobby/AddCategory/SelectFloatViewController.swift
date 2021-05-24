@@ -96,8 +96,8 @@ class SelectFloatViewController: FloatingViewController {
       self.isVisable = false
     }
 
-    filterView.onAddCategory = { type, hierarchy, superIndex in
-      self.onAddCategorySelected?(type, hierarchy, superIndex)
+    filterView.onAddCategory = { [weak self] type, hierarchy, superIndex in
+      self?.onAddCategorySelected?(type, hierarchy, superIndex)
     }
     setBlurBackground()
   }

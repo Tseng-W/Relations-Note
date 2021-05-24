@@ -61,5 +61,12 @@ class IconSelectView: UIView, NibLoadable {
     textField.placeholder = placeholder
     iconImageView.backgroundColor = imageBackgroundColor
     iconImageView.tintColor = imageTintColor
+
+    layoutIfNeeded()
+    iconImageView.translatesAutoresizingMaskIntoConstraints = false
+    iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+    iconImageView.layer.masksToBounds = true
   }
+
+  
 }

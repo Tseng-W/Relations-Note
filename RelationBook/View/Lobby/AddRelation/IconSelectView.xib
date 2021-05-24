@@ -19,17 +19,17 @@
             <rect key="frame" x="0.0" y="0.0" width="366" height="412"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gle-ry-gTl">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Gle-ry-gTl">
                     <rect key="frame" x="0.0" y="0.0" width="366" height="366"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Gle-ry-gTl" secondAttribute="height" multiplier="1:1" id="sO3-5B-0yF"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="名稱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ct0-rN-dJF">
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="名稱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ct0-rN-dJF">
                     <rect key="frame" x="0.0" y="382" width="366" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="1T3-as-cyh"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>

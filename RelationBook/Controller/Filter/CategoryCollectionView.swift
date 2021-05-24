@@ -22,6 +22,7 @@ class CategoryCollectionView: UICollectionView {
   var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
   var type: CategoryType?
+  var isMainOnly: Bool = false
 
   var status: Status = .mainCategory {
     didSet {
@@ -66,7 +67,7 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
-  func setUp(type: CategoryType, categories: [Category]) {
+  func setUp(type: CategoryType, categories: [Category], isMainOnly: Bool = false) {
 
     delegate = self
     dataSource = self
@@ -77,6 +78,7 @@ class CategoryCollectionView: UICollectionView {
       bundle: nil)
 
     self.type = type
+    self.isMainOnly = isMainOnly
     self.mainCategories = categories
   }
 }
@@ -138,7 +140,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
 
     case .mainCategory:  // 主分類頁，最後按鈕為新增主 分類，點其他進入子分類
       if indexPath.row < mainCategories.count {
-        if !mainCategories[indexPath.row].isSubEnable {
+        if isMainOnly || !mainCategories[indexPath.row].isSubEnable {
           selectedCategories = onSelectedSubCategory?(mainCategories[indexPath.row]) ?? []
         } else {
           selectedIndex = indexPath.row
@@ -159,9 +161,8 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         status = .mainCategory
       } else if indexPath.row == subCategories[selectedMainIndex].count + 1 {
         // 新增選項
-        guard let superIndex = subCategories[selectedMainIndex].first?.superIndex,
-              let type = type else { return }
-        onAddCategory?(type, .sub, superIndex)
+        guard let type = type else { return }
+        onAddCategory?(type, .sub, selectedMainIndex)
       } else {
         selectedCategories = onSelectedSubCategory?(subCategories[selectedMainIndex][indexPath.row - 1]) ?? []
       }
