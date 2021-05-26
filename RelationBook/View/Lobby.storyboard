@@ -20,11 +20,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zGk-jS-jSG">
                                 <rect key="frame" x="0.0" y="388" width="414" height="474"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATx-iw-HYq" customClass="FSCalendar">
                                 <rect key="frame" x="0.0" y="88" width="414" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="r9S-K1-4mk"/>
                                 </constraints>
@@ -83,7 +83,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hzP-Uk-PeN"/>
-                        <color key="backgroundColor" name="Background"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hzP-Uk-PeN" firstAttribute="bottom" secondItem="zGk-jS-jSG" secondAttribute="bottom" id="9y2-c4-awy"/>
                             <constraint firstItem="hzP-Uk-PeN" firstAttribute="trailing" secondItem="ATx-iw-HYq" secondAttribute="trailing" id="AoM-13-JPd"/>
@@ -155,6 +155,7 @@
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="以姓名、關係與特徵搜尋" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Xr-BS-Fa0">
                                 <rect key="frame" x="16" y="106" width="382" height="34"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -181,7 +182,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1p-td-rae">
                                         <rect key="frame" x="84.5" y="42" width="297.5" height="34.5"/>
-                                        <color key="backgroundColor" name="Background"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <state key="normal" title="地點">
                                             <color key="titleColor" name="LableB4"/>
                                         </state>
@@ -203,7 +204,7 @@
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zyt-6i-3uA">
                                         <rect key="frame" x="195" y="84.5" width="187" height="34.5"/>
-                                        <color key="backgroundColor" name="Background"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <state key="normal" title="Time">
                                             <color key="titleColor" name="LableB4"/>
                                         </state>
@@ -225,7 +226,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGd-Va-Qgr">
                                         <rect key="frame" x="0.0" y="84.5" width="187" height="34.5"/>
-                                        <color key="backgroundColor" name="Background"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <state key="normal" title="Day">
                                             <color key="titleColor" name="LableB4"/>
                                         </state>
@@ -250,7 +251,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKL-Wv-Yyu">
                                                 <rect key="frame" x="8" y="0.0" width="285.5" height="34.5"/>
-                                                <color key="backgroundColor" name="Background"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <state key="normal" title="事件">
                                                     <color key="titleColor" name="LableB4"/>
                                                 </state>
@@ -279,7 +280,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="Y70-X3-CVR" secondAttribute="bottom" constant="4" id="4io-Af-Jg1"/>
                                             <constraint firstAttribute="bottom" secondItem="zKL-Wv-Yyu" secondAttribute="bottom" id="QBu-pa-SLZ"/>
@@ -302,7 +303,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="aGd-Va-Qgr" firstAttribute="height" secondItem="c1p-td-rae" secondAttribute="height" id="2mn-Jx-ge1"/>
                                     <constraint firstItem="c1p-td-rae" firstAttribute="height" secondItem="lu0-hA-Mxq" secondAttribute="height" multiplier="0.45" id="4a2-YF-LKZ"/>
@@ -327,8 +328,8 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-84-9Ze">
-                                <rect key="frame" x="0.0" y="491" width="414" height="371"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="491" width="414" height="405"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="148" width="414" height="200"/>
@@ -339,7 +340,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbt-MQ-fzz"/>
-                        <color key="backgroundColor" name="Background"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="centerY" secondItem="U6H-wL-9Dr" secondAttribute="centerY" id="0Rv-nh-jqc"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="centerY" secondItem="U6H-wL-9Dr" secondAttribute="centerY" id="7c8-aG-09s"/>
@@ -353,7 +354,7 @@
                             <constraint firstItem="FMv-Yv-bDe" firstAttribute="top" secondItem="nvv-iT-43H" secondAttribute="bottom" constant="8" id="U8d-OL-4SP"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="VKq-bp-Od5"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="FMv-Yv-bDe" secondAttribute="trailing" constant="16" id="ZLG-3k-nwe"/>
-                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="bottom" secondItem="cg1-84-9Ze" secondAttribute="bottom" id="abP-Rf-52Y"/>
+                            <constraint firstAttribute="bottom" secondItem="cg1-84-9Ze" secondAttribute="bottom" id="abP-Rf-52Y"/>
                             <constraint firstItem="nvv-iT-43H" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="eUZ-EM-i8f"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="centerX" secondItem="ieI-wr-BJH" secondAttribute="centerX" id="oDT-Tu-MuI"/>
                             <constraint firstItem="nvv-iT-43H" firstAttribute="top" secondItem="4Xr-BS-Fa0" secondAttribute="bottom" constant="8" id="okA-ca-KMM"/>
@@ -410,7 +411,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="8ZV-SR-ez3"/>
                                             <constraint firstAttribute="trailing" secondItem="2bT-0J-9rG" secondAttribute="trailing" constant="16" id="H5X-x8-w6R"/>
@@ -475,12 +476,13 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="6Db-lx-ND5"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="nco-bH-Wv8" firstAttribute="top" secondItem="zHV-E6-kBw" secondAttribute="top" id="0xp-9f-Q1g"/>
                                     <constraint firstItem="zHV-E6-kBw" firstAttribute="top" secondItem="YKB-S6-dIC" secondAttribute="bottom" id="1IY-Kl-zYM"/>
@@ -683,7 +685,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="UlG-0T-rea" secondAttribute="trailing" constant="10" id="5KF-cA-NuH"/>
                                                     <constraint firstItem="UlG-0T-rea" firstAttribute="top" secondItem="JFg-pZ-WN4" secondAttribute="top" constant="15" id="70S-Yb-A6c"/>
@@ -717,7 +719,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="ZJo-oc-Iix" secondAttribute="bottom" constant="15" id="9bS-b5-Nth"/>
                                                     <constraint firstItem="ZJo-oc-Iix" firstAttribute="leading" secondItem="gMo-fo-FYR" secondAttribute="leading" constant="10" id="PDQ-pH-o4E"/>
@@ -733,6 +735,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="tAs-Dr-cAW"/>
                                         </constraints>
@@ -745,7 +748,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="S9u-O2-6g0" firstAttribute="top" secondItem="KhY-n6-8jI" secondAttribute="top" id="Hst-B0-Uda"/>
                                             <constraint firstAttribute="trailing" secondItem="S9u-O2-6g0" secondAttribute="trailing" id="NCy-ub-6Yc"/>
@@ -756,8 +759,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qss-sz-KCA">
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="0.0" y="-5" width="300" height="47"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
+                                                <rect key="frame" x="-16" y="-5" width="332" height="47"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -766,7 +769,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="c5y-Bn-Hgx" secondAttribute="trailing" id="POm-Qo-Y6G"/>
                                             <constraint firstItem="c5y-Bn-Hgx" firstAttribute="centerY" secondItem="qss-sz-KCA" secondAttribute="centerY" id="v0r-Cm-Ieu"/>
@@ -774,7 +777,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="l03-yw-K3y" secondAttribute="trailing" id="1qa-rx-p5E"/>
                                     <constraint firstItem="fdW-sb-Hkx" firstAttribute="top" secondItem="Nam-xB-hr7" secondAttribute="bottom" constant="16" id="2Zm-gx-iEr"/>
@@ -827,10 +830,10 @@
             </objects>
             <point key="canvasLocation" x="3257.971014492754" y="979.6875"/>
         </scene>
-        <!--Add Relation Flow View Controller-->
+        <!--Add Contact Flow View Controller-->
         <scene sceneID="98B-Q3-HeD">
             <objects>
-                <viewController storyboardIdentifier="addRelation" id="amo-q3-OLn" customClass="AddRelationFlowViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addRelation" id="amo-q3-OLn" customClass="AddContactFlowViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wpQ-Mg-5eY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -845,8 +848,8 @@
                                             <constraint firstAttribute="height" constant="1" id="Nl8-77-H46"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新增關係" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6e-so-0hH">
-                                        <rect key="frame" x="156.5" y="16" width="69.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新增聯絡人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6e-so-0hH">
+                                        <rect key="frame" x="147.5" y="16" width="87" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -872,7 +875,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="bik-Yh-mve" firstAttribute="centerY" secondItem="eUX-oM-O42" secondAttribute="centerY" id="5My-1t-8LC"/>
                                                     <constraint firstItem="bik-Yh-mve" firstAttribute="centerX" secondItem="eUX-oM-O42" secondAttribute="centerX" id="Gue-Xb-1YW"/>
@@ -906,7 +909,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="8yX-2T-Gcd" firstAttribute="centerY" secondItem="Q5g-ZR-dg9" secondAttribute="centerY" id="78X-Bq-eiD"/>
                                                     <constraint firstItem="8yX-2T-Gcd" firstAttribute="leading" secondItem="Q5g-ZR-dg9" secondAttribute="leading" constant="10" id="LhB-Ui-ChA"/>
@@ -922,13 +925,14 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="zip-hS-Jqn"/>
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-ll-UGe" customClass="IconSelectView" customModule="RelationBook" customModuleProvider="target">
                                         <rect key="frame" x="114.5" y="69.5" width="153" height="168"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <color key="tintColor" systemColor="systemPinkColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="f6i-ll-UGe" secondAttribute="height" multiplier="10:11" id="XCz-DV-A5W"/>
@@ -946,20 +950,20 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xoh-bJ-uZ8" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
                                         <rect key="frame" x="16" y="253.5" width="350" height="36"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="關係"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0x-Nl-loy" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
                                         <rect key="frame" x="16" y="305.5" width="350" height="36"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="特徵興趣"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="f6i-ll-UGe" firstAttribute="width" secondItem="Tyh-BC-dc9" secondAttribute="width" multiplier="0.4" id="5sX-Gr-zxQ"/>
                                     <constraint firstItem="f6i-ll-UGe" firstAttribute="top" secondItem="1Jr-an-lUc" secondAttribute="bottom" constant="16" id="9HN-wH-uw8"/>
@@ -1007,6 +1011,11 @@
             <point key="canvasLocation" x="4182.608695652174" y="979.6875"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="c5y-Bn-Hgx">
+            <size key="intrinsicContentSize" width="414" height="15"/>
+        </designable>
+    </designables>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
@@ -1036,6 +1045,9 @@
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -75,25 +75,33 @@ class FirebaseManager {
   func fetchUser(appleID: String, completion: @escaping (Result<User?, Error>) -> Void) {
     let docRef = db.collection(Collections.user.rawValue).whereField("appleID", in: [appleID])
 
+    docRef.getDocuments { snapchot, error in
+      if let error = error {
+        print("\(error.localizedDescription)")
+        return
+      }
+    }
+
     docRef.addSnapshotListener { snapshot, error in
       if let error = error {
-
         print("Error getting document: \(error.localizedDescription)")
         completion(.failure(error))
-
       } else {
+        if snapshot?.documents.count == 0 {
+          completion(.success(nil))
+        } else {
+          snapshot?.documentChanges.forEach({ documentChange in
 
-        snapshot?.documentChanges.forEach({ documentChange in
-
-          switch documentChange.type {
-          case .added, .modified:
-
-            let user = try? documentChange.document.data(as: User.self)
-            completion(.success(user))
-          case .removed:
-            break
-          }
-        })
+            switch documentChange.type {
+            case .added, .modified:
+              let user = try? documentChange.document.data(as: User.self)
+              completion(.success(user))
+              break
+            case .removed:
+              break
+            }
+          })
+        }
       }
     }
   }

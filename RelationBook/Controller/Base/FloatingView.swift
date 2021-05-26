@@ -27,6 +27,8 @@ class FloatingViewController: UIViewController {
     }
   }
 
+  var blurView: UIVisualEffectView?
+
   override func viewDidLoad() {
     super.viewDidLoad()
     isVisable = false
@@ -39,21 +41,33 @@ class FloatingViewController: UIViewController {
   func setBlurBackground() {
 
     let blurEffect = UIBlurEffect(style: .dark)
-    let blurView = UIVisualEffectView(effect: blurEffect)
+    blurView = UIVisualEffectView(effect: blurEffect)
 
-    blurView.frame.size = CGSize(
+    blurView!.frame.size = CGSize(
       width: view.frame.width,
       height: view.frame.height)
-    view.insertSubview(blurView, at: 0)
+    view.insertSubview(blurView!, at: 0)
 
     let tapGesture = UITapGestureRecognizer()
-    tapGesture.numberOfTapsRequired = 1
+    tapGesture.numberOfTapsRequired = 3
     tapGesture.addTarget(self, action: #selector(dismissView(_:)))
-    blurView.addGestureRecognizer(tapGesture)
+    tapGesture.delegate = self
+//    blurView!.addGestureRecognizer(tapGesture)
   }
 
   @objc private func dismissView(_ tapGesture: UITapGestureRecognizer) {
-    guard let _ = tapGesture.view as? UIVisualEffectView else { return }
+    guard tapGesture.view == blurView else { return }
     isVisable = false
+  }
+}
+
+extension FloatingViewController: UIGestureRecognizerDelegate {
+
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+
+    if touch.view?.isDescendant(of: view.subviews[1]) == true {
+      return false
+    }
+    return true
   }
 }

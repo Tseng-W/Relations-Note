@@ -9,6 +9,9 @@ import UIKit
 
 class RelationshipViewContoller: UIViewController {
 
+
+  let userViewModel = UserViewModel.shared
+
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.delegate = self
@@ -19,12 +22,15 @@ class RelationshipViewContoller: UIViewController {
   }
 
   let relationViewModel = RelationViewModel()
-  let userViewModel = UserViewModel()
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     relationViewModel.relations.bind { [weak self] relations in
+      self?.tableView.reloadData()
+    }
+
+    userViewModel.user.bind { [weak self] user in
       self?.tableView.reloadData()
     }
   }
@@ -47,15 +53,24 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RelationTableCell.self), for: indexPath)
 
     guard let user = userViewModel.user.value else { return cell }
+    
 
     if let cell = cell as? RelationTableCell {
-      cell.tagTitleLabel.text = user.getCategoriesWithSuperIndex(type: .relation, filterIndex: indexPath.section)[indexPath.row].title
+      let data = user.getCategoriesWithSuperIndex(type: .relation, filterIndex: indexPath.section)[indexPath.row]
+      cell.tagTitleLabel.text = data.title
+      cell.tagTitleLabel.backgroundColor = data.getColor()
+
+      data.getImage { image in
+        cell.tagImgaeView.image = image
+      }
+
     }
 
     return cell
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
     let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: RelationTableHeaderCell.self))
 
     guard let user = userViewModel.user.value else { return nil }
@@ -69,6 +84,10 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
     }
 
     return headerView
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    50
   }
 
   @objc private func didSelectHeaderAt(tapGesture: UITapGestureRecognizer) {

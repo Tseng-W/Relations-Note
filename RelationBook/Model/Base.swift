@@ -88,11 +88,11 @@ class CategoryViewModel: Codable {
       filter = ["學習", "事業", "興趣", "特長", "住所", "其他"]
       main = [
         Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "畢業", imageLink: "graduationcap", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "任職", imageLink: "building.2", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "運動", imageLink: "sportscourt", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "語言", imageLink: "abc", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "租屋", imageLink: "building", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "其他", imageLink: "questionmark", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 0, isCustom: false, superIndex: 1, isSubEnable: false, title: "任職", imageLink: "building.2", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 0, isCustom: false, superIndex: 2, isSubEnable: false, title: "運動", imageLink: "sportscourt", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 0, isCustom: false, superIndex: 3, isSubEnable: false, title: "語言", imageLink: "abc", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 0, isCustom: false, superIndex: 4, isSubEnable: false, title: "租屋", imageLink: "building", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 0, isCustom: false, superIndex: 5, isSubEnable: false, title: "其他", imageLink: "questionmark", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
       ]
     case .event:
       filter = ["偶遇", "會議", "爭執", "聚會", "其他"]

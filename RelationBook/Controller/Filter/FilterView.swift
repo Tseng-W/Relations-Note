@@ -55,7 +55,7 @@ class FilterView: UIView {
     self.type = type
     self.isMainOnly = isMainOnly
 
-    backgroundColor = .systemBackground
+    backgroundColor = .secondarySystemBackground
 
     filterIndex = 0
 

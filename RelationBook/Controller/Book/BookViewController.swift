@@ -10,6 +10,8 @@ import UIKit
 class BookViewController: UIViewController {
 
   let filterText = ["待處理", "即將到來", "已過期"]
+
+  let userViewModel = UserViewModel.shared
   
   @IBOutlet var searchTextField: UITextField!
 
