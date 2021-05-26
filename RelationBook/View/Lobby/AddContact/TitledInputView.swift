@@ -15,7 +15,6 @@ class TitledInputView: UIView, NibLoadable {
       button.setTitle(placeholder, for: .normal)
     }
   }
-
   @IBInspectable var title: String = "標題" {
     didSet {
       titleLabel.text = title
@@ -24,6 +23,13 @@ class TitledInputView: UIView, NibLoadable {
 
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var button: UIButton!
+
+  var selectedContent: String? {
+    didSet {
+      button.setTitle(selectedContent, for: .normal)
+      button.setTitleColor(.secondaryLabel, for: .normal)
+    }
+  }
 
   var onTapped: (() -> Void)?
 

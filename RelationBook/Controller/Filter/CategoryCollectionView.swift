@@ -71,7 +71,7 @@ class CategoryCollectionView: UICollectionView {
 
     delegate = self
     dataSource = self
-    backgroundColor = .background
+    backgroundColor = .secondarySystemBackground
 
     lk_registerCellWithNib(
       identifier: String(describing: CategoryCollectionCell.self),

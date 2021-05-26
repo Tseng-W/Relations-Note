@@ -84,6 +84,8 @@ class SelectionView: UIView {
     subviews.forEach { $0.removeFromSuperview() }
 
     guard let datasource = datasource else { return }
+    buttons.removeAll()
+
 
     let numberOfButton = datasource.numberOfButton(self)
     switch type {

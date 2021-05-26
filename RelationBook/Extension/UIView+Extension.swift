@@ -8,6 +8,25 @@
 import UIKit
 
 extension UIView {
+
+  func addBlurView() -> UIVisualEffectView {
+
+    let blurEffect = UIBlurEffect(style: .dark)
+    let blurView = UIVisualEffectView(effect: blurEffect)
+    addSubview(blurView)
+    blurView.addConstarint(
+      top: topAnchor,
+      left: leftAnchor,
+      bottom: bottomAnchor,
+      right: rightAnchor,
+      paddingTop: 0,
+      paddingLeft: 0,
+      paddingBottom: 0,
+      paddingRight: 0, width: 0, height: 0)
+
+    return blurView
+  }
+
   func addConstarint(top: NSLayoutYAxisAnchor?,
                      left: NSLayoutXAxisAnchor?,
                      bottom: NSLayoutYAxisAnchor?,

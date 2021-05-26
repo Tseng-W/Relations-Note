@@ -118,7 +118,7 @@ class AddRelationViewController: UIViewController {
         if hierarchy == .main {
           self.addCategoryViewController.isVisable = true
         } else {
-          let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addRelation") as! AddRelationFlowViewController
+          let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addRelation") as! AddContactFlowViewController
           self.view.addSubview(vc.view)
           vc.isVisable = true
         }

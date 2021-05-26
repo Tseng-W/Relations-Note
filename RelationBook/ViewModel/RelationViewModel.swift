@@ -10,7 +10,7 @@ import Firebase
 
 class RelationViewModel {
 
-  let userViewModel = UserViewModel()
+  let userViewModel = UserViewModel.shared
 
   var relations = Box([Relation]())
 
