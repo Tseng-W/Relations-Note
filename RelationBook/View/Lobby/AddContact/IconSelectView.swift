@@ -16,7 +16,7 @@ class IconSelectView: UIView, NibLoadable {
     }
   }
 
-  @IBInspectable var image: UIImage? = nil {
+  @IBInspectable var image = UIImage(systemName: "camera") {
     didSet {
       guard let image = image else { return }
       iconImageView.image = image
@@ -36,7 +36,13 @@ class IconSelectView: UIView, NibLoadable {
   }
 
   @IBOutlet var iconImageView: UIImageView!
-  @IBOutlet var textField: UITextField!
+  @IBOutlet var textField: UITextField! {
+    didSet {
+      textField.delegate = self
+    }
+  }
+
+  var onEndEditTitle: ((String, String, UIColor) -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -58,6 +64,9 @@ class IconSelectView: UIView, NibLoadable {
 
   private func customInit() {
     loadNibContent()
+
+    image = UIImage(systemName: "camera")
+
     textField.placeholder = placeholder
     iconImageView.backgroundColor = imageBackgroundColor
     iconImageView.tintColor = imageTintColor
@@ -67,6 +76,12 @@ class IconSelectView: UIView, NibLoadable {
     iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
     iconImageView.layer.masksToBounds = true
   }
+}
 
-  
+extension IconSelectView: UITextFieldDelegate {
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    guard let text = textField.text,
+          text != String.empty else { return }
+    onEndEditTitle?(text, "camera", .yellow)
+  }
 }

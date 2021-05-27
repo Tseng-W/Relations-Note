@@ -10,6 +10,8 @@ import Firebase
 
 class EventViewModel {
 
+  static let shared = EventViewModel()
+
   let events = Box([Event]())
 
   func addEvent(event: Event, completion: @escaping ((Result<String, Error>) -> Void)) {

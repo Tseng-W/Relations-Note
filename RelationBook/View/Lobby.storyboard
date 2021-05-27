@@ -115,10 +115,10 @@
             </objects>
             <point key="canvasLocation" x="1208.6956521739132" y="182.8125"/>
         </scene>
-        <!--Add Relation View Controller-->
+        <!--Add Event View Controller-->
         <scene sceneID="MAS-Ir-hbm">
             <objects>
-                <viewController id="JEb-7Y-xVc" customClass="AddRelationViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="JEb-7Y-xVc" customClass="AddEventViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ieI-wr-BJH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -744,7 +744,7 @@
                                         <rect key="frame" x="0.0" y="207.5" width="382" height="98.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9u-O2-6g0" customClass="RectangularPaletteControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="-16" y="-16" width="414" height="130.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="98.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -760,7 +760,7 @@
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="-16" y="-5" width="332" height="47"/>
+                                                <rect key="frame" x="0.0" y="11" width="300" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -948,14 +948,14 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="image" value="camera" catalog="system"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xoh-bJ-uZ8" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xoh-bJ-uZ8" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
                                         <rect key="frame" x="16" y="253.5" width="350" height="36"/>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="關係"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0x-Nl-loy" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B0x-Nl-loy" customClass="TitledInputView" customModule="RelationBook" customModuleProvider="target">
                                         <rect key="frame" x="16" y="305.5" width="350" height="36"/>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>

@@ -19,14 +19,16 @@ class AddFeatureFloatView: UIView, NibLoadable{
       tableView.lk_registerHeaderWithNib(identifier: String(describing: AddFeatureHeaderView.self), bundle: nil)
     }
   }
+  @IBOutlet var filterHeight: NSLayoutConstraint!
 
   @IBOutlet var confirmButton: UIButton!
 
-
   var featureViewModel = FeatureViewModel()
 
-  var onConfirm: (([(isSelected: Bool, content: String)]) -> Void)?
+  var onConfirm: ((Category, Feature) -> Void)?
   var onCancel: (() -> Void)?
+
+  var selectedCategory = [Category]()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -50,6 +52,27 @@ class AddFeatureFloatView: UIView, NibLoadable{
   func customInit() {
     loadNibContent()
 
+    filterView.onSelected = { [weak self] categoris in
+      self?.selectedCategory = categoris
+      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        if let strongSelf = self {
+          strongSelf.filterHeight.constant = strongSelf.filterHeight.constant / 2
+          strongSelf.layoutIfNeeded()
+        }
+      }
+    }
+
+    filterView.onStartEdit = { [weak self] in
+      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        if let strongSelf = self {
+          strongSelf.filterHeight.constant = strongSelf.filterHeight.constant * 2
+          strongSelf.layoutIfNeeded()
+        }
+      }
+    }
+
+    tableView.separatorColor = .clear
+
     featureViewModel.feature.bind { _ in
       self.tableView.reloadData()
     }
@@ -60,6 +83,10 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   @IBAction func onTapConfirm(_ sender: UIButton) {
+    print(featureViewModel.feature.value)
+    print(selectedCategory)
+    onConfirm?(selectedCategory[0], featureViewModel.feature.value)
+    onCancel?()
   }
 }
 
@@ -67,6 +94,18 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     featureViewModel.rowNumber()
+  }
+
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: AddFeatureHeaderView.self))
+
+    if let header = header as? AddFeatureHeaderView {
+      header.onTapSwitch = { [weak self] isOn in
+        self?.featureViewModel.canMutiSelect = isOn
+      }
+    }
+
+    return header
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,5 +128,9 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
     }
 
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    50
   }
 }

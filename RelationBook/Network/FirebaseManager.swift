@@ -18,9 +18,9 @@ class FirebaseManager {
 
   let relationViewModel = RelationViewModel()
 
-  let eventViewModel = EventViewModel()
+  let eventViewModel = EventViewModel.shared
 
-  func fetchRelationsMock(userID: Int) {
+  func fetchRelationsMock(userID: String) {
     db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: userID).addSnapshotListener { snapShot, error in
 
       if let error = error { print(error) }
@@ -58,10 +58,17 @@ class FirebaseManager {
     }
   }
 
-  func addRelation(userID: Int, data: Relation) {
-    _ = try? db.collection(Collections.relation.rawValue).addDocument(from: data) { error in
-      if let error = error { print(error) }
+  func addRelation(userID: String, data: Relation, completion: @escaping ((String)->Void) = { _ in }) {
+    let docRef = try? db.collection(Collections.relation.rawValue).addDocument(from: data) { error in
+      if let error = error {
+        print("addRelation error: \(error.localizedDescription)")
+      }
     }
+
+    guard let docID = docRef else { return }
+    completion(docID.documentID)
+//    guard let docRef = docRef else { return }
+//    completion(docRef.documentID)
   }
 
   func addEvent(data: Event, completion: @escaping (Result<String, Error>) -> Void = {_ in }) {

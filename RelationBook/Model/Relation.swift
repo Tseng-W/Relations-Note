@@ -13,7 +13,7 @@ struct Relation: Codable {
   @DocumentID var id: String?
   var isPublic: Bool
   var categoryIndex: Int
-  var owner: Int
+  var owner: String
   var feature: [Feature]
   var createdTime: Timestamp
   var lastContactTime: Timestamp

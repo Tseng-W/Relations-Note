@@ -50,7 +50,7 @@ class CategoryCollectionView: UICollectionView {
         case .feature:
           subCategory = user.featureSet.getSubCategories(superIndex: category.id)
         case .relation:
-          subCategory = user.featureSet.getSubCategories(superIndex: category.id)
+          subCategory = user.relationSet.getSubCategories(superIndex: category.id)
         }
         subCategories.append(subCategory)
       }

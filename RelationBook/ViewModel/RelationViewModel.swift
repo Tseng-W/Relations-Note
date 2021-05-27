@@ -10,18 +10,46 @@ import Firebase
 
 class RelationViewModel {
 
+  static let shared = RelationViewModel()
+
   let userViewModel = UserViewModel.shared
+  let eventViewModel = EventViewModel.shared
 
   var relations = Box([Relation]())
 
-  var mockRelations: [Relation] = []
-
-  func fetchRelations(id userID: Int) {
+  func fetchRelations() {
+    guard let userID = userViewModel.user.value?.docId! else { return }
     FirebaseManager.shared.fetchRelationsMock(userID: userID)
   }
 
-  func addRelation(id userID: Int, relation: Relation) {
-    FirebaseManager.shared.addRelation(userID: userID, data: relation)
+  func addRelation(name: String, iconString: String, bgColor: UIColor, relationType: Category, feature: Feature) {
+
+    guard let user = userViewModel.user.value else { return }
+
+    let newIndex = user.getCategoriesWithSuperIndex(type: .relation, mainIndex: relationType.id).count
+
+    let relation = Relation(
+      id: nil,
+      isPublic: false,
+      categoryIndex: newIndex,
+      owner: user.docId!,
+      feature: [feature],
+      createdTime: Timestamp(date: Date()),
+      lastContactTime: Timestamp(date: Date()))
+
+    FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { docID in
+      var newContact = Category(
+        id: newIndex,
+        isCustom: true,
+        superIndex: relationType.superIndex,
+        isSubEnable: false,
+        title: name,
+        imageLink: iconString,
+        backgroundColor: bgColor.StringFromUIColor())
+      self.userViewModel.addCategoryAt(type: .relation, hierarchy: .sub, category: &newContact) { error in
+        if let error = error { print("\(error.localizedDescription)")}
+      }
+    }
   }
 
   func onRelationAdded(relation: Relation) {

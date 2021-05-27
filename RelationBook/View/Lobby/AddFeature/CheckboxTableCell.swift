@@ -12,8 +12,8 @@ class CheckboxTableCell: UITableViewCell {
   var content = FeatureContent(isProcessing: false, content: "") {
     didSet {
       checkmarkButton.isSelected = content.isProcessing
-      checkmarkButton.setTitle("進行中", for: .normal)
-      checkmarkButton.setTitle("已結束", for: .selected)
+      checkmarkButton.setTitle("已結束", for: .normal)
+      checkmarkButton.setTitle("進行中", for: .selected)
       inputTextField.text = content.content
     }
   }
@@ -50,9 +50,14 @@ class CheckboxTableCell: UITableViewCell {
   }
 
   func setup(content: FeatureContent?) {
-    if let content = content {
-      self.content = content
+
+    guard let content = content else {
+      checkmarkButton.superview?.isHidden = true
+      return
     }
+
+    self.content = content
+    checkmarkButton.superview?.isHidden = false
   }
 
   @IBAction func onTapSwitch(_ sender: UIButton) {
@@ -67,6 +72,7 @@ extension CheckboxTableCell: UITextFieldDelegate {
     guard let text = textField.text,
           text.isEmpty == false else { return }
 
+    content.content = text
     onEndEdit?(self, content)
   }
 }

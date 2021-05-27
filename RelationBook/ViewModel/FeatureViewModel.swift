@@ -45,14 +45,15 @@ class FeatureViewModel {
     return nil
   }
 
-
   func selectedSwitchAt(row: Int) {
 
     guard row < feature.value.contents.count else { return }
 
     if !canMutiSelect {
       canMutiSelect = false
+      feature.value.contents[row].isProcessing = true
+    } else {
+      feature.value.contents[row].isProcessing.toggle()
     }
-    feature.value.contents[row].isProcessing.toggle()
   }
 }

@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddFeatureFloatView" customModule="RelationBook" customModuleProvider="target">
             <connections>
                 <outlet property="confirmButton" destination="nGP-Qu-c73" id="0Sh-WK-FPC"/>
+                <outlet property="filterHeight" destination="Jas-W4-KAG" id="yab-xh-Yrw"/>
                 <outlet property="filterView" destination="w2E-PU-o7z" id="xac-II-Mlb"/>
                 <outlet property="tableView" destination="AsV-vT-g94" id="C6t-lk-TxB"/>
             </connections>
@@ -41,17 +42,17 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AsV-vT-g94">
-                    <rect key="frame" x="16" y="258.5" width="370" height="292.5"/>
+                    <rect key="frame" x="16" y="258.5" width="370" height="302.5"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="NY1-ww-FoB">
-                    <rect key="frame" x="16" y="567" width="370" height="50"/>
+                    <rect key="frame" x="16" y="577" width="370" height="40"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KA6-zf-tFx">
-                            <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjO-jP-4Ls">
-                                    <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
                                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
                                     <state key="normal" title="取消"/>
                                     <connections>
@@ -74,10 +75,10 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acO-Rq-Iiv">
-                            <rect key="frame" x="193" y="0.0" width="177" height="50"/>
+                            <rect key="frame" x="193" y="0.0" width="177" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGP-Qu-c73">
-                                    <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
                                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
                                     <state key="normal" title="確定"/>
                                     <connections>
@@ -101,7 +102,7 @@
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Qyg-TZ-xM9"/>
+                        <constraint firstAttribute="height" constant="40" id="Qyg-TZ-xM9"/>
                     </constraints>
                 </stackView>
             </subviews>
