@@ -57,7 +57,7 @@ class AddEventViewController: UIViewController {
 
   // MARK: Event datas.
   var relations: [Category] = []
-  var mood: Category?
+  var mood = 2
   var event: Category?
   var location: GeoPoint?
   var locationName: String?
@@ -80,13 +80,6 @@ class AddEventViewController: UIViewController {
     relationFilterSetup()
     selectionViewSetup()
     addCategoryViewSetup()
-
-    if let radomMood = userViewModel.moodsData.value.randomElement() {
-      radomMood.getImage { image in
-        self.moodButton.setImage(image, for: .normal)
-      }
-      moodButton.backgroundColor = radomMood.getColor()
-    }
   }
 
   private func relationFilterSetup() {
@@ -175,8 +168,7 @@ class AddEventViewController: UIViewController {
 
   @IBAction func confirm(_ sender: UIButton) {
     print("confirm")
-    guard let mood = mood,
-          let event = event,
+    guard let event = event,
           let location = location,
           let locationName = locationName else { return }
     guard let userID = userViewModel.user.value?.docId else { return }
