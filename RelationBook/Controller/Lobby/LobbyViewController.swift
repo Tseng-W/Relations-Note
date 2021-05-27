@@ -15,7 +15,7 @@ class LobbyViewController: UIViewController {
 
   let userViewModel = UserViewModel.shared
   let relationViewModel = RelationViewModel()
-  let eventViewModel = EventViewModel()
+  let eventViewModel = EventViewModel.shared
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
@@ -47,12 +47,6 @@ class LobbyViewController: UIViewController {
     }
   }
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let vc = segue.destination as? AddRelationViewController {
-      vc.eventViewModel = eventViewModel
-    }
-  }
-  
   @IBAction func testAppleLogin(_ sender: Any) {
     performSegue(withIdentifier: "appleLogin", sender: self)
   }
@@ -66,8 +60,6 @@ class LobbyViewController: UIViewController {
     }
 
     userViewModel.fetchUserDate()
-
-    relationViewModel.fetchRelations(id: -1)
 
     eventViewModel.events.bind { events in
       self.tableView.reloadData()

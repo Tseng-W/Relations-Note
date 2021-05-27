@@ -9,7 +9,7 @@ import UIKit
 import AMPopTip
 import Firebase
 
-class AddRelationViewController: UIViewController {
+class AddEventViewController: UIViewController {
 
   @IBOutlet var searchTextField: UITextField! {
     didSet {
@@ -39,7 +39,7 @@ class AddRelationViewController: UIViewController {
 
   let popTip = PopTip()
   var userViewModel = UserViewModel.shared
-  var eventViewModel: EventViewModel?
+  var eventViewModel = EventViewModel.shared
   let selectFloatViewController: SelectFloatViewController = {
     let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
 
@@ -178,8 +178,7 @@ class AddRelationViewController: UIViewController {
     guard let mood = mood,
           let event = event,
           let location = location,
-          let locationName = locationName,
-          let eventViewModel = eventViewModel else { return }
+          let locationName = locationName else { return }
     guard let userID = userViewModel.user.value?.docId else { return }
     var newEvent = Event(docID: "",
                          owner: userID,
@@ -235,7 +234,7 @@ class AddRelationViewController: UIViewController {
   }
 }
 
-extension AddRelationViewController: UITableViewDelegate, UITableViewDataSource {
+extension AddEventViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     0
@@ -246,14 +245,14 @@ extension AddRelationViewController: UITableViewDelegate, UITableViewDataSource 
   }
 }
 
-extension AddRelationViewController: UITextFieldDelegate {
+extension AddEventViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     print(textField.text!)
   }
 }
 
-extension AddRelationViewController: AddCategoryViewDelegate {
+extension AddEventViewController: AddCategoryViewDelegate {
 
   func typeOfCategory(controller: AddCategoryViewController) -> CategoryType? {
     guard let setting = newCategotySetting else { return nil }

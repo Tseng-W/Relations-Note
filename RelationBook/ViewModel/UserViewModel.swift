@@ -36,6 +36,7 @@ class UserViewModel {
       case .success(let data):
         if let data = data {
           self.user.value = data
+          RelationViewModel.shared.fetchRelations()
           print(">>>>> Fetch ended. <<<<<")
         } else {
           self.initialUser(appleID: appleID)

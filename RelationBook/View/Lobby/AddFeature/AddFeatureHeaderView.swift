@@ -7,26 +7,11 @@
 
 import UIKit
 
-class AddFeatureHeaderView: UIView, NibLoadable {
+class AddFeatureHeaderView: UITableViewHeaderFooterView {
 
   @IBOutlet var multipleSwitch: UISwitch!
 
   var onTapSwitch: ((Bool) -> Void)?
-
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    customInit()
-  }
-
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    customInit()
-  }
-
-  func customInit() {
-    loadNibContent()
-  }
-
 
   @IBAction func onTapSwitch(_ sender: UISwitch) {
     onTapSwitch?(sender.isOn)

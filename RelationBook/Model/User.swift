@@ -38,4 +38,15 @@ struct User: Codable{
       return relationSet.getMainCategories(superIndex: index)
     }
   }
+
+  func getCategoriesWithSuperIndex(type: CategoryType, mainIndex index: Int) -> [Category] {
+    switch type {
+    case .event:
+      return eventSet.getSubCategories(superIndex: index)
+    case .feature:
+      return featureSet.getSubCategories(superIndex: index)
+    case .relation:
+      return relationSet.getSubCategories(superIndex: index)
+    }
+  }
 }

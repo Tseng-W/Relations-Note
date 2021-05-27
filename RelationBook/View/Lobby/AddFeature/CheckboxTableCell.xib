@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CU-Ah-GeJ">
-                        <rect key="frame" x="16" y="0.0" width="115" height="62"/>
+                        <rect key="frame" x="16" y="8" width="115" height="46"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jp0-8s-ciw">
-                                <rect key="frame" x="0.0" y="0.0" width="115" height="62"/>
+                                <rect key="frame" x="0.0" y="0.0" width="115" height="46"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <state key="normal" title="進行中" image="checkmark.circle" catalog="system">
@@ -61,10 +61,10 @@
                     <constraint firstItem="z9n-DF-BmS" firstAttribute="centerY" secondItem="u8P-2y-rPM" secondAttribute="centerY" id="5IS-yO-gVA"/>
                     <constraint firstAttribute="trailing" secondItem="z9n-DF-BmS" secondAttribute="trailing" constant="16" id="5wQ-K2-5Wd"/>
                     <constraint firstItem="4CU-Ah-GeJ" firstAttribute="leading" secondItem="u8P-2y-rPM" secondAttribute="leading" constant="16" id="Ef3-Hq-qor"/>
-                    <constraint firstItem="4CU-Ah-GeJ" firstAttribute="top" secondItem="u8P-2y-rPM" secondAttribute="top" id="Ir5-Yk-jOZ"/>
+                    <constraint firstItem="4CU-Ah-GeJ" firstAttribute="top" secondItem="u8P-2y-rPM" secondAttribute="top" constant="8" id="Ir5-Yk-jOZ"/>
                     <constraint firstItem="z9n-DF-BmS" firstAttribute="leading" secondItem="4CU-Ah-GeJ" secondAttribute="trailing" constant="16" id="hMI-pF-TNr"/>
                     <constraint firstItem="4CU-Ah-GeJ" firstAttribute="width" secondItem="u8P-2y-rPM" secondAttribute="width" multiplier="0.25" id="lGY-OW-5AP"/>
-                    <constraint firstAttribute="bottom" secondItem="4CU-Ah-GeJ" secondAttribute="bottom" id="oCP-jM-fbQ"/>
+                    <constraint firstAttribute="bottom" secondItem="4CU-Ah-GeJ" secondAttribute="bottom" constant="8" id="oCP-jM-fbQ"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>

@@ -9,7 +9,15 @@ import UIKit
 
 class AddContactFlowViewController: FloatingViewController {
 
-  @IBOutlet var iconSelectView: IconSelectView!
+  @IBOutlet var iconSelectView: IconSelectView! {
+    didSet {
+      iconSelectView.onEndEditTitle = { [weak self] name, image, bgColor in
+        self?.name = name
+        self?.imageString = image
+        self?.bgColor = bgColor
+      }
+    }
+  }
   @IBOutlet var relationButton: TitledInputView! {
     didSet {
       relationButton.titleLabel.text = "關係"
@@ -34,7 +42,7 @@ class AddContactFlowViewController: FloatingViewController {
 
         self.view.layoutIfNeeded()
 
-        filterView.setUp(type: .feature)
+        filterView.setUp(type: .relation, isMainOnly: true)
 
         filterView.onSelected = { categories in
           self.superRelation = categories.first
@@ -73,6 +81,11 @@ class AddContactFlowViewController: FloatingViewController {
           blurView.removeFromSuperview()
           addFeatureView.removeFromSuperview()
         }
+
+        addFeatureView.onConfirm = { [weak self] category, feature in
+          self?.category = category
+          self?.feature = feature
+        }
       }
     }
   }
@@ -80,6 +93,34 @@ class AddContactFlowViewController: FloatingViewController {
   @IBOutlet var confirmButton: UIButton! {
     didSet {
       confirmButton.isEnabled = false
+    }
+  }
+
+  var feature: Feature? {
+    didSet {
+      checkContactData()
+    }
+  }
+  var category: Category? {
+    didSet {
+      guard let category = category else { return }
+      featureButton.placeholder = category.title
+      checkContactData()
+    }
+  }
+  var name: String? {
+    didSet {
+      checkContactData()
+    }
+  }
+  var imageString: String? {
+    didSet {
+      checkContactData()
+    }
+  }
+  var bgColor: UIColor? {
+    didSet {
+      checkContactData()
     }
   }
 
@@ -93,9 +134,26 @@ class AddContactFlowViewController: FloatingViewController {
     super.viewDidLoad()
   }
 
+  func checkContactData() {
+    guard let _ = category,
+          let _ = feature,
+          let _ = name,
+          let _ = imageString,
+          let _ = bgColor else {
+      confirmButton.isEnabled = false
+      return
+    }
+    confirmButton.isEnabled = true
+  }
+
   @IBAction func onTapButton(_ sender: UIButton) {
     if sender == confirmButton {
-
+      guard let category = category,
+            let feature = feature,
+            let name = name,
+            let image = imageString,
+            let bgColor = bgColor else { return }
+      RelationViewModel.shared.addRelation(name: name, iconString: image, bgColor: bgColor, relationType: category, feature: feature)
     } else {
       self.view.removeFromSuperview()
     }
