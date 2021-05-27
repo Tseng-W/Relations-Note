@@ -18,7 +18,7 @@ struct Event: Codable {
   @DocumentID var docID: String?
   var owner: String
   var relations: [Int]
-  var mood: Category
+  var mood: Int
   var event: Category
   var location: GeoPoint
   var locationName: String?
