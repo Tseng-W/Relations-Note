@@ -12,7 +12,14 @@ import FirebaseFirestoreSwift
 
 class FirebaseManager {
 
+  enum UserDefaultKeys: String {
+    case appleID
+    case userID
+  }
+
   static let shared = FirebaseManager()
+
+  var userShared: Box<User?> = Box(nil)
 
   let db = Firestore.firestore()
 
@@ -21,6 +28,7 @@ class FirebaseManager {
   let eventViewModel = EventViewModel.shared
 
   func fetchRelationsMock(userID: String) {
+
     db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: userID).addSnapshotListener { snapShot, error in
 
       if let error = error { print(error) }
@@ -110,6 +118,13 @@ class FirebaseManager {
           })
         }
       }
+    }
+  }
+
+  func fetchUser() {
+
+    guard let appleID = UserDefaults.standard.string(forKey: UserDefaultKeys.appleID.rawValue) else {
+      return
     }
   }
 
