@@ -9,7 +9,7 @@ import UIKit
 
 class FilterView: UIView {
 
-  var userViewModel = UserViewModel.shared
+  var userViewModel = UserViewModel()
 
   // MARK: Event closures
   var onSelected: (([Category]) -> Void)?
@@ -55,16 +55,28 @@ class FilterView: UIView {
     self.type = type
     self.isMainOnly = isMainOnly
 
+    userViewModel.user.bind { [weak self] user in
+      guard let user = user else { return }
+      self?.filterSource = user.getFilter(type: type)
+    }
+
+    userViewModel.fetchUserDate()
+
     backgroundColor = .secondarySystemBackground
 
     filterIndex = 0
 
+    scrollHeight = categoryScrollView.frame.height
+
+    initialFilterView()
+  }
+
+  private func initialFilterView() {
     addFilterBar()
     addScrollView()
     layoutIfNeeded()
 
-    scrollHeight = categoryScrollView.frame.height
-
+    guard let type = type else { return }
     addCategoryCollectionViews(type: type)
   }
 
@@ -72,6 +84,8 @@ class FilterView: UIView {
 
     filterScrollView.delegate = self
     filterScrollView.datasource = self
+    filterScrollView.subviews.forEach { $0.removeFromSuperview() }
+    filterScrollView.removeFromSuperview()
 
     addSubview(filterScrollView)
 
@@ -87,6 +101,7 @@ class FilterView: UIView {
   }
 
   private func addScrollView() {
+    categoryScrollView.removeFromSuperview()
 
     addSubview(categoryScrollView)
     categoryScrollView.addConstarint(top: filterScrollView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -97,20 +112,20 @@ class FilterView: UIView {
     guard let user = userViewModel.user.value else { return }
 
     categoryScrollView.delegate = self
+    categoryScrollView.subviews.forEach { $0.removeFromSuperview() }
 
     let viewWidth = categoryScrollView.frame.width
     let viewHeight = categoryScrollView.frame.height
     var x: CGFloat = 0
 
     for index in 0..<filterSource.count {
-      let categoryData = user.getCategoriesWithSuperIndex(type: type, filterIndex: index)
 
       let layout = UICollectionViewFlowLayout()
       layout.itemSize = CGSize(width: 60, height: 70)
 
       let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
       
-      collectionView.setUp(type: type, categories: categoryData, isMainOnly: isMainOnly)
+      collectionView.setUp(index: index, type: type, isMainOnly: isMainOnly)
 
       categoryScrollView.addSubview(collectionView)
       categoryViews.append(collectionView)

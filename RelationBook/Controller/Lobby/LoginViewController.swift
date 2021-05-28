@@ -183,7 +183,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         }
         let defaults = UserDefaults.standard
         defaults.set(autoResult?.user.uid,
-                     forKey: UserDefaults.Keys.appleID.rawValue)
+                     forKey: UserDefaults.Keys.uid.rawValue)
         defaults.set(autoResult?.user.email,
                      forKey: UserDefaults.Keys.email.rawValue)
 

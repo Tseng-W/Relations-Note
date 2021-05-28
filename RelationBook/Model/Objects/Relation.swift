@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 
 struct Relation: Codable {
   @DocumentID var id: String?
+  var name: String
   var isPublic: Bool
   var categoryIndex: Int
   var owner: String

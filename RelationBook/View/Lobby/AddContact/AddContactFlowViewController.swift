@@ -96,6 +96,8 @@ class AddContactFlowViewController: FloatingViewController {
     }
   }
 
+  var relationViewModel = RelationViewModel()
+
   var feature: Feature? {
     didSet {
       checkContactData()
@@ -153,9 +155,8 @@ class AddContactFlowViewController: FloatingViewController {
             let name = name,
             let image = imageString,
             let bgColor = bgColor else { return }
-      RelationViewModel.shared.addRelation(name: name, iconString: image, bgColor: bgColor, relationType: category, feature: feature)
-    } else {
-      self.view.removeFromSuperview()
+      relationViewModel.addRelation(name: name, iconString: image, bgColor: bgColor, relationType: category, feature: feature)
     }
+    self.view.removeFromSuperview()
   }
 }

@@ -50,14 +50,16 @@ class AddCategoryViewController: FloatingViewController {
     ("取消", #selector(setIconCancel))
   ]
 
-  var onIconCreated: ((Category) -> Void)?
-  var userViewModel = UserViewModel.shared
+  var userViewModel = UserViewModel()
   var newIconImageString: String?
   weak var delegate: AddCategoryViewDelegate?
 
   override func viewDidLoad() {
 
     super.viewDidLoad()
+
+    userViewModel.fetchUserDate()
+
     setBlurBackground()
     canConfirm = false
 
@@ -125,10 +127,8 @@ class AddCategoryViewController: FloatingViewController {
       imageLink: imageString,
       backgroundColor: color.StringFromUIColor())
 
-    userViewModel.addCategoryAt(type: type, hierarchy: hierarchy, category: &category) { error in
-      if let error = error { print(error) }
-    }
-
+    FirebaseManager.shared.addUserCategory(type: type, hierarchy: hierarchy
+                                           , category: &category)
     isVisable = false
   }
 
