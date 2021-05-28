@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>923017235420-9ij8cjuomu34dsrnt4eg6cst34e0ol4f.apps.googleusercontent.com</string>
+	<string>923017235420-2na515vr5er0kh4ks01c0btrsqe97nqm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.923017235420-9ij8cjuomu34dsrnt4eg6cst34e0ol4f</string>
+	<string>com.googleusercontent.apps.923017235420-2na515vr5er0kh4ks01c0btrsqe97nqm</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB01H8f9WvbHAFM4CLRuAXrQZxe-BoBWXU</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.AppWorksSchool.WenT.RelationBook</string>
+	<string>com.WenT.RelationBook</string>
 	<key>PROJECT_ID</key>
 	<string>relationbook-1d522</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:923017235420:ios:1ec322152ed2751346dd19</string>
+	<string>1:923017235420:ios:c466fafd41a63f2246dd19</string>
 </dict>
 </plist>
