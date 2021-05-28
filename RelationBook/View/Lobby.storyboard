@@ -96,18 +96,11 @@
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="jjQ-WY-PYS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7">
-                        <barButtonItem key="leftBarButtonItem" title="Login" id="Vmx-9h-jFb">
-                            <connections>
-                                <action selector="testAppleLogin:" destination="TRd-7X-kQ2" id="szP-4L-eLo"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7"/>
                     <connections>
                         <outlet property="calendar" destination="ATx-iw-HYq" id="3kf-Wq-IMI"/>
                         <outlet property="calendarHeightConstraint" destination="r9S-K1-4mk" id="Opi-Qu-kuk"/>
                         <outlet property="tableView" destination="zGk-jS-jSG" id="IOe-Vv-Y2x"/>
-                        <segue destination="OWF-68-GM9" kind="presentation" identifier="appleLogin" modalPresentationStyle="overFullScreen" modalTransitionStyle="partialCurl" id="O5T-x4-cid"/>
                         <segue destination="JEb-7Y-xVc" kind="presentation" identifier="addEvent" modalPresentationStyle="overFullScreen" id="yA6-Oz-W8I"/>
                     </connections>
                 </viewController>
@@ -535,50 +528,6 @@
             </objects>
             <point key="canvasLocation" x="2253.6231884057975" y="979.6875"/>
         </scene>
-        <!--Login View Controller-->
-        <scene sceneID="kwN-Zz-gV5">
-            <objects>
-                <viewController id="OWF-68-GM9" customClass="LoginViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="x7r-DJ-NcY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1TO-6F-2cu">
-                                <rect key="frame" x="0.0" y="627" width="414" height="269"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joP-wP-RiC">
-                                <rect key="frame" x="157" y="727" width="100" height="30"/>
-                                <color key="backgroundColor" name="LableB1"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Dz6-bY-iu1"/>
-                                </constraints>
-                                <state key="normal" title="MockLogin">
-                                    <color key="titleColor" name="LableB9"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="S2l-pE-cJf"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="joP-wP-RiC" firstAttribute="top" secondItem="1TO-6F-2cu" secondAttribute="top" constant="100" id="Asp-Ms-Pqu"/>
-                            <constraint firstItem="1TO-6F-2cu" firstAttribute="centerX" secondItem="x7r-DJ-NcY" secondAttribute="centerX" id="TXL-Tl-Mvi"/>
-                            <constraint firstItem="1TO-6F-2cu" firstAttribute="height" secondItem="x7r-DJ-NcY" secondAttribute="height" multiplier="0.3" id="UEd-6e-Ur1"/>
-                            <constraint firstAttribute="bottom" secondItem="1TO-6F-2cu" secondAttribute="bottom" id="h1b-gF-b7Q"/>
-                            <constraint firstItem="joP-wP-RiC" firstAttribute="centerX" secondItem="x7r-DJ-NcY" secondAttribute="centerX" id="nfJ-ph-NWD"/>
-                            <constraint firstItem="1TO-6F-2cu" firstAttribute="width" secondItem="x7r-DJ-NcY" secondAttribute="width" id="vTU-Ol-TaS"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Qmn-s3-cfR"/>
-                    <connections>
-                        <outlet property="loginButtonView" destination="1TO-6F-2cu" id="Vo7-RO-1og"/>
-                        <outlet property="mockLogin" destination="joP-wP-RiC" id="aZv-85-E3h"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rtB-11-na2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2253.6231884057975" y="182.8125"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="fat-ew-DpC">
             <objects>
@@ -760,7 +709,7 @@
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="0.0" y="11" width="300" height="15"/>
+                                                <rect key="frame" x="-16" y="-5" width="332" height="47"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">

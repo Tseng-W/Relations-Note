@@ -7,64 +7,188 @@
 
 import UIKit
 import AuthenticationServices
+import FirebaseAuth
+import CryptoKit
 
 class LoginViewController: UIViewController {
   
   @IBOutlet var loginButtonView: UIView!
-  
-  @IBOutlet var mockLogin: UIButton!
-  
-  let appleLoginButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .black)
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    appleLoginButton.layer.cornerRadius = 8.0
-    appleLoginButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
-    appleLoginButton.translatesAutoresizingMaskIntoConstraints = false
-    
-    loginButtonView.addSubview(appleLoginButton)
-    NSLayoutConstraint.activate([
-      appleLoginButton.bottomAnchor.constraint(equalTo: loginButtonView.bottomAnchor, constant: -40),
-      appleLoginButton.leadingAnchor.constraint(equalTo: loginButtonView.leadingAnchor, constant: 16),
-      appleLoginButton.trailingAnchor.constraint(equalTo: loginButtonView.trailingAnchor, constant: -16),
-      appleLoginButton.heightAnchor.constraint(equalToConstant: 50)
-    ])
+
+  fileprivate var currentNonce: String?
+
+  var cornerRadius: CGFloat = 8.0 {
+    didSet {
+      updateRadius()
+    }
+  }
+
+  private lazy var blackButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .black)
+  private lazy var whiteButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .white)
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    setupButton()
   }
   
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if touches.first?.view == view {
-      dismiss(animated: true)
-    }
+  override func viewDidLoad() {
+
+    super.viewDidLoad()
+    setupButton()
   }
   
   @objc func appleLoginButtonTapped() {
-    
+
+    let nonce = randomNonceString()
+    currentNonce = nonce
+
     let provider = ASAuthorizationAppleIDProvider()
     let request = provider.createRequest()
     request.requestedScopes = [.email, .fullName]
+    request.nonce = sha256(nonce)
+
     let controller = ASAuthorizationController(authorizationRequests: [request])
-    
     controller.delegate = self
     controller.presentationContextProvider = self
     controller.performRequests()
   }
 }
 
+private extension LoginViewController {
+
+  func setupButton() {
+
+    switch traitCollection.userInterfaceStyle {
+
+    case .light:
+      loginButtonView.subviews.forEach { $0.removeFromSuperview() }
+      loginButtonView.addSubview(whiteButton)
+      whiteButton.addConstarint(
+        top: loginButtonView.topAnchor,
+        left: loginButtonView.leftAnchor,
+        bottom: loginButtonView.bottomAnchor,
+        right: loginButtonView.rightAnchor,
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingBottom: 0,
+        paddingRight: 0, width: 0, height: 0)
+      whiteButton.layer.cornerRadius = cornerRadius
+      whiteButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
+
+    case .unspecified, .dark:
+      loginButtonView.subviews.forEach { $0.removeFromSuperview() }
+      loginButtonView.addSubview(blackButton)
+      blackButton.addConstarint(
+        top: loginButtonView.topAnchor,
+        left: loginButtonView.leftAnchor,
+        bottom: loginButtonView.bottomAnchor,
+        right: loginButtonView.rightAnchor,
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingBottom: 0,
+        paddingRight: 0, width: 0, height: 0)
+      blackButton.layer.cornerRadius = cornerRadius
+      blackButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
+
+    @unknown default:
+      print("unknown style: \(traitCollection.userInterfaceStyle)")
+    }
+  }
+
+  func updateRadius() {
+
+    switch traitCollection.userInterfaceStyle {
+
+    case .light:
+      whiteButton.layer.cornerRadius = cornerRadius
+
+    case .unspecified, .dark:
+      blackButton.layer.cornerRadius = cornerRadius
+      
+    @unknown default:
+      print("unknown style: \(traitCollection.userInterfaceStyle)")
+    }
+  }
+
+  @available(iOS 13, *)
+  private func sha256(_ input: String) -> String {
+    let inputData = Data(input.utf8)
+    let hashedData = SHA256.hash(data: inputData)
+    let hashString = hashedData.compactMap {
+      return String(format: "%02x", $0)
+    }.joined()
+
+    return hashString
+  }
+
+  private func randomNonceString(length: Int = 32) -> String {
+    precondition(length > 0)
+    let charset: Array<Character> =
+      Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+    var result = ""
+    var remainingLength = length
+
+    while remainingLength > 0 {
+      let randoms: [UInt8] = (0 ..< 16).map { _ in
+        var random: UInt8 = 0
+        let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+        if errorCode != errSecSuccess {
+          fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+        }
+        return random
+      }
+
+      randoms.forEach { random in
+        if remainingLength == 0 {
+          return
+        }
+
+        if random < charset.count {
+          result.append(charset[Int(random)])
+          remainingLength -= 1
+        }
+      }
+    }
+
+    return result
+  }
+}
+
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
   
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-    switch authorization.credential {
-    case let appleIdCredentail as ASAuthorizationAppleIDCredential:
-      let userIdentifier = appleIdCredentail.user
-      
-      let defaults = UserDefaults.standard
-      defaults.set(userIdentifier, forKey: "userIdentifier")
-      
-      print(userIdentifier)
-      
-    default:
-      break
+
+    if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+
+      guard let nonce = currentNonce else {
+        fatalError("Invalid state: A login callback was received, but no login request was sent.")
+      }
+
+      guard let appleIDToken = appleIDCredential.identityToken else {
+        print("Unable to fetch identity token")
+        return
+      }
+
+      guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+        print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+        return
+      }
+
+      let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                idToken: idTokenString,
+                                                rawNonce: nonce)
+      Auth.auth().signIn(with: credential) { [weak self] (autoResult, error) in
+        if let error = error {
+          print(error.localizedDescription)
+          return
+        }
+        let defaults = UserDefaults.standard
+        defaults.set(autoResult?.user.uid,
+                     forKey: UserDefaults.Keys.appleID.rawValue)
+        defaults.set(autoResult?.user.email,
+                     forKey: UserDefaults.Keys.email.rawValue)
+
+        self?.performSegue(withIdentifier: "main", sender: self)
+      }
     }
   }
   

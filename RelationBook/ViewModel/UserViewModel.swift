@@ -30,6 +30,13 @@ class UserViewModel {
   var moodsData = Box([Category]())
 
   func fetchUserDate() {
+
+    FirebaseManager.shared.userShared.bind { [weak self] user in
+      self?.user.value = user
+    }
+
+    FirebaseManager.shared.fetchUser()
+
     let appleID = "mock"
     FirebaseManager.shared.fetchUser(appleID: appleID) { result in
       switch result {
