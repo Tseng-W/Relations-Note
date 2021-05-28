@@ -6,9 +6,9 @@
 //
 
 import XCTest
-@testable import PersonBook
+@testable import RelationBook
 
-class PersonBookTests: XCTestCase {
+class RelationBookTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
