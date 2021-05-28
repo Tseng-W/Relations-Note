@@ -12,24 +12,96 @@ import FirebaseFirestoreSwift
 
 class FirebaseManager {
 
-  enum UserDefaultKeys: String {
-    case appleID
-    case userID
-  }
-
   static let shared = FirebaseManager()
 
   var userShared: Box<User?> = Box(nil)
+  var relations = Box([Relation]())
+  var events = Box([Event]())
 
   let db = Firestore.firestore()
 
   let relationViewModel = RelationViewModel()
 
-  let eventViewModel = EventViewModel.shared
+  func fetchUser(completion: @escaping (User) -> Void = { _ in }) {
 
-  func fetchRelationsMock(userID: String) {
+    if let user = userShared.value {
+      completion(user)
+      return
+    }
 
-    db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: userID).addSnapshotListener { snapShot, error in
+    guard let uid = UserDefaults.standard.getString(key: .uid) else {
+      print("Can't get firebase uid.")
+      return
+    }
+
+    fetchUser(uid: uid) { result in
+      switch result {
+      case .success(let user):
+        guard let user = user else {
+          let email = UserDefaults.standard.getString(key: .email) ?? ""
+          let newUser = User(uid: uid,
+                             email: email)
+          self.addUser(user: newUser)
+          return
+        }
+        self.userShared.value = user
+        completion(user)
+      case .failure(let error):
+        print("fetchUser error: \(error.localizedDescription)")
+      }
+    }
+  }
+
+  func fetchUser(uid: String, completion: @escaping (Result<User?, Error>) -> Void) {
+
+    let docRef = db.collection(Collections.user.rawValue).document(uid)
+
+    docRef.addSnapshotListener { document, error in
+      if let document = document, document.exists {
+        let user = try? document.data(as: User.self)
+        completion(.success(user))
+      } else {
+        completion(.success(nil))
+      }
+    }
+  }
+
+  func addUser(user: User) {
+    let document = db.collection(Collections.user.rawValue).document(user.uid!)
+    try? document.setData(from: user) { error in
+      if let error = error {
+        print("Set data error \(error.localizedDescription)")
+      }
+    }
+  }
+
+  func addUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
+
+    guard let user = userShared.value else { return }
+
+    let categories = type == .event ? user.eventSet :
+      type == .feature ? user.featureSet : user.relationSet
+
+
+    switch hierarchy {
+    case .main:
+      category.id = user.getFilter(type: type).count
+      category.isSubEnable = type == .event ? false : true
+      categories.main.append(category)
+    case .sub:
+      category.id = user.getCategoriesWithSuperIndex(type: type, filterIndex: category.superIndex).count
+      category.isSubEnable = false
+      categories.sub.append(category)
+    }
+
+    updateDocument(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
+      if let error = error { completion(error); return}
+    }
+  }
+
+  func fetchRelations(uid: String) {
+
+    db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid).addSnapshotListener { snapShot, error in
 
       if let error = error { print(error) }
 
@@ -47,20 +119,27 @@ class FirebaseManager {
     }
   }
 
-  func fetchEventsMock(userID: String) {
-    db.collection(Collections.event.rawValue).whereField("owner", isEqualTo: userID).addSnapshotListener { snapShot, error in
+  func fetchEvents(uid: String) {
+    let docRef = db.collection(Collections.event.rawValue).whereField("owner", in: [uid])
+
+    docRef.addSnapshotListener { snapShot, error in
 
       if let error = error { print(error) }
 
       snapShot?.documentChanges.forEach({ diff in
         guard let event = try? diff.document.data(as: Event.self) else { return }
+
         switch diff.type {
         case .added:
-          self.eventViewModel.onEventAdded(event: event)
+          if !self.events.value.contains(where: { $0.docID == event.docID }) {
+            self.events.value.append(event)
+          }
         case.modified:
-          self.eventViewModel.onEventModified(event: event)
+          if let index = self.events.value.firstIndex(where: { $0.docID == event.docID }) {
+            self.events.value[index] = event
+          }
         case.removed:
-          self.eventViewModel.onEventDeleted(event: event)
+          self.events.value.removeAll(where: { $0.docID == event.docID })
         }
       })
     }
@@ -75,8 +154,6 @@ class FirebaseManager {
 
     guard let docID = docRef else { return }
     completion(docID.documentID)
-//    guard let docRef = docRef else { return }
-//    completion(docRef.documentID)
   }
 
   func addEvent(data: Event, completion: @escaping (Result<String, Error>) -> Void = {_ in }) {
@@ -87,63 +164,10 @@ class FirebaseManager {
     completion(.success(newEvent!.documentID))
   }
 
-  func fetchUser(appleID: String, completion: @escaping (Result<User?, Error>) -> Void) {
-    let docRef = db.collection(Collections.user.rawValue).whereField("appleID", in: [appleID])
+  func updateDocument(uid: String, dict: [String: Any], completion: @escaping ((Error?)) -> Void) {
 
-    docRef.getDocuments { snapchot, error in
-      if let error = error {
-        print("\(error.localizedDescription)")
-        return
-      }
-    }
-
-    docRef.addSnapshotListener { snapshot, error in
-      if let error = error {
-        print("Error getting document: \(error.localizedDescription)")
-        completion(.failure(error))
-      } else {
-        if snapshot?.documents.count == 0 {
-          completion(.success(nil))
-        } else {
-          snapshot?.documentChanges.forEach({ documentChange in
-
-            switch documentChange.type {
-            case .added, .modified:
-              let user = try? documentChange.document.data(as: User.self)
-              completion(.success(user))
-              break
-            case .removed:
-              break
-            }
-          })
-        }
-      }
-    }
-  }
-
-  func fetchUser() {
-
-    guard let appleID = UserDefaults.standard.string(forKey: UserDefaultKeys.appleID.rawValue) else {
-      return
-    }
-  }
-
-  func addUser(user: User, completion: @escaping (User) -> Void) {
-    let document = db.collection(Collections.user.rawValue).document()
-    var newUser = user
-    newUser.docId = document.documentID
-    try? document.setData(from: user) { error in
-      if let error = error {
-        print("Set data error \(error.localizedDescription)")
-      }
-      completion(newUser)
-    }
-  }
-
-  func updateDocument(docID: String, dict: [String: Any], completion: @escaping ((Error?)) -> Void) {
-
-    let userDoc = db.collection(Collections.user.rawValue).document(docID)
-    try? userDoc.updateData(dict) { error in
+    let userDoc = db.collection(Collections.user.rawValue).document(uid)
+    userDoc.updateData(dict) { error in
       if let error = error { completion(error) ; return }
       completion(nil)
     }

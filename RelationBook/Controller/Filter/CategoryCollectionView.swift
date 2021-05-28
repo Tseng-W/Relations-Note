@@ -30,7 +30,8 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
-  var userViewModel = UserViewModel.shared
+  var userViewModel = UserViewModel()
+  var index: Int?
 
   var selectedIndex: Int? {
     didSet {
@@ -40,6 +41,7 @@ class CategoryCollectionView: UICollectionView {
 
   var mainCategories: [Category] = [] {
     didSet {
+      subCategories.removeAll()
       mainCategories.forEach { category in
         guard let type = type,
               let user = userViewModel.user.value else { return }
@@ -67,7 +69,16 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
-  func setUp(type: CategoryType, categories: [Category], isMainOnly: Bool = false) {
+  func setUp(index: Int, type: CategoryType, isMainOnly: Bool = false) {
+
+    userViewModel.user.bind { [weak self] user in
+      guard let user = user,
+            let index = self?.index,
+            let type = self?.type else { return }
+      self?.mainCategories = user.getCategoriesWithSuperIndex(type: type, mainIndex: index)
+    }
+
+    userViewModel.fetchUserDate()
 
     delegate = self
     dataSource = self
@@ -77,9 +88,9 @@ class CategoryCollectionView: UICollectionView {
       identifier: String(describing: CategoryCollectionCell.self),
       bundle: nil)
 
+    self.index = index
     self.type = type
     self.isMainOnly = isMainOnly
-    self.mainCategories = categories
   }
 }
 

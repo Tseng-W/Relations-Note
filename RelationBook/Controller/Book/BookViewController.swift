@@ -11,7 +11,7 @@ class BookViewController: UIViewController {
 
   let filterText = ["待處理", "即將到來", "已過期"]
 
-  let userViewModel = UserViewModel.shared
+  let userViewModel = UserViewModel()
   
   @IBOutlet var searchTextField: UITextField!
 
@@ -41,7 +41,7 @@ class BookViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    userViewModel.fetchUserDate()
   }
 }
 

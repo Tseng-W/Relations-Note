@@ -39,7 +39,7 @@ class SelectFloatViewController: FloatingViewController {
   var onLocationSelected: ((GeoPoint) -> Void)?
   var onAddCategorySelected: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
-  var userViewModel = UserViewModel.shared
+  var userViewModel = UserViewModel()
 
   var dateDate = Date()
 
@@ -85,6 +85,8 @@ class SelectFloatViewController: FloatingViewController {
   override func viewDidLoad() {
 
     super.viewDidLoad()
+
+    userViewModel.fetchUserDate()
 
     googleMapSetup()
 

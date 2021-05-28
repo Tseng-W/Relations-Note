@@ -10,7 +10,7 @@ import UIKit
 class RelationshipViewContoller: UIViewController {
 
 
-  let userViewModel = UserViewModel.shared
+  let userViewModel = UserViewModel()
 
   @IBOutlet var tableView: UITableView! {
     didSet {
@@ -25,6 +25,8 @@ class RelationshipViewContoller: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    userViewModel.fetchUserDate()
 
     relationViewModel.relations.bind { [weak self] relations in
       self?.tableView.reloadData()

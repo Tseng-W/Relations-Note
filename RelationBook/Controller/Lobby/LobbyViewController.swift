@@ -13,9 +13,9 @@ import FSCalendar
 
 class LobbyViewController: UIViewController {
 
-  let userViewModel = UserViewModel.shared
+  let userViewModel = UserViewModel()
   let relationViewModel = RelationViewModel()
-  let eventViewModel = EventViewModel.shared
+  let eventViewModel = EventViewModel()
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
@@ -56,15 +56,17 @@ class LobbyViewController: UIViewController {
 
     userViewModel.user.bind { value in
       guard let user = value else { return }
-      self.eventViewModel.fetchEvents(id: user.docId!)
+      self.eventViewModel.fetchEvents()
     }
-
-    userViewModel.fetchUserDate()
 
     eventViewModel.events.bind { events in
       self.tableView.reloadData()
     }
-    
+
+    userViewModel.fetchUserDate()
+
+
+
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
   }

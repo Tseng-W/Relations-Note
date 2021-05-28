@@ -37,14 +37,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func sceneWillEnterForeground(_ scene: UIScene) {
+    #if targetEnvironment(simulator)
+    UserDefaults.standard.setValue("mockAppleID", forKey: UserDefaults.Keys.uid.rawValue)
+    UserDefaults.standard.setValue("mockEmail", forKey: UserDefaults.Keys.email.rawValue)
+    if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
+      window?.rootViewController = mainVC
+    } else {
+      print("Can't initial main tab bar view controller.")
+    }
+    #else
     if let _ = window?.rootViewController as? LoginViewController,
-       let _ = UserDefaults.standard.string(forKey: UserDefaults.Keys.appleID.rawValue) {
+       let _ = UserDefaults.standard.string(forKey: UserDefaults.Keys.uid.rawValue) {
       if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
         window?.rootViewController = mainVC
       } else {
         print("Can't initial main tab bar view controller.")
       }
     }
+    #endif
 
   }
 

@@ -10,11 +10,10 @@ import Firebase
 
 class EventViewModel {
 
-  static let shared = EventViewModel()
-
   let events = Box([Event]())
 
   func addEvent(event: Event, completion: @escaping ((Result<String, Error>) -> Void)) {
+
     FirebaseManager.shared.addEvent(data: event) { result in
       switch result {
       case .success(let docID):
@@ -25,8 +24,13 @@ class EventViewModel {
     }
   }
 
-  func fetchEvents(id userID: String) {
-    FirebaseManager.shared.fetchEventsMock(userID: userID)
+  func fetchEvents() {
+    guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
+    FirebaseManager.shared.events.bind { [weak self] events in
+      self?.events.value = events
+    }
+
+    FirebaseManager.shared.fetchEvents(uid: uid)
   }
 
   func getCategories() -> [Category] {
