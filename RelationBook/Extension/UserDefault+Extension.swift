@@ -10,7 +10,11 @@ import UIKit
 extension UserDefaults {
 
   enum Keys: String {
-    case appleID
+    case uid
     case email
+  }
+
+  func getString(key: Keys) -> String? {
+    return string(forKey: key.rawValue)
   }
 }

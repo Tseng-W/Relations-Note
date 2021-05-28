@@ -10,29 +10,26 @@ import Firebase
 
 class RelationViewModel {
 
-  static let shared = RelationViewModel()
-
-  let userViewModel = UserViewModel.shared
-  let eventViewModel = EventViewModel.shared
-
   var relations = Box([Relation]())
 
   func fetchRelations() {
-    guard let userID = userViewModel.user.value?.docId! else { return }
-    FirebaseManager.shared.fetchRelationsMock(userID: userID)
+    guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
+
+    FirebaseManager.shared.fetchRelations(uid: uid)
   }
 
   func addRelation(name: String, iconString: String, bgColor: UIColor, relationType: Category, feature: Feature) {
 
-    guard let user = userViewModel.user.value else { return }
+    guard let user = FirebaseManager.shared.userShared.value else { return }
 
     let newIndex = user.getCategoriesWithSuperIndex(type: .relation, mainIndex: relationType.id).count
 
     let relation = Relation(
       id: nil,
+      name: name,
       isPublic: false,
       categoryIndex: newIndex,
-      owner: user.docId!,
+      owner: user.uid!,
       feature: [feature],
       createdTime: Timestamp(date: Date()),
       lastContactTime: Timestamp(date: Date()))
@@ -46,9 +43,7 @@ class RelationViewModel {
         title: name,
         imageLink: iconString,
         backgroundColor: bgColor.StringFromUIColor())
-      self.userViewModel.addCategoryAt(type: .relation, hierarchy: .sub, category: &newContact) { error in
-        if let error = error { print("\(error.localizedDescription)")}
-      }
+      FirebaseManager.shared.addUserCategory(type: .relation, hierarchy: .sub, category: &newContact)
     }
   }
 

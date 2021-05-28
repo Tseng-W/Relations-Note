@@ -11,8 +11,8 @@ target 'RelationBook' do
   pod 'IQKeyboardManagerSwift'
   pod 'Kingfisher'
   pod 'JGProgressHUD'
-  pod 'KeychainAccess'
-  pod 'Reusable'
+  # pod 'KeychainAccess'
+  # pod 'Reusable'
   pod 'FSCalendar'
   pod 'TagListView', '~> 1.0'
   pod 'Firebase'
@@ -24,7 +24,7 @@ target 'RelationBook' do
   pod 'GoogleMaps', '5.0.0'
   pod 'FlexColorPicker'
   pod 'SCLAlertView'
-  pod 'IBAnimatable'
+  # pod 'IBAnimatable'
   pod 'lottie-ios'
 
   target 'RelationBookTests' do

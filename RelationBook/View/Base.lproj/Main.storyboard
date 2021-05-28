@@ -26,7 +26,7 @@
         <!--Login View Controller-->
         <scene sceneID="M2O-PR-2Ez">
             <objects>
-                <viewController id="tpK-Ax-VMY" customClass="LoginViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="tpK-Ax-VMY" customClass="LoginViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h6P-v0-FYe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -333,10 +333,8 @@ PODS:
     - gRPC-Core/Interface (= 1.28.2)
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.5.0)
-  - IBAnimatable (6.1.0)
   - IQKeyboardManagerSwift (6.5.6)
   - JGProgressHUD (2.2)
-  - KeychainAccess (4.2.2)
   - Kingfisher (6.2.1)
   - leveldb-library (1.22.1)
   - lottie-ios (3.2.1)
@@ -347,11 +345,6 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
-  - Reusable (4.1.1):
-    - Reusable/Storyboard (= 4.1.1)
-    - Reusable/View (= 4.1.1)
-  - Reusable/Storyboard (4.1.1)
-  - Reusable/View (4.1.1)
   - SCLAlertView (0.8)
   - SwiftLint (0.43.1)
   - TagListView (1.4.1)
@@ -366,14 +359,11 @@ DEPENDENCIES:
   - FlexColorPicker
   - FSCalendar
   - GoogleMaps (= 5.0.0)
-  - IBAnimatable
   - IQKeyboardManagerSwift
   - JGProgressHUD
-  - KeychainAccess
   - Kingfisher
   - lottie-ios
   - MJRefresh
-  - Reusable
   - SCLAlertView
   - SwiftLint
   - TagListView (~> 1.0)
@@ -400,17 +390,14 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
-    - IBAnimatable
     - IQKeyboardManagerSwift
     - JGProgressHUD
-    - KeychainAccess
     - Kingfisher
     - leveldb-library
     - lottie-ios
     - MJRefresh
     - nanopb
     - PromisesObjC
-    - Reusable
     - SCLAlertView
     - SwiftLint
     - TagListView
@@ -436,21 +423,18 @@ SPEC CHECKSUMS:
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  IBAnimatable: 99dddd4c0625884a301ba3ecbc1615f8a390368e
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
-  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  Reusable: 53a9acf5c536f229b31b5865782414b508252ddb
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
 
-PODFILE CHECKSUM: 029e8c4d0eff00701447c0986d3e62e14f63fe3d
+PODFILE CHECKSUM: dfac321dcedcc5a42a216c69515da4013adaf2cd
 
 COCOAPODS: 1.10.1

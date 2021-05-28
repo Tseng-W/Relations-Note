@@ -38,8 +38,9 @@ class AddEventViewController: UIViewController {
   @IBOutlet var timeButton: UIButton!
 
   let popTip = PopTip()
-  var userViewModel = UserViewModel.shared
-  var eventViewModel = EventViewModel.shared
+  var userViewModel = UserViewModel()
+  var eventViewModel = EventViewModel()
+  
   let selectFloatViewController: SelectFloatViewController = {
     let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
 
@@ -72,19 +73,27 @@ class AddEventViewController: UIViewController {
   override func viewDidLoad() {
 
     super.viewDidLoad()
-    
-    addCategoryViewController.delegate = self
 
-    date = Date()
+    userViewModel.user.bind { [weak self] user in
+      guard let _ = user else { return }
+      self?.filterView.setUp(type: .relation)
+    }
+
+    userViewModel.fetchUserDate()
 
     relationFilterSetup()
     selectionViewSetup()
     addCategoryViewSetup()
+    
+    addCategoryViewController.delegate = self
+
+    date = Date()
   }
 
   private func relationFilterSetup() {
+
     view.layoutIfNeeded()
-    filterView.setUp(type: .relation)
+
     filterView.onSelected = { categories in
       self.relations = categories
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
@@ -160,10 +169,6 @@ class AddEventViewController: UIViewController {
     view.addSubview(addCategoryViewController.view)
 
     addCategoryViewController.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-
-    addCategoryViewController.onIconCreated = { category in
-
-    }
   }
 
   @IBAction func confirm(_ sender: UIButton) {
@@ -171,7 +176,7 @@ class AddEventViewController: UIViewController {
     guard let event = event,
           let location = location,
           let locationName = locationName else { return }
-    guard let userID = userViewModel.user.value?.docId else { return }
+    guard let userID = userViewModel.user.value?.uid else { return }
     var newEvent = Event(docID: "",
                          owner: userID,
                          relations: [0],

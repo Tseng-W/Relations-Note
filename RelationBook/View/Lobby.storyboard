@@ -709,7 +709,7 @@
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                                                <rect key="frame" x="-16" y="-5" width="332" height="47"/>
+                                                <rect key="frame" x="0.0" y="11" width="300" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
