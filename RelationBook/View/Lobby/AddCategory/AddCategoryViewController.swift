@@ -8,11 +8,16 @@
 import UIKit
 import FlexColorPicker
 import SCLAlertView
+import CropViewController
 
 protocol AddCategoryViewDelegate: AnyObject {
+
   func typeOfCategory(controller: AddCategoryViewController) -> CategoryType?
+
   func superIndexOfCategory(controller: AddCategoryViewController) -> Int
+
   func hierarchyOfCategory(controller: AddCategoryViewController) -> CategoryHierarchy?
+
 }
 
 class AddCategoryViewController: FloatingViewController {
@@ -43,12 +48,12 @@ class AddCategoryViewController: FloatingViewController {
   }
   private let colorPicker = ColorPickerController()
   private let defaultIcon = UIImage(systemName: "camera")
-  private var iconSelectAlerts: [(String, Selector)] = [
-    ("內建圖示", #selector(setIconFromLocalIcon)),
-    ("照片", #selector(setIconFromPicture)),
-    ("拍照", #selector(setIconFromCamera)),
-    ("取消", #selector(setIconCancel))
-  ]
+//  private var iconSelectAlerts: [(String, Selector)] = [
+//    ("內建圖示", #selector(setIconFromLocalIcon)),
+//    ("照片", #selector(setIconFromPicture)),
+//    ("拍照", #selector(setIconFromCamera)),
+//    ("取消", #selector(setIconCancel))
+//  ]
 
   var userViewModel = UserViewModel()
   var newIconImageString: String?
@@ -70,38 +75,10 @@ class AddCategoryViewController: FloatingViewController {
   }
 
   @objc private func showSelectImageView(tapGesture: UITapGestureRecognizer) {
-    let appearance = SCLAlertView.SCLAppearance(
-      showCloseButton: false,
-      contentViewColor: .systemBackground,
-      titleColor: .label
-    )
-    let alertView = SCLAlertView(appearance: appearance)
 
+    let alertProvider = SCLAlertViewProvider(delegate: self)
 
-    iconSelectAlerts.forEach { title, selector in
-      alertView.addButton(title, target: self, selector: selector)
-    }
-
-    let cameraIcon = UIImage(systemName: "camera")!.withTintColor(.systemGray6)
-
-    alertView.showCustom("類別圖片", subTitle: "選擇既有圖示或上傳照片", color: .systemGray2, icon: cameraIcon, colorStyle: UIColor.white.toUInt())
-  }
-
-  @objc private func setIconFromLocalIcon() {
-    newIconImageString = "sparkles"
-    iconImageView.image = UIImage(systemName: newIconImageString!)!
-  }
-
-  @objc private func setIconFromPicture() {
-    iconImageView.image = UIImage(systemName: "sparkles")!
-  }
-
-  @objc private func setIconFromCamera() {
-    iconImageView.image = UIImage(systemName: "sparkles")!
-  }
-
-  @objc private func setIconCancel() {
-
+    alertProvider.showAlert(type: .roundedImage)
   }
 
   override func onVisibleChanged(isVisible: Bool) {
@@ -153,5 +130,25 @@ extension AddCategoryViewController: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
+  }
+}
+
+extension AddCategoryViewController: CropViewControllerDelegate {
+
+  func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+    cropViewController.dismiss(animated: true, completion: nil)
+    iconImageView.image = image
+  }
+}
+
+extension AddCategoryViewController: SCLAlertViewProviderDelegate {
+
+  func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
+    iconImageView.image = UIImage(systemName: symbolName)
+
+  }
+
+  func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
+    iconImageView.image = image
   }
 }

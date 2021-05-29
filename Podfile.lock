@@ -219,6 +219,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - CropViewController (2.6.0)
   - Firebase (6.34.0):
     - Firebase/Core (= 6.34.0)
   - Firebase/Auth (6.34.0):
@@ -351,6 +352,7 @@ PODS:
 
 DEPENDENCIES:
   - AMPopTip
+  - CropViewController
   - Firebase
   - Firebase/Auth
   - Firebase/Core
@@ -373,6 +375,7 @@ SPEC REPOS:
     - abseil
     - AMPopTip
     - BoringSSL-GRPC
+    - CropViewController
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -406,6 +409,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   AMPopTip: 77eef4793d50709bef83825b72da4f501263b91d
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  CropViewController: 7093b39ec3cb508531b22d35773e06cecd7378d8
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
@@ -435,6 +439,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
 
-PODFILE CHECKSUM: dfac321dcedcc5a42a216c69515da4013adaf2cd
+PODFILE CHECKSUM: 51793d6f4f7c158c6471bb603ec9ff9738f4f443
 
 COCOAPODS: 1.10.1
