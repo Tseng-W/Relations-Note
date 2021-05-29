@@ -65,11 +65,11 @@ extension Date {
 
     switch type {
     case .day:
-      dateFormatter.dateFormat = "yyyy/mm/dd"
+      dateFormatter.dateFormat = "YYYY/MM/dd"
     case .time:
       dateFormatter.dateFormat = "HH:MM"
     case .dayAndTime:
-      dateFormatter.dateFormat = "yyyy/mm/dd HH:MM"
+      dateFormatter.dateFormat = "YYYY/MM/dd HH:mm"
     }
 
     let yesterday = Date().yesterday...Date().midnight
