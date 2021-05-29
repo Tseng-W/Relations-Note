@@ -46,7 +46,6 @@ class CategoryCollectionCell: UICollectionViewCell {
   }
 
   override func awakeFromNib() {
-
     super.awakeFromNib()
   }
 }

@@ -55,17 +55,20 @@ class LobbyViewController: UIViewController {
     super.viewDidLoad()
 
     userViewModel.user.bind { value in
-      guard let user = value else { return }
+      guard let _ = value else { return }
       self.eventViewModel.fetchEvents()
+      self.relationViewModel.fetchRelations()
     }
 
     eventViewModel.events.bind { events in
       self.tableView.reloadData()
     }
 
+    relationViewModel.relations.bind { relations in
+      self.tableView.reloadData()
+    }
+
     userViewModel.fetchUserDate()
-
-
 
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
@@ -109,7 +112,10 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventTableCell.self), for: indexPath)
 
     if let cell = cell as? LobbyEventTableCell {
+      cell.setConstraint()
+      view.layoutIfNeeded()
       cell.event = eventViewModel.events.value[indexPath.row]
+      cell.relations = relationViewModel.relations.value
     }
 
     return cell

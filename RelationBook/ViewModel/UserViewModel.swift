@@ -29,11 +29,9 @@ class UserViewModel {
 
   func fetchUserDate() {
 
-    FirebaseManager.shared.userShared.bind { [weak self] user in
+    FirebaseManager.shared.fetchUser() { [weak self] user in
       self?.user.value = user
     }
-
-    FirebaseManager.shared.fetchUser()
   }
 
   var mockMoodData: [(title: String, imageName: String, colorString: String)] = [

@@ -14,17 +14,15 @@ class FirebaseManager {
 
   static let shared = FirebaseManager()
 
-  var userShared: Box<User?> = Box(nil)
-  var relations = Box([Relation]())
-  var events = Box([Event]())
+  var userShared: User? = nil
+  var relations = [Relation]()
+  var events = [Event]()
 
   let db = Firestore.firestore()
 
-  let relationViewModel = RelationViewModel()
+  func fetchUser(completion: @escaping (User) -> Void) {
 
-  func fetchUser(completion: @escaping (User) -> Void = { _ in }) {
-
-    if let user = userShared.value {
+      if let user = userShared {
       completion(user)
       return
     }
@@ -44,7 +42,7 @@ class FirebaseManager {
           self.addUser(user: newUser)
           return
         }
-        self.userShared.value = user
+        self.userShared = user
         completion(user)
       case .failure(let error):
         print("fetchUser error: \(error.localizedDescription)")
@@ -77,7 +75,7 @@ class FirebaseManager {
 
   func addUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
 
-    guard let user = userShared.value else { return }
+    guard let user = userShared else { return }
 
     let categories = type == .event ? user.eventSet :
       type == .feature ? user.featureSet : user.relationSet
@@ -99,27 +97,36 @@ class FirebaseManager {
     }
   }
 
-  func fetchRelations(uid: String) {
+  func fetchRelations(uid: String, completion: @escaping (([Relation]) -> Void)) {
 
-    db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid).addSnapshotListener { snapShot, error in
+    let docRef = db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
+
+    docRef.addSnapshotListener { snapShot, error in
 
       if let error = error { print(error) }
 
       snapShot?.documentChanges.forEach({ diff in
         guard let relation = try? diff.document.data(as: Relation.self) else { return }
+
         switch diff.type {
         case .added:
-          self.relationViewModel.onRelationAdded(relation: relation)
+          if !self.relations.contains(where: { $0.id == relation.id }) {
+            self.relations.append(relation)
+          }
         case.modified:
-          self.relationViewModel.onRelationModified(relation: relation)
+          if let index = self.relations.firstIndex(where: { $0.id == relation.id }) {
+            self.relations[index] = relation
+          }
         case.removed:
-          self.relationViewModel.onRelationDeleted(relation: relation)
+          self.relations.removeAll(where: { $0.id == relation.id })
         }
       })
+
+      completion(self.relations)
     }
   }
 
-  func fetchEvents(uid: String) {
+  func fetchEvents(uid: String, completion: @escaping (([Event]) -> Void)) {
     let docRef = db.collection(Collections.event.rawValue).whereField("owner", in: [uid])
 
     docRef.addSnapshotListener { snapShot, error in
@@ -131,17 +138,19 @@ class FirebaseManager {
 
         switch diff.type {
         case .added:
-          if !self.events.value.contains(where: { $0.docID == event.docID }) {
-            self.events.value.append(event)
+          if !self.events.contains(where: { $0.docID == event.docID }) {
+            self.events.append(event)
           }
         case.modified:
-          if let index = self.events.value.firstIndex(where: { $0.docID == event.docID }) {
-            self.events.value[index] = event
+          if let index = self.events.firstIndex(where: { $0.docID == event.docID }) {
+            self.events[index] = event
           }
         case.removed:
-          self.events.value.removeAll(where: { $0.docID == event.docID })
+          self.events.removeAll(where: { $0.docID == event.docID })
         }
       })
+
+      completion(self.events)
     }
   }
 

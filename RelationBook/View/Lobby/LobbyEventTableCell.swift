@@ -10,35 +10,60 @@ import TagListView
 
 class LobbyEventTableCell: UITableViewCell {
 
-  @IBOutlet var userIcon: UIImageView!
+  @IBOutlet var userIcon: IconView!
   @IBOutlet var eventLabel: UILabel!
-  @IBOutlet var moreUserView: UIView!
+  @IBOutlet var relationLabel: UILabel!
   @IBOutlet var tagListView: TagListView!
+
+  var relations = [Relation]() {
+    didSet {
+      guard let event = event,
+            relations.count > 0 else { return }
+
+      relationLabel.text = "與 \(relations[0].name)"
+      if relations.count > 1 {
+        relationLabel.text! += " 等\(relations.count)人"
+      }
+
+      event.getRelationImage { [weak self] image in
+        self?.userIcon.setIcon(
+          image: image!,
+          bgColor: UIColor.UIColorFromString(string: event.category.backgroundColor),
+          tintColor: .clear)
+      }
+      eventLabel.text = event.category.title
+      tagListView.addTag(event.category.title)
+    }
+  }
 
   var event: Event? {
     didSet {
-      event?.getRelationImage { self.userIcon.image = $0 }
-      eventLabel.text = event?.event.title
-      tagListView.addTag("qweq")
-      tagListView.addTag("fghjkjik")
-      tagListView.addTag("fffdaa")
+      guard let event = event,
+            relations.count > 0 else { return }
+      event.getRelationImage { [weak self] image in
+        self?.userIcon.setIcon(
+          image: image!,
+          bgColor: UIColor.UIColorFromString(string: event.category.backgroundColor),
+          tintColor: .clear)
+      }
+      eventLabel.text = relations[0].name
 
-
-      NSLayoutConstraint.activate([
-        eventLabel.topAnchor.constraint(equalTo: userIcon.topAnchor, constant: 6),
-        eventLabel.leadingAnchor.constraint(equalTo: userIcon.trailingAnchor, constant: 16),
-        tagListView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-        tagListView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
-        tagListView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16),
-        userIcon.topAnchor.constraint(equalTo: topAnchor),
-        userIcon.bottomAnchor.constraint(equalTo: bottomAnchor),
-        userIcon.heightAnchor.constraint(equalTo: userIcon.widthAnchor)
-      ])
+      tagListView.addTag(event.category.title)
     }
   }
 
   override class func awakeFromNib() {
     super.awakeFromNib()
-    
+  }
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+  }
+
+  func setConstraint() {
+    userIcon.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 0, width: 0, height: 0)
+    eventLabel.addConstarint(top: userIcon.topAnchor, left: userIcon.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    relationLabel.addConstarint(top: userIcon.topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 16, width: 0, height: 0)
+    tagListView.addConstarint(top: nil, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 8, paddingRight: 16, width: 0, height: 0)
   }
 }

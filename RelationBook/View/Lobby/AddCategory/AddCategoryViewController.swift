@@ -120,7 +120,7 @@ class AddCategoryViewController: FloatingViewController {
 
     var category = Category(
       id: -1,
-      isCustom: true,
+      isCustom: false,
       superIndex: superIndex,
       isSubEnable: false,
       title: title,

@@ -42,6 +42,7 @@
 		47339EE9263C41FF0092860F /* TimelineViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339EE8263C41FF0092860F /* TimelineViewContoller.swift */; };
 		47339EEF263C42420092860F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339EEE263C42420092860F /* ProfileViewController.swift */; };
 		47339EF8263C42620092860F /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339EF7263C42620092860F /* BookViewController.swift */; };
+		475D33852661064200A697DB /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475D33842661064200A697DB /* IconView.swift */; };
 		4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765B1742650061D00A6D18D /* ResizableButton.swift */; };
 		4765B1772650129700A6D18D /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765B1762650129700A6D18D /* SelectionView.swift */; };
 		476D2EAA264A119100A9200A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2EA9264A119100A9200A /* UIView+Extension.swift */; };
@@ -156,6 +157,7 @@
 		47339EE8263C41FF0092860F /* TimelineViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewContoller.swift; sourceTree = "<group>"; };
 		47339EEE263C42420092860F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		47339EF7263C42620092860F /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		475D33842661064200A697DB /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		4765B1742650061D00A6D18D /* ResizableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableButton.swift; sourceTree = "<group>"; };
 		4765B1762650129700A6D18D /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		476D2EA9264A119100A9200A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				47A217EF265A71840096149C /* NibLoadable.swift */,
+				475D33842661064200A697DB /* IconView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				471FD4F4265C9980003CF46F /* AddFeatureHeaderView.swift in Sources */,
 				47B6B903265340860090218C /* BookTableCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
+				475D33852661064200A697DB /* IconView.swift in Sources */,
 				47055320265B597300DCEC1D /* AddContactFlowViewController.swift in Sources */,
 				476D2EBD264ADD5800A9200A /* EventViewModel.swift in Sources */,
 				47101B962654D4C200D7D171 /* Bundle+Extension.swift in Sources */,

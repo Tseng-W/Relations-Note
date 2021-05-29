@@ -19,14 +19,14 @@ struct Event: Codable {
   var owner: String
   var relations: [Int]
   var mood: Int
-  var event: Category
+  var category: Category
   var location: GeoPoint
   var locationName: String?
   var time: Timestamp
   var subEvents: [SubEvent]
 
   func getRelationImage(completion: @escaping (UIImage?) -> Void) {
-    event.getImage{ completion($0) }
+    category.getImage{ completion($0) }
   }
 }
 

@@ -25,12 +25,12 @@ class EventViewModel {
   }
 
   func fetchEvents() {
+
     guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
-    FirebaseManager.shared.events.bind { [weak self] events in
+
+    FirebaseManager.shared.fetchEvents(uid: uid) { [weak self] events in
       self?.events.value = events
     }
-
-    FirebaseManager.shared.fetchEvents(uid: uid)
   }
 
   func getCategories() -> [Category] {

@@ -61,6 +61,7 @@ class CategoryViewModel: Codable {
   var sub: [Category]
 
   init(type: CategoryType) {
+
     self.type = type
 
     switch type {

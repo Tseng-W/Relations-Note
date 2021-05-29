@@ -181,7 +181,7 @@ class AddEventViewController: UIViewController {
                          owner: userID,
                          relations: [0],
                          mood: mood,
-                         event: event,
+                         category: event,
                          location: location,
                          locationName: locationName,
                          time: Timestamp(date: date),
