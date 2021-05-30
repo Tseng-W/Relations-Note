@@ -110,7 +110,6 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" image="bell" catalog="system" id="GkL-cf-NDp">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <action selector="onBellClicked:" destination="TRd-7X-kQ2" id="Uj9-hv-9TJ"/>
                                 <segue destination="YR8-Wn-Hxw" kind="show" id="B2d-hW-vGy"/>
                             </connections>
                         </barButtonItem>

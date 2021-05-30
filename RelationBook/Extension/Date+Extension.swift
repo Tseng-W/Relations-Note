@@ -65,15 +65,15 @@ extension Date {
 
     switch type {
     case .day:
-      dateFormatter.dateFormat = "YYYY/MM/dd"
+      dateFormatter.dateFormat = "YYYY / MM / dd"
     case .time:
-      dateFormatter.dateFormat = "HH:MM"
+      dateFormatter.dateFormat = "HH : MM"
     case .dayAndTime:
-      dateFormatter.dateFormat = "YYYY/MM/dd HH:mm"
+      dateFormatter.dateFormat = "YYYY / MM / dd HH : mm"
     }
 
-    let yesterday = Date().yesterday...Date().midnight
-    let today = Date().midnight...Date().tomorrow
+    let yesterday = Date().yesterday..<Date().midnight
+    let today = Date().midnight..<Date().tomorrow
     let tomorrow = Date().tomorrow...Date().tomorrow.tomorrow
 
     if type == .day {
@@ -86,5 +86,9 @@ extension Date {
       }
     }
     return dateFormatter.string(from: self)
+  }
+
+  func isSameDay(date: Date) -> Bool {
+    return date >= midnight && date <= dayAfter
   }
 }

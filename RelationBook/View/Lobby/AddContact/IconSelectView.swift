@@ -86,6 +86,12 @@ class IconSelectView: UIView, NibLoadable {
     loadNibContent()
   }
 
+  func setUp(text: String, image: UIImage, background: UIColor) {
+    textField.text = text
+    self.image = image
+    iconView.backgroundColor = background
+  }
+
   @objc func iconTapped(tapGesture: UITapGestureRecognizer) {
     onIconTapped?(iconView)
   }

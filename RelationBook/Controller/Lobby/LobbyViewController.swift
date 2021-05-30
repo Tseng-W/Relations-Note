@@ -47,18 +47,11 @@ class LobbyViewController: UIViewController {
     }
   }
   
-  @IBAction func testAppleLogin(_ sender: Any) {
-    performSegue(withIdentifier: "appleLogin", sender: self)
-  }
-
-  @IBAction func onBellClicked(_ sender: UIBarButtonItem) {
-
-  }
-
-  
   override func viewDidLoad() {
     
     super.viewDidLoad()
+
+    navigationItem.title = Date().getDayString(type: .day)
 
     userViewModel.user.bind { value in
       guard let _ = value else { return }
@@ -82,7 +75,20 @@ class LobbyViewController: UIViewController {
 }
 
 extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, UIGestureRecognizerDelegate {
-  
+
+  func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+    navigationItem.title = date.getDayString(type: .day)
+    tableView.reloadData()
+  }
+
+//  func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+//
+//    if calendar.collectionView.decelerationRate.rawValue <= 1 {
+//      let date = calendar.date(for: calendar.visibleCells().first!)
+//      calendar.select(date, scrollToDate: false)
+//    }
+//  }
+
   func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
     
     calendarHeightConstraint.constant = bounds.height
@@ -90,6 +96,7 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, UIGestu
   }
   
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+
     let shouldBegin = tableView.contentOffset.y <= -tableView.contentInset.top
     
     if shouldBegin {
@@ -110,7 +117,14 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, UIGestu
 extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    eventViewModel.events.value.count
+
+    let events = eventViewModel.events.value.filter { event in
+      guard let selectedDate = calendar.selectedDate else { return false }
+
+      return selectedDate.isSameDay(date: event.time.dateValue())
+    }
+
+    return events.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

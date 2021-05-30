@@ -11,7 +11,7 @@ import CropViewController
 
 protocol CategoryStyleViewDelegate: AnyObject {
 
-  func categoryStyleView(styleView: SetCategoryStyleView, title: String, backgroundColor: UIColor, image: UIImage?, symbolString: String?)
+  func categoryStyleView(styleView: SetCategoryStyleView, name: String, backgroundColor: UIColor, image: UIImage, imageString: String )
 }
 
 class SetCategoryStyleView: UIView, NibLoadable {
@@ -23,8 +23,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
   @IBOutlet var iconSelectView: IconSelectView! {
     didSet {
-
-      iconSelectView.textField.placeholder = placeholder
 
       layoutIfNeeded()
 
@@ -51,8 +49,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
   weak var delegate: CategoryStyleViewDelegate?
 
-  var placeholder = String.empty
-
   var canConfirm = false {
     didSet {
       confirmButton.isEnabled = canConfirm
@@ -64,7 +60,14 @@ class SetCategoryStyleView: UIView, NibLoadable {
       canConfirm = name != .empty
     }
   }
-  var title = String.empty
+  var title = String.empty {
+    didSet {
+      guard let titleLabel = titleLabel else { return }
+      titleLabel.text = title
+    }
+  }
+  var image: UIImage?
+  var imageString: String?
   var selectedColor = IconView.defaultBackgroundColor
   var isImageCropped = false
 
@@ -78,10 +81,16 @@ class SetCategoryStyleView: UIView, NibLoadable {
     customInit()
   }
 
-  init(title: String, placeholder: String) {
-    super.init(frame: CGRect())
-    self.title = title
-    self.placeholder = placeholder
+  convenience init(title: String, placeholder: String) {
+    self.init(frame: CGRect())
+
+    if let titleLabel = titleLabel {
+      titleLabel.text = title
+    }
+
+    if let iconSelectView = iconSelectView {
+      iconSelectView.textField.placeholder = placeholder
+    }
   }
 
   override class func prepareForInterfaceBuilder() {
@@ -97,12 +106,17 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
 
   @IBAction func buttonTapped(_ sender: UIButton) {
+
     if sender == confirmButton {
 
-    } else {
-      removeFromSuperview()
-      onDismiss?()
+      guard let imageString = imageString,
+            let image = image,
+            name != .empty else { return }
+      delegate?.categoryStyleView(styleView: self, name: name, backgroundColor: colorPicker.selectedColor, image: image, imageString: imageString)
     }
+
+    removeFromSuperview()
+    onDismiss?()
   }
 }
 
@@ -119,18 +133,44 @@ extension SetCategoryStyleView: ColorPickerDelegate {
 extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+
+    cropViewController.dismiss(animated: true, completion: nil)
+
     isImageCropped = true
     iconSelectView.iconView.setIcon(isCropped: isImageCropped, image: image)
+    self.image = image
+
+    FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+      switch result {
+      case .success(let url):
+        self?.imageString = url.absoluteString
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
   }
 
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
     guard let image = UIImage(systemName: symbolName) else { return }
     isImageCropped = false
+
     iconSelectView.iconView.setIcon(isCropped: isImageCropped, image: image)
+    self.image = image
+    imageString = symbolName
   }
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
     isImageCropped = false
     iconSelectView.iconView.setIcon(isCropped: isImageCropped, image: image)
+    self.image = image
+
+    FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+      switch result {
+      case .success(let url):
+        self?.imageString = url.absoluteString
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
   }
 }

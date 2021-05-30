@@ -171,35 +171,40 @@ class AddContactFlowViewController: FloatingViewController {
     let verticalPadding: CGFloat = 16.0
 
     setCategoryView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2)
+
+    view.layoutIfNeeded()
   }
 }
 
 extension AddContactFlowViewController: CategoryStyleViewDelegate {
 
-  func categoryStyleView(styleView: SetCategoryStyleView, title: String, backgroundColor: UIColor, image: UIImage?, symbolString: String?) {
-    if let image = image {
-      FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
-        switch result {
-        case .success(let url):
-          self?.imageString = url.absoluteString
-        case .failure(let error):
-          print("\(error.localizedDescription)")
-        }
-      }
-    } else if let symbolString = symbolString {
-      imageString = symbolString
-    } else {
-      print("Unexpected multiple image source.")
-    }
-    name = title
+  func categoryStyleView(styleView: SetCategoryStyleView, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
+    
+    self.imageString = imageString
+    self.name = name
     imageBackgroundColor = backgroundColor
+
+    iconSelectView.iconView.setIcon(isCropped: true, image: image, bgColor: backgroundColor)
+    iconSelectView.textField.text = name
   }
 }
 
 extension AddContactFlowViewController: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+
+    cropViewController.dismiss(animated: true)
+
     iconSelectView.iconView.setIcon(isCropped: true, image: image, bgColor: .clear, tintColor: .label)
+
+    FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+      switch result {
+      case .success(let url):
+        self?.imageString = url.absoluteString
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
   }
 
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
