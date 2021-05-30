@@ -37,7 +37,7 @@ class CategoryCollectionCell: UICollectionViewCell {
 
       category.getImage { [weak self] image in
         guard let image = image else { return }
-        self?.iconView.setIcon(image: image, bgColor: category.getColor(), tintColor: .label)
+        self?.iconView.setIcon(isCropped: category.isCustom, image: image, bgColor: category.getColor(), tintColor: .label)
       }
 
       titleLabel.text = category.title

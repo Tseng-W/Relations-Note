@@ -67,7 +67,7 @@ class AddCategoryViewController: FloatingViewController {
 
   @objc private func showSelectImageView(tapGesture: UITapGestureRecognizer) {
 
-    let alertProvider = SCLAlertViewProvider(delegate: self)
+    let alertProvider = SCLAlertViewProvider(rounded: self)
 
     alertProvider.showAlert(type: .roundedImage)
   }
@@ -159,6 +159,5 @@ extension AddCategoryViewController: SCLAlertViewProviderDelegate {
         print("\(error.localizedDescription)")
       }
     }
-
   }
 }

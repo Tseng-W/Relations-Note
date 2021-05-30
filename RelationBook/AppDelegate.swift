@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     IQKeyboardManager.shared.enable = true
 
+    UITabBar.appearance().tintColor = .label
+
     UINavigationBar.appearance().barTintColor = .background
 
     return true

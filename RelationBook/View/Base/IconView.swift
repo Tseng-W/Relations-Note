@@ -9,19 +9,46 @@ import UIKit
 
 class IconView: UIView {
 
-  var imageView = UIImageView()
+  static let defaultBackgroundColor: UIColor = .systemGray
+  static let defaultTintColor: UIColor = .systemGray
+  static let defaultImage = UIImage(systemName: "camera")!
 
-  func setIcon(image: UIImage, bgColor: UIColor, tintColor: UIColor) {
+  var imageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = defaultImage
+    imageView.backgroundColor = defaultBackgroundColor
+    imageView.tintColor = defaultTintColor
+    return imageView
+  }()
+  
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, tintColor: UIColor? = nil) {
 
+    imageView.removeFromSuperview()
     addSubview(imageView)
-    imageView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 0)
+
+    imageView.backgroundColor = .clear
+
+    if let image = image {
+      imageView.image = image
+    }
+
+    if let bgColor = bgColor {
+      backgroundColor = bgColor
+    }
+
+    if let tintColor = tintColor {
+      imageView.tintColor = tintColor
+    }
 
     layoutIfNeeded()
-    imageView.image = image
-    imageView.backgroundColor = .clear
-    imageView.tintColor = tintColor
-    imageView.isCornerd = true
+
+    let width = frame.width * 0.8
+    imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor, width: width, height: width)
+
+    layoutIfNeeded()
     isCornerd = true
-    backgroundColor = bgColor
+    layoutIfNeeded()
+    imageView.isCornerd = isCropped
+    layoutIfNeeded()
   }
 }

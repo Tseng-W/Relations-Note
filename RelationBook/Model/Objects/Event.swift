@@ -18,6 +18,7 @@ struct Event: Codable {
   @DocumentID var docID: String?
   var owner: String
   var relations: [Int]
+  var imageLink: String?
   var mood: Int
   var category: Category
   var location: GeoPoint

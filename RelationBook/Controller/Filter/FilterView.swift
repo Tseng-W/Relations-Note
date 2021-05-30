@@ -71,10 +71,11 @@ class FilterView: UIView {
   }
 
   private func initialFilterView() {
+    layoutIfNeeded()
     addFilterBar()
     addScrollView()
-    layoutIfNeeded()
 
+    layoutIfNeeded()
     guard let type = type else { return }
     addCategoryCollectionViews(type: type)
   }

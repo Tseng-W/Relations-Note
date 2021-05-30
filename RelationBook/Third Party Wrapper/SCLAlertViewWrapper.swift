@@ -19,12 +19,15 @@ protocol SCLAlertViewProviderDelegate: AnyObject {
 
 class SCLAlertViewProvider: NSObject {
 
+  typealias SCLProviderDelegate = SCLAlertViewProviderDelegate
+  typealias FullDelegate = SCLAlertViewProviderDelegate & CropViewControllerDelegate
+
   enum AlertType {
-    case roundedImage
+    case roundedImage, rectImage
 
     var appearance: SCLAlertView.SCLAppearance {
       switch self {
-      case .roundedImage:
+      case .roundedImage, .rectImage:
         return SCLAlertView.SCLAppearance(
           showCloseButton: false,
           shouldAutoDismiss: false,
@@ -37,7 +40,9 @@ class SCLAlertViewProvider: NSObject {
     var title: String {
       switch self {
       case .roundedImage:
-        return "設定圖片"
+        return "設定圖示"
+      case .rectImage:
+        return "設定事件圖片"
       }
     }
 
@@ -45,6 +50,8 @@ class SCLAlertViewProvider: NSObject {
       switch self {
       case .roundedImage:
         return "選擇既有圖示或上傳圖片"
+      case .rectImage:
+        return "上傳事件描述圖片"
       }
     }
 
@@ -57,12 +64,18 @@ class SCLAlertViewProvider: NSObject {
           ("拍照", #selector(loadCamera)),
           ("取消", #selector(cancel))
         ]
+      case .rectImage:
+        return [
+          ("照片", #selector(loadPicture)),
+          ("拍照", #selector(loadCamera)),
+          ("取消", #selector(cancel))
+        ]
       }
     }
 
     var icon: UIImage {
       switch self {
-      case .roundedImage:
+      case .roundedImage, .rectImage:
         let icon = UIImage(systemName: "camera")!
         return icon.withTintColor(.systemGray6)
       }
@@ -78,9 +91,13 @@ class SCLAlertViewProvider: NSObject {
 
   var type: AlertType?
 
-  init<T: UIViewController & SCLAlertViewProviderDelegate & CropViewControllerDelegate >(delegate: T) {
+  init<T: FullDelegate >(rounded delegate: T) {
     alertDelegate = delegate
     cropViewDelegate = delegate
+  }
+
+  init<T: SCLProviderDelegate>(rect delegate: T) {
+    alertDelegate = delegate
   }
 
   func showAlert(type: AlertType) {
@@ -141,7 +158,7 @@ extension SCLAlertViewProvider {
   }
 
   @objc private func cancel() {
-    alertView?.dismiss(animated: true, completion: nil)
+    alertView?.hideView()
   }
 }
 
@@ -159,12 +176,14 @@ extension SCLAlertViewProvider: UIImagePickerControllerDelegate, UINavigationCon
       guard let alertView = alertView else { return }
 
       let cropVC = CropViewController(croppingStyle: .circular, image: image)
+
       cropVC.delegate = cropViewDelegate
       alertView.present(cropVC, animated: true) {
         self.alertView?.hideView()
       }
     default:
       alertDelegate?.alertProvider(provider: self, rectImage: image)
+      alertView?.hideView()
     }
   }
 }

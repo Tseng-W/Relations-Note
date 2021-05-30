@@ -9,7 +9,11 @@ import UIKit
 
 enum ImageAsset: String {
   
-  case none
+  case icon = "icon_24px_icon"
+  case pen = "icon_24px_pen"
+  case note = "icon_24px_note"
+  case category = "icon_24px_category"
+  case profile = "icon_24px_profile"
 }
 
 enum SysetmAsset: String {
@@ -24,6 +28,7 @@ enum SysetmAsset: String {
   case person3_fill = "person.3.fill"
   case lobby = "plus"
   case lobby_fill = "plusa"
+  case camera = "camera"
 }
 
 extension UIImage {

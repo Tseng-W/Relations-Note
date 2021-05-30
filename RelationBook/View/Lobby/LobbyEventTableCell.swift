@@ -31,6 +31,7 @@ class LobbyEventTableCell: UITableViewCell {
 
       event.getRelationImage { [weak self] image in
         self?.userIcon.setIcon(
+          isCropped: true,  // TODO: Replace with varible
           image: image!,
           bgColor: UIColor.UIColorFromString(string: event.category.backgroundColor),
           tintColor: .label)
@@ -46,6 +47,7 @@ class LobbyEventTableCell: UITableViewCell {
             relations.count > 0 else { return }
       event.getRelationImage { [weak self] image in
         self?.userIcon.setIcon(
+          isCropped: true,
           image: image!,
           bgColor: UIColor.UIColorFromString(string: event.category.backgroundColor),
           tintColor: .clear)

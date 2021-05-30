@@ -10,39 +10,59 @@ import UIKit
 @IBDesignable
 class IconSelectView: UIView, NibLoadable {
 
-  @IBInspectable var placeholder: String = "" {
+  @IBOutlet var iconView: IconView!  {
     didSet {
-      textField.placeholder = placeholder
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped(tapGesture:)))
+      tapGesture.numberOfTapsRequired = 1
+      tapGesture.numberOfTouchesRequired = 1
+      iconView.addGestureRecognizer(tapGesture)
     }
   }
 
-  @IBInspectable var image = UIImage(systemName: "camera") {
-    didSet {
-      guard let image = image else { return }
-      iconImageView.image = image
-    }
-  }
-
-  @IBInspectable var imageBackgroundColor: UIColor = .clear {
-    didSet {
-      iconImageView.backgroundColor = imageBackgroundColor
-    }
-  }
-
-  @IBInspectable var imageTintColor: UIColor = .clear {
-    didSet {
-      iconImageView.tintColor = imageTintColor
-    }
-  }
-
-  @IBOutlet var iconImageView: UIImageView!
   @IBOutlet var textField: UITextField! {
     didSet {
       textField.delegate = self
     }
   }
 
-  var onEndEditTitle: ((String, String, UIColor) -> Void)?
+  @IBInspectable var placeholder: String = "" {
+    didSet {
+      textField.placeholder = placeholder
+    }
+  }
+
+  @IBInspectable var image = UIImage.assetSystem(.camera) {
+    didSet {
+      guard let image = image else { return }
+      iconView.imageView.image = image
+    }
+  }
+
+  @IBInspectable var imageBackgroundColor: UIColor = .systemTeal {
+    didSet {
+      iconView.imageView.backgroundColor = imageBackgroundColor
+    }
+  }
+
+  @IBInspectable var imageTintColor: UIColor = .clear {
+    didSet {
+      iconView.imageView.tintColor = imageTintColor
+    }
+  }
+
+  var onIconTapped: ((IconView) -> Void)?
+
+  var onEndEditTitle: ((String) -> Void)? {
+    didSet {
+      image = UIImage.assetSystem(.camera)
+
+      textField.placeholder = placeholder
+
+      guard let image = image else { return }
+
+      iconView.setIcon(isCropped: false, image: image, bgColor: imageBackgroundColor, tintColor: .label)
+    }
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -64,24 +84,20 @@ class IconSelectView: UIView, NibLoadable {
 
   private func customInit() {
     loadNibContent()
+  }
 
-    image = UIImage(systemName: "camera")
-
-    textField.placeholder = placeholder
-    iconImageView.backgroundColor = imageBackgroundColor
-    iconImageView.tintColor = imageTintColor
-
-    layoutIfNeeded()
-    iconImageView.translatesAutoresizingMaskIntoConstraints = false
-    iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
-    iconImageView.layer.masksToBounds = true
+  @objc func iconTapped(tapGesture: UITapGestureRecognizer) {
+    onIconTapped?(iconView)
   }
 }
 
 extension IconSelectView: UITextFieldDelegate {
+
   func textFieldDidEndEditing(_ textField: UITextField) {
+
     guard let text = textField.text,
           text != String.empty else { return }
-    onEndEditTitle?(text, "camera", .yellow)
+
+    onEndEditTitle?(text)
   }
 }

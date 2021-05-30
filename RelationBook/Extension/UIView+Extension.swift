@@ -27,16 +27,18 @@ extension UIView {
     return blurView
   }
 
-  func addConstarint(top: NSLayoutYAxisAnchor?,
-                     left: NSLayoutXAxisAnchor?,
-                     bottom: NSLayoutYAxisAnchor?,
-                     right: NSLayoutXAxisAnchor?,
-                     paddingTop: CGFloat,
-                     paddingLeft: CGFloat,
-                     paddingBottom: CGFloat,
-                     paddingRight: CGFloat,
-                     width: CGFloat,
-                     height: CGFloat) {
+  func addConstarint(top: NSLayoutYAxisAnchor? = nil,
+                     left: NSLayoutXAxisAnchor? = nil,
+                     bottom: NSLayoutYAxisAnchor? = nil,
+                     right: NSLayoutXAxisAnchor? = nil,
+                     centerX: NSLayoutXAxisAnchor? = nil,
+                     centerY: NSLayoutYAxisAnchor? = nil,
+                     paddingTop: CGFloat = 0,
+                     paddingLeft: CGFloat = 0,
+                     paddingBottom: CGFloat = 0,
+                     paddingRight: CGFloat = 0,
+                     width: CGFloat = 0,
+                     height: CGFloat = 0) {
     
     translatesAutoresizingMaskIntoConstraints = false
     // Use the top parameter to set the top constarint
@@ -55,6 +57,17 @@ extension UIView {
     if let right = right {
       self.rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
     }
+
+    // Use the right parameter to set the right constarint
+    if let centerX = centerX {
+      self.centerXAnchor.constraint(equalTo: centerX, constant: paddingLeft - paddingRight).isActive = true
+    }
+
+    // Use the right parameter to set the right constarint
+    if let centerY = centerY {
+      self.centerYAnchor.constraint(equalTo: centerY, constant: paddingLeft - paddingRight).isActive = true
+    }
+
     // Use the width parameter to set the top constarint
     if width != 0 {
       widthAnchor.constraint(equalToConstant: width).isActive = true

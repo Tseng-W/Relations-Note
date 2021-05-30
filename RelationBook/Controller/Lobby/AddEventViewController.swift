@@ -33,14 +33,14 @@ class AddEventViewController: UIViewController {
   @IBOutlet var moodButton: UIButton!
   @IBOutlet var eventButton: UIButton!
   @IBOutlet var locationButton: UIButton!
-  @IBOutlet var imageView: UIImageView!
+  @IBOutlet var imageButton: UIButton!
   @IBOutlet var dayButton: UIButton!
   @IBOutlet var timeButton: UIButton!
 
   let popTip = PopTip()
   var userViewModel = UserViewModel()
   var eventViewModel = EventViewModel()
-  
+
   let selectFloatViewController: SelectFloatViewController = {
     let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
 
@@ -58,6 +58,7 @@ class AddEventViewController: UIViewController {
 
   // MARK: Event datas.
   var relations: [Category] = []
+  var imageLink: String?
   var mood = 2
   var event: Category?
   var location: GeoPoint?
@@ -116,12 +117,14 @@ class AddEventViewController: UIViewController {
       switch type {
       case .event, .feature:
         self.addCategoryViewController.isVisable = true
+
       case .relation:
         if hierarchy == .main {
           self.addCategoryViewController.isVisable = true
         } else {
           let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addRelation") as! AddContactFlowViewController
           self.view.addSubview(vc.view)
+          vc.iconSelectView.onEndEditTitle = { _ in }
           vc.isVisable = true
         }
       }
@@ -180,6 +183,7 @@ class AddEventViewController: UIViewController {
     var newEvent = Event(docID: "",
                          owner: userID,
                          relations: [0],
+                         imageLink: imageLink ?? nil,
                          mood: mood,
                          category: event,
                          location: location,
@@ -229,6 +233,12 @@ class AddEventViewController: UIViewController {
       selectFloatViewController.display(type: .time)
     }
   }
+
+  @IBAction func setEventPicture(_ sender: UIButton) {
+    let provider = SCLAlertViewProvider(rect: self)
+
+    provider.showAlert(type: .rectImage)
+  }
 }
 
 extension AddEventViewController: UITableViewDelegate, UITableViewDataSource {
@@ -265,4 +275,27 @@ extension AddEventViewController: AddCategoryViewDelegate {
     guard let setting = newCategotySetting else { return nil }
     return setting.hierarchy
   }
+}
+
+extension AddEventViewController: SCLAlertViewProviderDelegate {
+  
+  func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
+
+  }
+
+  func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
+
+    imageButton.setImage(image, for: .normal)
+
+    FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+      switch result {
+      case .success(let url):
+        self?.imageLink = url.absoluteString
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
+  }
+
+
 }

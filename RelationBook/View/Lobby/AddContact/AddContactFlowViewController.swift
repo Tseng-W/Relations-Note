@@ -6,16 +6,19 @@
 //
 
 import UIKit
+import CropViewController
 
 class AddContactFlowViewController: FloatingViewController {
 
   @IBOutlet var iconSelectView: IconSelectView! {
     didSet {
-      iconSelectView.onEndEditTitle = { [weak self] name, image, bgColor in
-        self?.name = name
-        self?.imageString = image
-        self?.bgColor = bgColor
-      }
+
+      iconSelectView.subviews.forEach { $0.isUserInteractionEnabled = false }
+
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showCategoryStyleView(tapGesture:)))
+      tapGesture.numberOfTapsRequired = 1
+      tapGesture.numberOfTouchesRequired = 1
+      iconSelectView.addGestureRecognizer(tapGesture)
     }
   }
   @IBOutlet var relationButton: TitledInputView! {
@@ -115,16 +118,8 @@ class AddContactFlowViewController: FloatingViewController {
       checkContactData()
     }
   }
-  var imageString: String? {
-    didSet {
-      checkContactData()
-    }
-  }
-  var bgColor: UIColor? {
-    didSet {
-      checkContactData()
-    }
-  }
+  var imageString: String?
+  var imageBackgroundColor: UIColor?
 
   var superRelation: Category? {
     didSet {
@@ -141,7 +136,7 @@ class AddContactFlowViewController: FloatingViewController {
           let _ = feature,
           let _ = name,
           let _ = imageString,
-          let _ = bgColor else {
+          let _ = imageBackgroundColor else {
       confirmButton.isEnabled = false
       return
     }
@@ -154,9 +149,64 @@ class AddContactFlowViewController: FloatingViewController {
             let feature = feature,
             let name = name,
             let image = imageString,
-            let bgColor = bgColor else { return }
+            let bgColor = imageBackgroundColor else { return }
       relationViewModel.addRelation(name: name, iconString: image, bgColor: bgColor, relationType: category, feature: feature)
     }
     self.view.removeFromSuperview()
+  }
+
+  @objc func showCategoryStyleView(tapGesture: UITapGestureRecognizer) {
+
+    let styleView = SetCategoryStyleView()
+    let blurView = view.addBlurView()
+
+    styleView.delegate = self
+
+    styleView.onDismiss = {
+      blurView.removeFromSuperview()
+    }
+
+    view.addSubview(styleView)
+
+    let verticalPadding: CGFloat = 16.0
+
+    styleView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2)
+  }
+}
+
+extension AddContactFlowViewController: CategoryStyleViewDelegate {
+
+  func categoryStyleView(styleView: SetCategoryStyleView, title: String, backgroundColor: UIColor, image: UIImage?, symbolString: String?) {
+    if let image = image {
+      FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+        switch result {
+        case .success(let url):
+          self?.imageString = url.absoluteString
+        case .failure(let error):
+          print("\(error.localizedDescription)")
+        }
+      }
+    } else if let symbolString = symbolString {
+      imageString = symbolString
+    } else {
+      print("Unexpected multiple image source.")
+    }
+    name = title
+    imageBackgroundColor = backgroundColor
+  }
+}
+
+extension AddContactFlowViewController: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
+
+  func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+    iconSelectView.iconView.setIcon(isCropped: true, image: image, bgColor: .clear, tintColor: .label)
+  }
+
+  func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
+    print()
+  }
+
+  func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
+    print()
   }
 }
