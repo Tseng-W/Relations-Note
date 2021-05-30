@@ -58,6 +58,7 @@ class FilterView: UIView {
     userViewModel.user.bind { [weak self] user in
       guard let user = user else { return }
       self?.filterSource = user.getFilter(type: type)
+      self?.initialFilterView()
     }
 
     userViewModel.fetchUserDate()
@@ -67,8 +68,6 @@ class FilterView: UIView {
     filterIndex = 0
 
     scrollHeight = categoryScrollView.frame.height
-
-    initialFilterView()
   }
 
   private func initialFilterView() {
@@ -82,16 +81,12 @@ class FilterView: UIView {
 
   private func addFilterBar() {
 
-    filterScrollView.delegate = self
-    filterScrollView.datasource = self
-    filterScrollView.subviews.forEach { $0.removeFromSuperview() }
     filterScrollView.removeFromSuperview()
 
-    addSubview(filterScrollView)
+    filterScrollView.delegate = self
+    filterScrollView.datasource = self
 
-    userViewModel.user.bind { [weak self] _ in
-      self?.filterScrollView.reloadDate()
-    }
+    addSubview(filterScrollView)
 
     let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
     topConstraint.priority = .required
@@ -130,11 +125,6 @@ class FilterView: UIView {
       categoryScrollView.addSubview(collectionView)
       categoryViews.append(collectionView)
       x = collectionView.frame.origin.x + viewWidth
-
-      userViewModel.user.bind { user in
-        guard let user = user else { return }
-        collectionView.mainCategories = user.getCategoriesWithSuperIndex(type: type, filterIndex: index)
-      }
 
       collectionView.onSelectedSubCategory = { [weak self] category in
         if let category = category {

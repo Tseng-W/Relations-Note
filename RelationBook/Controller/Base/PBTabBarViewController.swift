@@ -96,7 +96,7 @@ private enum Tab {
 
 class PBTabBarViewController: UITabBarController {
     
-    private var tabs: [Tab] = [.relationship, .books, .lobby, .timeline, .profiles]
+    private var tabs: [Tab] = [.relationship, .lobby, .profiles]
     
     var lobbyImageButton: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
@@ -128,7 +128,7 @@ class PBTabBarViewController: UITabBarController {
         
         delegate = self
         
-        selectedIndex = 2
+        selectedIndex = 1
     }
     
     private func lobbyButtonInit() {
@@ -152,7 +152,7 @@ class PBTabBarViewController: UITabBarController {
             tabBarDelegate?.tabBarTapped(self, index: 2)
         } else {
             tappedImage.image = Tab.lobby.images()?.add
-            selectedIndex = 2
+            selectedIndex = 1
         }
     }
 }

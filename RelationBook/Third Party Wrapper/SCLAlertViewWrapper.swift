@@ -8,6 +8,7 @@
 import UIKit
 import SCLAlertView
 import CropViewController
+import FirebaseStorage
 
 protocol SCLAlertViewProviderDelegate: AnyObject {
 

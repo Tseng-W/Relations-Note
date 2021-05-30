@@ -75,7 +75,7 @@ class CategoryCollectionView: UICollectionView {
       guard let user = user,
             let index = self?.index,
             let type = self?.type else { return }
-      self?.mainCategories = user.getCategoriesWithSuperIndex(type: type, mainIndex: index)
+      self?.mainCategories = user.getCategoriesWithSuperIndex(type: type, filterIndex: index)
     }
 
     userViewModel.fetchUserDate()

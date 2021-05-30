@@ -39,7 +39,6 @@ class SelectFloatViewController: FloatingViewController {
   var onLocationSelected: ((GeoPoint) -> Void)?
   var onAddCategorySelected: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
-  var userViewModel = UserViewModel()
 
   var dateDate = Date()
 
@@ -86,11 +85,9 @@ class SelectFloatViewController: FloatingViewController {
 
     super.viewDidLoad()
 
-    userViewModel.fetchUserDate()
-
+    filterView.setUp(type: .event)
     googleMapSetup()
 
-    filterView.setUp(type: .event)
     filterView.canScrollBeHidden = false
 
     filterView.onSelected = { categories in

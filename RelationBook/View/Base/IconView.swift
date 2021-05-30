@@ -7,12 +7,21 @@
 
 import UIKit
 
-class IconView: UIImageView {
+class IconView: UIView {
+
+  var imageView = UIImageView()
 
   func setIcon(image: UIImage, bgColor: UIColor, tintColor: UIColor) {
-    self.image = image
-    self.backgroundColor = bgColor
-    self.tintColor = tintColor
+
+    addSubview(imageView)
+    imageView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 0)
+
+    layoutIfNeeded()
+    imageView.image = image
+    imageView.backgroundColor = .clear
+    imageView.tintColor = tintColor
+    imageView.isCornerd = true
     isCornerd = true
+    backgroundColor = bgColor
   }
 }

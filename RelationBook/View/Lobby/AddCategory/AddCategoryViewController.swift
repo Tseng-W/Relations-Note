@@ -48,22 +48,13 @@ class AddCategoryViewController: FloatingViewController {
   }
   private let colorPicker = ColorPickerController()
   private let defaultIcon = UIImage(systemName: "camera")
-//  private var iconSelectAlerts: [(String, Selector)] = [
-//    ("內建圖示", #selector(setIconFromLocalIcon)),
-//    ("照片", #selector(setIconFromPicture)),
-//    ("拍照", #selector(setIconFromCamera)),
-//    ("取消", #selector(setIconCancel))
-//  ]
 
-  var userViewModel = UserViewModel()
   var newIconImageString: String?
   weak var delegate: AddCategoryViewDelegate?
 
   override func viewDidLoad() {
 
     super.viewDidLoad()
-
-    userViewModel.fetchUserDate()
 
     setBlurBackground()
     canConfirm = false
@@ -97,7 +88,7 @@ class AddCategoryViewController: FloatingViewController {
 
     var category = Category(
       id: -1,
-      isCustom: false,
+      isCustom: String.verifyUrl(urlString: imageString),
       superIndex: superIndex,
       isSubEnable: false,
       title: title,
@@ -137,7 +128,17 @@ extension AddCategoryViewController: CropViewControllerDelegate {
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
     cropViewController.dismiss(animated: true, completion: nil)
+    
     iconImageView.image = image
+
+    FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+      switch result {
+      case .success(let url):
+        self?.newIconImageString = url.absoluteString
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
   }
 }
 
@@ -145,10 +146,19 @@ extension AddCategoryViewController: SCLAlertViewProviderDelegate {
 
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
     iconImageView.image = UIImage(systemName: symbolName)
-
   }
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
     iconImageView.image = image
+
+    FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
+      switch result {
+      case .success(let url):
+        self?.newIconImageString = url.absoluteString
+      case .failure(let error):
+        print("\(error.localizedDescription)")
+      }
+    }
+
   }
 }

@@ -7,7 +7,8 @@
 
 import Foundation
 import Firebase
-//import FirebaseFirestore
+import FirebaseStorage
+import FirebaseStorageSwift
 import FirebaseFirestoreSwift
 
 class FirebaseManager {
@@ -21,11 +22,6 @@ class FirebaseManager {
   let db = Firestore.firestore()
 
   func fetchUser(completion: @escaping (User) -> Void) {
-
-      if let user = userShared {
-      completion(user)
-      return
-    }
 
     guard let uid = UserDefaults.standard.getString(key: .uid) else {
       print("Can't get firebase uid.")
@@ -127,6 +123,7 @@ class FirebaseManager {
   }
 
   func fetchEvents(uid: String, completion: @escaping (([Event]) -> Void)) {
+
     let docRef = db.collection(Collections.event.rawValue).whereField("owner", in: [uid])
 
     docRef.addSnapshotListener { snapShot, error in
@@ -179,6 +176,28 @@ class FirebaseManager {
     userDoc.updateData(dict) { error in
       if let error = error { completion(error) ; return }
       completion(nil)
+    }
+  }
+
+  func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+
+    let fileRef = Storage.storage().reference().child(UUID().uuidString + ".jpg")
+    if let data = image.jpegData(compressionQuality: 0.9) {
+      fileRef.putData(data) { result in
+        switch result {
+        case .success(_):
+          fileRef.downloadURL { result in
+            switch result {
+            case .success(let url):
+              completion(.success(url))
+            case .failure(let error):
+              completion(.failure(error))
+            }
+          }
+        case .failure(let error):
+          completion(.failure(error))
+        }
+      }
     }
   }
 }

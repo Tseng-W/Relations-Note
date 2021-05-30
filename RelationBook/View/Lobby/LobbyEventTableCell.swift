@@ -13,7 +13,11 @@ class LobbyEventTableCell: UITableViewCell {
   @IBOutlet var userIcon: IconView!
   @IBOutlet var eventLabel: UILabel!
   @IBOutlet var relationLabel: UILabel!
-  @IBOutlet var tagListView: TagListView!
+  @IBOutlet var tagListView: TagListView! {
+    didSet {
+      tagListView.alignment = .right
+    }
+  }
 
   var relations = [Relation]() {
     didSet {
@@ -29,7 +33,7 @@ class LobbyEventTableCell: UITableViewCell {
         self?.userIcon.setIcon(
           image: image!,
           bgColor: UIColor.UIColorFromString(string: event.category.backgroundColor),
-          tintColor: .clear)
+          tintColor: .label)
       }
       eventLabel.text = event.category.title
       tagListView.addTag(event.category.title)

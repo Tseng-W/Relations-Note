@@ -233,6 +233,9 @@ PODS:
   - Firebase/Firestore (6.34.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.19.0)
+  - Firebase/Storage (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.9.1)
   - FirebaseAnalytics (6.9.0):
     - FirebaseCore (~> 6.10)
     - FirebaseInstallations (~> 1.7)
@@ -275,6 +278,11 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
+  - FirebaseStorage (3.9.1):
+    - FirebaseCore (~> 6.10)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseStorageSwift (0.1.0):
+    - FirebaseStorage (~> 3.6)
   - FlexColorPicker (1.4.2)
   - FSCalendar (2.8.2)
   - GoogleAppMeasurement (6.9.0):
@@ -357,7 +365,9 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
+  - Firebase/Storage
   - FirebaseFirestoreSwift
+  - FirebaseStorageSwift
   - FlexColorPicker
   - FSCalendar
   - GoogleMaps (= 5.0.0)
@@ -384,6 +394,8 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseFirestoreSwift
     - FirebaseInstallations
+    - FirebaseStorage
+    - FirebaseStorageSwift
     - FlexColorPicker
     - FSCalendar
     - GoogleAppMeasurement
@@ -418,6 +430,8 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 9b2f1b9b9a6f2f0b6fb7484b9e32ab7e39243554
   FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
+  FirebaseStorageSwift: 3ea3b1ad832aad492dbc0b6faa9118bd5aeca9e9
   FlexColorPicker: d7ed5cfd8ceb936f2930e4e30629f9448967a5f8
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
@@ -439,6 +453,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
 
-PODFILE CHECKSUM: 51793d6f4f7c158c6471bb603ec9ff9738f4f443
+PODFILE CHECKSUM: 4588a285954c818572c3c0775a9616814e838417
 
 COCOAPODS: 1.10.1

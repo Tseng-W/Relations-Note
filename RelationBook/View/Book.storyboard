@@ -83,7 +83,14 @@
                             <constraint firstItem="PjZ-ra-v9O" firstAttribute="leading" secondItem="ba9-bP-qfw" secondAttribute="leading" id="s3B-4C-aXe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="事件中心" id="HiV-jj-p2r"/>
+                    <navigationItem key="navigationItem" title="事件中心" id="HiV-jj-p2r">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="xmark" catalog="system" id="ySy-BS-zQJ">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="onTapDismiss:" destination="ul6-OI-CON" id="pG1-D3-LUk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="filterSelectionView" destination="TV8-v8-9yF" id="sxk-oi-oaH"/>
                         <outlet property="searchTextField" destination="6VN-bm-fzf" id="uan-wW-Yz2"/>
@@ -115,12 +122,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LableB4">
             <color red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -28,7 +28,7 @@ extension String {
   }
 
   static func verifyUrl(urlString: String) -> Bool {
-    if let urlString = URL(string: urlString) {
+    if let _ = URL(string: urlString) {
       return true
     }
     return false

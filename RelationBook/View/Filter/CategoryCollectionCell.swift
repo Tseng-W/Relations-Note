@@ -14,7 +14,7 @@ class CategoryCollectionCell: UICollectionViewCell {
     case back
   }
 
-  @IBOutlet var iconImageView: UIImageView!
+  @IBOutlet var iconView: IconView!
 
   @IBOutlet var titleLabel: UILabel!
 
@@ -35,13 +35,12 @@ class CategoryCollectionCell: UICollectionViewCell {
     didSet {
       guard let category = category else { return }
 
-      category.getImage { image in
+      category.getImage { [weak self] image in
         guard let image = image else { return }
-        self.iconImageView.image = image
+        self?.iconView.setIcon(image: image, bgColor: category.getColor(), tintColor: .label)
       }
 
       titleLabel.text = category.title
-      iconImageView.tintColor = category.getColor()
     }
   }
 

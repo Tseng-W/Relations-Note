@@ -50,8 +50,14 @@ class LobbyViewController: UIViewController {
   @IBAction func testAppleLogin(_ sender: Any) {
     performSegue(withIdentifier: "appleLogin", sender: self)
   }
+
+  @IBAction func onBellClicked(_ sender: UIBarButtonItem) {
+
+  }
+
   
   override func viewDidLoad() {
+    
     super.viewDidLoad()
 
     userViewModel.user.bind { value in

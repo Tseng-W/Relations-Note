@@ -12,15 +12,4 @@ import UIKit
 @IBDesignable
 extension UIButton {
   
-  @IBInspectable var isCornerd: Bool {
-    set {
-      if newValue {
-        layer.cornerRadius = frame.size.height / 2
-        layer.masksToBounds = true
-      }
-    }
-    get {
-      return layer.cornerRadius > 0
-    }
-  }
 }

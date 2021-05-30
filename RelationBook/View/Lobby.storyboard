@@ -10,6 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Book-->
+        <scene sceneID="Cod-EV-U58">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Book" id="YR8-Wn-Hxw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="KAh-vb-iM1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FbZ-Si-bR1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1885" y="183"/>
+        </scene>
         <!--2020 / 05 / 01-->
         <scene sceneID="CdX-Ie-lQf">
             <objects>
@@ -96,7 +106,15 @@
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="jjQ-WY-PYS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7"/>
+                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="bell" catalog="system" id="GkL-cf-NDp">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="onBellClicked:" destination="TRd-7X-kQ2" id="Uj9-hv-9TJ"/>
+                                <segue destination="YR8-Wn-Hxw" kind="show" id="B2d-hW-vGy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="ATx-iw-HYq" id="3kf-Wq-IMI"/>
                         <outlet property="calendarHeightConstraint" destination="r9S-K1-4mk" id="Opi-Qu-kuk"/>
@@ -708,7 +726,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qss-sz-KCA">
                                         <rect key="frame" x="82" y="162" width="300" height="37.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-Bn-Hgx" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
                                                 <rect key="frame" x="0.0" y="11" width="300" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
@@ -960,12 +978,8 @@
             <point key="canvasLocation" x="4182.608695652174" y="979.6875"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="c5y-Bn-Hgx">
-            <size key="intrinsicContentSize" width="414" height="15"/>
-        </designable>
-    </designables>
     <resources>
+        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="face.smiling.fill" catalog="system" width="128" height="121"/>
@@ -992,6 +1006,9 @@
         <namedColor name="LableB9">
             <color red="0.89999997615814209" green="0.89999997615814209" blue="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
