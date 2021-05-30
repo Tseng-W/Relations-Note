@@ -157,20 +157,20 @@ class AddContactFlowViewController: FloatingViewController {
 
   @objc func showCategoryStyleView(tapGesture: UITapGestureRecognizer) {
 
-    let styleView = SetCategoryStyleView()
+    let setCategoryView = SetCategoryStyleView(title: "新增關係人", placeholder: "姓名")
     let blurView = view.addBlurView()
 
-    styleView.delegate = self
+    setCategoryView.delegate = self
 
-    styleView.onDismiss = {
+    setCategoryView.onDismiss = {
       blurView.removeFromSuperview()
     }
 
-    view.addSubview(styleView)
+    view.addSubview(setCategoryView)
 
     let verticalPadding: CGFloat = 16.0
 
-    styleView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2)
+    setCategoryView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2)
   }
 }
 

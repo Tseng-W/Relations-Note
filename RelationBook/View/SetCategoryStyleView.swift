@@ -16,9 +16,15 @@ protocol CategoryStyleViewDelegate: AnyObject {
 
 class SetCategoryStyleView: UIView, NibLoadable {
 
-  @IBOutlet var titleLabel: UILabel!
+  @IBOutlet var titleLabel: UILabel! {
+    didSet {
+      titleLabel.text = title
+    }
+  }
   @IBOutlet var iconSelectView: IconSelectView! {
     didSet {
+
+      iconSelectView.textField.placeholder = placeholder
 
       layoutIfNeeded()
 
@@ -31,7 +37,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
       }
 
       iconSelectView.onEndEditTitle = { [weak self] title in
-        self?.title = title
+        self?.name = title
       }
     }
   }
@@ -46,17 +52,19 @@ class SetCategoryStyleView: UIView, NibLoadable {
   weak var delegate: CategoryStyleViewDelegate?
 
   var placeholder = String.empty
+
   var canConfirm = false {
     didSet {
       confirmButton.isEnabled = canConfirm
       confirmButton.alpha = canConfirm ? 1.0 : 0.5
     }
   }
-  var title = String.empty {
+  var name = String.empty {
     didSet {
-      canConfirm = title != .empty
+      canConfirm = name != .empty
     }
   }
+  var title = String.empty
   var selectedColor = IconView.defaultBackgroundColor
   var isImageCropped = false
 
@@ -70,6 +78,12 @@ class SetCategoryStyleView: UIView, NibLoadable {
     customInit()
   }
 
+  init(title: String, placeholder: String) {
+    super.init(frame: CGRect())
+    self.title = title
+    self.placeholder = placeholder
+  }
+
   override class func prepareForInterfaceBuilder() {
     super.prepareForInterfaceBuilder()
   }
@@ -80,7 +94,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
     colorPicker.brightnessSlider = brightnessSlider
     colorPicker.rectangularHsbPalette = paletteControl
     colorPicker.delegate = self
-
   }
 
   @IBAction func buttonTapped(_ sender: UIButton) {

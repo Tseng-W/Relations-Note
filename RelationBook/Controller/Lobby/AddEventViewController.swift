@@ -28,6 +28,7 @@ class AddEventViewController: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
+      tableView.separatorColor = .clear
     }
   }
   @IBOutlet var moodButton: UIButton!
