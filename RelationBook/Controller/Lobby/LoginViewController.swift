@@ -176,15 +176,16 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
       let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                 idToken: idTokenString,
                                                 rawNonce: nonce)
+
       Auth.auth().signIn(with: credential) { [weak self] (autoResult, error) in
         if let error = error {
           print(error.localizedDescription)
           return
         }
-        let defaults = UserDefaults.standard
-        defaults.set(autoResult?.user.uid,
+
+        UserDefaults.standard.set(autoResult?.user.uid,
                      forKey: UserDefaults.Keys.uid.rawValue)
-        defaults.set(autoResult?.user.email,
+        UserDefaults.standard.set(autoResult?.user.email,
                      forKey: UserDefaults.Keys.email.rawValue)
 
         self?.performSegue(withIdentifier: "main", sender: self)

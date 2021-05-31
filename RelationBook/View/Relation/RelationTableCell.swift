@@ -9,8 +9,8 @@ import UIKit
 
 class RelationTableCell: UITableViewCell {
 
-  @IBOutlet var tagImgaeView: UIImageView!
-
+  @IBOutlet var iconView: IconView!
+  
   @IBOutlet var tagTitleLabel: UILabel!
   
   @IBOutlet var subLabel: UILabel!

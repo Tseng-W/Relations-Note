@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -46,12 +47,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       print("Can't initial main tab bar view controller.")
     }
     #else
-    if let _ = window?.rootViewController as? LoginViewController,
-       let _ = UserDefaults.standard.string(forKey: UserDefaults.Keys.uid.rawValue) {
-      if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
-        window?.rootViewController = mainVC
-      } else {
-        print("Can't initial main tab bar view controller.")
+    if let _ = window?.rootViewController as? LoginViewController {
+
+      if let user = Auth.auth().currentUser {
+
+        UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
+        UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
+
+        if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
+          window?.rootViewController = mainVC
+        } else {
+          print("Can't initial main tab bar view controller.")
+        }
       }
     }
     #endif

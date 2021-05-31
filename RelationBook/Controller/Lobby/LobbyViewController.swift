@@ -51,6 +51,8 @@ class LobbyViewController: UIViewController {
     
     super.viewDidLoad()
 
+    tableView.separatorColor = .clear
+
     navigationItem.title = Date().getDayString(type: .day)
 
     userViewModel.user.bind { value in

@@ -7,7 +7,21 @@
 
 import UIKit
 
-class RelationTableHeaderCell: UITableViewHeaderFooterView {
+class RelationTableHeaderCell: UIView, NibLoadable {
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    customInit()
+  }
+
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    customInit()
+  }
+
+  func customInit() {
+    loadNibContent()
+  }
 
   @IBOutlet var tagTitleLabel: UILabel!
 

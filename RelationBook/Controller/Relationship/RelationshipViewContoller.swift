@@ -16,6 +16,7 @@ class RelationshipViewContoller: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
+      tableView.separatorColor = .clear
       tableView.lk_registerCellWithNib(identifier: String(describing: RelationTableCell.self), bundle: nil)
       tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
     }
@@ -24,7 +25,10 @@ class RelationshipViewContoller: UIViewController {
   let relationViewModel = RelationViewModel()
 
   override func viewDidLoad() {
+
     super.viewDidLoad()
+
+    tableView.separatorColor = .clear
 
     userViewModel.fetchUserDate()
 
@@ -55,17 +59,19 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RelationTableCell.self), for: indexPath)
 
     guard let user = userViewModel.user.value else { return cell }
-    
 
     if let cell = cell as? RelationTableCell {
       let data = user.getCategoriesWithSuperIndex(type: .relation, filterIndex: indexPath.section)[indexPath.row]
       cell.tagTitleLabel.text = data.title
-      cell.tagTitleLabel.backgroundColor = data.getColor()
+      cell.subLabel.isHidden = true
 
       data.getImage { image in
-        cell.tagImgaeView.image = image
+        if String.verifyUrl(urlString: data.imageLink) {
+          cell.iconView.setIcon(isCropped: true, image: image, bgColor: data.getColor())
+        } else {
+          cell.iconView.setIcon(isCropped: false, image: image, bgColor: data.getColor())
+        }
       }
-
     }
 
     return cell
@@ -73,19 +79,24 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-    let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: RelationTableHeaderCell.self))
-
     guard let user = userViewModel.user.value else { return nil }
 
-    if let headerView = headerView as? RelationTableHeaderCell {
-      headerView.tagTitleLabel.text = user.getFilter(type: .relation)[section]
+    let headerView = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
 
-      let tapGesture = UITapGestureRecognizer()
-      tapGesture.numberOfTapsRequired = 1
-      tapGesture.addTarget(headerView, action: #selector(didSelectHeaderAt(tapGesture:)))
-    }
+    headerView.tag = section
+
+    headerView.tagTitleLabel.text = "- \(user.getFilter(type: .relation)[section])"
+
+    let tapGesture = UITapGestureRecognizer()
+    tapGesture.numberOfTapsRequired = 1
+    tapGesture.addTarget(headerView, action: #selector(didSelectHeaderAt(tapGesture:)))
+    headerView.addGestureRecognizer(tapGesture)
 
     return headerView
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.cellForRow(at: indexPath)?.isSelected = false
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,6 +104,6 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
   }
 
   @objc private func didSelectHeaderAt(tapGesture: UITapGestureRecognizer) {
-
+    
   }
 }

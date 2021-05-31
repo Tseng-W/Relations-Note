@@ -21,7 +21,7 @@ class IconView: UIView {
     return imageView
   }()
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, tintColor: UIColor? = nil) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, tintColor: UIColor? = .label) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
