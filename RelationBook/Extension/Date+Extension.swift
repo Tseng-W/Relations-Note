@@ -35,6 +35,14 @@ extension Date {
     return Calendar.current.component(.month,  from: self)
   }
 
+  var day: Int {
+    return Calendar.current.component(.day,  from: self)
+  }
+
+  var week: Int {
+    return Calendar.current.component(.weekday, from: self)
+  }
+
   var isLastDayOfMonth: Bool {
     return dayAfter.month != month
   }
@@ -45,6 +53,12 @@ extension Date {
 
   var isWeekend: Bool {
     return NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!.isDateInWeekend(self)
+  }
+
+  var isFirstDay: Bool {
+    let calendar = Calendar(identifier: .gregorian)
+    let components = calendar.dateComponents([.year, .month], from: self)
+    return self == calendar.date(from: components)!
   }
 
   init(milliseconds: Int64) {

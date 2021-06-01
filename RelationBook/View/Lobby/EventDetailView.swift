@@ -62,7 +62,12 @@ class EventDetailView: UIView, NibLoadable {
     relationIconView.setIcon(isCropped: true, bgColor: mainRelation.getColor(), borderWidth: 2, borderColor: .white, tintColor: .white)
 
     relationName.text = mainRelation.title
-    locaionLabel.text = "\(event.location.longitude.rounded()), \(event.location.latitude.rounded())"
+    if let geoPoint = event.location {
+      locaionLabel.text = "\(geoPoint.longitude.rounded()), \(geoPoint.latitude.rounded())"
+    } else {
+      locaionLabel.text = "-"
+
+    }
 
     timeLabel.text = event.time.dateValue().getDayString(type: .time)
 

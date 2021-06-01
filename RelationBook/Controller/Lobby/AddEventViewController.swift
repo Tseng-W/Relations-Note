@@ -183,7 +183,7 @@ class AddEventViewController: UIViewController {
     guard let userID = userViewModel.user.value?.uid else { return }
     var newEvent = Event(docID: "",
                          owner: userID,
-                         relations: [0],
+                         relations: relations.map { $0.id },
                          imageLink: imageLink ?? nil,
                          mood: mood,
                          category: event,

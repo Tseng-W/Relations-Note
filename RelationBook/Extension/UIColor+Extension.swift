@@ -33,6 +33,10 @@ extension UIColor {
 
   static let redB2: UIColor = UIColor(named: "RedB2")!
 
+  static let greenB1: UIColor = UIColor(named: "GreenB1")!
+
+  static let greenB2: UIColor = UIColor(named: "GreenB2")!
+
   func StringFromUIColor() -> String {
     guard let components = self.cgColor.components else { return "" }
     return "[\(components[0]), \(components[1]), \(components[2]), \(components[3])]"

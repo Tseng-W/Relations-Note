@@ -33,6 +33,16 @@ class EventViewModel {
     }
   }
 
+  func fetchEventIn(date: Date) -> [Event] {
+    
+    let events = events.value.filter { event in
+
+      return date.isSameDay(date: event.time.dateValue())
+    }
+
+    return events
+  }
+
   func getCategories() -> [Category] {
     let categories: [Category] = []
     return categories

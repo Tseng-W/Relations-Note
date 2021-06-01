@@ -19,14 +19,14 @@ class LobbyEventTableCell: UITableViewCell {
     }
   }
 
-  var relations = [Relation]() {
+  var relationCategories = [Category]() {
     didSet {
       guard let event = event,
-            relations.count > 0 else { return }
+            relationCategories.count > 0 else { return }
 
-      relationLabel.text = "與 \(relations[0].name)"
-      if relations.count > 1 {
-        relationLabel.text! += " 等\(relations.count)人"
+      relationLabel.text = "與 \(relationCategories[0].title)"
+      if relationCategories.count > 1 {
+        relationLabel.text! += " 等\(relationCategories.count)人"
       }
 
       event.getRelationImage { [weak self] image in
@@ -44,7 +44,7 @@ class LobbyEventTableCell: UITableViewCell {
   var event: Event? {
     didSet {
       guard let event = event,
-            relations.count > 0 else { return }
+            relationCategories.count > 0 else { return }
       event.getRelationImage { [weak self] image in
         self?.userIcon.setIcon(
           isCropped: true,
@@ -52,7 +52,7 @@ class LobbyEventTableCell: UITableViewCell {
           bgColor: UIColor.UIColorFromString(string: event.category.backgroundColor),
           tintColor: .clear)
       }
-      eventLabel.text = relations[0].name
+      eventLabel.text = relationCategories[0].title
 
       tagListView.addTag(event.category.title)
     }
