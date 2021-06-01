@@ -18,22 +18,32 @@ class IconView: UIView {
     imageView.image = defaultImage
     imageView.backgroundColor = defaultBackgroundColor
     imageView.tintColor = defaultTintColor
+    imageView.backgroundColor = .clear
     return imageView
   }()
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, tintColor: UIColor? = .label) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = nil) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
 
-    imageView.backgroundColor = .clear
+    imageView.constraints.forEach { $0.isActive = false }
 
     if let image = image {
       imageView.image = image
+      
     }
 
     if let bgColor = bgColor {
       backgroundColor = bgColor
+    }
+
+    if let borderWidth = borderWidth {
+      layer.borderWidth = borderWidth
+    }
+
+    if let borderColor = borderColor {
+      layer.borderColor = borderColor.cgColor
     }
 
     if let tintColor = tintColor {
@@ -47,7 +57,7 @@ class IconView: UIView {
 
     layoutIfNeeded()
     isCornerd = true
-    layoutIfNeeded()
+//    layoutIfNeeded()
     imageView.isCornerd = isCropped
     layoutIfNeeded()
   }

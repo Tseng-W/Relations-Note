@@ -79,11 +79,11 @@ class FirebaseManager {
 
     switch hierarchy {
     case .main:
-      category.id = user.getFilter(type: type).count
+      category.id = user.getCategoriesWithSuperIndex(mainType: type).count
       category.isSubEnable = type == .event ? false : true
       categories.main.append(category)
     case .sub:
-      category.id = user.getCategoriesWithSuperIndex(type: type, filterIndex: category.superIndex).count
+      category.id = user.getCategoriesWithSuperIndex(subType: type).count
       category.isSubEnable = false
       categories.sub.append(category)
     }

@@ -35,11 +35,15 @@ class UserViewModel {
   }
 
   var mockMoodData: [(title: String, imageName: String, colorString: String)] = [
-    ("憤怒", "face.smiling.fill", UIColor.systemRed.StringFromUIColor()),
-    ("傷心", "face.smiling.fill", UIColor.systemBlue.StringFromUIColor()),
-    ("無聊", "face.smiling.fill", UIColor.systemYellow.StringFromUIColor()),
-    ("輕鬆", "face.smiling.fill", UIColor.systemTeal.StringFromUIColor()),
-    ("快樂", "face.smiling.fill", UIColor.systemGreen.StringFromUIColor())
+    ("憤怒", ImageAsset.emojiAngry.rawValue, UIColor.systemRed.StringFromUIColor()),
+    ("傷心", ImageAsset.emojiSad.rawValue, UIColor.systemBlue.StringFromUIColor()),
+    ("無言", ImageAsset.emojiWaiting.rawValue, UIColor.systemPurple.StringFromUIColor()),
+    ("困惑", ImageAsset.emojiConfused.rawValue, UIColor.systemTeal.StringFromUIColor()),
+    ("無聊", ImageAsset.emojiSleeping.rawValue, UIColor.systemYellow.StringFromUIColor()),
+    ("快樂", ImageAsset.emojiHappy.rawValue, UIColor.systemOrange.StringFromUIColor()),
+    ("興奮", ImageAsset.emojiGrin.rawValue, UIColor.systemGreen.StringFromUIColor()),
+    ("期待", ImageAsset.emojiWinking.rawValue, UIColor.systemIndigo.StringFromUIColor()),
+    ("著迷", ImageAsset.emojiLove.rawValue, UIColor.systemPink.StringFromUIColor())
   ]
 
   func fetchMood() {

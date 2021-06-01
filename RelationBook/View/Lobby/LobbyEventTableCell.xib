@@ -23,7 +23,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="UZl-az-23V" customClass="TagListView" customModule="TagListView">
+                    <view hidden="YES" contentMode="right" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UZl-az-23V" customClass="TagListView" customModule="TagListView">
                         <rect key="frame" x="232.5" y="36" width="165.5" height="25"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
@@ -42,7 +42,7 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="enableRemoveButton" value="NO"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="與" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJ8-Y6-oKq">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="與" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJ8-Y6-oKq">
                         <rect key="frame" x="380" y="7" width="18" height="21"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -81,6 +81,11 @@
             <point key="canvasLocation" x="137.68115942028987" y="138.28125"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="UZl-az-23V">
+            <size key="intrinsicContentSize" width="165.5" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

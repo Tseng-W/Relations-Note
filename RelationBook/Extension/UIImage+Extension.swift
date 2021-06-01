@@ -14,6 +14,15 @@ enum ImageAsset: String {
   case note = "icon_24px_note"
   case category = "icon_24px_category"
   case profile = "icon_24px_profile"
+  case emojiAngry = "icon_32px_angry"
+  case emojiConfused = "icon_32px_confused"
+  case emojiGrin = "icon_32px_grin"
+  case emojiHappy = "icon_32px_happy"
+  case emojiLove = "icon_32px_love"
+  case emojiSad = "icon_32px_sad"
+  case emojiSleeping = "icon_32px_sleeping"
+  case emojiWaiting = "icon_32px_waiting"
+  case emojiWinking = "icon_32px_winking"
 }
 
 enum SysetmAsset: String {

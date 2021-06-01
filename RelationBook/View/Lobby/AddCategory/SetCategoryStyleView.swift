@@ -49,10 +49,11 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
   weak var delegate: CategoryStyleViewDelegate?
 
-  var canConfirm = false {
+  var canConfirm = false  {
     didSet {
       confirmButton.isEnabled = canConfirm
-      confirmButton.alpha = canConfirm ? 1.0 : 0.5
+      confirmButton.isUserInteractionEnabled = canConfirm
+      confirmButton.backgroundColor = canConfirm ? .systemGray : .systemGray4
     }
   }
   var name = String.empty {
@@ -99,6 +100,8 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
   func customInit() {
     loadNibContent()
+
+    canConfirm = false
 
     colorPicker.brightnessSlider = brightnessSlider
     colorPicker.rectangularHsbPalette = paletteControl

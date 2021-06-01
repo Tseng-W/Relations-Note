@@ -43,7 +43,7 @@ class AddCategoryViewController: FloatingViewController {
   private var canConfirm = false {
     didSet {
       confirmButton.isEnabled = canConfirm
-      confirmButton.backgroundColor = canConfirm ? UIColor.systemGray3 : UIColor.systemGray2
+      confirmButton.backgroundColor = canConfirm ? UIColor.systemGray : UIColor.systemGray4
     }
   }
   private let colorPicker = ColorPickerController()
@@ -95,8 +95,7 @@ class AddCategoryViewController: FloatingViewController {
       imageLink: imageString,
       backgroundColor: color.StringFromUIColor())
 
-    FirebaseManager.shared.addUserCategory(type: type, hierarchy: hierarchy
-                                           , category: &category)
+    FirebaseManager.shared.addUserCategory(type: type, hierarchy: hierarchy, category: &category)
     isVisable = false
   }
 

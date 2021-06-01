@@ -106,6 +106,8 @@ class SCLAlertViewProvider: NSObject {
 
     alertView = SCLAlertView(appearance: type.appearance)
 
+    alertView?.iconTintColor = .label
+
     type.buttons.forEach { button in
       alertView!.addButton(button.title, backgroundColor: .systemGray, textColor: .label, showTimeout: nil, target: self, selector: button.action)
     }

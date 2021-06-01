@@ -51,7 +51,7 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard let user = userViewModel.user.value else { return 0 }
-    return user.getCategoriesWithSuperIndex(type: .relation, filterIndex: section).count
+    return user.getCategoriesWithSuperIndex(mainType: .relation, filterIndex: section).count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,7 +61,7 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
     guard let user = userViewModel.user.value else { return cell }
 
     if let cell = cell as? RelationTableCell {
-      let data = user.getCategoriesWithSuperIndex(type: .relation, filterIndex: indexPath.section)[indexPath.row]
+      let data = user.getCategoriesWithSuperIndex(mainType: .relation, filterIndex: indexPath.section)[indexPath.row]
       cell.tagTitleLabel.text = data.title
       cell.subLabel.isHidden = true
 

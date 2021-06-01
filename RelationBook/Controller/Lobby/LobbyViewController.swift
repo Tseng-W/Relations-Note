@@ -51,6 +51,8 @@ class LobbyViewController: UIViewController {
     
     super.viewDidLoad()
 
+    calendar.select(Date())
+
     tableView.separatorColor = .clear
 
     navigationItem.title = Date().getDayString(type: .day)
@@ -59,14 +61,18 @@ class LobbyViewController: UIViewController {
       guard let _ = value else { return }
       self.eventViewModel.fetchEvents()
       self.relationViewModel.fetchRelations()
+      self.tableView.reloadData()
+      self.calendar.reloadData()
     }
 
     eventViewModel.events.bind { events in
       self.tableView.reloadData()
+      self.calendar.reloadData()
     }
 
     relationViewModel.relations.bind { relations in
       self.tableView.reloadData()
+      self.calendar.reloadData()
     }
 
     userViewModel.fetchUserDate()
@@ -76,20 +82,12 @@ class LobbyViewController: UIViewController {
   }
 }
 
-extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, UIGestureRecognizerDelegate {
+extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance, UIGestureRecognizerDelegate {
 
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     navigationItem.title = date.getDayString(type: .day)
     tableView.reloadData()
   }
-
-//  func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-//
-//    if calendar.collectionView.decelerationRate.rawValue <= 1 {
-//      let date = calendar.date(for: calendar.visibleCells().first!)
-//      calendar.select(date, scrollToDate: false)
-//    }
-//  }
 
   func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
     
@@ -114,6 +112,42 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, UIGestu
     }
     return shouldBegin
   }
+
+  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+
+    let events = eventViewModel.events.value
+    let todayEvents = events.filter { event in
+      date.isSameDay(date: event.time.dateValue())
+    }
+
+    if date.isWeekend {
+      return todayEvents.count > 0 ? .redB1 : .redB2
+    } else {
+      return todayEvents.count > 0 ? .label : .secondaryLabel
+    }
+  }
+
+  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+    let events = eventViewModel.events.value
+    let todayEvents = events.filter { event in
+      date.isSameDay(date: event.time.dateValue())
+    }
+
+    if date.isWeekend {
+      return todayEvents.count > 0 ? .redB1 : .redB2
+    } else {
+      return todayEvents.count > 0 ? .label : .secondaryLabel
+    }
+  }
+
+  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+    if date.isSameDay(date: Date()) {
+      return appearance.todayColor
+    } else {
+      return appearance.todaySelectionColor
+    }
+  }
+  
 }
 
 extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
@@ -144,16 +178,42 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    80
+    60
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
     tableView.cellForRow(at: indexPath)?.isSelected = false
+
+    guard indexPath.row < eventViewModel.events.value.count,
+          let user = userViewModel.user.value else { return }
+
+    let event = eventViewModel.events.value[indexPath.row]
+    var relations = [Category]()
+    for index in 0..<user.relationSet.sub.count {
+      if event.relations.contains(index) {
+        relations.append(user.relationSet.sub[index])
+      }
+    }
+
+    let detailVC = EventDetailView()
+    let blurView = view.addBlurView()
+    view.addSubview(detailVC)
+
+    detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 2)
+
+    view.layoutIfNeeded()
+
+    detailVC.setUp(event: event, relations: relations)
+
+    detailVC.onDismiss = {
+      blurView.removeFromSuperview()
+    }
   }
 }
 
 extension LobbyViewController: TabBarTapDelegate {
-  
+
   func tabBarTapped(_ controller: PBTabBarViewController, index: Int) {
     performSegue(withIdentifier: "addEvent", sender: self)
   }

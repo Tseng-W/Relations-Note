@@ -145,12 +145,12 @@ class AddContactFlowViewController: FloatingViewController {
 
   @IBAction func onTapButton(_ sender: UIButton) {
     if sender == confirmButton {
-      guard let category = category,
+      guard let category = superRelation,
             let feature = feature,
             let name = name,
             let image = imageString,
             let bgColor = imageBackgroundColor else { return }
-      relationViewModel.addRelation(name: name, iconString: image, bgColor: bgColor, relationType: category, feature: feature)
+      relationViewModel.addRelation(name: name, iconString: image, bgColor: bgColor, superCategory: category, feature: feature)
     }
     self.view.removeFromSuperview()
   }
@@ -170,7 +170,7 @@ class AddContactFlowViewController: FloatingViewController {
 
     let verticalPadding: CGFloat = 16.0
 
-    setCategoryView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2)
+    setCategoryView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2.3)
 
     view.layoutIfNeeded()
   }

@@ -65,6 +65,8 @@
 		476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2ED4264BDD3700A9200A /* CategoryCollectionCell.swift */; };
 		476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */; };
 		477F3634265F93FB00BB8E15 /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */; };
+		47815AA82664B5A3001FCFBA /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47815AA72664B5A3001FCFBA /* EventDetailView.xib */; };
+		47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47815AA92664B7C5001FCFBA /* EventDetailView.swift */; };
 		4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786930126516EC100BFA750 /* PopMoodSelectView.swift */; };
 		478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478693032651F2E800BFA750 /* SelectFloatViewController.swift */; };
 		479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3CC26412613000E2CFC /* UITableView+Extension.swift */; };
@@ -183,6 +185,8 @@
 		476D2ED4264BDD3700A9200A /* CategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionCell.swift; sourceTree = "<group>"; };
 		476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionCell.xib; sourceTree = "<group>"; };
 		477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
+		47815AA72664B5A3001FCFBA /* EventDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailView.xib; sourceTree = "<group>"; };
+		47815AA92664B7C5001FCFBA /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		4786930126516EC100BFA750 /* PopMoodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoodSelectView.swift; sourceTree = "<group>"; };
 		478693032651F2E800BFA750 /* SelectFloatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFloatViewController.swift; sourceTree = "<group>"; };
 		479DE3CC26412613000E2CFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
@@ -364,7 +368,6 @@
 				47A957D3263FA40D0015A1CC /* Lobby */,
 				47339E4B263C2D6F0092860F /* Main.storyboard */,
 				47E6EF0D263D725F000172DC /* Lobby.storyboard */,
-				474C6B922663934200A3C9FD /* SetCategoryStyleView.swift */,
 				47339EA3263C35C60092860F /* Book.storyboard */,
 				47339E53263C2D710092860F /* LaunchScreen.storyboard */,
 				47339EA8263C374F0092860F /* Profile.storyboard */,
@@ -519,12 +522,13 @@
 		47A217E5265A2E360096149C /* AddCategory */ = {
 			isa = PBXGroup;
 			children = (
+				474C6B922663934200A3C9FD /* SetCategoryStyleView.swift */,
+				474C6B90266392B500A3C9FD /* SetCategoryStyleView.xib */,
 				478693032651F2E800BFA750 /* SelectFloatViewController.swift */,
 				47181876265786DD00F34AA4 /* AddCategoryViewController.swift */,
 				4786930126516EC100BFA750 /* PopMoodSelectView.swift */,
 				47A217E6265A2EE50096149C /* LabelInputTableCell.xib */,
 				47A217E8265A2FB60096149C /* LabelInputTableCell.swift */,
-				474C6B90266392B500A3C9FD /* SetCategoryStyleView.xib */,
 			);
 			path = AddCategory;
 			sourceTree = "<group>";
@@ -558,6 +562,8 @@
 				47A217E5265A2E360096149C /* AddCategory */,
 				47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */,
 				47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */,
+				47815AA72664B5A3001FCFBA /* EventDetailView.xib */,
+				47815AA92664B7C5001FCFBA /* EventDetailView.swift */,
 			);
 			path = Lobby;
 			sourceTree = "<group>";
@@ -743,6 +749,7 @@
 				47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */,
 				47339EA4263C35C60092860F /* Book.storyboard in Resources */,
 				47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */,
+				47815AA82664B5A3001FCFBA /* EventDetailView.xib in Resources */,
 				47ECF075265B49B60063E294 /* TitledInputView.xib in Resources */,
 				476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */,
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
@@ -980,6 +987,7 @@
 				479DE3DD264128C7000E2CFC /* KingFisherWrapper.swift in Sources */,
 				472D1371264CD1ED001F3B85 /* CategoryCollectionView.swift in Sources */,
 				47A957DA263FA7040015A1CC /* LobbyEventTableCell.swift in Sources */,
+				47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */,
 				479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */,
 				4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */,
 				47181877265786DD00F34AA4 /* AddCategoryViewController.swift in Sources */,

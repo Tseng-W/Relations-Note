@@ -38,7 +38,7 @@
                                     <constraint firstAttribute="height" constant="50" id="aIM-wB-v5N"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_512x_note" translatesAutoresizingMaskIntoConstraints="NO" id="DtG-OY-hT3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_1024px_app" translatesAutoresizingMaskIntoConstraints="NO" id="DtG-OY-hT3">
                                 <rect key="frame" x="87" y="128" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DtG-OY-hT3" secondAttribute="height" multiplier="1:1" id="Kch-2Z-8hN"/>
@@ -46,7 +46,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NWv-il-GAh"/>
-                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ft3-TL-URM" firstAttribute="top" secondItem="DtG-OY-hT3" secondAttribute="bottom" constant="60" id="5MD-cI-aW8"/>
                             <constraint firstItem="DtG-OY-hT3" firstAttribute="centerY" secondItem="h6P-v0-FYe" secondAttribute="centerY" constant="-200" id="InO-yF-IFE"/>
@@ -69,9 +69,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_512x_note" width="512" height="512"/>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="icon_1024px_app" width="1024" height="1024"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

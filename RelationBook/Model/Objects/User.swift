@@ -26,7 +26,7 @@ struct User: Codable{
     }
   }
 
-  func getCategoriesWithSuperIndex(type: CategoryType, filterIndex index: Int) -> [Category] {
+  func getCategoriesWithSuperIndex(mainType type: CategoryType, filterIndex index: Int = -1) -> [Category] {
     switch type {
     case .event:
       return eventSet.getMainCategories(superIndex: index)
@@ -37,7 +37,7 @@ struct User: Codable{
     }
   }
 
-  func getCategoriesWithSuperIndex(type: CategoryType, mainIndex index: Int) -> [Category] {
+  func getCategoriesWithSuperIndex(subType type: CategoryType, mainIndex index: Int = -1) -> [Category] {
     switch type {
     case .event:
       return eventSet.getSubCategories(superIndex: index)

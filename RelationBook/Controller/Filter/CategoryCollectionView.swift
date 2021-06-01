@@ -46,14 +46,7 @@ class CategoryCollectionView: UICollectionView {
         guard let type = type,
               let user = userViewModel.user.value else { return }
         var subCategory: [Category] = []
-        switch type {
-        case .event:
-          subCategory = user.eventSet.getSubCategories(superIndex: category.id)
-        case .feature:
-          subCategory = user.featureSet.getSubCategories(superIndex: category.id)
-        case .relation:
-          subCategory = user.relationSet.getSubCategories(superIndex: category.id)
-        }
+        subCategory = user.getCategoriesWithSuperIndex(subType: type, mainIndex: category.id)
         subCategories.append(subCategory)
       }
       reloadData()
@@ -75,7 +68,7 @@ class CategoryCollectionView: UICollectionView {
       guard let user = user,
             let index = self?.index,
             let type = self?.type else { return }
-      self?.mainCategories = user.getCategoriesWithSuperIndex(type: type, filterIndex: index)
+      self?.mainCategories = user.getCategoriesWithSuperIndex(mainType: type, filterIndex: index)
     }
 
     userViewModel.fetchUserDate()

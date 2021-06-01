@@ -81,6 +81,8 @@ class AddEventViewController: UIViewController {
       self?.filterView.setUp(type: .relation)
     }
 
+    tableView.separatorColor = .clear
+
     userViewModel.fetchUserDate()
 
     relationFilterSetup()

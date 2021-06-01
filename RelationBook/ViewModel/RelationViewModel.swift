@@ -21,11 +21,11 @@ class RelationViewModel {
     }
   }
 
-  func addRelation(name: String, iconString: String, bgColor: UIColor, relationType: Category, feature: Feature) {
+  func addRelation(name: String, iconString: String, bgColor: UIColor, superCategory: Category, feature: Feature) {
 
     guard let user = FirebaseManager.shared.userShared else { return }
 
-    let newIndex = user.getCategoriesWithSuperIndex(type: .relation, mainIndex: relationType.id).count
+    let newIndex = user.getCategoriesWithSuperIndex(subType: .relation).count
 
     let relation = Relation(
       id: nil,
@@ -40,8 +40,8 @@ class RelationViewModel {
     FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { docID in
       var newContact = Category(
         id: newIndex,
-        isCustom: false,
-        superIndex: relationType.superIndex,
+        isCustom: String.verifyUrl(urlString: iconString),
+        superIndex: superCategory.id,
         isSubEnable: false,
         title: name,
         imageLink: iconString,

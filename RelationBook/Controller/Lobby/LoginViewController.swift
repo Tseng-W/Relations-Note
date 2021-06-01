@@ -66,11 +66,7 @@ private extension LoginViewController {
         top: loginButtonView.topAnchor,
         left: loginButtonView.leftAnchor,
         bottom: loginButtonView.bottomAnchor,
-        right: loginButtonView.rightAnchor,
-        paddingTop: 0,
-        paddingLeft: 0,
-        paddingBottom: 0,
-        paddingRight: 0, width: 0, height: 0)
+        right: loginButtonView.rightAnchor)
       whiteButton.layer.cornerRadius = cornerRadius
       whiteButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 
@@ -81,11 +77,7 @@ private extension LoginViewController {
         top: loginButtonView.topAnchor,
         left: loginButtonView.leftAnchor,
         bottom: loginButtonView.bottomAnchor,
-        right: loginButtonView.rightAnchor,
-        paddingTop: 0,
-        paddingLeft: 0,
-        paddingBottom: 0,
-        paddingRight: 0, width: 0, height: 0)
+        right: loginButtonView.rightAnchor)
       blackButton.layer.cornerRadius = cornerRadius
       blackButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 

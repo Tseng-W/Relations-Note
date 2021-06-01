@@ -17,7 +17,7 @@ class IconSelectView: UIView, NibLoadable {
       tapGesture.numberOfTouchesRequired = 1
       iconView.addGestureRecognizer(tapGesture)
     }
-  }
+  } 
 
   @IBOutlet var textField: UITextField! {
     didSet {
@@ -28,6 +28,18 @@ class IconSelectView: UIView, NibLoadable {
   @IBInspectable var placeholder: String = "" {
     didSet {
       textField.placeholder = placeholder
+    }
+  }
+
+  @IBInspectable var imageBorderWidth: CGFloat = 0 {
+    didSet {
+      iconView.imageView.borderWidth = imageBorderWidth
+    }
+  }
+
+  @IBInspectable var imageBorderColor: UIColor = .white {
+    didSet {
+      iconView.imageView.borderColor = imageBorderColor
     }
   }
 
@@ -86,10 +98,17 @@ class IconSelectView: UIView, NibLoadable {
     loadNibContent()
   }
 
-  func setUp(text: String, image: UIImage, background: UIColor) {
-    textField.text = text
-    self.image = image
-    iconView.backgroundColor = background
+  func setUp(text: String? = nil, image: UIImage? = nil, backgroundColor: UIColor? = nil, borderWidth: CGFloat = 0, borderColor: UIColor? = nil, tintColor: UIColor? = nil) {
+
+    if let text = text {
+      textField.text = text
+    }
+
+    if let image = image {
+      self.image = image
+    }
+
+    iconView.setIcon(isCropped: true, image: image, bgColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, tintColor: tintColor)
   }
 
   @objc func iconTapped(tapGesture: UITapGestureRecognizer) {
