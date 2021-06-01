@@ -41,14 +41,15 @@ class AddContactFlowViewController: FloatingViewController {
           paddingTop: self.view.frame.height / 3,
           paddingLeft: 32,
           paddingBottom: self.view.frame.height / 3,
-          paddingRight: 32, width: 0, height: 0)
+          paddingRight: 32)
 
         self.view.layoutIfNeeded()
 
         filterView.setUp(type: .relation, isMainOnly: true)
 
-        filterView.onSelected = { categories in
-          self.superRelation = categories.first
+        filterView.onSelected = { [weak self] categories in
+          self?.category = categories.first
+          self?.relationButton.selectedContent = self?.category?.title
           filterView.removeFromSuperview()
           blurView.removeFromSuperview()
         }
@@ -75,7 +76,7 @@ class AddContactFlowViewController: FloatingViewController {
           paddingBottom: self.view.frame.height / 4,
           paddingRight: 32,
           width: 0, height: 0)
-        
+
         self.view.layoutIfNeeded()
 
         addFeatureView.filterView.setUp(type: .feature)
@@ -86,7 +87,7 @@ class AddContactFlowViewController: FloatingViewController {
         }
 
         addFeatureView.onConfirm = { [weak self] category, feature in
-          self?.category = category
+          self?.featureButton.selectedContent = category.title
           self?.feature = feature
         }
       }
@@ -108,8 +109,6 @@ class AddContactFlowViewController: FloatingViewController {
   }
   var category: Category? {
     didSet {
-      guard let category = category else { return }
-      featureButton.placeholder = category.title
       checkContactData()
     }
   }
@@ -120,12 +119,6 @@ class AddContactFlowViewController: FloatingViewController {
   }
   var imageString: String?
   var imageBackgroundColor: UIColor?
-
-  var superRelation: Category? {
-    didSet {
-      relationButton.selectedContent = superRelation?.title
-    }
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -145,12 +138,12 @@ class AddContactFlowViewController: FloatingViewController {
 
   @IBAction func onTapButton(_ sender: UIButton) {
     if sender == confirmButton {
-      guard let category = superRelation,
+      guard let category = category,
             let feature = feature,
             let name = name,
             let image = imageString,
             let bgColor = imageBackgroundColor else { return }
-      relationViewModel.addRelation(name: name, iconString: image, bgColor: bgColor, superCategory: category, feature: feature)
+      relationViewModel.addRelation(name: name, iconString: image, bgColor: bgColor, superIndex: category.id, feature: feature)
     }
     self.view.removeFromSuperview()
   }

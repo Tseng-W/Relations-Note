@@ -72,6 +72,7 @@
                     <constraint firstItem="JkA-Lh-Xj9" firstAttribute="top" secondItem="BBQ-3W-6V9" secondAttribute="top" constant="8" id="zZz-fx-c3T"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <connections>
                 <outlet property="eventLabel" destination="ONJ-l5-9NK" id="ERa-XP-HYd"/>
                 <outlet property="relationLabel" destination="EJ8-Y6-oKq" id="JbJ-nJ-cBp"/>

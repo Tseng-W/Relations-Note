@@ -113,8 +113,6 @@ class CategoryViewModel: Codable {
   }
 
   func getMainCategories(superIndex: Int) -> [Category] {
-    guard superIndex < filter.count else { return [] }
-
     if superIndex == -1 {
       return main
     }
@@ -123,8 +121,6 @@ class CategoryViewModel: Codable {
   }
 
   func getSubCategories(superIndex: Int) -> [Category] {
-    guard superIndex < filter.count else { return [] }
-
     if superIndex == -1 {
       return sub
     }

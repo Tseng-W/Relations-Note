@@ -17,7 +17,7 @@ class IconSelectView: UIView, NibLoadable {
       tapGesture.numberOfTouchesRequired = 1
       iconView.addGestureRecognizer(tapGesture)
     }
-  } 
+  }
 
   @IBOutlet var textField: UITextField! {
     didSet {

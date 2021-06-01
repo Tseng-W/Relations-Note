@@ -21,7 +21,7 @@ struct Event: Codable {
   var imageLink: String?
   var mood: Int
   var category: Category
-  var location: GeoPoint
+  var location: GeoPoint?
   var locationName: String?
   var time: Timestamp
   var subEvents: [SubEvent]

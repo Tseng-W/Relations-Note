@@ -179,9 +179,7 @@ class AddEventViewController: UIViewController {
 
   @IBAction func confirm(_ sender: UIButton) {
     print("confirm")
-    guard let event = event,
-          let location = location,
-          let locationName = locationName else { return }
+    guard let event = event else { return }
     guard let userID = userViewModel.user.value?.uid else { return }
     var newEvent = Event(docID: "",
                          owner: userID,

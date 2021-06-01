@@ -12,11 +12,7 @@ class EventDetailView: UIView, NibLoadable {
   let userViewModel = UserViewModel()
 
   @IBOutlet var eventImage: UIImageView!
-  @IBOutlet var categoryIconView: IconSelectView! {
-    didSet {
-      categoryIconView.subviews.forEach { $0.isUserInteractionEnabled = false }
-    }
-  }
+  @IBOutlet var categoryIconView: IconView!
   @IBOutlet var relationIconView: IconView!
   @IBOutlet var moodImage: UIImageView!
   @IBOutlet var relationName: UILabel!
@@ -50,16 +46,11 @@ class EventDetailView: UIView, NibLoadable {
 
     event.category.getImage { [weak self] image in
       guard let image = image else { return }
-      self?.categoryIconView.setUp(image: image)
+      self?.categoryIconView.setIcon(isCropped: true, image: image)
     }
 
     let categoryBGColor = UIColor.UIColorFromString(string: event.category.backgroundColor)
-    categoryIconView.setUp(
-      text: event.category.title,
-      backgroundColor: categoryBGColor,
-      borderWidth: 2,
-      borderColor: .white,
-      tintColor: .white)
+    categoryIconView.setIcon(isCropped: true, bgColor: categoryBGColor, borderWidth: 3, borderColor: .white, tintColor: .white)
 
     let mainRelation = relations.first!
 
