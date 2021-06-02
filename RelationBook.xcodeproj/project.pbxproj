@@ -79,8 +79,6 @@
 		47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217EA265A42BD0096149C /* IconSelectView.xib */; };
 		47A217ED265A43FF0096149C /* IconSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EC265A43FF0096149C /* IconSelectView.swift */; };
 		47A217F0265A71840096149C /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EF265A71840096149C /* NibLoadable.swift */; };
-		47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */; };
-		47A957DA263FA7040015A1CC /* LobbyEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */; };
 		47B6B903265340860090218C /* BookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B902265340860090218C /* BookTableCell.swift */; };
 		47B6B905265340A80090218C /* BookTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6B904265340A80090218C /* BookTableCell.xib */; };
 		47B6B90826535BD10090218C /* ProfileHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6B90726535BD10090218C /* ProfileHeaderViewCell.xib */; };
@@ -88,6 +86,8 @@
 		47B6B90C26535C490090218C /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B90B26535C490090218C /* ProfileTableViewCell.swift */; };
 		47B6B90E26535C600090218C /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6B90D26535C600090218C /* ProfileTableViewCell.xib */; };
 		47B6B9102653C2E20090218C /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B90F2653C2E20090218C /* FloatingView.swift */; };
+		47B6D6D126673C040070E277 /* LobbyEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6D6D026673C040070E277 /* LobbyEventCell.xib */; };
+		47B6D6D326673C3B0070E277 /* LobbyEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */; };
 		47B806D62647D5AD00EC711D /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806D52647D5AD00EC711D /* AddEventViewController.swift */; };
 		47B806DB2648CFB700EC711D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DA2648CFB700EC711D /* UIButton+Extension.swift */; };
 		47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DC2648D30A00EC711D /* RelationViewModel.swift */; };
@@ -199,8 +199,6 @@
 		47A217EA265A42BD0096149C /* IconSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconSelectView.xib; sourceTree = "<group>"; };
 		47A217EC265A43FF0096149C /* IconSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectView.swift; sourceTree = "<group>"; };
 		47A217EF265A71840096149C /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
-		47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LobbyEventTableCell.xib; sourceTree = "<group>"; };
-		47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyEventTableCell.swift; sourceTree = "<group>"; };
 		47B6B902265340860090218C /* BookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableCell.swift; sourceTree = "<group>"; };
 		47B6B904265340A80090218C /* BookTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookTableCell.xib; sourceTree = "<group>"; };
 		47B6B90726535BD10090218C /* ProfileHeaderViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderViewCell.xib; sourceTree = "<group>"; };
@@ -208,6 +206,8 @@
 		47B6B90B26535C490090218C /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		47B6B90D26535C600090218C /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		47B6B90F2653C2E20090218C /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
+		47B6D6D026673C040070E277 /* LobbyEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LobbyEventCell.xib; sourceTree = "<group>"; };
+		47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyEventCell.swift; sourceTree = "<group>"; };
 		47B806D52647D5AD00EC711D /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		47B806DA2648CFB700EC711D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		47B806DC2648D30A00EC711D /* RelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewModel.swift; sourceTree = "<group>"; };
@@ -560,10 +560,10 @@
 				471FD4F2265C9934003CF46F /* AddFeature */,
 				47A217F1265A838C0096149C /* AddContact */,
 				47A217E5265A2E360096149C /* AddCategory */,
-				47A957D4263FA4450015A1CC /* LobbyEventTableCell.xib */,
-				47A957D9263FA7040015A1CC /* LobbyEventTableCell.swift */,
 				47815AA72664B5A3001FCFBA /* EventDetailView.xib */,
 				47815AA92664B7C5001FCFBA /* EventDetailView.swift */,
+				47B6D6D026673C040070E277 /* LobbyEventCell.xib */,
+				47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */,
 			);
 			path = Lobby;
 			sourceTree = "<group>";
@@ -748,8 +748,8 @@
 				47B6B90E26535C600090218C /* ProfileTableViewCell.xib in Resources */,
 				47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */,
 				47339EA4263C35C60092860F /* Book.storyboard in Resources */,
-				47A957D5263FA4450015A1CC /* LobbyEventTableCell.xib in Resources */,
 				47815AA82664B5A3001FCFBA /* EventDetailView.xib in Resources */,
+				47B6D6D126673C040070E277 /* LobbyEventCell.xib in Resources */,
 				47ECF075265B49B60063E294 /* TitledInputView.xib in Resources */,
 				476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */,
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
@@ -986,7 +986,7 @@
 				47B6B90A26535C260090218C /* ProfileHeaderViewCell.swift in Sources */,
 				479DE3DD264128C7000E2CFC /* KingFisherWrapper.swift in Sources */,
 				472D1371264CD1ED001F3B85 /* CategoryCollectionView.swift in Sources */,
-				47A957DA263FA7040015A1CC /* LobbyEventTableCell.swift in Sources */,
+				47B6D6D326673C3B0070E277 /* LobbyEventCell.swift in Sources */,
 				47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */,
 				479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */,
 				4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */,

@@ -43,7 +43,9 @@ class LobbyViewController: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
-      tableView.lk_registerCellWithNib(identifier: String(describing: LobbyEventTableCell.self), bundle: nil)
+      tableView.lk_registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
+      tableView.rowHeight = UITableView.automaticDimension
+      tableView.estimatedRowHeight = 60
     }
   }
   
@@ -80,8 +82,6 @@ class LobbyViewController: UIViewController {
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
   }
-
-
 }
 
 // MARK: - calendar delegate / datasource
@@ -178,20 +178,25 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventTableCell.self), for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventCell.self), for: indexPath)
 
     guard let selectedDate = calendar.selectedDate,
           let user = userViewModel.user.value else { return cell }
 
-    if let cell = cell as? LobbyEventTableCell {
-      cell.setConstraint()
+    if let cell = cell as? LobbyEventCell {
+
+//      cell.cellSetup()
+
       view.layoutIfNeeded()
 
       let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.row]
-      
+
+
       cell.event = event
       cell.relationCategories = user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) }
     }
+
+    cell.updateConstraintsIfNeeded()
 
     return cell
   }

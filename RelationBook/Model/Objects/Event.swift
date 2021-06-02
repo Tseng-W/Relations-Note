@@ -29,6 +29,10 @@ struct Event: Codable {
   func getRelationImage(completion: @escaping (UIImage?) -> Void) {
     category.getImage{ completion($0) }
   }
+
+  func getColor() -> UIColor {
+    return category.getColor()
+  }
 }
 
 struct SubEvent: Codable {

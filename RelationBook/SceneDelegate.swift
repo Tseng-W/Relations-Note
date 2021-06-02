@@ -41,6 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     #if targetEnvironment(simulator)
     UserDefaults.standard.setValue("mockAppleID", forKey: UserDefaults.Keys.uid.rawValue)
     UserDefaults.standard.setValue("mockEmail", forKey: UserDefaults.Keys.email.rawValue)
+
     if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
       window?.rootViewController = mainVC
     } else {
