@@ -142,13 +142,11 @@ extension AddCategoryViewController: CropViewControllerDelegate {
 
 extension AddCategoryViewController: SCLAlertViewProviderDelegate {
 
-  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
-
-    iconImageView.image = UIImage(named: named)
-
-    print(named)
+  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
+    
+    iconImageView.image = image
+    newIconImageString = named
   }
-
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
     delegate?.typeOfCategory(controller: self)

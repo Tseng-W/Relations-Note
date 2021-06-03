@@ -19,6 +19,7 @@ class IconView: UIView {
     imageView.backgroundColor = defaultBackgroundColor
     imageView.tintColor = defaultTintColor
     imageView.backgroundColor = .clear
+    imageView.contentMode = .scaleAspectFit
     return imageView
   }()
   
@@ -35,6 +36,7 @@ class IconView: UIView {
 
     if let bgColor = bgColor {
       backgroundColor = bgColor
+      imageView.backgroundColor = bgColor
     }
 
     if let borderWidth = borderWidth {

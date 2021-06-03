@@ -280,8 +280,8 @@ extension AddEventViewController: AddCategoryViewDelegate {
 
 extension AddEventViewController: SCLAlertViewProviderDelegate {
 
-  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
-    print(named)
+  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
+
   }
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
@@ -305,6 +305,4 @@ extension AddEventViewController: SCLAlertViewProviderDelegate {
       }
     }
   }
-
-
 }

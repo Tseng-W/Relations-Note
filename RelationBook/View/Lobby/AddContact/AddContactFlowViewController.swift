@@ -183,23 +183,25 @@ extension AddContactFlowViewController: CategoryStyleViewDelegate {
     edittingType
   }
 
-  func categoryStyleView(styleView: SetCategoryStyleView, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
+  func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
     
     self.imageString = imageString
     self.name = name
     imageBackgroundColor = backgroundColor
 
-    iconSelectView.iconView.setIcon(isCropped: true, image: image, bgColor: backgroundColor)
+    iconSelectView.iconView.setIcon(isCropped: isCropped, image: image, bgColor: backgroundColor)
     iconSelectView.textField.text = name
   }
 }
 
-extension AddContactFlowViewController: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
+extension AddContactFlowViewController:
+  SCLAlertViewProviderDelegate, CropViewControllerDelegate {
 
-  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
-    print(named)
+  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
+
+    iconSelectView.iconView.setIcon(isCropped: false, image: image, bgColor: .clear)
+    imageString = named
   }
-
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
     edittingType

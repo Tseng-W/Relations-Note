@@ -9,7 +9,7 @@ import UIKit
 
 protocol LocalIconSelectionDelegate: AnyObject {
 
-  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String)
+  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String)
 }
 
 class LocalIconSelectionView: UIViewController {
@@ -146,11 +146,13 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    let imageName = iconViewModel?.searchIconImageString(indexPath: indexPath)
+    let iconImage = iconViewModel?.searchIconImage(indexPath: indexPath)
 
-    guard let imageName = imageName else { return }
+    guard let image = iconImage else { return }
 
-    delegate?.selectionView(selectionView: self, didSelected: imageName)
+    guard let identifier = image.accessibilityIdentifier else { dismiss(animated: true); return }
+
+    delegate?.selectionView(selectionView: self, didSelected: image, named: identifier)
     dismiss(animated: true)
   }
 }

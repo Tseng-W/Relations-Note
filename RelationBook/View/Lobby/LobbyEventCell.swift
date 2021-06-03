@@ -59,7 +59,9 @@ class LobbyEventCell: UITableViewCell {
     nameLabel.text = relationCategories.first?.title
     sideBar.backgroundColor = event.getColor()
     tagListView.removeAllTags()
-    tagListView.addTag(event.category.title)
+    let tag = tagListView.addTag(event.category.title)
+    tag.tintColor = .systemRed
+    tag.borderColor = .systemGreen
   }
 
 }

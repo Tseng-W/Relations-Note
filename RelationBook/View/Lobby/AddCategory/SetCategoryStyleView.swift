@@ -11,7 +11,7 @@ import CropViewController
 
 protocol CategoryStyleViewDelegate: AnyObject {
 
-  func categoryStyleView(styleView: SetCategoryStyleView, name: String, backgroundColor: UIColor, image: UIImage, imageString: String )
+  func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String)
 
   func iconType(styleView: SetCategoryStyleView) -> CategoryType?
 }
@@ -117,7 +117,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
       guard let imageString = imageString,
             let image = image,
             name != .empty else { return }
-      delegate?.categoryStyleView(styleView: self, name: name, backgroundColor: colorPicker.selectedColor, image: image, imageString: imageString)
+      delegate?.categoryStyleView(styleView: self, isCropped: isImageCropped, name: name, backgroundColor: colorPicker.selectedColor, image: image, imageString: imageString)
     }
 
     removeFromSuperview()
@@ -137,8 +137,12 @@ extension SetCategoryStyleView: ColorPickerDelegate {
 // MARK: - SCLAlertProvider delegate
 extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
 
-  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
-    print(named)
+  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
+
+    isImageCropped = false
+    self.image = image
+    imageString = named
+    iconSelectView.iconView.setIcon(isCropped: isImageCropped, image: image)
   }
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {

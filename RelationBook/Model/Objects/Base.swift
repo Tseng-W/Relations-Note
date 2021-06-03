@@ -36,7 +36,9 @@ extension Icon {
     if isCustom {
       UIImage.loadImage(imageLink, completion: completion)
     }
-    completion(UIImage(systemName: imageLink))
+    if let image = UIImage(systemName: imageLink) ?? UIImage(named: imageLink) {
+      completion(image)
+    }
   }
 
   func getColor() -> UIColor {
