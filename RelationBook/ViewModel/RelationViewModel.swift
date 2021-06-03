@@ -21,6 +21,13 @@ class RelationViewModel {
     }
   }
 
+  func getRelationAt(index: Int) -> Relation? {
+    if index < relations.value.count {
+      return relations.value[index]
+    }
+    return nil
+  }
+
   func addRelation(name: String, iconString: String, bgColor: UIColor, superIndex: Int, feature: Feature) {
 
     guard let user = FirebaseManager.shared.userShared else { return }

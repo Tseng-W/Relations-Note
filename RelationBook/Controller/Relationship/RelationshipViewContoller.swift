@@ -9,7 +9,6 @@ import UIKit
 
 class RelationshipViewContoller: UIViewController {
   
-  
   let userViewModel = UserViewModel()
   
   @IBOutlet var tableView: UITableView! {
@@ -17,6 +16,7 @@ class RelationshipViewContoller: UIViewController {
       tableView.delegate = self
       tableView.dataSource = self
       tableView.separatorColor = .clear
+      tableView.backgroundColor = .secondarySystemBackground
       tableView.lk_registerCellWithNib(identifier: String(describing: RelationTableCell.self), bundle: nil)
       tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
 
@@ -26,6 +26,16 @@ class RelationshipViewContoller: UIViewController {
   }
   
   let relationViewModel = RelationViewModel()
+
+  private var selectedCategory: Category?
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let listVC = segue.destination as? RelationListViewController {
+      guard let category = selectedCategory else { return }
+      listVC.superCategoryID = category.id
+      listVC.navigationTitle = category.title
+    }
+  }
   
   override func viewDidLoad() {
     
@@ -94,6 +104,11 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.cellForRow(at: indexPath)?.isSelected = false
+    if let cell = tableView.cellForRow(at: indexPath) as? RelationTableCell,
+       let category = cell.category {
+      selectedCategory = category
+      performSegue(withIdentifier: "list", sender: self)
+    }
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

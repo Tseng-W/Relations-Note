@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--關係-->
+        <!--關係類別-->
         <scene sceneID="BC3-Lx-mxG">
             <objects>
                 <viewController id="e4M-lx-m9L" customClass="RelationshipViewContoller" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,14 +30,48 @@
                             <constraint firstItem="eq3-JC-YyK" firstAttribute="leading" secondItem="8gy-bC-k11" secondAttribute="leading" id="n3K-JR-TJX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="關係" id="YnK-l5-uyF"/>
+                    <navigationItem key="navigationItem" title="關係類別" id="YnK-l5-uyF">
+                        <barButtonItem key="backBarButtonItem" title=" " id="mxk-u9-3sM"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="eq3-JC-YyK" id="nsg-Nw-zP4"/>
+                        <segue destination="MQO-qB-kTO" kind="show" identifier="list" id="NGe-Ho-6yi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYZ-3p-LM8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1310.144927536232" y="33.482142857142854"/>
+        </scene>
+        <!--關係清單-->
+        <scene sceneID="6cF-R4-j0p">
+            <objects>
+                <viewController id="MQO-qB-kTO" customClass="RelationListViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l6f-nu-vAN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6YV-sc-tzf">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KMD-Fi-HcJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KMD-Fi-HcJ" firstAttribute="bottom" secondItem="6YV-sc-tzf" secondAttribute="bottom" id="5FU-NR-HHi"/>
+                            <constraint firstItem="6YV-sc-tzf" firstAttribute="top" secondItem="KMD-Fi-HcJ" secondAttribute="top" id="G2I-1m-UNp"/>
+                            <constraint firstItem="KMD-Fi-HcJ" firstAttribute="trailing" secondItem="6YV-sc-tzf" secondAttribute="trailing" id="IdE-wU-P7x"/>
+                            <constraint firstItem="6YV-sc-tzf" firstAttribute="leading" secondItem="KMD-Fi-HcJ" secondAttribute="leading" id="ijz-ep-scj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="關係清單" id="Pia-kH-dLb"/>
+                    <connections>
+                        <outlet property="tableView" destination="6YV-sc-tzf" id="GPK-sE-qee"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zHO-Wc-Pj3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2257" y="33"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KiC-sv-r88">
