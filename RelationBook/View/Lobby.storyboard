@@ -979,7 +979,7 @@
                     <connections>
                         <outlet property="confirmButton" destination="8yX-2T-Gcd" id="Dzu-gb-H1c"/>
                         <outlet property="featureButton" destination="B0x-Nl-loy" id="Ohu-2o-sb9"/>
-                        <outlet property="iconSelectView" destination="f6i-ll-UGe" id="cng-Wv-0mj"/>
+                        <outlet property="iconSelectView" destination="f6i-ll-UGe" id="3RW-MS-51C"/>
                         <outlet property="relationButton" destination="xoh-bJ-uZ8" id="SiD-n0-Eiq"/>
                     </connections>
                 </viewController>

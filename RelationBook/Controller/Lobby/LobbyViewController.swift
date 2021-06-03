@@ -163,7 +163,6 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
       return appearance.todaySelectionColor
     }
   }
-  
 }
 
 // MARK: - tableView delegate / datasource
@@ -204,11 +203,12 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     tableView.cellForRow(at: indexPath)?.isSelected = false
 
-    guard indexPath.row < eventViewModel.events.value.count,
+    guard indexPath.row < eventViewModel.fetchEventIn(date: Date()).count,
           let user = userViewModel.user.value else { return }
 
-    let event = eventViewModel.events.value[indexPath.row]
+    let event = eventViewModel.fetchEventIn(date: Date())[indexPath.row]
     var relations = [Category]()
+
     for index in 0..<user.relationSet.sub.count {
       if event.relations.contains(index) {
         relations.append(user.relationSet.sub[index])

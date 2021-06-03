@@ -12,6 +12,7 @@ class EventDetailView: UIView, NibLoadable {
   let userViewModel = UserViewModel()
 
   @IBOutlet var eventImage: UIImageView!
+  @IBOutlet var eventBackground: UIView!
   @IBOutlet var categoryIconView: IconView!
   @IBOutlet var relationIconView: IconView!
   @IBOutlet var moodImage: UIImageView!
@@ -34,9 +35,9 @@ class EventDetailView: UIView, NibLoadable {
 
   func setUp(event: Event, relations: [Category]) {
 
-    userViewModel.fetchMood()
-
     layoutIfNeeded()
+
+    backgroundSet(event: event)
 
     if let imageLink = event.imageLink {
       UIImage.loadImage(imageLink) { [weak self] image in
@@ -52,6 +53,7 @@ class EventDetailView: UIView, NibLoadable {
     let categoryBGColor = UIColor.UIColorFromString(string: event.category.backgroundColor)
     categoryIconView.setIcon(isCropped: true, bgColor: categoryBGColor, borderWidth: 3, borderColor: .white, tintColor: .white)
 
+    // MARK: Relation data set
     let mainRelation = relations.first!
 
     mainRelation.getImage { [weak self] image in
@@ -71,16 +73,35 @@ class EventDetailView: UIView, NibLoadable {
 
     timeLabel.text = event.time.dateValue().getDayString(type: .time)
 
-    let imageSet = userViewModel.moodsData.value
-    if event.mood < imageSet.count {
-      let moodData = imageSet[event.mood]
 
-      moodData.getImage { [weak self] image in
-        self?.moodImage.image = image
-      }
-      moodImage.backgroundColor = moodData.getColor()
-    }
+    // MARK: Mood icon set
+//    let imageSet = userViewModel.moodsData.value
+//    if event.mood < imageSet.count {
+//      let moodData = imageSet[event.mood]
+//
+//      moodData.getImage { [weak self] image in
+//        self?.moodImage.image = image
+//      }
+//      moodImage.backgroundColor = moodData.getColor()
+//    }
     moodImage.isCornerd = true
+  }
+
+  func backgroundSet(event: Event) {
+
+    if let eventImageLink = event.imageLink {
+      UIImage.loadImage(eventImageLink) { [weak self] image in
+        self?.eventImage.image = image
+      }
+      categoryIconView.isHidden = true
+
+    } else {
+      eventImage.isHidden = true
+      eventBackground.backgroundColor = event.getColor()
+      event.category.getImage {  [weak self] image in
+        self?.categoryIconView.setIcon(isCropped: true, image: image, bgColor: event.getColor(), borderWidth: 4, borderColor: .white)
+      }
+    }
   }
 
   func customInit() {

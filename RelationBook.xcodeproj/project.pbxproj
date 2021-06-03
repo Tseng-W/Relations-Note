@@ -73,7 +73,7 @@
 		477F3634265F93FB00BB8E15 /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */; };
 		47815AA82664B5A3001FCFBA /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47815AA72664B5A3001FCFBA /* EventDetailView.xib */; };
 		47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47815AA92664B7C5001FCFBA /* EventDetailView.swift */; };
-		4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786930126516EC100BFA750 /* PopMoodSelectView.swift */; };
+		4786930226516EC100BFA750 /* MoodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786930126516EC100BFA750 /* MoodSelectView.swift */; };
 		478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478693032651F2E800BFA750 /* SelectFloatViewController.swift */; };
 		479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */; };
 		479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3CC26412613000E2CFC /* UITableView+Extension.swift */; };
@@ -105,6 +105,7 @@
 		47E7032726464AB000C82A9C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7032626464AB000C82A9C /* UIColor+Extension.swift */; };
 		47ECF075265B49B60063E294 /* TitledInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47ECF074265B49B60063E294 /* TitledInputView.xib */; };
 		47ECF077265B4A040063E294 /* TitledInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECF076265B4A040063E294 /* TitledInputView.swift */; };
+		47FDEA072668D79500F5A2BA /* IconSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FDEA062668D79500F5A2BA /* IconSelectionView.swift */; };
 		8FF80F5EDA1F36F33FA8D6DE /* Pods_RelationBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E92EF5710DEF4BD9EFC2C3 /* Pods_RelationBookTests.framework */; };
 		F72C23C080DF70D6DB87DCA6 /* Pods_RelationBook_RelationBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A36809A46AF2F6EC1729A7 /* Pods_RelationBook_RelationBookUITests.framework */; };
 /* End PBXBuildFile section */
@@ -200,7 +201,7 @@
 		477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
 		47815AA72664B5A3001FCFBA /* EventDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailView.xib; sourceTree = "<group>"; };
 		47815AA92664B7C5001FCFBA /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
-		4786930126516EC100BFA750 /* PopMoodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoodSelectView.swift; sourceTree = "<group>"; };
+		4786930126516EC100BFA750 /* MoodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectView.swift; sourceTree = "<group>"; };
 		478693032651F2E800BFA750 /* SelectFloatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFloatViewController.swift; sourceTree = "<group>"; };
 		479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
 		479DE3CC26412613000E2CFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
@@ -233,6 +234,7 @@
 		47E7032626464AB000C82A9C /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		47ECF074265B49B60063E294 /* TitledInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitledInputView.xib; sourceTree = "<group>"; };
 		47ECF076265B4A040063E294 /* TitledInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledInputView.swift; sourceTree = "<group>"; };
+		47FDEA062668D79500F5A2BA /* IconSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectionView.swift; sourceTree = "<group>"; };
 		5BDF16FD997D8A21AE3CCBAF /* Pods-RelationBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBookTests.debug.xcconfig"; path = "Target Support Files/Pods-RelationBookTests/Pods-RelationBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		72A36809A46AF2F6EC1729A7 /* Pods_RelationBook_RelationBookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelationBook_RelationBookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		874729F31A242C1430A228BD /* Pods_RelationBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelationBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -553,7 +555,7 @@
 				474C6B90266392B500A3C9FD /* SetCategoryStyleView.xib */,
 				478693032651F2E800BFA750 /* SelectFloatViewController.swift */,
 				47181876265786DD00F34AA4 /* AddCategoryViewController.swift */,
-				4786930126516EC100BFA750 /* PopMoodSelectView.swift */,
+				4786930126516EC100BFA750 /* MoodSelectView.swift */,
 				47A217E6265A2EE50096149C /* LabelInputTableCell.xib */,
 				47A217E8265A2FB60096149C /* LabelInputTableCell.swift */,
 			);
@@ -565,6 +567,7 @@
 			children = (
 				47A217EF265A71840096149C /* NibLoadable.swift */,
 				475D33842661064200A697DB /* IconView.swift */,
+				47FDEA062668D79500F5A2BA /* IconSelectionView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -584,11 +587,10 @@
 		47A957D3263FA40D0015A1CC /* Lobby */ = {
 			isa = PBXGroup;
 			children = (
+				47FDEA052668D3E500F5A2BA /* EventDetail */,
 				471FD4F2265C9934003CF46F /* AddFeature */,
 				47A217F1265A838C0096149C /* AddContact */,
 				47A217E5265A2E360096149C /* AddCategory */,
-				47815AA72664B5A3001FCFBA /* EventDetailView.xib */,
-				47815AA92664B7C5001FCFBA /* EventDetailView.swift */,
 				47B6D6D026673C040070E277 /* LobbyEventCell.xib */,
 				47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */,
 			);
@@ -636,6 +638,15 @@
 				47B806D52647D5AD00EC711D /* AddEventViewController.swift */,
 			);
 			path = Lobby;
+			sourceTree = "<group>";
+		};
+		47FDEA052668D3E500F5A2BA /* EventDetail */ = {
+			isa = PBXGroup;
+			children = (
+				47815AA72664B5A3001FCFBA /* EventDetailView.xib */,
+				47815AA92664B7C5001FCFBA /* EventDetailView.swift */,
+			);
+			path = EventDetail;
 			sourceTree = "<group>";
 		};
 		B3BE359D8CCF66AA8535907B /* Pods */ = {
@@ -1001,6 +1012,7 @@
 				47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */,
 				4712C23426526D16008D8386 /* RelationTableCell.swift in Sources */,
 				476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */,
+				47FDEA072668D79500F5A2BA /* IconSelectionView.swift in Sources */,
 				476D2ECA264BBA3600A9200A /* Date+Extension.swift in Sources */,
 				47A217F0265A71840096149C /* NibLoadable.swift in Sources */,
 				47B6B9102653C2E20090218C /* FloatingView.swift in Sources */,
@@ -1028,7 +1040,7 @@
 				47779E7A26676C5A00972194 /* LocalIconSelectionViewCell.swift in Sources */,
 				47181877265786DD00F34AA4 /* AddCategoryViewController.swift in Sources */,
 				47E6EF17263D732D000172DC /* LobbyViewController.swift in Sources */,
-				4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */,
+				4786930226516EC100BFA750 /* MoodSelectView.swift in Sources */,
 				47E702DF2644C82100C82A9C /* LoginViewController.swift in Sources */,
 				476D2EC8264B8EAE00A9200A /* Relation.swift in Sources */,
 				4712C23826526F1F008D8386 /* RelationTableHeaderCell.swift in Sources */,

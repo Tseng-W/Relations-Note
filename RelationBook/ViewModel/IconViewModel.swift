@@ -26,6 +26,9 @@ class IconViewModel {
       break
     case .feature:
       break
+    case .mood:
+      let emojiIcons = fetchLocalIcons(in: EmojiIcon.self)
+      iconSets.append(("情緒", emojiIcons))
     }
   }
 

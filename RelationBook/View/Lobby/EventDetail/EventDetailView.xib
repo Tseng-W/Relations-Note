@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDetailView" customModule="RelationBook" customModuleProvider="target">
             <connections>
                 <outlet property="categoryIconView" destination="YqC-q9-XFo" id="eA2-ze-HK7"/>
+                <outlet property="eventBackground" destination="cNQ-e6-oME" id="y0I-uL-3x0"/>
                 <outlet property="eventImage" destination="FoT-pU-f6e" id="D43-a7-aqG"/>
                 <outlet property="locaionLabel" destination="qJu-aP-xKB" id="BmP-jK-4R2"/>
                 <outlet property="moodImage" destination="T8t-Vf-0aA" id="2wR-CY-6hj"/>
@@ -26,10 +27,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNQ-e6-oME">
-                    <rect key="frame" x="0.0" y="0.0" width="549" height="452.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="549" height="362"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FoT-pU-f6e">
-                            <rect key="frame" x="0.0" y="0.0" width="549" height="452.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="549" height="362"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P64-J9-OEt">
                             <rect key="frame" x="16" y="16" width="25" height="25"/>
@@ -49,7 +50,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqC-q9-XFo" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
-                            <rect key="frame" x="200" y="151.5" width="149" height="149"/>
+                            <rect key="frame" x="215" y="121" width="119" height="119.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="YqC-q9-XFo" secondAttribute="height" id="K9k-N4-j9N"/>
@@ -82,14 +83,14 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9BW-zY-PeD" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
-                    <rect key="frame" x="16" y="411" width="82.5" height="82.5"/>
+                    <rect key="frame" x="16" y="320.5" width="82.5" height="82.5"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="9BW-zY-PeD" secondAttribute="height" multiplier="1:1" id="zVk-5c-GK1"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWN-6H-LOV" customClass="TagListView" customModule="TagListView">
-                    <rect key="frame" x="114.5" y="460.5" width="434.5" height="33"/>
+                    <rect key="frame" x="114.5" y="370" width="434.5" height="33"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -98,7 +99,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTs-WG-Uc8">
-                    <rect key="frame" x="313.5" y="544.5" width="219.5" height="30"/>
+                    <rect key="frame" x="313.5" y="454" width="219.5" height="30"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5cb-y8-mck">
                             <rect key="frame" x="0.0" y="0.5" width="30" height="29"/>
@@ -126,7 +127,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDQ-Sc-Ry5">
-                    <rect key="frame" x="16" y="501.5" width="219.5" height="30"/>
+                    <rect key="frame" x="16" y="411" width="219.5" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbD-GN-22n">
                             <rect key="frame" x="46" y="3.5" width="83.5" height="22.5"/>
@@ -152,14 +153,14 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z25-nw-uVi" userLabel="Bar">
-                    <rect key="frame" x="16" y="535.5" width="517" height="1"/>
+                    <rect key="frame" x="16" y="445" width="517" height="1"/>
                     <color key="backgroundColor" systemColor="systemGrayColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="cVa-5K-5jb"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PdA-SS-XBc">
-                    <rect key="frame" x="16" y="544.5" width="219.5" height="30"/>
+                    <rect key="frame" x="16" y="454" width="219.5" height="30"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uGQ-pE-Lbf">
                             <rect key="frame" x="0.0" y="-0.5" width="30" height="31.5"/>
@@ -211,18 +212,13 @@
                 <constraint firstItem="z25-nw-uVi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="mqL-gu-Ajk"/>
                 <constraint firstItem="9BW-zY-PeD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="p9K-bh-5t0"/>
                 <constraint firstItem="z25-nw-uVi" firstAttribute="top" secondItem="TDQ-Sc-Ry5" secondAttribute="bottom" constant="4" id="t4X-a8-L7Z"/>
-                <constraint firstItem="cNQ-e6-oME" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.75" id="vpl-1j-57C"/>
+                <constraint firstItem="cNQ-e6-oME" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="vpl-1j-57C"/>
                 <constraint firstItem="xWN-6H-LOV" firstAttribute="leading" secondItem="9BW-zY-PeD" secondAttribute="trailing" constant="16" id="yOG-Fe-nUt"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="148.55072463768118" y="-8.3705357142857135"/>
         </view>
     </objects>
-    <designables>
-        <designable name="xWN-6H-LOV">
-            <size key="intrinsicContentSize" width="434.5" height="16"/>
-        </designable>
-    </designables>
     <resources>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="pin" catalog="system" width="119" height="128"/>

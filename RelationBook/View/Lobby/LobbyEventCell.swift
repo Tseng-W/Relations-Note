@@ -23,7 +23,6 @@ class LobbyEventCell: UITableViewCell {
   @IBOutlet var tagListView: TagListView! {
     didSet {
       tagListView.alignment = .right
-      tagListView.delegate = self
     }
   }
 
@@ -44,11 +43,7 @@ class LobbyEventCell: UITableViewCell {
     guard let event = event,
           relationCategories.count > 0 else { return }
 
-    extraLabel.text = "與 \(relationCategories[0].title)"
-    if relationCategories.count > 1 {
-      extraLabel.text! += " 等\(relationCategories.count)人"
-    }
-
+    // MARK: Image
     event.getRelationImage { [weak self] image in
       self?.iconImage.setIcon(
         isCropped: true,  // TODO: Replace with varible
@@ -56,16 +51,19 @@ class LobbyEventCell: UITableViewCell {
         bgColor: .clear,
         tintColor: .label)
     }
+
+    // MARK: Label
     nameLabel.text = relationCategories.first?.title
     sideBar.backgroundColor = event.getColor()
+
+    if relationCategories.count > 1 {
+      extraLabel.text = "與 \(relationCategories[1].title) 等\(relationCategories.count - 1)人"
+    }
+
+    // MARK: TagView
     tagListView.removeAllTags()
     let tag = tagListView.addTag(event.category.title)
-    tag.tintColor = .systemRed
-    tag.borderColor = .systemGreen
+    tag.textColor = event.category.getColor()
+    tag.borderColor = event.category.getColor()
   }
-
-}
-
-extension LobbyEventCell: TagListViewDelegate {
-  
 }

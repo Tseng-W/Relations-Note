@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTo-RY-dP1" customClass="TagListView" customModule="TagListView">
-                        <rect key="frame" x="191" y="21.5" width="207" height="29.5"/>
+                        <rect key="frame" x="191" y="39" width="207" height="12"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -46,7 +46,7 @@
                                 <color key="value" systemColor="systemGrayColor"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="2"/>
+                                <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                 <color key="value" systemColor="systemGrayColor"/>
@@ -81,7 +81,7 @@
                     <constraint firstItem="nNi-zQ-052" firstAttribute="top" secondItem="ab3-9P-EEh" secondAttribute="top" constant="6" id="LKP-Jh-mxj"/>
                     <constraint firstItem="CJN-a1-do2" firstAttribute="top" secondItem="ab3-9P-EEh" secondAttribute="top" constant="8" id="MRq-Z2-jK2"/>
                     <constraint firstAttribute="bottom" secondItem="nNi-zQ-052" secondAttribute="bottom" constant="6" id="N25-zE-Fxn"/>
-                    <constraint firstItem="dTo-RY-dP1" firstAttribute="height" secondItem="ab3-9P-EEh" secondAttribute="height" multiplier="0.5" id="O3M-xU-YFE"/>
+                    <constraint firstItem="dTo-RY-dP1" firstAttribute="height" secondItem="ab3-9P-EEh" secondAttribute="height" multiplier="0.2" id="O3M-xU-YFE"/>
                     <constraint firstItem="nNi-zQ-052" firstAttribute="leading" secondItem="ab3-9P-EEh" secondAttribute="leading" constant="16" id="OAg-si-L3f"/>
                     <constraint firstAttribute="trailing" secondItem="dTo-RY-dP1" secondAttribute="trailing" constant="16" id="Tw8-gM-5WF"/>
                     <constraint firstItem="PCq-sr-X16" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xgi-lA-sdQ" secondAttribute="bottom" id="VZy-lm-atW"/>
@@ -102,11 +102,6 @@
             <point key="canvasLocation" x="131.8840579710145" y="140.95982142857142"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="dTo-RY-dP1">
-            <size key="intrinsicContentSize" width="207" height="16"/>
-        </designable>
-    </designables>
     <resources>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

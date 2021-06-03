@@ -130,6 +130,8 @@ class AddEventViewController: UIViewController {
           vc.iconSelectView.onEndEditTitle = { _ in }
           vc.isVisable = true
         }
+      default:
+        break
       }
     }
   }
@@ -165,6 +167,8 @@ class AddEventViewController: UIViewController {
         self.addCategoryViewController.isVisable = true
         self.newCategorySetting = (type, hierarchy, superIndex)
       case .relation:
+        break
+      default:
         break
       }
     }
@@ -213,14 +217,21 @@ class AddEventViewController: UIViewController {
 
   @IBAction func showChangeMood(_ sender: UIButton) {
 
-    let popChangeMood = PopMoodSelectView(frame: CGRect(x: 0, y: 0, width: 232, height: 40))
+    let moodSelectView = MoodSelectView()
+    let blurView = view.addBlurView()
+    view.addSubview(moodSelectView)
+    moodSelectView.addConstarint(
+      left: view.leftAnchor, right: view.rightAnchor,
+      centerY: view.centerYAnchor,
+      paddingLeft: 16, paddingRight: 16,
+      height: 200)
 
-    popChangeMood.onSelected = { [weak self] (image, color) in
+    moodSelectView.onSelected = { [weak self] (index, image, color) in
+      self?.mood = index
       self?.moodButton.setImage(image, for: .normal)
       self?.moodButton.backgroundColor = color
+      blurView.removeFromSuperview()
     }
-
-    popTip.show(customView: popChangeMood, direction: .up, in: view, from: view.convert(moodButton.frame, from: moodButton.superview!))
   }
 
   @IBAction func showSetEvent(_ sender: UIButton) {

@@ -23,6 +23,8 @@ struct User: Codable{
       return featureSet.filter
     case .relation:
       return relationSet.filter
+    default:
+      return []
     }
   }
 
@@ -34,6 +36,8 @@ struct User: Codable{
       return featureSet.getMainCategories(superIndex: index)
     case .relation:
       return relationSet.getMainCategories(superIndex: index)
+    default:
+      return []
     }
   }
 
@@ -45,6 +49,8 @@ struct User: Codable{
       return featureSet.getSubCategories(superIndex: index)
     case .relation:
       return relationSet.getSubCategories(superIndex: index)
+    default:
+      return []
     }
   }
 }
