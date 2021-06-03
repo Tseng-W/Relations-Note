@@ -31,26 +31,18 @@ class LocalIconSelectionView: UIViewController {
 
   weak var delegate: LocalIconSelectionDelegate?
 
-  var collectionLayout: UICollectionViewFlowLayout = {
+//  var collectionLayout: UICollectionViewFlowLayout = {
+//
+//    let layout = UICollectionViewFlowLayout.init()
+//
+//    layout.scrollDirection = .vertical
+//    layout.minimumLineSpacing = 8
+//    layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+//
+//    return layout
+//  }()
 
-    let layout = UICollectionViewFlowLayout.init()
-
-    layout.scrollDirection = .vertical
-    layout.minimumLineSpacing = 8
-    layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-
-    return layout
-  }()
-
-  let collectionView: UICollectionView = {
-
-    let collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout.init())
-
-    collectionView.backgroundColor = .secondarySystemBackground
-    collectionView.isScrollEnabled = true
-
-    return collectionView
-  }()
+  let collectionView = IconSelectionView()
 
   var iconViewModel: IconViewModel? {
     didSet {
@@ -62,15 +54,15 @@ class LocalIconSelectionView: UIViewController {
 
     super.viewDidLoad()
 
-    collectionLayout.headerReferenceSize = CGSize(width: view.frame.width, height: 40)
-
-    collectionView.setCollectionViewLayout(collectionLayout, animated: true)
+//    collectionLayout.headerReferenceSize = CGSize(width: view.frame.width, height: 40)
+//
+//    collectionView.setCollectionViewLayout(collectionLayout, animated: true)
 
     collectionView.delegate = self
     collectionView.dataSource = self
 
-    collectionView.lk_registerCellWithNib(identifier: String(describing: LocalIconSelectionViewCell.self), bundle: nil)
-    collectionView.lk_registerHeaderWithNib(identifier: String(describing: LocalIconSelectionViewHeader.self), bundle: nil)
+//    collectionView.lk_registerCellWithNib(identifier: String(describing: LocalIconSelectionViewCell.self), bundle: nil)
+//    collectionView.lk_registerHeaderWithNib(identifier: String(describing: LocalIconSelectionViewHeader.self), bundle: nil)
 
     view.addSubview(collectionView)
     collectionView.addConstarint(

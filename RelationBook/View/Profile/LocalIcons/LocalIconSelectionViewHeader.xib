@@ -42,6 +42,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="o2I-CF-0CF"/>
+            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="CRW-KQ-Rfm" firstAttribute="top" secondItem="2ue-Ul-V8v" secondAttribute="top" id="BBO-2h-lE4"/>
                 <constraint firstItem="CRW-KQ-Rfm" firstAttribute="leading" secondItem="o2I-CF-0CF" secondAttribute="leading" id="D2c-Dc-LBg"/>
@@ -55,6 +56,9 @@
         </collectionReusableView>
     </objects>
     <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

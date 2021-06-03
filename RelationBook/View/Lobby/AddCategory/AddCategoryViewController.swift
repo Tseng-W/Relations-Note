@@ -87,7 +87,7 @@ class AddCategoryViewController: FloatingViewController {
 
     var category = Category(
       id: -1,
-      isCustom: String.verifyUrl(urlString: imageString),
+      isCustom: imageString.verifyUrl(),
       superIndex: superIndex,
       isSubEnable: false,
       title: title,
@@ -96,6 +96,7 @@ class AddCategoryViewController: FloatingViewController {
 
     FirebaseManager.shared.addUserCategory(type: type, hierarchy: hierarchy, category: &category)
     isVisable = false
+
   }
 
   @IBAction private func onCancel(_ sender: UIButton) {

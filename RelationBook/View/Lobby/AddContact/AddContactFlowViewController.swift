@@ -83,7 +83,7 @@ class AddContactFlowViewController: FloatingViewController {
 
         self.view.layoutIfNeeded()
 
-        addFeatureView.filterView.setUp(type: .feature)
+        addFeatureView.filterView.setUp(type: .feature, isMainOnly: false)
 
         addFeatureView.onCancel = {
           blurView.removeFromSuperview()

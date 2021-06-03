@@ -44,10 +44,10 @@ class LobbyEventCell: UITableViewCell {
           relationCategories.count > 0 else { return }
 
     // MARK: Image
-    event.getRelationImage { [weak self] image in
+    relationCategories.first!.getImage { [weak self] image in
       self?.iconImage.setIcon(
         isCropped: true,  // TODO: Replace with varible
-        image: image!,
+        image: image,
         bgColor: .clear,
         tintColor: .label)
     }
@@ -58,6 +58,8 @@ class LobbyEventCell: UITableViewCell {
 
     if relationCategories.count > 1 {
       extraLabel.text = "與 \(relationCategories[1].title) 等\(relationCategories.count - 1)人"
+    } else {
+      extraLabel.isHidden = true
     }
 
     // MARK: TagView

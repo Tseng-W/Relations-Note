@@ -33,12 +33,13 @@ protocol Icon: Codable {
 extension Icon {
 
   func getImage(completion: @escaping (UIImage?) -> Void) {
-    if isCustom {
+
+    if imageLink.verifyUrl() {
       UIImage.loadImage(imageLink, completion: completion)
-    }
-    if let image = UIImage(systemName: imageLink) ?? UIImage(named: imageLink) {
+    } else if let image = UIImage(systemName: imageLink) ?? UIImage(named: imageLink) {
       completion(image)
     }
+
   }
 
   func getColor() -> UIColor {

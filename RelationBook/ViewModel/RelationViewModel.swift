@@ -37,10 +37,11 @@ class RelationViewModel {
       createdTime: Timestamp(date: Date()),
       lastContactTime: Timestamp(date: Date()))
 
+
     FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { docID in
       var newContact = Category(
         id: newIndex,
-        isCustom: String.verifyUrl(urlString: iconString),
+        isCustom: iconString.verifyUrl(),
         superIndex: superIndex,
         isSubEnable: false,
         title: name,
@@ -48,6 +49,7 @@ class RelationViewModel {
         backgroundColor: bgColor.StringFromUIColor())
       FirebaseManager.shared.addUserCategory(type: .relation, hierarchy: .sub, category: &newContact)
     }
+
   }
 
   func onRelationAdded(relation: Relation) {

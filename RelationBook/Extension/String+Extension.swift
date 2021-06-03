@@ -27,10 +27,16 @@ extension String {
     return nil
   }
 
-  static func verifyUrl(urlString: String) -> Bool {
-    if let _ = URL(string: urlString) {
-      return true
-    }
-    return false
+  func verifyUrl() -> Bool {
+
+    self.contains("http")
+
+//    var request = URLRequest(url: URL(string: self)!)
+////    request.httpMethod = "HEAD"
+//    URLSession.shared.dataTask(with: request) { _, response, _ in
+//      DispatchQueue.main.async {
+//        completion((response as? HTTPURLResponse)?.statusCode == 200)
+//      }
+//    }.resume()
   }
 }

@@ -37,6 +37,8 @@ class EventDetailView: UIView, NibLoadable {
 
     layoutIfNeeded()
 
+    cornerRadius = 16
+
     backgroundSet(event: event)
 
     if let imageLink = event.imageLink {
