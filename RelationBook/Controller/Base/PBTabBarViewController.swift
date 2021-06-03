@@ -44,15 +44,15 @@ private enum Tab {
     case .profiles:
       return UITabBarItem(
         title: nil,
-        image: UIImage.asset(.profile),
-        selectedImage: UIImage.asset(.profile)
+        image: UIImage.asset(ImageAsset.profile),
+        selectedImage: UIImage.asset(ImageAsset.profile)
       )
 
     case .relationship:
       return UITabBarItem(
         title: nil,
-        image: UIImage.asset(.category),
-        selectedImage: UIImage.asset(.category)
+        image: UIImage.asset(ImageAsset.category),
+        selectedImage: UIImage.asset(ImageAsset.category)
       )
 
     case .lobby:
@@ -67,8 +67,8 @@ private enum Tab {
   func images() -> (icon: UIImage, add: UIImage)? {
     switch self {
     case .lobby:
-      return (UIImage.asset(.icon)!,
-              UIImage.asset(.pen)!)
+      return (UIImage.asset(ImageAsset.icon)!,
+              UIImage.asset(ImageAsset.pen)!)
     default:
       return nil
     }

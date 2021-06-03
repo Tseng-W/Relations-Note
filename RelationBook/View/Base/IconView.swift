@@ -31,7 +31,6 @@ class IconView: UIView {
 
     if let image = image {
       imageView.image = image
-      
     }
 
     if let bgColor = bgColor {

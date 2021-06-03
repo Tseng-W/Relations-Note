@@ -64,11 +64,18 @@
 		476D2ECC264BC5D800A9200A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 476D2ECB264BC5D800A9200A /* GoogleService-Info.plist */; };
 		476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2ED4264BDD3700A9200A /* CategoryCollectionCell.swift */; };
 		476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */; };
+		47779E7826676BE500972194 /* LocalIconSelectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47779E7726676BE500972194 /* LocalIconSelectionViewCell.xib */; };
+		47779E7A26676C5A00972194 /* LocalIconSelectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47779E7926676C5A00972194 /* LocalIconSelectionViewCell.swift */; };
+		47779E7C26676E8600972194 /* LocalIconSelectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47779E7B26676E8600972194 /* LocalIconSelectionViewHeader.xib */; };
+		47779E7E26676EA200972194 /* LocalIconSelectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47779E7D26676EA200972194 /* LocalIconSelectionViewHeader.swift */; };
+		47779E8126676FD000972194 /* LocalIconSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47779E8026676FD000972194 /* LocalIconSelectionView.swift */; };
+		47779E8326679C3F00972194 /* IconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47779E8226679C3F00972194 /* IconViewModel.swift */; };
 		477F3634265F93FB00BB8E15 /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */; };
 		47815AA82664B5A3001FCFBA /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47815AA72664B5A3001FCFBA /* EventDetailView.xib */; };
 		47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47815AA92664B7C5001FCFBA /* EventDetailView.swift */; };
 		4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786930126516EC100BFA750 /* PopMoodSelectView.swift */; };
 		478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478693032651F2E800BFA750 /* SelectFloatViewController.swift */; };
+		479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */; };
 		479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3CC26412613000E2CFC /* UITableView+Extension.swift */; };
 		479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */; };
 		479DE3D726412896000E2CFC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D626412896000E2CFC /* String+Extension.swift */; };
@@ -184,11 +191,18 @@
 		476D2ECB264BC5D800A9200A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		476D2ED4264BDD3700A9200A /* CategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionCell.swift; sourceTree = "<group>"; };
 		476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionCell.xib; sourceTree = "<group>"; };
+		47779E7726676BE500972194 /* LocalIconSelectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalIconSelectionViewCell.xib; sourceTree = "<group>"; };
+		47779E7926676C5A00972194 /* LocalIconSelectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalIconSelectionViewCell.swift; sourceTree = "<group>"; };
+		47779E7B26676E8600972194 /* LocalIconSelectionViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocalIconSelectionViewHeader.xib; sourceTree = "<group>"; };
+		47779E7D26676EA200972194 /* LocalIconSelectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalIconSelectionViewHeader.swift; sourceTree = "<group>"; };
+		47779E8026676FD000972194 /* LocalIconSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalIconSelectionView.swift; sourceTree = "<group>"; };
+		47779E8226679C3F00972194 /* IconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewModel.swift; sourceTree = "<group>"; };
 		477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
 		47815AA72664B5A3001FCFBA /* EventDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailView.xib; sourceTree = "<group>"; };
 		47815AA92664B7C5001FCFBA /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		4786930126516EC100BFA750 /* PopMoodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoodSelectView.swift; sourceTree = "<group>"; };
 		478693032651F2E800BFA750 /* SelectFloatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFloatViewController.swift; sourceTree = "<group>"; };
+		479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
 		479DE3CC26412613000E2CFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D626412896000E2CFC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -435,6 +449,7 @@
 				476D2EC9264BBA3600A9200A /* Date+Extension.swift */,
 				47101B952654D4C200D7D171 /* Bundle+Extension.swift */,
 				477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */,
+				479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -496,6 +511,18 @@
 				476D2ED6264BDD4200A9200A /* CategoryCollectionCell.xib */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		47779E7F26676FBC00972194 /* LocalIcons */ = {
+			isa = PBXGroup;
+			children = (
+				47779E7926676C5A00972194 /* LocalIconSelectionViewCell.swift */,
+				47779E7726676BE500972194 /* LocalIconSelectionViewCell.xib */,
+				47779E7B26676E8600972194 /* LocalIconSelectionViewHeader.xib */,
+				47779E7D26676EA200972194 /* LocalIconSelectionViewHeader.swift */,
+				47779E8026676FD000972194 /* LocalIconSelectionView.swift */,
+			);
+			path = LocalIcons;
 			sourceTree = "<group>";
 		};
 		477F3630265F559700BB8E15 /* Objects */ = {
@@ -580,6 +607,7 @@
 		47B6B90626535BBD0090218C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				47779E7F26676FBC00972194 /* LocalIcons */,
 				47B6B90726535BD10090218C /* ProfileHeaderViewCell.xib */,
 				47B6B90926535C260090218C /* ProfileHeaderViewCell.swift */,
 				47B6B90B26535C490090218C /* ProfileTableViewCell.swift */,
@@ -595,6 +623,7 @@
 				476D2EBA264ADD5000A9200A /* UserViewModel.swift */,
 				476D2EBC264ADD5800A9200A /* EventViewModel.swift */,
 				471FD4F5265CA3F2003CF46F /* FeatureViewModel.swift */,
+				47779E8226679C3F00972194 /* IconViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -755,8 +784,10 @@
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
 				471FD4ED265C780B003CF46F /* AddFeatureFloatView.xib in Resources */,
 				47339EA9263C374F0092860F /* Profile.storyboard in Resources */,
+				47779E7C26676E8600972194 /* LocalIconSelectionViewHeader.xib in Resources */,
 				47339EAE263C37680092860F /* Timeline.storyboard in Resources */,
 				47339E52263C2D710092860F /* Assets.xcassets in Resources */,
+				47779E7826676BE500972194 /* LocalIconSelectionViewCell.xib in Resources */,
 				47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */,
 				471FD4E9265BE019003CF46F /* CheckboxTableCell.xib in Resources */,
 				474C6B91266392B600A3C9FD /* SetCategoryStyleView.xib in Resources */,
@@ -957,11 +988,13 @@
 				47B6B903265340860090218C /* BookTableCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
 				475D33852661064200A697DB /* IconView.swift in Sources */,
+				479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */,
 				47055320265B597300DCEC1D /* AddContactFlowViewController.swift in Sources */,
 				476D2EBD264ADD5800A9200A /* EventViewModel.swift in Sources */,
 				47101B962654D4C200D7D171 /* Bundle+Extension.swift in Sources */,
 				47339ECD263C3E760092860F /* UIImage+Extension.swift in Sources */,
 				47339EE9263C41FF0092860F /* TimelineViewContoller.swift in Sources */,
+				47779E8326679C3F00972194 /* IconViewModel.swift in Sources */,
 				47339E4A263C2D6F0092860F /* RelationshipViewContoller.swift in Sources */,
 				4765B1772650129700A6D18D /* SelectionView.swift in Sources */,
 				47339EC2263C3C140092860F /* UIStoryboard+Extension.swift in Sources */,
@@ -973,6 +1006,8 @@
 				47B6B9102653C2E20090218C /* FloatingView.swift in Sources */,
 				47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */,
 				479DE3E5264128F5000E2CFC /* MJRefreshWrapper.swift in Sources */,
+				47779E7E26676EA200972194 /* LocalIconSelectionViewHeader.swift in Sources */,
+				47779E8126676FD000972194 /* LocalIconSelectionView.swift in Sources */,
 				471FD4F1265C980F003CF46F /* AddFeatureFloatView.swift in Sources */,
 				47A217E9265A2FB60096149C /* LabelInputTableCell.swift in Sources */,
 				47B806D62647D5AD00EC711D /* AddEventViewController.swift in Sources */,
@@ -990,6 +1025,7 @@
 				47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */,
 				479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */,
 				4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */,
+				47779E7A26676C5A00972194 /* LocalIconSelectionViewCell.swift in Sources */,
 				47181877265786DD00F34AA4 /* AddCategoryViewController.swift in Sources */,
 				47E6EF17263D732D000172DC /* LobbyViewController.swift in Sources */,
 				4786930226516EC100BFA750 /* PopMoodSelectView.swift in Sources */,

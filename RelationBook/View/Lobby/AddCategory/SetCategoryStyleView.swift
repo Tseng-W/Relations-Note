@@ -12,6 +12,8 @@ import CropViewController
 protocol CategoryStyleViewDelegate: AnyObject {
 
   func categoryStyleView(styleView: SetCategoryStyleView, name: String, backgroundColor: UIColor, image: UIImage, imageString: String )
+
+  func iconType(styleView: SetCategoryStyleView) -> CategoryType?
 }
 
 class SetCategoryStyleView: UIView, NibLoadable {
@@ -134,6 +136,14 @@ extension SetCategoryStyleView: ColorPickerDelegate {
 
 // MARK: - SCLAlertProvider delegate
 extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
+
+  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
+    print(named)
+  }
+
+  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
+    delegate?.iconType(styleView: self)
+  }
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
 

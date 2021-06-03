@@ -43,7 +43,7 @@ class IconSelectView: UIView, NibLoadable {
     }
   }
 
-  @IBInspectable var image = UIImage.assetSystem(.camera) {
+  @IBInspectable var image = UIImage.assetSystem(SysetmAsset.camera) {
     didSet {
       guard let image = image else { return }
       iconView.imageView.image = image
@@ -66,7 +66,7 @@ class IconSelectView: UIView, NibLoadable {
 
   var onEndEditTitle: ((String) -> Void)? {
     didSet {
-      image = UIImage.assetSystem(.camera)
+      image = UIImage.assetSystem(SysetmAsset.camera)
 
       textField.placeholder = placeholder
 

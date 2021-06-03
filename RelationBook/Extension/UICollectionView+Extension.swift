@@ -15,6 +15,24 @@ extension UICollectionView {
 
         register(nib, forCellWithReuseIdentifier: identifier)
     }
+
+    func lk_registerHeaderWithNib(identifier: String, bundle: Bundle?) {
+
+      let nib = UINib(nibName: identifier, bundle: bundle)
+
+      register(nib,
+               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+               withReuseIdentifier: identifier)
+    }
+
+    func lk_registerFooterWithNib(identifier: String, bundle: Bundle?) {
+
+      let nib = UINib(nibName: identifier, bundle: bundle)
+
+      register(nib,
+               forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+               withReuseIdentifier: identifier)
+    }
     
     func rounded(cell: UICollectionViewCell, cornerRadius: CGFloat = 2, borderWidth: CGFloat = 1,
                  shadowRadius: CGFloat = 2, shadowOpacity: Float = 0.5) -> UICollectionViewCell {

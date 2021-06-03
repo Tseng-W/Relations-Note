@@ -27,6 +27,8 @@ class AddContactFlowViewController: FloatingViewController {
 
       relationButton.onTapped = {
 
+        self.edittingType = .relation
+
         let blurView = self.view.addBlurView()
 
         self.view.layoutIfNeeded()
@@ -61,6 +63,8 @@ class AddContactFlowViewController: FloatingViewController {
       featureButton.titleLabel.text = "特徵關係"
 
       featureButton.onTapped = {
+
+        self.edittingType = .feature
 
         let blurView = self.view.addBlurView()
 
@@ -102,6 +106,7 @@ class AddContactFlowViewController: FloatingViewController {
 
   var relationViewModel = RelationViewModel()
 
+  var edittingType: CategoryType?
   var feature: Feature? {
     didSet {
       checkContactData()
@@ -112,6 +117,7 @@ class AddContactFlowViewController: FloatingViewController {
       checkContactData()
     }
   }
+
   var name: String? {
     didSet {
       checkContactData()
@@ -150,6 +156,8 @@ class AddContactFlowViewController: FloatingViewController {
 
   @objc func showCategoryStyleView(tapGesture: UITapGestureRecognizer) {
 
+    edittingType = .relation
+
     let setCategoryView = SetCategoryStyleView(title: "新增關係人", placeholder: "姓名")
     let blurView = view.addBlurView()
 
@@ -171,6 +179,10 @@ class AddContactFlowViewController: FloatingViewController {
 
 extension AddContactFlowViewController: CategoryStyleViewDelegate {
 
+  func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
+    edittingType
+  }
+
   func categoryStyleView(styleView: SetCategoryStyleView, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
     
     self.imageString = imageString
@@ -183,6 +195,15 @@ extension AddContactFlowViewController: CategoryStyleViewDelegate {
 }
 
 extension AddContactFlowViewController: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
+
+  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
+    print(named)
+  }
+
+
+  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
+    edittingType
+  }
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
 

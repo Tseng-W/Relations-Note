@@ -54,8 +54,8 @@ class AddEventViewController: UIViewController {
     return vc
   }()
 
-  // MARK: New Categoty data.
-  var newCategotySetting: (type: CategoryType, hierarchy:  CategoryHierarchy, superIndex: Int)?
+  // MARK: New Category data.
+  var newCategorySetting: (type: CategoryType, hierarchy:  CategoryHierarchy, superIndex: Int)?
 
   // MARK: Event datas.
   var relations: [Category] = []
@@ -115,7 +115,7 @@ class AddEventViewController: UIViewController {
 
     filterView.onAddCategory = { type, hierarchy, superIndex in
 
-      self.newCategotySetting = (type, hierarchy, superIndex)
+      self.newCategorySetting = (type, hierarchy, superIndex)
 
       switch type {
       case .event, .feature:
@@ -163,7 +163,7 @@ class AddEventViewController: UIViewController {
       switch type {
       case .event, .feature:
         self.addCategoryViewController.isVisable = true
-        self.newCategotySetting = (type, hierarchy, superIndex)
+        self.newCategorySetting = (type, hierarchy, superIndex)
       case .relation:
         break
       }
@@ -263,22 +263,30 @@ extension AddEventViewController: UITextFieldDelegate {
 extension AddEventViewController: AddCategoryViewDelegate {
 
   func typeOfCategory(controller: AddCategoryViewController) -> CategoryType? {
-    guard let setting = newCategotySetting else { return nil }
+    guard let setting = newCategorySetting else { return nil }
     return setting.type
   }
 
   func superIndexOfCategory(controller: AddCategoryViewController) -> Int {
-    guard let setting = newCategotySetting else { return -1 }
+    guard let setting = newCategorySetting else { return -1 }
     return setting.superIndex
   }
 
   func hierarchyOfCategory(controller: AddCategoryViewController) -> CategoryHierarchy? {
-    guard let setting = newCategotySetting else { return nil }
+    guard let setting = newCategorySetting else { return nil }
     return setting.hierarchy
   }
 }
 
 extension AddEventViewController: SCLAlertViewProviderDelegate {
+
+  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
+    print(named)
+  }
+
+  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
+    newCategorySetting?.type
+  }
   
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
 

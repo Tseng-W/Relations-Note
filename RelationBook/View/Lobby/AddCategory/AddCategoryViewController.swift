@@ -17,7 +17,6 @@ protocol AddCategoryViewDelegate: AnyObject {
   func superIndexOfCategory(controller: AddCategoryViewController) -> Int
 
   func hierarchyOfCategory(controller: AddCategoryViewController) -> CategoryHierarchy?
-
 }
 
 class AddCategoryViewController: FloatingViewController {
@@ -142,6 +141,18 @@ extension AddCategoryViewController: CropViewControllerDelegate {
 }
 
 extension AddCategoryViewController: SCLAlertViewProviderDelegate {
+
+  func selectionView(selectionView: LocalIconSelectionView, didSelected named: String) {
+
+    iconImageView.image = UIImage(named: named)
+
+    print(named)
+  }
+
+
+  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
+    delegate?.typeOfCategory(controller: self)
+  }
 
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
     iconImageView.image = UIImage(systemName: symbolName)

@@ -10,11 +10,13 @@ import SCLAlertView
 import CropViewController
 import FirebaseStorage
 
-protocol SCLAlertViewProviderDelegate: AnyObject {
+protocol SCLAlertViewProviderDelegate:  LocalIconSelectionDelegate {
 
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String)
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage)
+
+  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType?
 }
 
 class SCLAlertViewProvider: NSObject {
@@ -122,7 +124,13 @@ extension SCLAlertViewProvider {
 
   @objc private func loadLocalIcon() {
 
-    alertDelegate?.alertProvider(provider: self, symbolName: "sparkles")
+    guard let iconType = alertDelegate?.alertIconType(provider: self) else { alertView?.hideView(); return }
+
+    let iconSelectionView = LocalIconSelectionView(type: iconType)
+
+    iconSelectionView.delegate = alertDelegate
+
+    alertView?.showDetailViewController(iconSelectionView, sender: self)
 
     alertView?.hideView()
   }
