@@ -129,6 +129,9 @@ class SetCategoryStyleView: UIView, NibLoadable {
 extension SetCategoryStyleView: ColorPickerDelegate {
 
   func colorPicker(_ colorPicker: ColorPickerController, selectedColor: UIColor, usingControl: ColorControl) {
+
+    layoutIfNeeded()
+
     iconSelectView.iconView.setIcon(isCropped: isImageCropped, bgColor: selectedColor)
     self.selectedColor = selectedColor
   }
@@ -142,7 +145,7 @@ extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewController
     isImageCropped = false
     self.image = image
     imageString = named
-    iconSelectView.iconView.setIcon(isCropped: isImageCropped, image: image)
+    iconSelectView.setUp(isCropped: isImageCropped, image: image)
   }
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {

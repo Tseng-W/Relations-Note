@@ -31,17 +31,6 @@ class LocalIconSelectionView: UIViewController {
 
   weak var delegate: LocalIconSelectionDelegate?
 
-//  var collectionLayout: UICollectionViewFlowLayout = {
-//
-//    let layout = UICollectionViewFlowLayout.init()
-//
-//    layout.scrollDirection = .vertical
-//    layout.minimumLineSpacing = 8
-//    layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-//
-//    return layout
-//  }()
-
   let collectionView = IconSelectionView()
 
   var iconViewModel: IconViewModel? {
@@ -54,15 +43,10 @@ class LocalIconSelectionView: UIViewController {
 
     super.viewDidLoad()
 
-//    collectionLayout.headerReferenceSize = CGSize(width: view.frame.width, height: 40)
-//
-//    collectionView.setCollectionViewLayout(collectionLayout, animated: true)
+    view.backgroundColor = .secondarySystemBackground
 
     collectionView.delegate = self
     collectionView.dataSource = self
-
-//    collectionView.lk_registerCellWithNib(identifier: String(describing: LocalIconSelectionViewCell.self), bundle: nil)
-//    collectionView.lk_registerHeaderWithNib(identifier: String(describing: LocalIconSelectionViewHeader.self), bundle: nil)
 
     view.addSubview(collectionView)
     collectionView.addConstarint(
@@ -120,7 +104,8 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
         ofKind: kind,
         withReuseIdentifier: String(describing: LocalIconSelectionViewHeader.self),
         for: indexPath)
-      header.backgroundColor = .secondarySystemBackground
+
+      header.subviews.first!.backgroundColor = .secondarySystemBackground
 
       if let header = header as? LocalIconSelectionViewHeader,
          let iconViewModel = iconViewModel {

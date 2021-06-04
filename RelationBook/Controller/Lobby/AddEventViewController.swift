@@ -127,7 +127,7 @@ class AddEventViewController: UIViewController {
         } else {
           let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addRelation") as! AddContactFlowViewController
           self.view.addSubview(vc.view)
-          vc.iconSelectView.onEndEditTitle = { _ in }
+          vc.iconSelectView.setUp()
           vc.isVisable = true
         }
       default:
@@ -218,8 +218,10 @@ class AddEventViewController: UIViewController {
   @IBAction func showChangeMood(_ sender: UIButton) {
 
     let moodSelectView = MoodSelectView()
+    moodSelectView.cornerRadius = 16
     let blurView = view.addBlurView()
     view.addSubview(moodSelectView)
+
     moodSelectView.addConstarint(
       left: view.leftAnchor, right: view.rightAnchor,
       centerY: view.centerYAnchor,

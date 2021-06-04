@@ -51,11 +51,12 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
 
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self), for: indexPath)
 
-    if let cell = cell as? LocalIconSelectionViewCell {
+    if let cell = cell as? LocalIconSelectionViewCell,
+       let image = UIImage.asset(EmojiIcon(rawValue: iconDetail[indexPath.row].imageName)!) {
 
       cell.iconView.setIcon(
         isCropped: false,
-        image: iconViewModel.searchIconImage(indexPath: indexPath),
+        image: image,
         bgColor: UIColor.UIColorFromString(string: iconDetail[indexPath.row].colorString))
     }
 
@@ -74,6 +75,7 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
         for: indexPath)
 
       if let header = header as? LocalIconSelectionViewHeader {
+        header.subviews.first!.backgroundColor = .secondarySystemBackground
         header.titleLabel.text = iconViewModel.iconSets[indexPath.section].title
       }
 
@@ -84,5 +86,16 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 
     return UICollectionReusableView()
+  }
+
+  func collectionView(_ collectionsView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    collectionView.cellForItem(at: indexPath)?.isSelected = false
+
+    let moodDetail = iconDetail[indexPath.row]
+
+    onSelected?(indexPath.row, UIImage(named: moodDetail.imageName)!, UIColor.UIColorFromString(string: moodDetail.colorString))
+
+    removeFromSuperview()
   }
 }

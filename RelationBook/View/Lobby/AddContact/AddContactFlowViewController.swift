@@ -47,6 +47,7 @@ class AddContactFlowViewController: FloatingViewController {
 
         self.view.layoutIfNeeded()
 
+        filterView.cornerRadius = 16
         filterView.setUp(type: .relation, isMainOnly: true)
 
         filterView.onSelected = { [weak self] categories in
@@ -82,6 +83,8 @@ class AddContactFlowViewController: FloatingViewController {
           width: 0, height: 0)
 
         self.view.layoutIfNeeded()
+
+        addFeatureView.cornerRadius = 16
 
         addFeatureView.filterView.setUp(type: .feature, isMainOnly: false)
 
@@ -171,9 +174,15 @@ class AddContactFlowViewController: FloatingViewController {
 
     let verticalPadding: CGFloat = 16.0
 
-    setCategoryView.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: verticalPadding, paddingRight: verticalPadding, height: view.frame.height / 2.3)
+    setCategoryView.addConstarint(
+      left: view.leftAnchor, right: view.rightAnchor,
+      centerY: view.centerYAnchor,
+      paddingLeft: verticalPadding, paddingRight: verticalPadding,
+      height: view.frame.height / 2.3)
 
     view.layoutIfNeeded()
+
+    setCategoryView.iconSelectView.setUp()
   }
 }
 

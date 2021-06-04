@@ -64,17 +64,7 @@ class IconSelectView: UIView, NibLoadable {
 
   var onIconTapped: ((IconView) -> Void)?
 
-  var onEndEditTitle: ((String) -> Void)? {
-    didSet {
-      image = UIImage.assetSystem(SysetmAsset.camera)
-
-      textField.placeholder = placeholder
-
-      guard let image = image else { return }
-
-      iconView.setIcon(isCropped: false, image: image, bgColor: imageBackgroundColor, tintColor: .label)
-    }
-  }
+  var onEndEditTitle: ((String) -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -98,7 +88,13 @@ class IconSelectView: UIView, NibLoadable {
     loadNibContent()
   }
 
-  func setUp(text: String? = nil, image: UIImage? = nil, backgroundColor: UIColor? = nil, borderWidth: CGFloat = 0, borderColor: UIColor? = nil, tintColor: UIColor? = nil) {
+  func setUp(isCropped: Bool? = false,
+             text: String? = nil,
+             image: UIImage? = UIImage.assetSystem(SysetmAsset.camera),
+             backgroundColor: UIColor? = .systemTeal,
+             borderWidth: CGFloat = 0,
+             borderColor: UIColor? = nil,
+             tintColor: UIColor? = .white) {
 
     if let text = text {
       textField.text = text
@@ -108,6 +104,7 @@ class IconSelectView: UIView, NibLoadable {
       self.image = image
     }
 
+    layoutIfNeeded()
     iconView.setIcon(isCropped: true, image: image, bgColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, tintColor: tintColor)
   }
 

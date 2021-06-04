@@ -15,6 +15,8 @@ enum ImageAsset: String {
   case note = "icon_24px_note"
   case category = "icon_24px_category"
   case profile = "icon_24px_profile"
+  case talkPH = "icon_128px_talk"
+  case talkPHWhite = "icon_128px_talk_w"
 }
 
 enum EmojiIcon: String, CaseIterable {

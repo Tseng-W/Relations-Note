@@ -43,6 +43,16 @@ class EventViewModel {
     return events
   }
 
+  func fetchEventIn(relation: Category) -> [Event] {
+
+    let events = events.value.filter { event in
+
+      return event.relations.contains(relation.id)
+    }
+
+    return events
+  }
+
   func getCategories() -> [Category] {
     let categories: [Category] = []
     return categories

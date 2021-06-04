@@ -55,7 +55,6 @@ class IconView: UIView {
     let width = isCropped ? frame.width : frame.width * 0.8
     imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor, width: width, height: width)
 
-    layoutIfNeeded()
     isCornerd = true
     imageView.isCornerd = isCropped
     layoutIfNeeded()

@@ -100,7 +100,9 @@ class FilterView: UIView {
     categoryScrollView.removeFromSuperview()
 
     addSubview(categoryScrollView)
-    categoryScrollView.addConstarint(top: filterScrollView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    categoryScrollView.addConstarint(
+      top: filterScrollView.bottomAnchor, left: leftAnchor,
+      bottom: bottomAnchor, right: rightAnchor)
   }
 
   private func addCategoryCollectionViews(type: CategoryType) {

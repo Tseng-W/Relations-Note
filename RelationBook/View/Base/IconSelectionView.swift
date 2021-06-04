@@ -26,7 +26,7 @@ class IconSelectionView: UICollectionView {
 
     let layout = UICollectionViewFlowLayout.init()
     layout.scrollDirection = .vertical
-    layout.minimumLineSpacing = 8
+    layout.minimumLineSpacing = 16
     layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     layout.headerReferenceSize = CGSize(width: frame.width, height: 40)
 
