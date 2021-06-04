@@ -23,8 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     UITabBar.appearance().tintColor = .label
 
-    UINavigationBar.appearance().barTintColor = .systemBackground
+    UINavigationBar.appearance().barTintColor = .secondarySystemBackground
     UINavigationBar.appearance().tintColor = .label
+    UINavigationBar.appearance().isTranslucent = false
+    UINavigationBar.appearance().shadowImage = UIImage()
 
     return true
   }

@@ -27,7 +27,6 @@ class IconView: UIView {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
-
     imageView.constraints.forEach { $0.isActive = false }
 
     if let image = image {
@@ -53,12 +52,11 @@ class IconView: UIView {
 
     layoutIfNeeded()
 
-    let width = frame.width * 0.8
+    let width = isCropped ? frame.width : frame.width * 0.8
     imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor, width: width, height: width)
 
     layoutIfNeeded()
     isCornerd = true
-//    layoutIfNeeded()
     imageView.isCornerd = isCropped
     layoutIfNeeded()
   }

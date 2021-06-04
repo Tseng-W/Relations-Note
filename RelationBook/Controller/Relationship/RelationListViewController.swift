@@ -14,7 +14,7 @@ class RelationListViewController: UIViewController {
   var superCategoryID: Int?
   var navigationTitle: String? {
     didSet {
-      navigationController?.title = navigationTitle
+      title = navigationTitle
     }
   }
 
@@ -23,6 +23,7 @@ class RelationListViewController: UIViewController {
       tableView.reloadData()
     }
   }
+  private var selectedIndex = -1
 
   @IBOutlet var tableView: UITableView! {
     didSet {
@@ -37,10 +38,17 @@ class RelationListViewController: UIViewController {
     }
   }
 
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let detailVC = segue.destination as? RelationDetailViewController {
+      if selectedIndex >= 0 && selectedIndex < matchedRelations.count {
+        detailVC.relation = matchedRelations[selectedIndex]
+      }
+    }
+  }
+
   override func viewDidLoad() {
 
     super.viewDidLoad()
-
 
     tableView.separatorColor = .clear
 
@@ -75,5 +83,13 @@ extension RelationListViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    tableView.cellForRow(at: indexPath)?.isSelected = false
+    selectedIndex = indexPath.row
+
+    performSegue(withIdentifier: "detail", sender: nil)
   }
 }

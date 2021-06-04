@@ -50,6 +50,7 @@
 		475BF56E2669184E00AD5441 /* RelationListTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475BF56D2669184E00AD5441 /* RelationListTableCell.xib */; };
 		475BF57026691A8900AD5441 /* RelationListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475BF56F26691A8900AD5441 /* RelationListTableCell.swift */; };
 		475BF57226691B9900AD5441 /* RelationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475BF57126691B9900AD5441 /* RelationListViewController.swift */; };
+		475BF5742669AB2000AD5441 /* RelationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475BF5732669AB2000AD5441 /* RelationDetailViewController.swift */; };
 		475D33852661064200A697DB /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475D33842661064200A697DB /* IconView.swift */; };
 		4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765B1742650061D00A6D18D /* ResizableButton.swift */; };
 		4765B1772650129700A6D18D /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765B1762650129700A6D18D /* SelectionView.swift */; };
@@ -181,6 +182,7 @@
 		475BF56D2669184E00AD5441 /* RelationListTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelationListTableCell.xib; sourceTree = "<group>"; };
 		475BF56F26691A8900AD5441 /* RelationListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListTableCell.swift; sourceTree = "<group>"; };
 		475BF57126691B9900AD5441 /* RelationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListViewController.swift; sourceTree = "<group>"; };
+		475BF5732669AB2000AD5441 /* RelationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailViewController.swift; sourceTree = "<group>"; };
 		475D33842661064200A697DB /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		4765B1742650061D00A6D18D /* ResizableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableButton.swift; sourceTree = "<group>"; };
 		4765B1762650129700A6D18D /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 		47339EE0263C41BF0092860F /* Relationship */ = {
 			isa = PBXGroup;
 			children = (
+				475BF5732669AB2000AD5441 /* RelationDetailViewController.swift */,
 				47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */,
 				475BF57126691B9900AD5441 /* RelationListViewController.swift */,
 			);
@@ -1063,6 +1066,7 @@
 				4786930226516EC100BFA750 /* MoodSelectView.swift in Sources */,
 				47E702DF2644C82100C82A9C /* LoginViewController.swift in Sources */,
 				476D2EC8264B8EAE00A9200A /* Relation.swift in Sources */,
+				475BF5742669AB2000AD5441 /* RelationDetailViewController.swift in Sources */,
 				4712C23826526F1F008D8386 /* RelationTableHeaderCell.swift in Sources */,
 				47339EF8263C42620092860F /* BookViewController.swift in Sources */,
 				476D2EB5264ABD8E00A9200A /* Event.swift in Sources */,

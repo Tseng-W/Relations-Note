@@ -21,6 +21,22 @@ class RelationViewModel {
     }
   }
 
+  func fetchRelation(categoryID: Int, completion: (Bool) -> Void) {
+
+    let relation = FirebaseManager.shared.relations.filter { relation in
+      relation.categoryIndex == categoryID
+    }
+
+    if relation.count > 1 { print("More than one relation with same category ID!.")}
+
+    if relation.count == 0 {
+      completion(false)
+    } else if relation.count == 1 {
+      relations.value = relation
+      completion(true)
+    }
+  }
+
   func getRelationAt(index: Int) -> Relation? {
     if index < relations.value.count {
       return relations.value[index]

@@ -64,14 +64,92 @@
                             <constraint firstItem="6YV-sc-tzf" firstAttribute="leading" secondItem="KMD-Fi-HcJ" secondAttribute="leading" id="ijz-ep-scj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="關係清單" id="Pia-kH-dLb"/>
+                    <navigationItem key="navigationItem" title="關係清單" id="Pia-kH-dLb">
+                        <barButtonItem key="backBarButtonItem" title=" " id="XIO-oh-FvJ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="6YV-sc-tzf" id="GPK-sE-qee"/>
+                        <segue destination="qIp-KA-Jm7" kind="show" identifier="detail" id="QZx-PP-VxX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHO-Wc-Pj3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2257" y="33"/>
+        </scene>
+        <!--Relation Detail View Controller-->
+        <scene sceneID="q93-Df-TwJ">
+            <objects>
+                <viewController id="qIp-KA-Jm7" customClass="RelationDetailViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z9F-93-1Gp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Gn-UT-QUa">
+                                <rect key="frame" x="0.0" y="88" width="414" height="134.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA8-oC-AJv" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
+                                        <rect key="frame" x="161.5" y="8" width="91" height="91"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="DA8-oC-AJv" secondAttribute="height" multiplier="1:1" id="EcO-oL-HN4"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29R-Cn-b03">
+                                        <rect key="frame" x="186" y="105.5" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="29R-Cn-b03" firstAttribute="centerX" secondItem="6Gn-UT-QUa" secondAttribute="centerX" id="0iR-UI-Fqd"/>
+                                    <constraint firstItem="DA8-oC-AJv" firstAttribute="top" secondItem="6Gn-UT-QUa" secondAttribute="top" constant="8" id="0oh-ym-1Ia"/>
+                                    <constraint firstAttribute="bottom" secondItem="29R-Cn-b03" secondAttribute="bottom" constant="8" id="JR6-3d-t4d"/>
+                                    <constraint firstItem="DA8-oC-AJv" firstAttribute="centerX" secondItem="6Gn-UT-QUa" secondAttribute="centerX" id="hWq-41-D4g"/>
+                                    <constraint firstItem="29R-Cn-b03" firstAttribute="top" secondItem="DA8-oC-AJv" secondAttribute="bottom" constant="6.5" id="zyO-Ak-8e6"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrP-TT-N0z" customClass="SelectionView" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="222.5" width="414" height="40"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="J9f-Om-Isd"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpz-oB-N5D">
+                                <rect key="frame" x="0.0" y="262.5" width="414" height="599.5"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5Wn-jb-1xf"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SrP-TT-N0z" firstAttribute="top" secondItem="6Gn-UT-QUa" secondAttribute="bottom" id="Ch3-1f-ukz"/>
+                            <constraint firstItem="6Gn-UT-QUa" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="MSK-gS-vvP"/>
+                            <constraint firstItem="hpz-oB-N5D" firstAttribute="top" secondItem="SrP-TT-N0z" secondAttribute="bottom" id="TnF-gd-Uu9"/>
+                            <constraint firstItem="hpz-oB-N5D" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="WDn-RC-ZvI"/>
+                            <constraint firstItem="6Gn-UT-QUa" firstAttribute="height" secondItem="z9F-93-1Gp" secondAttribute="height" multiplier="0.15" id="XaM-1f-Xgk"/>
+                            <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="SrP-TT-N0z" secondAttribute="trailing" id="bWK-Q8-hcY"/>
+                            <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="hpz-oB-N5D" secondAttribute="trailing" id="cNf-1J-xlQ"/>
+                            <constraint firstItem="5Wn-jb-1xf" firstAttribute="bottom" secondItem="hpz-oB-N5D" secondAttribute="bottom" id="d0V-pZ-oLM"/>
+                            <constraint firstItem="SrP-TT-N0z" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="fou-Lr-eh9"/>
+                            <constraint firstItem="6Gn-UT-QUa" firstAttribute="top" secondItem="5Wn-jb-1xf" secondAttribute="top" id="qPp-wO-ZwV"/>
+                            <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="6Gn-UT-QUa" secondAttribute="trailing" id="qZ9-vg-DKQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Urn-vL-qW0"/>
+                    <connections>
+                        <outlet property="contentView" destination="hpz-oB-N5D" id="3HV-Il-crv"/>
+                        <outlet property="iconBackground" destination="6Gn-UT-QUa" id="LXP-JL-0gY"/>
+                        <outlet property="iconView" destination="DA8-oC-AJv" id="2GW-VH-KGi"/>
+                        <outlet property="nameLabel" destination="29R-Cn-b03" id="cUZ-cb-VoM"/>
+                        <outlet property="selectionBar" destination="SrP-TT-N0z" id="Tmp-xa-qck"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qUx-u4-VIx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3227.536231884058" y="32.8125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KiC-sv-r88">
