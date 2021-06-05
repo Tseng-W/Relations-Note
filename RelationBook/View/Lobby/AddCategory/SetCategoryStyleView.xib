@@ -36,10 +36,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cJf-j6-6A2">
-                    <rect key="frame" x="16" y="200.5" width="50" height="34"/>
+                    <rect key="frame" x="16" y="199.5" width="50" height="28"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明暗度" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWI-46-lnc">
-                            <rect key="frame" x="6.5" y="9.5" width="37" height="14.5"/>
+                            <rect key="frame" x="6.5" y="6.5" width="37" height="14.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <color key="textColor" systemColor="secondaryLabelColor"/>
                             <nil key="highlightedColor"/>
@@ -133,7 +133,7 @@
                     <rect key="frame" x="0.0" y="247" width="414" height="113"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-tL-nDb" customClass="RectangularPaletteControl" customModule="FlexColorPicker">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+                            <rect key="frame" x="-16" y="-16" width="446" height="145"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -146,10 +146,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nv0-Yf-djf">
-                    <rect key="frame" x="82" y="196" width="332" height="43"/>
+                    <rect key="frame" x="82" y="196" width="332" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uZ5-Me-W5z" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                            <rect key="frame" x="0.0" y="-2" width="332" height="47"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZ5-Me-W5z" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
+                            <rect key="frame" x="-16" y="-6" width="364" height="47"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -188,7 +188,7 @@
                 <constraint firstAttribute="trailing" secondItem="hz3-Da-oQe" secondAttribute="trailing" id="W4T-UB-8oK"/>
                 <constraint firstAttribute="trailing" secondItem="Nv0-Yf-djf" secondAttribute="trailing" id="aEL-Hv-vmx"/>
                 <constraint firstItem="hz3-Da-oQe" firstAttribute="height" secondItem="IdL-dN-vpV" secondAttribute="height" multiplier="0.26257" id="d4E-8P-4W6"/>
-                <constraint firstItem="hz3-Da-oQe" firstAttribute="top" secondItem="Nv0-Yf-djf" secondAttribute="bottom" constant="8" id="fGW-W7-pdn"/>
+                <constraint firstItem="hz3-Da-oQe" firstAttribute="top" secondItem="Nv0-Yf-djf" secondAttribute="bottom" constant="16" id="fGW-W7-pdn"/>
                 <constraint firstAttribute="bottom" secondItem="kb0-1w-wfx" secondAttribute="bottom" id="iXc-Rd-V4h"/>
                 <constraint firstItem="cJf-j6-6A2" firstAttribute="centerY" secondItem="Nv0-Yf-djf" secondAttribute="centerY" id="lha-jd-Jk2"/>
                 <constraint firstItem="kb0-1w-wfx" firstAttribute="top" secondItem="hz3-Da-oQe" secondAttribute="bottom" constant="10" id="n3h-81-oh1"/>
@@ -208,6 +208,11 @@
             <point key="canvasLocation" x="-181.15942028985509" y="-720.53571428571422"/>
         </view>
     </objects>
+    <designables>
+        <designable name="uZ5-Me-W5z">
+            <size key="intrinsicContentSize" width="414" height="15"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="Background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -172,4 +172,18 @@ struct Category: Icon {
       "backgroundColor": backgroundColor
     ]
   }
+
+  static func canSubView(type: CategoryType, hierarchy: CategoryHierarchy) -> Bool {
+
+    switch type {
+    case .relation:
+      if hierarchy == .main {
+        return true
+      } else {
+        return false
+      }
+    default:
+      return false
+    }
+  }
 }

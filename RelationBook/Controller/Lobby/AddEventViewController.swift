@@ -47,12 +47,7 @@ class AddEventViewController: UIViewController {
 
     return vc
   }()
-
-  let addCategoryViewController: AddCategoryViewController = {
-    let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addCategory") as! AddCategoryViewController
-
-    return vc
-  }()
+  let setCategoryView = SetCategoryStyleView()
 
   // MARK: New Category data.
   var newCategorySetting: (type: CategoryType, hierarchy:  CategoryHierarchy, superIndex: Int)?
@@ -83,13 +78,12 @@ class AddEventViewController: UIViewController {
 
     tableView.separatorColor = .clear
 
+    setCategoryView.delegate = self
+
     userViewModel.fetchUserDate()
 
     relationFilterSetup()
     selectionViewSetup()
-    addCategoryViewSetup()
-    
-    addCategoryViewController.delegate = self
 
     date = Date()
   }
@@ -117,22 +111,9 @@ class AddEventViewController: UIViewController {
 
       self.newCategorySetting = (type, hierarchy, superIndex)
 
-      switch type {
-      case .event, .feature:
-        self.addCategoryViewController.isVisable = true
-
-      case .relation:
-        if hierarchy == .main {
-          self.addCategoryViewController.isVisable = true
-        } else {
-          let vc = UIStoryboard.lobby.instantiateViewController(identifier: "addRelation") as! AddContactFlowViewController
-          self.view.addSubview(vc.view)
-          vc.iconSelectView.setUp()
-          vc.isVisable = true
-        }
-      default:
-        break
-      }
+      self.setCategoryView.show(
+        self.view,
+        type: type, hierarchy: hierarchy, superIndex: superIndex)
     }
   }
 
@@ -162,23 +143,11 @@ class AddEventViewController: UIViewController {
     }
 
     selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in
-      switch type {
-      case .event, .feature:
-        self.addCategoryViewController.isVisable = true
-        self.newCategorySetting = (type, hierarchy, superIndex)
-      case .relation:
-        break
-      default:
-        break
-      }
+
+      self.newCategorySetting = (type, hierarchy, superIndex)
+
+      self.setCategoryView.show(self.view, type: type, hierarchy: hierarchy, superIndex: superIndex)
     }
-  }
-
-  private func addCategoryViewSetup() {
-
-    view.addSubview(addCategoryViewController.view)
-
-    addCategoryViewController.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
   }
 
   @IBAction func confirm(_ sender: UIButton) {
@@ -273,24 +242,7 @@ extension AddEventViewController: UITextFieldDelegate {
   }
 }
 
-extension AddEventViewController: AddCategoryViewDelegate {
-
-  func typeOfCategory(controller: AddCategoryViewController) -> CategoryType? {
-    guard let setting = newCategorySetting else { return nil }
-    return setting.type
-  }
-
-  func superIndexOfCategory(controller: AddCategoryViewController) -> Int {
-    guard let setting = newCategorySetting else { return -1 }
-    return setting.superIndex
-  }
-
-  func hierarchyOfCategory(controller: AddCategoryViewController) -> CategoryHierarchy? {
-    guard let setting = newCategorySetting else { return nil }
-    return setting.hierarchy
-  }
-}
-
+// MARK: SCLAlert wrapper delegate
 extension AddEventViewController: SCLAlertViewProviderDelegate {
 
   func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
@@ -317,5 +269,20 @@ extension AddEventViewController: SCLAlertViewProviderDelegate {
         print("\(error.localizedDescription)")
       }
     }
+  }
+}
+
+extension AddEventViewController: CategoryStyleViewDelegate {
+
+  func categoryStyleView(
+    styleView: SetCategoryStyleView,
+    isCropped: Bool, name: String,
+    backgroundColor: UIColor,
+    image: UIImage, imageString: String) {
+    print("")
+  }
+
+  func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
+    .relation
   }
 }

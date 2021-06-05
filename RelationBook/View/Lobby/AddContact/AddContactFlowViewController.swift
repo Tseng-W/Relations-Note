@@ -161,7 +161,7 @@ class AddContactFlowViewController: FloatingViewController {
 
     edittingType = .relation
 
-    let setCategoryView = SetCategoryStyleView(title: "新增關係人", placeholder: "姓名")
+    let setCategoryView = SetCategoryStyleView()
     let blurView = view.addBlurView()
 
     setCategoryView.delegate = self

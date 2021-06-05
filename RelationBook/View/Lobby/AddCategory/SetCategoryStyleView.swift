@@ -12,8 +12,6 @@ import CropViewController
 protocol CategoryStyleViewDelegate: AnyObject {
 
   func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String)
-
-  func iconType(styleView: SetCategoryStyleView) -> CategoryType?
 }
 
 class SetCategoryStyleView: UIView, NibLoadable {
@@ -47,6 +45,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
   private let colorPicker = ColorPickerController()
 
+  var blurView: UIVisualEffectView?
   var onDismiss: (() -> Void)?
 
   weak var delegate: CategoryStyleViewDelegate?
@@ -58,21 +57,55 @@ class SetCategoryStyleView: UIView, NibLoadable {
       confirmButton.backgroundColor = canConfirm ? .systemGray : .systemGray4
     }
   }
-  var name = String.empty {
-    didSet {
-      canConfirm = name != .empty
-    }
-  }
   var title = String.empty {
     didSet {
       guard let titleLabel = titleLabel else { return }
       titleLabel.text = title
     }
   }
-  var image: UIImage?
-  var imageString: String?
   var selectedColor = IconView.defaultBackgroundColor
   var isImageCropped = false
+
+  var name = String.empty {
+    didSet {
+      canConfirm = name != .empty
+    }
+  }
+  var image: UIImage?
+  var imageString: String?
+  var hierarchy: CategoryHierarchy?
+  var superIndex: Int?
+  var placeholder: String = .empty
+
+  var categoryType: CategoryType? {
+    didSet {
+
+      guard let type = categoryType,
+            let hierarchy = hierarchy else { return }
+
+      var title = String.empty
+      var placeholder = String.empty
+      
+      switch type {
+      case .relation:
+        if hierarchy == .sub {
+          title = "新增關係人"
+          placeholder = "輸入姓名"
+        } else {
+          fallthrough
+        }
+      case .event, .feature:
+        title = "新增子分類"
+        placeholder = "輸入名稱"
+      case .mood:
+        break
+      }
+
+      if let titleLabel = titleLabel {
+        titleLabel.text = title
+      }
+    }
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -82,18 +115,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     customInit()
-  }
-
-  convenience init(title: String, placeholder: String) {
-    self.init(frame: CGRect())
-
-    if let titleLabel = titleLabel {
-      titleLabel.text = title
-    }
-
-    if let iconSelectView = iconSelectView {
-      iconSelectView.textField.placeholder = placeholder
-    }
   }
 
   override class func prepareForInterfaceBuilder() {
@@ -110,16 +131,67 @@ class SetCategoryStyleView: UIView, NibLoadable {
     colorPicker.delegate = self
   }
 
+  func show(_ view: UIView, type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+
+    reset()
+
+    self.hierarchy = hierarchy
+    self.superIndex = superIndex
+    categoryType = type
+
+    blurView = view.addBlurView()
+
+    view.addSubview(self)
+    addConstarint(
+      left: view.leftAnchor, right: view.rightAnchor,
+      centerY: view.centerYAnchor,
+      paddingLeft: 16, paddingRight: 16,
+      height: view.frame.height / 2)
+
+    view.layoutIfNeeded()
+    
+    iconSelectView.initial(placeholder: placeholder)
+  }
+
+  private func reset() {
+    name = .empty
+    image = nil
+    imageString = nil
+    superIndex = nil
+    hierarchy = nil
+  }
+
   @IBAction func buttonTapped(_ sender: UIButton) {
 
     if sender == confirmButton {
 
       guard let imageString = imageString,
             let image = image,
+            let superIndex = superIndex,
+            let hierarchy = hierarchy,
+            let categoryType = categoryType,
             name != .empty else { return }
-      delegate?.categoryStyleView(styleView: self, isCropped: isImageCropped, name: name, backgroundColor: colorPicker.selectedColor, image: image, imageString: imageString)
+
+      var category = Category(
+        id: -1,
+        isCustom: imageString.verifyUrl(),
+        superIndex: superIndex,
+        isSubEnable: Category.canSubView(
+          type: categoryType,
+          hierarchy: hierarchy),
+        title: name,
+        imageLink: imageString,
+        backgroundColor: colorPicker.selectedColor.StringFromUIColor())
+
+      FirebaseManager.shared.addUserCategory(type: categoryType, hierarchy: hierarchy, category: &category)
+
+      delegate?.categoryStyleView(
+        styleView: self, isCropped: isImageCropped,
+        name: name,
+        backgroundColor: colorPicker.selectedColor, image: image, imageString: imageString)
     }
 
+    blurView?.removeFromSuperview()
     removeFromSuperview()
     onDismiss?()
   }
@@ -149,7 +221,7 @@ extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewController
   }
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
-    delegate?.iconType(styleView: self)
+    return categoryType
   }
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {

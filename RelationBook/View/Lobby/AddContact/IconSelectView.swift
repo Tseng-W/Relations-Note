@@ -105,7 +105,11 @@ class IconSelectView: UIView, NibLoadable {
     }
 
     layoutIfNeeded()
-    iconView.setIcon(isCropped: true, image: image, bgColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, tintColor: tintColor)
+    iconView.setIcon(isCropped: isCropped!, image: image, bgColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, tintColor: tintColor)
+  }
+
+  func initial(placeholder: String) {
+    setUp(isCropped: false, text: placeholder)
   }
 
   @objc func iconTapped(tapGesture: UITapGestureRecognizer) {
