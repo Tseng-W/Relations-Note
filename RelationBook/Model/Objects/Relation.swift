@@ -22,13 +22,19 @@ struct Relation: Codable {
 
 struct Feature: Codable {
 
-  init(id: String, index: Int, data: [FeatureContent]) {
+  init(id: Int, name: String, index: Int, data: [FeatureContent]) {
+    self.name = name
     relationID = id
     categoryIndex = index
     contents = data
   }
 
-  var relationID: String
+  init() {
+    self.init(id: -1, name: .empty, index: -1, data: [])
+  }
+
+  var name: String
+  var relationID: Int
   var categoryIndex: Int
   var contents: [FeatureContent]
 }

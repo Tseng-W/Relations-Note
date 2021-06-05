@@ -15,8 +15,10 @@ enum ImageAsset: String {
   case note = "icon_24px_note"
   case category = "icon_24px_category"
   case profile = "icon_24px_profile"
-  case talkPH = "icon_128px_talk"
-  case talkPHWhite = "icon_128px_talk_w"
+}
+
+enum Placeholder: String {
+  case placeholderTalk = "icon_128px_talk,icon_128px_talk_w"
 }
 
 enum EmojiIcon: String, CaseIterable {
@@ -134,5 +136,17 @@ extension UIImage {
   func toString() -> String? {
     let data: Data? = self.pngData()
     return data?.base64EncodedString(options: .endLineWithLineFeed)
+  }
+
+  static func getPlaceholder(_ placeholder: Placeholder, style: UIUserInterfaceStyle) -> UIImage {
+
+    let imageString = placeholder.rawValue.split(separator: ",")
+
+    switch style {
+    case .light:
+      return UIImage(named: String(imageString[0]))!
+    default:
+      return UIImage(named: String(imageString[1]))!
+    }
   }
 }

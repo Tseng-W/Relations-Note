@@ -84,6 +84,7 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
   @IBAction func onTapConfirm(_ sender: UIButton) {
     var feature = featureViewModel.feature.value
+    feature.name = selectedCategory[0].title
     feature.categoryIndex = selectedCategory[0].id
     onConfirm?(selectedCategory[0], feature)
     onCancel?()

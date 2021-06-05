@@ -19,7 +19,7 @@ class RelationTableHeaderCell: UIView, NibLoadable {
     customInit()
   }
 
-  func customInit() {
+  private func customInit() {
     loadNibContent()
   }
 

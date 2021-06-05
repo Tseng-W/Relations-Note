@@ -54,6 +54,8 @@
 		475D33852661064200A697DB /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475D33842661064200A697DB /* IconView.swift */; };
 		4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765B1742650061D00A6D18D /* ResizableButton.swift */; };
 		4765B1772650129700A6D18D /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765B1762650129700A6D18D /* SelectionView.swift */; };
+		476CF844266B4DC0000B5DC9 /* RelationProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 476CF843266B4DC0000B5DC9 /* RelationProfileCell.xib */; };
+		476CF846266B4F4E000B5DC9 /* RelationProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476CF845266B4F4E000B5DC9 /* RelationProfileCell.swift */; };
 		476D2EAA264A119100A9200A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2EA9264A119100A9200A /* UIView+Extension.swift */; };
 		476D2EB0264A2F4400A9200A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2EAF264A2F4400A9200A /* User.swift */; };
 		476D2EB3264A9FB900A9200A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D2EB2264A9FB900A9200A /* Box.swift */; };
@@ -186,6 +188,8 @@
 		475D33842661064200A697DB /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		4765B1742650061D00A6D18D /* ResizableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableButton.swift; sourceTree = "<group>"; };
 		4765B1762650129700A6D18D /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		476CF843266B4DC0000B5DC9 /* RelationProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelationProfileCell.xib; sourceTree = "<group>"; };
+		476CF845266B4F4E000B5DC9 /* RelationProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationProfileCell.swift; sourceTree = "<group>"; };
 		476D2EA9264A119100A9200A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		476D2EAF264A2F4400A9200A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		476D2EB2264A9FB900A9200A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 		4712C23026526C49008D8386 /* Relation */ = {
 			isa = PBXGroup;
 			children = (
+				476CF842266B4DAB000B5DC9 /* RelationDetail */,
 				475BF56C2669183D00AD5441 /* RelationList */,
 				4712C23126526C62008D8386 /* RelationTableCell.xib */,
 				4712C23326526D16008D8386 /* RelationTableCell.swift */,
@@ -516,6 +521,15 @@
 				474C6B8E2661FFBA00A3C9FD /* CameraProvider.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		476CF842266B4DAB000B5DC9 /* RelationDetail */ = {
+			isa = PBXGroup;
+			children = (
+				476CF843266B4DC0000B5DC9 /* RelationProfileCell.xib */,
+				476CF845266B4F4E000B5DC9 /* RelationProfileCell.swift */,
+			);
+			path = RelationDetail;
 			sourceTree = "<group>";
 		};
 		476D2EC4264B8E0500A9200A /* Network */ = {
@@ -820,6 +834,7 @@
 				47339EAE263C37680092860F /* Timeline.storyboard in Resources */,
 				47339E52263C2D710092860F /* Assets.xcassets in Resources */,
 				47779E7826676BE500972194 /* LocalIconSelectionViewCell.xib in Resources */,
+				476CF844266B4DC0000B5DC9 /* RelationProfileCell.xib in Resources */,
 				47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */,
 				471FD4E9265BE019003CF46F /* CheckboxTableCell.xib in Resources */,
 				474C6B91266392B600A3C9FD /* SetCategoryStyleView.xib in Resources */,
@@ -1017,6 +1032,7 @@
 				476D2EC6264B8E2800A9200A /* FirebaseManager.swift in Sources */,
 				47B6B90C26535C490090218C /* ProfileTableViewCell.swift in Sources */,
 				471FD4F4265C9980003CF46F /* AddFeatureHeaderView.swift in Sources */,
+				476CF846266B4F4E000B5DC9 /* RelationProfileCell.swift in Sources */,
 				47B6B903265340860090218C /* BookTableCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
 				475D33852661064200A697DB /* IconView.swift in Sources */,

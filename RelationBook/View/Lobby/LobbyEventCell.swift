@@ -11,6 +11,10 @@ import TagListView
 
 class LobbyEventCell: UITableViewCell {
 
+  enum CellType {
+    case lobby
+    case relation
+  }
 
   @IBOutlet var iconImage: IconView!
   @IBOutlet var sideBar: UIView! {
@@ -26,41 +30,47 @@ class LobbyEventCell: UITableViewCell {
     }
   }
 
-  var relationCategories = [Category]() {
-    didSet {
-      cellSetup()
+//  var relationCategories = [Category]() {
+//    didSet {
+//      cellSetup()
+//    }
+//  }
+//
+//  var event: Event? {
+//    didSet {
+//      cellSetup()
+//    }
+//  }
+
+  func cellSetup(type: CellType, event: Event, relations: [Category]) {
+
+    guard let relation = relations.first else { return }
+
+    switch type {
+    case .lobby:
+      if relations.count > 1 {
+        extraLabel.text = "與 \(relations[1].title) 等\(relations.count - 1)人"
+      } else {
+        extraLabel.isHidden = true
+      }
+
+    case .relation:
+      extraLabel.text = event.time.dateValue().getDayString(type: .time)
     }
-  }
 
-  var event: Event? {
-    didSet {
-      cellSetup()
-    }
-  }
-
-  func cellSetup() {
-
-    guard let event = event,
-          relationCategories.count > 0 else { return }
+    // MARK: Label
+    nameLabel.text = relation.title
+    sideBar.backgroundColor = event.getColor()
 
     // MARK: Image
-    relationCategories.first!.getImage { [weak self] image in
+    relation.getImage { [weak self] image in
       self?.iconImage.setIcon(
-        isCropped: true,  // TODO: Replace with varible
+        isCropped: relation.isCustom,
         image: image,
         bgColor: .clear,
         tintColor: .label)
     }
 
-    // MARK: Label
-    nameLabel.text = relationCategories.first?.title
-    sideBar.backgroundColor = event.getColor()
-
-    if relationCategories.count > 1 {
-      extraLabel.text = "與 \(relationCategories[1].title) 等\(relationCategories.count - 1)人"
-    } else {
-      extraLabel.isHidden = true
-    }
 
     // MARK: TagView
     tagListView.removeAllTags()

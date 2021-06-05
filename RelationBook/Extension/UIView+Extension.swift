@@ -73,6 +73,35 @@ extension UIView {
       heightAnchor.constraint(equalToConstant: height).isActive = true
     }
   }
+
+  func addPlaceholder(image: UIImage, description: String) {
+
+    let label = UILabel()
+    label.text = description
+    label.textAlignment = .center
+    label.tag = 999
+
+    let imageView = UIImageView(image: image)
+    imageView.tag = 999
+
+    addSubview(imageView)
+    addSubview(label)
+
+    imageView.addConstarint(
+      centerX: centerXAnchor, centerY: centerYAnchor,
+      width: frame.width / 3, height: frame.width / 3)
+    label.addConstarint(
+      top: imageView.bottomAnchor, centerX: centerXAnchor, paddingTop: 16, width: frame.width, height: 30)
+  }
+
+  func removePlaceholder() {
+
+    subviews.forEach { view in
+      if view.tag == 999 {
+        view.removeFromSuperview()
+      }
+    }
+  }
 }
 
 @IBDesignable

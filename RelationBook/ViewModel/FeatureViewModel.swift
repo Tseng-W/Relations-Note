@@ -9,7 +9,7 @@ import Foundation
 
 class FeatureViewModel {
 
-  var feature = Box(Feature(id: "", index: -1, data: []))
+  var feature = Box(Feature())
 
   var canMutiSelect: Bool = false {
     didSet {

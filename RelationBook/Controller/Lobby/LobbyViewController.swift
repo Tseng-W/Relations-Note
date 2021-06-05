@@ -186,8 +186,7 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
       let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.row]
 
-      cell.event = event
-      cell.relationCategories = user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) }
+      cell.cellSetup(type: .lobby, event: event, relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
     }
 
     cell.updateConstraintsIfNeeded()

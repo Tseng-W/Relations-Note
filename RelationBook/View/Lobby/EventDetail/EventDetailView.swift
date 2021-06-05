@@ -75,17 +75,13 @@ class EventDetailView: UIView, NibLoadable {
 
     timeLabel.text = event.time.dateValue().getDayString(type: .time)
 
+    let moodData = UserViewModel.moodData[event.mood]
 
-    // MARK: Mood icon set
-//    let imageSet = userViewModel.moodsData.value
-//    if event.mood < imageSet.count {
-//      let moodData = imageSet[event.mood]
-//
-//      moodData.getImage { [weak self] image in
-//        self?.moodImage.image = image
-//      }
-//      moodImage.backgroundColor = moodData.getColor()
-//    }
+    if let image = UIImage(named: moodData.imageName) {
+      moodImage.image = image
+      moodImage.backgroundColor = UIColor.UIColorFromString(string: moodData.colorString)
+    }
+
     moodImage.isCornerd = true
   }
 

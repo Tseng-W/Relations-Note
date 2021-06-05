@@ -41,7 +41,7 @@ class RelationListViewController: UIViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let detailVC = segue.destination as? RelationDetailViewController {
       if selectedIndex >= 0 && selectedIndex < matchedRelations.count {
-        detailVC.relation = matchedRelations[selectedIndex]
+        detailVC.relationCategory = matchedRelations[selectedIndex]
       }
     }
   }

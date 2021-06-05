@@ -10,6 +10,10 @@ import Firebase
 
 class EventViewModel {
 
+  enum SortType {
+    case date
+  }
+
   let events = Box([Event]())
 
   func addEvent(event: Event, completion: @escaping ((Result<String, Error>) -> Void)) {
@@ -51,6 +55,41 @@ class EventViewModel {
     }
 
     return events
+  }
+
+  func fetchEventSorted(type: SortType) -> [[Event]] {
+
+    var eventsSorted = [Date: [Event]]()
+
+    switch type {
+    case .date:
+
+      events.value.forEach { event in
+        let eventDate = event.time.dateValue().midnight
+        if eventsSorted[eventDate] != nil {
+          eventsSorted[eventDate]!.append(event)
+        } else {
+          eventsSorted[eventDate] = [event]
+        }
+      }
+
+      let eventArray = eventsSorted.map { $1 }
+      return eventArray
+    }
+  }
+
+  func fetchEventsDate() -> [Date] {
+
+    var dates = [Date]()
+
+    events.value.forEach { event in
+      let eventDate = event.time.dateValue().midnight
+      if dates.contains(eventDate) {
+        dates.append(eventDate)
+      }
+    }
+
+    return dates.sorted { $0.day > $1.day }
   }
 
   func getCategories() -> [Category] {

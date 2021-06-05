@@ -52,8 +52,20 @@ class IconView: UIView {
 
     layoutIfNeeded()
 
-    let width = isCropped ? frame.width : frame.width * 0.8
-    imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor, width: width, height: width)
+    let multiple: CGFloat = isCropped ? 1 : 0.8
+    imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor)
+    NSLayoutConstraint.activate([
+      NSLayoutConstraint.init(
+        item: imageView, attribute: .height,
+        relatedBy: .equal, toItem: self,
+        attribute: .height, multiplier: multiple,
+        constant: 0),
+      NSLayoutConstraint.init(
+        item: imageView, attribute: .width,
+        relatedBy: .equal, toItem: self,
+        attribute: .width, multiplier: multiple,
+        constant: 0)
+    ])
 
     isCornerd = true
     imageView.isCornerd = isCropped

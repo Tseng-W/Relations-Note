@@ -20,7 +20,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="－  同學" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzX-R0-2Nj">
-                    <rect key="frame" x="16" y="24.5" width="61" height="21"/>
+                    <rect key="frame" x="16" y="10" width="61" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="nV0-ky-pon"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -47,7 +50,9 @@
                 <constraint firstItem="KMI-hS-qPi" firstAttribute="leading" secondItem="ihz-ad-m6O" secondAttribute="leading" constant="20" id="GQQ-Eb-Gsb"/>
                 <constraint firstAttribute="trailing" secondItem="KMI-hS-qPi" secondAttribute="trailing" constant="20" id="J1r-jI-rRS"/>
                 <constraint firstItem="RzX-R0-2Nj" firstAttribute="centerY" secondItem="ihz-ad-m6O" secondAttribute="centerY" id="LuL-jc-XHI"/>
+                <constraint firstItem="RzX-R0-2Nj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ihz-ad-m6O" secondAttribute="top" id="RUw-TI-vpm"/>
                 <constraint firstAttribute="bottom" secondItem="KMI-hS-qPi" secondAttribute="bottom" constant="1" id="q39-kT-E9A"/>
+                <constraint firstItem="KMI-hS-qPi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RzX-R0-2Nj" secondAttribute="bottom" id="tuZ-g3-c7h"/>
                 <constraint firstItem="f5I-Pv-Jfl" firstAttribute="centerY" secondItem="ihz-ad-m6O" secondAttribute="centerY" id="wzg-OK-tH2"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

@@ -9,34 +9,34 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="59" id="mV8-A2-cjt" customClass="LobbyEventCell" customModule="RelationBook" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="73" id="mV8-A2-cjt" customClass="LobbyEventCell" customModule="RelationBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mV8-A2-cjt" id="ab3-9P-EEh">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNi-zQ-052">
-                        <rect key="frame" x="16" y="6" width="2" height="47"/>
+                        <rect key="frame" x="16" y="6" width="2" height="61"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="2" id="7x8-bT-APR"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgi-lA-sdQ">
-                        <rect key="frame" x="73" y="8" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="87" y="16" width="43" height="24"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCq-sr-X16">
-                        <rect key="frame" x="73" y="30" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <rect key="frame" x="87" y="46.5" width="33" height="18.5"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="13"/>
+                        <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTo-RY-dP1" customClass="TagListView" customModule="TagListView">
-                        <rect key="frame" x="191" y="39" width="207" height="12"/>
+                        <rect key="frame" x="191" y="50.5" width="207" height="14.5"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -66,7 +66,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJN-a1-do2" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
-                        <rect key="frame" x="22" y="8" width="43" height="43"/>
+                        <rect key="frame" x="22" y="8" width="57" height="57"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="CJN-a1-do2" secondAttribute="height" multiplier="1:1" id="5hk-RY-pM8"/>
@@ -85,7 +85,7 @@
                     <constraint firstItem="nNi-zQ-052" firstAttribute="leading" secondItem="ab3-9P-EEh" secondAttribute="leading" constant="16" id="OAg-si-L3f"/>
                     <constraint firstAttribute="trailing" secondItem="dTo-RY-dP1" secondAttribute="trailing" constant="16" id="Tw8-gM-5WF"/>
                     <constraint firstItem="PCq-sr-X16" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xgi-lA-sdQ" secondAttribute="bottom" id="VZy-lm-atW"/>
-                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="top" secondItem="CJN-a1-do2" secondAttribute="top" id="eWC-h1-NPY"/>
+                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="top" secondItem="CJN-a1-do2" secondAttribute="top" constant="8" id="eWC-h1-NPY"/>
                     <constraint firstItem="CJN-a1-do2" firstAttribute="leading" secondItem="nNi-zQ-052" secondAttribute="trailing" constant="4" id="k5c-Lu-1vb"/>
                     <constraint firstItem="xgi-lA-sdQ" firstAttribute="leading" secondItem="CJN-a1-do2" secondAttribute="trailing" constant="8" id="ouw-15-waQ"/>
                     <constraint firstAttribute="bottom" secondItem="CJN-a1-do2" secondAttribute="bottom" constant="8" id="tLg-Or-I1G"/>
@@ -99,10 +99,18 @@
                 <outlet property="sideBar" destination="nNi-zQ-052" id="MUX-NZ-tMT"/>
                 <outlet property="tagListView" destination="dTo-RY-dP1" id="JeW-uq-v8A"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="140.95982142857142"/>
+            <point key="canvasLocation" x="131.8840579710145" y="145.64732142857142"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="dTo-RY-dP1">
+            <size key="intrinsicContentSize" width="207" height="16"/>
+        </designable>
+    </designables>
     <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
