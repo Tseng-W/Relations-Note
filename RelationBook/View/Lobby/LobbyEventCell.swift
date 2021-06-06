@@ -30,21 +30,16 @@ class LobbyEventCell: UITableViewCell {
     }
   }
 
-//  var relationCategories = [Category]() {
-//    didSet {
-//      cellSetup()
-//    }
-//  }
-//
-//  var event: Event? {
-//    didSet {
-//      cellSetup()
-//    }
-//  }
+
+  var event: Event?
+  var relations = [Category]()
 
   func cellSetup(type: CellType, event: Event, relations: [Category]) {
 
     guard let relation = relations.first else { return }
+
+    self.event = event
+    self.relations = relations
 
     switch type {
     case .lobby:

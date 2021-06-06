@@ -15,6 +15,9 @@ protocol AddFeatureTableViewDelegate: AnyObject {
 class AddFeatureTableView: UITableView {
 
   var features = [Feature]()
+  var relativeCategory = [Category]()
+
+  let addFeatureFlowView = AddFeatureFloatView()
 
   weak var featureDelagate: AddFeatureTableViewDelegate? {
     didSet {
@@ -24,6 +27,8 @@ class AddFeatureTableView: UITableView {
 
       delegate = self
       dataSource = self
+
+      addFeatureFlowView.delegate = self
     }
   }
 
@@ -42,13 +47,40 @@ extension AddFeatureTableView: UITableViewDelegate, UITableViewDataSource {
       for: indexPath)
 
     if let cell = cell as? AddFeatureTableCell {
-      if indexPath.row == features.count - 1 {
+      if indexPath.row == features.count {
         cell.setType(status: .add)
       } else {
-        cell.setType(status: .edit, title: "t", subTitle: "s")
+        let feature = features[indexPath.row]
+        cell.setType(status: .edit, title: feature.name, subTitle: feature.getContentDescription())
       }
     }
 
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    if let cell = tableView.cellForRow(at: indexPath) as? AddFeatureTableCell {
+
+      cell.isSelected = false
+
+      switch cell.status {
+      case .add:
+        addFeatureFlowView.show(superview!, category: nil, feature: nil)
+      case .edit:
+        let feature = features[indexPath.row]
+        guard let category = relativeCategory.first(where: { $0.id == feature.categoryIndex }) else { return }
+        addFeatureFlowView.show(superview!, category: category, feature: feature)
+      }
+    }
+  }
+}
+
+extension AddFeatureTableView: AddFeatureFloatViewDelegate {
+
+  func featureFloatView(view: AddFeatureFloatView, category: Category, feature: Feature) {
+    features.append(feature)
+    relativeCategory.append(category)
+    reloadData()
   }
 }

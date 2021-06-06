@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,43 +17,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="460" height="62"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CU-Ah-GeJ">
-                        <rect key="frame" x="16" y="8" width="115" height="46"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jp0-8s-ciw">
-                                <rect key="frame" x="0.0" y="0.0" width="115" height="46"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                <state key="normal" title="進行中" image="checkmark.circle" catalog="system">
-                                    <color key="titleColor" systemColor="secondaryLabelColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="onTapSwitch:" destination="jck-bO-XKM" eventType="touchUpInside" id="ZGW-U3-t1l"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jp0-8s-ciw">
+                        <rect key="frame" x="32" y="8" width="46" height="46"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Jp0-8s-ciw" firstAttribute="leading" secondItem="4CU-Ah-GeJ" secondAttribute="leading" id="JJm-Ag-dvb"/>
-                            <constraint firstItem="Jp0-8s-ciw" firstAttribute="top" secondItem="4CU-Ah-GeJ" secondAttribute="top" id="XeO-6L-CWG"/>
-                            <constraint firstAttribute="trailing" secondItem="Jp0-8s-ciw" secondAttribute="trailing" id="tia-IE-Qyn"/>
-                            <constraint firstAttribute="bottom" secondItem="Jp0-8s-ciw" secondAttribute="bottom" id="xlW-w1-nW1"/>
+                            <constraint firstAttribute="width" secondItem="Jp0-8s-ciw" secondAttribute="height" multiplier="1:1" id="iXY-gg-Ej7"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" systemColor="secondaryLabelColor"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="新增" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z9n-DF-BmS">
-                        <rect key="frame" x="147" y="22" width="297" height="18.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="tintColor" systemColor="secondaryLabelColor"/>
+                        <state key="normal">
+                            <color key="titleColor" systemColor="secondaryLabelColor"/>
+                            <imageReference key="image" image="checkmark.square" catalog="system" symbolScale="large"/>
+                        </state>
+                        <connections>
+                            <action selector="onTapSwitch:" destination="jck-bO-XKM" eventType="touchUpInside" id="ZGW-U3-t1l"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="新增" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z9n-DF-BmS">
+                        <rect key="frame" x="78" y="19" width="366" height="24"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
@@ -60,14 +42,13 @@
                 <constraints>
                     <constraint firstItem="z9n-DF-BmS" firstAttribute="centerY" secondItem="u8P-2y-rPM" secondAttribute="centerY" id="5IS-yO-gVA"/>
                     <constraint firstAttribute="trailing" secondItem="z9n-DF-BmS" secondAttribute="trailing" constant="16" id="5wQ-K2-5Wd"/>
-                    <constraint firstItem="4CU-Ah-GeJ" firstAttribute="leading" secondItem="u8P-2y-rPM" secondAttribute="leading" constant="16" id="Ef3-Hq-qor"/>
-                    <constraint firstItem="4CU-Ah-GeJ" firstAttribute="top" secondItem="u8P-2y-rPM" secondAttribute="top" constant="8" id="Ir5-Yk-jOZ"/>
-                    <constraint firstItem="z9n-DF-BmS" firstAttribute="leading" secondItem="4CU-Ah-GeJ" secondAttribute="trailing" constant="16" id="hMI-pF-TNr"/>
-                    <constraint firstItem="4CU-Ah-GeJ" firstAttribute="width" secondItem="u8P-2y-rPM" secondAttribute="width" multiplier="0.25" id="lGY-OW-5AP"/>
-                    <constraint firstAttribute="bottom" secondItem="4CU-Ah-GeJ" secondAttribute="bottom" constant="8" id="oCP-jM-fbQ"/>
+                    <constraint firstItem="z9n-DF-BmS" firstAttribute="leading" secondItem="Jp0-8s-ciw" secondAttribute="trailing" id="6my-NM-kUm"/>
+                    <constraint firstAttribute="bottom" secondItem="Jp0-8s-ciw" secondAttribute="bottom" constant="8" id="74S-QZ-Rdb"/>
+                    <constraint firstItem="Jp0-8s-ciw" firstAttribute="top" secondItem="u8P-2y-rPM" secondAttribute="top" constant="8" id="Joe-HD-0cn"/>
+                    <constraint firstItem="Jp0-8s-ciw" firstAttribute="leading" secondItem="u8P-2y-rPM" secondAttribute="leading" constant="32" id="SYG-9Z-CIz"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="checkmarkButton" destination="Jp0-8s-ciw" id="pSE-kQ-8ir"/>
                 <outlet property="inputTextField" destination="z9n-DF-BmS" id="okR-40-aEE"/>
@@ -76,15 +57,12 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

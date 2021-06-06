@@ -17,7 +17,7 @@ class AddFeatureTableCell: UITableViewCell {
 
   @IBInspectable var placeholder: String = "點擊選擇" {
     didSet {
-      button.setTitle(placeholder, for: .normal)
+      editButton.setTitle(placeholder, for: .normal)
     }
   }
   @IBInspectable var title: String = "標題" {
@@ -27,21 +27,20 @@ class AddFeatureTableCell: UITableViewCell {
   }
 
   @IBOutlet var titleLabel: UILabel!
-  @IBOutlet var button: UIButton!
+  @IBOutlet var editButton: UIButton!
   @IBOutlet var addButton: UIButton!
 
 
   var status: CellStatus = .add {
     didSet {
-      addButton.isHidden = status == .add
-      titleLabel.isHidden = status == .edit
-      button.isHidden = status == .edit
+      addButton.superview?.isHidden = status != .add
+      editButton.superview?.isHidden = status != .edit
     }
   }
   var selectedContent: String? {
     didSet {
-      button.setTitle(selectedContent, for: .normal)
-      button.setTitleColor(.secondaryLabel, for: .normal)
+      editButton.setTitle(selectedContent, for: .normal)
+      editButton.setTitleColor(.secondaryLabel, for: .normal)
     }
   }
 
@@ -49,16 +48,12 @@ class AddFeatureTableCell: UITableViewCell {
 
   func customInit() {
     titleLabel.text = title
-    button.setTitle(placeholder, for: .normal)
+    editButton.setTitle(placeholder, for: .normal)
   }
 
   func setType(status: CellStatus, title: String? = .empty, subTitle: String? = .empty) {
     self.status = status
     titleLabel.text = title
-    button.setTitle(subTitle, for: .normal)
-  }
-
-  @IBAction func onTapButton(_ sender: UIButton) {
-    onTapped?()
+    editButton.setTitle(subTitle, for: .normal)
   }
 }

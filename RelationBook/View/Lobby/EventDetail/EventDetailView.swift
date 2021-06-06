@@ -19,9 +19,12 @@ class EventDetailView: UIView, NibLoadable {
   @IBOutlet var relationName: UILabel!
   @IBOutlet var locaionLabel: UILabel!
   @IBOutlet var timeLabel: UILabel!
+  @IBOutlet var commentTextView: UITextView!
 
   var onDismiss: (() -> Void)?
 
+  var event: Event?
+  var relations = [Category]()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -34,6 +37,9 @@ class EventDetailView: UIView, NibLoadable {
   }
 
   func setUp(event: Event, relations: [Category]) {
+
+    self.event = event
+    self.relations = relations
 
     layoutIfNeeded()
 
@@ -49,11 +55,11 @@ class EventDetailView: UIView, NibLoadable {
 
     event.category.getImage { [weak self] image in
       guard let image = image else { return }
-      self?.categoryIconView.setIcon(isCropped: true, image: image)
+      self?.categoryIconView.setIcon(isCropped: true, image: image, multiple: 0.5)
     }
 
     let categoryBGColor = UIColor.UIColorFromString(string: event.category.backgroundColor)
-    categoryIconView.setIcon(isCropped: true, bgColor: categoryBGColor, borderWidth: 3, borderColor: .white, tintColor: .white)
+    categoryIconView.setIcon(isCropped: true, bgColor: categoryBGColor, borderWidth: 3, borderColor: .white, tintColor: .white, multiple: 0.5)
 
     // MARK: Relation data set
     let mainRelation = relations.first!
@@ -83,6 +89,8 @@ class EventDetailView: UIView, NibLoadable {
     }
 
     moodImage.isCornerd = true
+
+    commentTextView.text = event.comment
   }
 
   func backgroundSet(event: Event) {
@@ -97,7 +105,7 @@ class EventDetailView: UIView, NibLoadable {
       eventImage.isHidden = true
       eventBackground.backgroundColor = event.getColor()
       event.category.getImage {  [weak self] image in
-        self?.categoryIconView.setIcon(isCropped: true, image: image, bgColor: event.getColor(), borderWidth: 4, borderColor: .white)
+        self?.categoryIconView.setIcon(isCropped: true, image: image, bgColor: event.getColor(), borderWidth: 4, borderColor: .white, multiple: 0.5)
       }
     }
   }

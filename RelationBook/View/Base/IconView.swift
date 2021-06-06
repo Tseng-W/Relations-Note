@@ -23,7 +23,7 @@ class IconView: UIView {
     return imageView
   }()
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = nil) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = nil, multiple: CGFloat? = nil) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
@@ -52,18 +52,21 @@ class IconView: UIView {
 
     layoutIfNeeded()
 
-    let multiple: CGFloat = isCropped ? 1 : 0.8
+    let defaultMultiple: CGFloat = isCropped ? 1 : 0.8
+
+    let iconMultiple: CGFloat = multiple ?? defaultMultiple
+
     imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor)
     NSLayoutConstraint.activate([
       NSLayoutConstraint.init(
         item: imageView, attribute: .height,
         relatedBy: .equal, toItem: self,
-        attribute: .height, multiplier: multiple,
+        attribute: .height, multiplier: iconMultiple,
         constant: 0),
       NSLayoutConstraint.init(
         item: imageView, attribute: .width,
         relatedBy: .equal, toItem: self,
-        attribute: .width, multiplier: multiple,
+        attribute: .width, multiplier: iconMultiple,
         constant: 0)
     ])
 

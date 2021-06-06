@@ -7,7 +7,20 @@
 
 import UIKit
 
+@IBDesignable
 class RelationTableHeaderCell: UIView, NibLoadable {
+
+  @IBInspectable var title: String = .empty {
+    didSet {
+      tagTitleLabel.text = title
+    }
+  }
+
+  @IBInspectable var subTitle: String = .empty {
+    didSet {
+      subInfoLabel.text = subTitle
+    }
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)

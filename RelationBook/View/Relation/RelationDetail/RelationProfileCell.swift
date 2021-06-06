@@ -15,6 +15,6 @@ class RelationProfileCell: UITableViewCell {
 
   func setup(feature: Feature, index: Int) {
     self.feature = feature
-    featureLabel.text = "\(feature.name) : \(feature.contents[index].content)"
+    featureLabel.text = "\(feature.name) : \(feature.contents[index].text)"
   }
 }

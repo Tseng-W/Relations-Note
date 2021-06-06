@@ -19,19 +19,38 @@ class AddEventViewController: UIViewController {
       searchTextField.layer.borderWidth = 1
     }
   }
+  @IBOutlet var searchTextFieldHeight: NSLayoutConstraint! {
+    didSet {
+      searchTextFieldHeight.constant = 0
+    }
+  }
 
   @IBOutlet var filterView: FilterView!
   @IBOutlet var filterHeightConstraint: NSLayoutConstraint!
 
   // MARK: Buttons.
-  @IBOutlet var featureTableView: AddFeatureTableView!
+  @IBOutlet var featureTableView: AddFeatureTableView! {
+    didSet {
+      featureTableView.featureDelagate = self
+    }
+  }
   @IBOutlet var moodButton: UIButton!
   @IBOutlet var eventButton: UIButton!
   @IBOutlet var locationButton: UIButton!
   @IBOutlet var imageButton: UIButton!
   @IBOutlet var dayButton: UIButton!
   @IBOutlet var timeButton: UIButton!
-  @IBOutlet var commentField: UITextField!
+  @IBOutlet var commentTextView: UITextView! {
+    didSet {
+      commentTextView.delegate = self
+    }
+  }
+
+  // MARK: Initial information
+  let commentPlaceholder = "備註"
+  let commentPlaceholderColor: UIColor = .secondaryLabel
+
+  let selectedColor: UIColor = .label
 
 
   let popTip = PopTip()
@@ -153,7 +172,7 @@ class AddEventViewController: UIViewController {
                          locationName: locationName,
                          time: Timestamp(date: date),
                          subEvents: subEvents,
-                         comment: commentField.text)
+                         comment: commentTextView.text)
     eventViewModel.addEvent(event: newEvent) { result in
       switch result {
       case .success(let docID):
@@ -214,17 +233,6 @@ class AddEventViewController: UIViewController {
   }
 }
 
-extension AddEventViewController: UITableViewDelegate, UITableViewDataSource {
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    0
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    UITableViewCell()
-  }
-}
-
 extension AddEventViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
@@ -250,6 +258,7 @@ extension AddEventViewController: SCLAlertViewProviderDelegate {
   }
 }
 
+// MARK: Add category delegate
 extension AddEventViewController: CategoryStyleViewDelegate {
 
   func categoryStyleView(
@@ -262,5 +271,30 @@ extension AddEventViewController: CategoryStyleViewDelegate {
 
   func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
     .relation
+  }
+}
+
+// MARK: TextFiled Delegate
+extension AddEventViewController: UITextViewDelegate {
+
+  func textViewDidBeginEditing(_ textView: UITextView) {
+    if textView.textColor == commentPlaceholderColor {
+      textView.text = nil
+      textView.textColor = selectedColor
+    }
+  }
+
+  func textViewDidEndEditing(_ textView: UITextView) {
+    if textView.text.isEmpty {
+      textView.text = commentPlaceholder
+      textView.textColor = commentPlaceholderColor
+    }
+  }
+}
+
+extension AddEventViewController: AddFeatureTableViewDelegate {
+
+  func featureTableView(tableView: AddFeatureTableView, features: [Feature]) {
+    print()
   }
 }

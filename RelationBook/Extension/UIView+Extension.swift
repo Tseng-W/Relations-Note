@@ -11,7 +11,7 @@ extension UIView {
 
   func addBlurView() -> UIVisualEffectView {
 
-    let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+    let blurEffect = UIBlurEffect(style: .dark)
     let blurView = UIVisualEffectView(effect: blurEffect)
     addSubview(blurView)
     blurView.addConstarint(

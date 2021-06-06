@@ -37,9 +37,20 @@ struct Feature: Codable {
   var relationID: Int
   var categoryIndex: Int
   var contents: [FeatureContent]
+
+  func getContentDescription() -> String {
+
+    if contents.count == 0 {
+      return .empty
+    } else if contents.count == 1 {
+      return contents[0].text
+    } else {
+      return "\(contents[0].text) 等 \(contents.count) 項"
+    }
+  }
 }
 
 struct FeatureContent: Codable {
   var isProcessing: Bool
-  var content: String
+  var text: String
 }

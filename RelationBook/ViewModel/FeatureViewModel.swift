@@ -33,8 +33,8 @@ class FeatureViewModel {
     }
   }
 
-  func rowNumber() -> Int {
-    return feature.value.contents.count + 1
+  func amount() -> Int {
+    return feature.value.contents.count
   }
 
   func cellForRowAt(row: Int) -> FeatureContent? {

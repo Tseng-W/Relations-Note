@@ -18,9 +18,7 @@
 		471FD4E9265BE019003CF46F /* CheckboxTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471FD4E8265BE019003CF46F /* CheckboxTableCell.xib */; };
 		471FD4EB265C7581003CF46F /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FD4EA265C7581003CF46F /* CheckboxTableCell.swift */; };
 		471FD4ED265C780B003CF46F /* AddFeatureFloatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471FD4EC265C780B003CF46F /* AddFeatureFloatView.xib */; };
-		471FD4EF265C793F003CF46F /* AddFeatureHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471FD4EE265C793F003CF46F /* AddFeatureHeaderView.xib */; };
 		471FD4F1265C980F003CF46F /* AddFeatureFloatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FD4F0265C980F003CF46F /* AddFeatureFloatView.swift */; };
-		471FD4F4265C9980003CF46F /* AddFeatureHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FD4F3265C9980003CF46F /* AddFeatureHeaderView.swift */; };
 		471FD4F6265CA3F2003CF46F /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FD4F5265CA3F2003CF46F /* FeatureViewModel.swift */; };
 		472D1371264CD1ED001F3B85 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */; };
 		47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E45263C2D6F0092860F /* AppDelegate.swift */; };
@@ -148,9 +146,7 @@
 		471FD4E8265BE019003CF46F /* CheckboxTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckboxTableCell.xib; sourceTree = "<group>"; };
 		471FD4EA265C7581003CF46F /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
 		471FD4EC265C780B003CF46F /* AddFeatureFloatView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFeatureFloatView.xib; sourceTree = "<group>"; };
-		471FD4EE265C793F003CF46F /* AddFeatureHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFeatureHeaderView.xib; sourceTree = "<group>"; };
 		471FD4F0265C980F003CF46F /* AddFeatureFloatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeatureFloatView.swift; sourceTree = "<group>"; };
-		471FD4F3265C9980003CF46F /* AddFeatureHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeatureHeaderView.swift; sourceTree = "<group>"; };
 		471FD4F5265CA3F2003CF46F /* FeatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureViewModel.swift; sourceTree = "<group>"; };
 		472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
 		47339E42263C2D6F0092860F /* RelationBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -313,9 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				471FD4F0265C980F003CF46F /* AddFeatureFloatView.swift */,
-				471FD4F3265C9980003CF46F /* AddFeatureHeaderView.swift */,
 				471FD4EC265C780B003CF46F /* AddFeatureFloatView.xib */,
-				471FD4EE265C793F003CF46F /* AddFeatureHeaderView.xib */,
 				47ECF074265B49B60063E294 /* AddFeatureTableCell.xib */,
 				47ECF076265B4A040063E294 /* AddFeatureTableCell.swift */,
 				471FD4E8265BE019003CF46F /* CheckboxTableCell.xib */,
@@ -824,7 +818,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				475BF56E2669184E00AD5441 /* RelationListTableCell.xib in Resources */,
-				471FD4EF265C793F003CF46F /* AddFeatureHeaderView.xib in Resources */,
 				4712C23226526C62008D8386 /* RelationTableCell.xib in Resources */,
 				47B6B90E26535C600090218C /* ProfileTableViewCell.xib in Resources */,
 				47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */,
@@ -1038,7 +1031,6 @@
 				47101B992655366C00D7D171 /* GoogleMapViewController.swift in Sources */,
 				476D2EC6264B8E2800A9200A /* FirebaseManager.swift in Sources */,
 				47B6B90C26535C490090218C /* ProfileTableViewCell.swift in Sources */,
-				471FD4F4265C9980003CF46F /* AddFeatureHeaderView.swift in Sources */,
 				476CF846266B4F4E000B5DC9 /* RelationProfileCell.swift in Sources */,
 				47B6B903265340860090218C /* BookTableCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,

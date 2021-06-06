@@ -166,14 +166,28 @@
                                     <action selector="confirm:" destination="JEb-7Y-xVc" eventType="touchUpInside" id="gPT-xJ-OGl"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="以姓名、關係與特徵搜尋" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Xr-BS-Fa0">
-                                <rect key="frame" x="16" y="111" width="382" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="以姓名、關係與特徵搜尋" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Xr-BS-Fa0">
+                                <rect key="frame" x="16" y="141" width="382" height="28"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="cVj-GY-hOR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="secondaryLabelColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMv-Yv-bDe">
-                                <rect key="frame" x="16" y="371" width="382" height="119.5"/>
+                                <rect key="frame" x="16" y="433" width="382" height="119.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyk-LX-R33">
                                         <rect key="frame" x="0.0" y="0.0" width="76.5" height="76.5"/>
@@ -354,68 +368,95 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-84-9Ze" customClass="AddFeatureTableView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="626" width="414" height="270"/>
+                                <rect key="frame" x="16" y="679.5" width="382" height="216.5"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="153" width="414" height="210"/>
+                                <rect key="frame" x="0.0" y="177" width="414" height="210"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="210" identifier="height" id="0Tl-0V-QU1"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="備註" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbO-qp-FQK">
-                                <rect key="frame" x="16" y="498.5" width="382" height="119.5"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="備註" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uR0-Df-t9L">
+                                <rect key="frame" x="16" y="560.5" width="382" height="111"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="8"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="secondaryLabelColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" systemColor="secondaryLabelColor"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                            </textField>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ph6-Nq-y8b" customClass="RelationTableHeaderCell" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="103" width="414" height="30"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="XAF-3n-aih"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="互動對象"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z44-gv-QWl" customClass="RelationTableHeaderCell" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="395" width="414" height="30"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ghG-EG-H1x"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="互動詳情"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbt-MQ-fzz"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="centerY" secondItem="U6H-wL-9Dr" secondAttribute="centerY" id="0Rv-nh-jqc"/>
-                            <constraint firstItem="xbO-qp-FQK" firstAttribute="top" secondItem="FMv-Yv-bDe" secondAttribute="bottom" constant="8" id="3zF-B9-xUS"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="centerY" secondItem="U6H-wL-9Dr" secondAttribute="centerY" id="7c8-aG-09s"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="9Ei-1P-q5X"/>
-                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="cg1-84-9Ze" secondAttribute="trailing" id="AD0-PK-lew"/>
+                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="cg1-84-9Ze" secondAttribute="trailing" constant="16" id="AD0-PK-lew"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="width" secondItem="pm9-hl-yyz" secondAttribute="height" multiplier="1:1" id="Bkg-PC-1qr"/>
+                            <constraint firstItem="4Xr-BS-Fa0" firstAttribute="top" secondItem="Ph6-Nq-y8b" secondAttribute="bottom" constant="8" id="CL4-W6-9Zc"/>
+                            <constraint firstItem="Z44-gv-QWl" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="FXd-2n-k9C"/>
+                            <constraint firstItem="Ph6-Nq-y8b" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="MfY-9K-hZ8"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="top" secondItem="hbt-MQ-fzz" secondAttribute="top" constant="16" id="Mri-mG-jEe"/>
+                            <constraint firstItem="cg1-84-9Ze" firstAttribute="top" secondItem="uR0-Df-t9L" secondAttribute="bottom" constant="8" id="QVc-Zt-q3v"/>
                             <constraint firstItem="4Xr-BS-Fa0" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="SXo-dn-Cwe"/>
+                            <constraint firstItem="FMv-Yv-bDe" firstAttribute="top" secondItem="Z44-gv-QWl" secondAttribute="bottom" constant="8" id="TQ4-kk-vxt"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="4Xr-BS-Fa0" secondAttribute="trailing" constant="16" id="Tl9-uk-SME"/>
-                            <constraint firstItem="cg1-84-9Ze" firstAttribute="top" secondItem="xbO-qp-FQK" secondAttribute="bottom" constant="8" id="TuN-Pg-oTv"/>
-                            <constraint firstItem="FMv-Yv-bDe" firstAttribute="top" secondItem="nvv-iT-43H" secondAttribute="bottom" constant="8" id="U8d-OL-4SP"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="VKq-bp-Od5"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="FMv-Yv-bDe" secondAttribute="trailing" constant="16" id="ZLG-3k-nwe"/>
                             <constraint firstAttribute="bottom" secondItem="cg1-84-9Ze" secondAttribute="bottom" id="abP-Rf-52Y"/>
                             <constraint firstItem="nvv-iT-43H" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="eUZ-EM-i8f"/>
-                            <constraint firstItem="xbO-qp-FQK" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="flf-4r-ZHy"/>
-                            <constraint firstItem="xbO-qp-FQK" firstAttribute="height" secondItem="FMv-Yv-bDe" secondAttribute="height" id="nEL-YG-ejj"/>
+                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="Ph6-Nq-y8b" secondAttribute="trailing" id="fKP-pH-7YC"/>
+                            <constraint firstItem="Z44-gv-QWl" firstAttribute="trailing" secondItem="hbt-MQ-fzz" secondAttribute="trailing" id="g2F-tB-bKl"/>
+                            <constraint firstItem="uR0-Df-t9L" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="gEJ-A8-Peh"/>
+                            <constraint firstItem="Z44-gv-QWl" firstAttribute="top" secondItem="nvv-iT-43H" secondAttribute="bottom" constant="8" id="iyi-or-rlY"/>
+                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="uR0-Df-t9L" secondAttribute="trailing" constant="16" id="jKX-Tf-Jqy"/>
+                            <constraint firstItem="uR0-Df-t9L" firstAttribute="height" secondItem="FMv-Yv-bDe" secondAttribute="height" multiplier="0.92887" id="kpu-RU-H1V"/>
+                            <constraint firstItem="uR0-Df-t9L" firstAttribute="top" secondItem="FMv-Yv-bDe" secondAttribute="bottom" constant="8" id="m6l-xB-fNE"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="centerX" secondItem="ieI-wr-BJH" secondAttribute="centerX" id="oDT-Tu-MuI"/>
                             <constraint firstItem="nvv-iT-43H" firstAttribute="top" secondItem="4Xr-BS-Fa0" secondAttribute="bottom" constant="8" id="okA-ca-KMM"/>
-                            <constraint firstItem="cg1-84-9Ze" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="pcN-C6-ngC"/>
+                            <constraint firstItem="cg1-84-9Ze" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="pcN-C6-ngC"/>
                             <constraint firstItem="FMv-Yv-bDe" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="qSc-cf-ydV"/>
-                            <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="xbO-qp-FQK" secondAttribute="trailing" constant="16" id="uDt-hW-Dch"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="pm9-hl-yyz" secondAttribute="trailing" constant="16" id="uJG-Sg-tlR"/>
-                            <constraint firstItem="4Xr-BS-Fa0" firstAttribute="top" secondItem="U6H-wL-9Dr" secondAttribute="bottom" constant="16" id="uO3-Mi-Q3r"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="nvv-iT-43H" secondAttribute="trailing" id="uX4-8Z-D6O"/>
+                            <constraint firstItem="Ph6-Nq-y8b" firstAttribute="top" secondItem="U6H-wL-9Dr" secondAttribute="bottom" constant="8" id="ujc-GM-mWj"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="vm7-b9-7Sv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uBQ-wQ-sob"/>
                     <connections>
-                        <outlet property="commentField" destination="xbO-qp-FQK" id="IGa-wZ-hOF"/>
+                        <outlet property="commentTextView" destination="uR0-Df-t9L" id="31G-sL-3FZ"/>
                         <outlet property="dayButton" destination="aGd-Va-Qgr" id="R16-gk-JMw"/>
                         <outlet property="eventButton" destination="zKL-Wv-Yyu" id="M3D-hS-jGM"/>
                         <outlet property="featureTableView" destination="cg1-84-9Ze" id="Dpk-vv-jih"/>
@@ -425,6 +466,7 @@
                         <outlet property="locationButton" destination="c1p-td-rae" id="Mbv-2W-Pmo"/>
                         <outlet property="moodButton" destination="Y70-X3-CVR" id="add-Cb-Scb"/>
                         <outlet property="searchTextField" destination="4Xr-BS-Fa0" id="x4k-dB-wmg"/>
+                        <outlet property="searchTextFieldHeight" destination="cVj-GY-hOR" id="Oe4-6g-sW5"/>
                         <outlet property="timeButton" destination="Zyt-6i-3uA" id="85n-VB-ClX"/>
                     </connections>
                 </viewController>

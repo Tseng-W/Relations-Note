@@ -200,25 +200,20 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-    tableView.cellForRow(at: indexPath)?.isSelected = false
+    guard let user = userViewModel.user.value,
+          let cell = tableView.cellForRow(at: indexPath) as? LobbyEventCell else { return }
 
-    guard indexPath.row < eventViewModel.fetchEventIn(date: Date()).count,
-          let user = userViewModel.user.value else { return }
+    cell.isSelected = false
 
-    let event = eventViewModel.fetchEventIn(date: Date())[indexPath.row]
-    var relations = [Category]()
+    guard let event = cell.event else { return }
 
-    for index in 0..<user.relationSet.sub.count {
-      if event.relations.contains(index) {
-        relations.append(user.relationSet.sub[index])
-      }
-    }
+    let relations = cell.relations
 
     let detailVC = EventDetailView()
     let blurView = view.addBlurView()
     view.addSubview(detailVC)
 
-    detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 2)
+    detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 1.5)
     detailVC.cornerRadius = detailVC.frame.width * 0.05
 
     view.layoutIfNeeded()

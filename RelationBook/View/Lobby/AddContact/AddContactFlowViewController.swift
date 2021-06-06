@@ -93,10 +93,10 @@ class AddContactFlowViewController: FloatingViewController {
           addFeatureView.removeFromSuperview()
         }
 
-        addFeatureView.onConfirm = { [weak self] category, feature in
-          self?.featureButton.selectedContent = category.title
-          self?.feature = feature
-        }
+//        addFeatureView.onConfirm = { [weak self] category, feature in
+//          self?.featureButton.selectedContent = category.title
+//          self?.feature = feature
+//        }
       }
     }
   }
