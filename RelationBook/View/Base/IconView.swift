@@ -23,7 +23,7 @@ class IconView: UIView {
     return imageView
   }()
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .white, multiple: CGFloat? = nil) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .label, multiple: CGFloat? = nil) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
@@ -56,7 +56,7 @@ class IconView: UIView {
 
     layoutIfNeeded()
 
-    let defaultMultiple: CGFloat = isCropped ? 1 : 0.8
+    let defaultMultiple: CGFloat = isCropped ? 1 : 0.6
 
     let iconMultiple: CGFloat = multiple ?? defaultMultiple
 

@@ -24,7 +24,8 @@ class RelationListTableCell: UITableViewCell {
         self?.iconView.setIcon(
           isCropped: false,
           image: image,
-          bgColor: .clear)
+          bgColor: .clear,
+          multiple: 1)
       }
 
       relationNameLabel.text = relation.title

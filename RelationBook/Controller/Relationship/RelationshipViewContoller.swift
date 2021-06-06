@@ -101,7 +101,7 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
     
     return headerView
   }
-  
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.cellForRow(at: indexPath)?.isSelected = false
     if let cell = tableView.cellForRow(at: indexPath) as? RelationTableCell,
@@ -112,7 +112,7 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    50
+    70
   }
   
   @objc private func didSelectHeaderAt(tapGesture: UITapGestureRecognizer) {

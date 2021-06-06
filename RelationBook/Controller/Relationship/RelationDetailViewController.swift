@@ -47,6 +47,7 @@ class RelationDetailViewController: UIViewController {
 
     eventTableView.tag = TableType.event.rawValue
     eventTableView.backgroundColor = .secondarySystemBackground
+    eventTableView.estimatedRowHeight = 60
 
     eventTableView.lk_registerCellWithNib(
       identifier: String(describing: LobbyEventCell.self),
@@ -289,7 +290,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
     switch TableType(rawValue: tableView.tag) {
 
     case .event:
-      let header = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
+      let header = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 60))
 
         header.tagTitleLabel.text = eventsSorted[section].key.getDayString(type: .day)
 
@@ -388,5 +389,9 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
     case .none:
       break
     }
+  }
+
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 60
   }
 }

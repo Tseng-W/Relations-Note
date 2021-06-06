@@ -63,7 +63,8 @@ class LobbyEventCell: UITableViewCell {
         isCropped: relation.isCustom,
         image: image,
         bgColor: .clear,
-        tintColor: .label)
+        tintColor: .label,
+        multiple: 1)
     }
 
 

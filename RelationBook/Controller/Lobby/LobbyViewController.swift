@@ -224,6 +224,10 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
       blurView.removeFromSuperview()
     }
   }
+
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 70
+  }
 }
 
 // MARK: - custom tab bar delegate

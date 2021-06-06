@@ -27,7 +27,7 @@
                         <rect key="frame" x="34" y="8" width="64" height="64"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="CzL-o7-API"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="CzL-o7-API"/>
                             <constraint firstAttribute="width" secondItem="VLb-r3-Man" secondAttribute="height" multiplier="1:1" id="fi4-NL-DIG"/>
                         </constraints>
                     </view>

@@ -92,4 +92,8 @@ extension RelationListViewController: UITableViewDelegate, UITableViewDataSource
 
     performSegue(withIdentifier: "detail", sender: nil)
   }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    60
+  }
 }
