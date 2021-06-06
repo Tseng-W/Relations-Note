@@ -23,14 +23,18 @@ class IconView: UIView {
     return imageView
   }()
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = nil, multiple: CGFloat? = nil) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .white, multiple: CGFloat? = nil) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
     imageView.constraints.forEach { $0.isActive = false }
 
     if let image = image {
-      imageView.image = image
+      if image.description.contains("_l_") {
+        imageView.image = image.withRenderingMode(.alwaysTemplate)
+      } else {
+        imageView.image = image
+      }
     }
 
     if let bgColor = bgColor {

@@ -17,6 +17,13 @@ protocol SCLAlertViewProviderDelegate:  LocalIconSelectionDelegate {
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage)
 
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType?
+
+  func alertIconHiierarchy(provider: SCLAlertViewProvider) -> CategoryHierarchy?
+}
+
+extension SCLAlertViewProviderDelegate {
+
+  func alertIconHiierarchy(provider: SCLAlertViewProvider) -> CategoryHierarchy? { return nil }
 }
 
 extension SCLAlertViewProviderDelegate {
@@ -138,7 +145,11 @@ extension SCLAlertViewProvider {
 
     guard let iconType = alertDelegate?.alertIconType(provider: self) else { alertView?.hideView(); return }
 
-    let iconSelectionView = LocalIconSelectionView(type: iconType)
+    let hierachy = alertDelegate?.alertIconHiierarchy(provider: self)
+
+    let iconSelectionView = LocalIconSelectionView(
+      type: iconType,
+      hierachy: hierachy)
 
     iconSelectionView.delegate = alertDelegate
 

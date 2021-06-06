@@ -56,6 +56,10 @@ class AddEventViewController: UIViewController {
   let popTip = PopTip()
   var userViewModel = UserViewModel()
   var eventViewModel = EventViewModel()
+  let featureViewModel = FeatureViewModel()
+  let relationViewModel = RelationViewModel()
+
+  var relations = [Relation]()
 
   let selectFloatViewController: SelectFloatViewController = {
     let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
@@ -65,7 +69,7 @@ class AddEventViewController: UIViewController {
   let setCategoryView = SetCategoryStyleView()
 
   // MARK: Event datas.
-  var relations: [Category] = []
+  var relationCategories: [Category] = []
   var imageLink: String?
   var mood = 2
   var event: Category?
@@ -79,6 +83,8 @@ class AddEventViewController: UIViewController {
   }
   var subEvents: [SubEvent] = []
 
+  var features = [Feature]()
+
   override func viewDidLoad() {
 
     super.viewDidLoad()
@@ -88,11 +94,16 @@ class AddEventViewController: UIViewController {
       self?.filterView.setUp(type: .relation)
     }
 
+    relationViewModel.relations.bind { [weak self] relations in
+      self?.relations = relations
+    }
+
     featureTableView.separatorColor = .clear
 
     setCategoryView.delegate = self
 
     userViewModel.fetchUserDate()
+    relationViewModel.fetchRelations()
 
     relationFilterSetup()
     selectionViewSetup()
@@ -105,7 +116,7 @@ class AddEventViewController: UIViewController {
     view.layoutIfNeeded()
 
     filterView.onSelected = { categories in
-      self.relations = categories
+      self.relationCategories = categories
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
         self.filterHeightConstraint.constant /= 2.66
         self.view.layoutIfNeeded()
@@ -159,12 +170,14 @@ class AddEventViewController: UIViewController {
   }
 
   @IBAction func confirm(_ sender: UIButton) {
-    print("confirm")
+
+    let dispachGroup = DispatchGroup()
+
     guard let event = event else { return }
     guard let userID = userViewModel.user.value?.uid else { return }
     var newEvent = Event(docID: "",
                          owner: userID,
-                         relations: relations.map { $0.id },
+                         relations: relationCategories.map { $0.id },
                          imageLink: imageLink ?? nil,
                          mood: mood,
                          category: event,
@@ -173,14 +186,32 @@ class AddEventViewController: UIViewController {
                          time: Timestamp(date: date),
                          subEvents: subEvents,
                          comment: commentTextView.text)
+
+    dispachGroup.enter()
     eventViewModel.addEvent(event: newEvent) { result in
       switch result {
       case .success(let docID):
         newEvent.docID = docID
-        self.dismiss(animated: true)
+        dispachGroup.leave()
+
       case .failure(let error):
-        print(error)
+        dispachGroup.leave()
+        print("\(error.localizedDescription)")
       }
+    }
+
+    if features.count > 0 {
+      dispachGroup.enter()
+
+      guard let relation = relations.first(where: { $0.categoryIndex == relationCategories[0].id }) else { dispachGroup.leave(); return }
+
+      self.featureViewModel.addFeatures(relation: relation, features: self.features) {
+        dispachGroup.leave()
+      }
+    }
+
+    dispachGroup.notify(queue: .main) {
+      self.dismiss(animated: true)
     }
   }
 
@@ -295,6 +326,6 @@ extension AddEventViewController: UITextViewDelegate {
 extension AddEventViewController: AddFeatureTableViewDelegate {
 
   func featureTableView(tableView: AddFeatureTableView, features: [Feature]) {
-    print()
+    self.features = features
   }
 }

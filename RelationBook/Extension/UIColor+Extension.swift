@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FlexColorPicker
 
 extension UIColor {
   
@@ -63,5 +64,14 @@ extension UIColor {
       return UInt(colorAsUInt)
     }
     return UInt()
+  }
+
+  public var hsba: HSBColor {
+    var h: CGFloat = 0
+    var s: CGFloat = 0
+    var b: CGFloat = 0
+    var a: CGFloat = 0
+    getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+    return HSBColor(hue: h * 360, saturation: s, brightness: b)
   }
 }

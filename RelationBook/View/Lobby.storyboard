@@ -167,7 +167,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="以姓名、關係與特徵搜尋" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Xr-BS-Fa0">
-                                <rect key="frame" x="16" y="141" width="382" height="28"/>
+                                <rect key="frame" x="16" y="133" width="382" height="28"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="cVj-GY-hOR"/>
@@ -187,7 +187,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMv-Yv-bDe">
-                                <rect key="frame" x="16" y="433" width="382" height="119.5"/>
+                                <rect key="frame" x="16" y="417" width="382" height="119.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyk-LX-R33">
                                         <rect key="frame" x="0.0" y="0.0" width="76.5" height="76.5"/>
@@ -339,7 +339,7 @@
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" name="LableB2"/>
+                                                <color key="value" systemColor="secondaryLabelColor"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -368,18 +368,18 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-84-9Ze" customClass="AddFeatureTableView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="16" y="679.5" width="382" height="216.5"/>
+                                <rect key="frame" x="16" y="663.5" width="382" height="232.5"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="177" width="414" height="210"/>
+                                <rect key="frame" x="0.0" y="161" width="414" height="210"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="210" identifier="height" id="0Tl-0V-QU1"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="備註" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uR0-Df-t9L">
-                                <rect key="frame" x="16" y="560.5" width="382" height="111"/>
+                                <rect key="frame" x="16" y="544.5" width="382" height="111"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
@@ -407,7 +407,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z44-gv-QWl" customClass="RelationTableHeaderCell" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="395" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="379" width="414" height="30"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ghG-EG-H1x"/>
@@ -425,7 +425,7 @@
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="9Ei-1P-q5X"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="cg1-84-9Ze" secondAttribute="trailing" constant="16" id="AD0-PK-lew"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="width" secondItem="pm9-hl-yyz" secondAttribute="height" multiplier="1:1" id="Bkg-PC-1qr"/>
-                            <constraint firstItem="4Xr-BS-Fa0" firstAttribute="top" secondItem="Ph6-Nq-y8b" secondAttribute="bottom" constant="8" id="CL4-W6-9Zc"/>
+                            <constraint firstItem="4Xr-BS-Fa0" firstAttribute="top" secondItem="Ph6-Nq-y8b" secondAttribute="bottom" id="CL4-W6-9Zc"/>
                             <constraint firstItem="Z44-gv-QWl" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="FXd-2n-k9C"/>
                             <constraint firstItem="Ph6-Nq-y8b" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="MfY-9K-hZ8"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="top" secondItem="hbt-MQ-fzz" secondAttribute="top" constant="16" id="Mri-mG-jEe"/>
@@ -445,7 +445,7 @@
                             <constraint firstItem="uR0-Df-t9L" firstAttribute="height" secondItem="FMv-Yv-bDe" secondAttribute="height" multiplier="0.92887" id="kpu-RU-H1V"/>
                             <constraint firstItem="uR0-Df-t9L" firstAttribute="top" secondItem="FMv-Yv-bDe" secondAttribute="bottom" constant="8" id="m6l-xB-fNE"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="centerX" secondItem="ieI-wr-BJH" secondAttribute="centerX" id="oDT-Tu-MuI"/>
-                            <constraint firstItem="nvv-iT-43H" firstAttribute="top" secondItem="4Xr-BS-Fa0" secondAttribute="bottom" constant="8" id="okA-ca-KMM"/>
+                            <constraint firstItem="nvv-iT-43H" firstAttribute="top" secondItem="4Xr-BS-Fa0" secondAttribute="bottom" id="okA-ca-KMM"/>
                             <constraint firstItem="cg1-84-9Ze" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="pcN-C6-ngC"/>
                             <constraint firstItem="FMv-Yv-bDe" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="qSc-cf-ydV"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="pm9-hl-yyz" secondAttribute="trailing" constant="16" id="uJG-Sg-tlR"/>
@@ -839,9 +839,6 @@
         </namedColor>
         <namedColor name="LableB1">
             <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="LableB2">
-            <color red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LableB3">
             <color red="0.30000001192092896" green="0.30000001192092896" blue="0.30000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

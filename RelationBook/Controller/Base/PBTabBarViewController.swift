@@ -67,8 +67,10 @@ private enum Tab {
   func images() -> (icon: UIImage, add: UIImage)? {
     switch self {
     case .lobby:
+//      return (UIImage.asset(ImageAsset.icon)!,
+//              UIImage.asset(ImageAsset.pen)!)
       return (UIImage.asset(ImageAsset.icon)!,
-              UIImage.asset(ImageAsset.pen)!)
+              UIImage.assetSystem(SysetmAsset.add)!)
     default:
       return nil
     }
@@ -87,6 +89,16 @@ class PBTabBarViewController: UITabBarController {
     imageView.isUserInteractionEnabled = true
     imageView.isCornerd = true
     return imageView
+  }()
+
+  var iconImageButton: IconView = {
+
+    let iconView = IconView()
+    iconView.frame.size = CGSize(width: 50, height: 50)
+    iconView.setIcon(isCropped: false, image: Tab.lobby.images()?.add, bgColor: .systemBackground, borderWidth: 3, borderColor: .systemOrange)
+    iconView.isUserInteractionEnabled = true
+
+    return iconView
   }()
 
   weak var tabBarDelegate: TabBarTapDelegate?
@@ -115,23 +127,23 @@ class PBTabBarViewController: UITabBarController {
 
     var center = tabBar.center
     center.y -= 40
-    lobbyImageButton.center = center
+    iconImageButton.center = center
 
-    view.addSubview(lobbyImageButton)
+    view.addSubview(iconImageButton)
 
     let tapGesture = UITapGestureRecognizer(
       target: self,
       action: #selector(onLobbyButtonTap(tapGestureRecognizer:))
     )
-    lobbyImageButton.addGestureRecognizer(tapGesture)
+    iconImageButton.addGestureRecognizer(tapGesture)
   }
 
   @objc func onLobbyButtonTap(tapGestureRecognizer: UITapGestureRecognizer) {
-    guard let tappedImage   = tapGestureRecognizer.view as? UIImageView else { return }
-    if tappedImage.image == Tab.lobby.images()?.add {
+    guard let tappedImage   = tapGestureRecognizer.view as? IconView else { return }
+    if selectedIndex == 1 {
       tabBarDelegate?.tabBarTapped(self, index: 2)
     } else {
-      tappedImage.image = Tab.lobby.images()?.add
+      tappedImage.setIcon(isCropped: false, image: Tab.lobby.images()?.add, borderWidth: 3)
       selectedIndex = 1
     }
   }
@@ -148,6 +160,7 @@ extension PBTabBarViewController: UITabBarControllerDelegate {
 
   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
-    lobbyImageButton.image = Tab.lobby.images()?.icon
+    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0)
+//    lobbyImageButton.image = Tab.lobby.images()?.icon
   }
 }

@@ -27,11 +27,11 @@ class LocalIconSelectionView: UIViewController {
     super.init(coder: coder)
   }
 
-  convenience init(type: CategoryType) {
+  convenience init(type: CategoryType, hierachy: CategoryHierarchy? = nil) {
 
     self.init(nibName: nil, bundle: nil)
 
-    iconViewModel = IconViewModel(type: type)
+    iconViewModel = IconViewModel(type: type, hierachy: hierachy)
   }
 
   weak var delegate: LocalIconSelectionDelegate?

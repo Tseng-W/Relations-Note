@@ -104,6 +104,10 @@ class SetCategoryStyleView: UIView, NibLoadable {
       if let titleLabel = titleLabel {
         titleLabel.text = title
       }
+
+      if let iconSelectView = iconSelectView {
+        iconSelectView.placeholder = placeholder
+      }
     }
   }
 
@@ -128,6 +132,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
     colorPicker.brightnessSlider = brightnessSlider
     colorPicker.rectangularHsbPalette = paletteControl
+    paletteControl.setSelectedHSBColor(UIColor.systemTeal.hsba, isInteractive: true)
     colorPicker.delegate = self
   }
 
@@ -172,18 +177,34 @@ class SetCategoryStyleView: UIView, NibLoadable {
             let categoryType = categoryType,
             name != .empty else { return }
 
-      var category = Category(
-        id: -1,
-        isCustom: imageString.verifyUrl(),
-        superIndex: superIndex,
-        isSubEnable: Category.canSubView(
-          type: categoryType,
-          hierarchy: hierarchy),
-        title: name,
-        imageLink: imageString,
-        backgroundColor: colorPicker.selectedColor.StringFromUIColor())
 
-      FirebaseManager.shared.addUserCategory(type: categoryType, hierarchy: hierarchy, category: &category)
+      // MARK: 新增互動對象，透過 ralationViewModel 處理
+      if categoryType == .relation && hierarchy == .sub {
+
+        let relationViewModel = RelationViewModel()
+        
+        relationViewModel.addRelation(
+          name: name, iconString: imageString,
+          bgColor: colorPicker.selectedColor,
+          superIndex: superIndex, feature: nil)
+
+      } else {
+
+        // MARK: 單純新增標籤部分直接呼叫 FirebaseManager 處理
+        var category = Category(
+          id: -1,
+          isCustom: imageString.verifyUrl(),
+          superIndex: superIndex,
+          isSubEnable: Category.canSubView(
+            type: categoryType,
+            hierarchy: hierarchy),
+          title: name,
+          imageLink: imageString,
+          backgroundColor: colorPicker.selectedColor.StringFromUIColor())
+
+        FirebaseManager.shared.addUserCategory(type: categoryType, hierarchy: hierarchy, category: &category) { _ in
+        }
+      }
 
       delegate?.categoryStyleView(
         styleView: self, isCropped: isImageCropped,
@@ -264,5 +285,9 @@ extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewController
         print("\(error.localizedDescription)")
       }
     }
+  }
+
+  func alertIconHiierarchy(provider: SCLAlertViewProvider) -> CategoryHierarchy? {
+    return hierarchy
   }
 }

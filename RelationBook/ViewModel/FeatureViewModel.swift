@@ -9,7 +9,17 @@ import Foundation
 
 class FeatureViewModel {
 
-  var feature = Box(Feature())
+  var feature: Box<Feature>
+
+  init() {
+    feature = Box(Feature())
+  }
+
+  init(feature: Feature) {
+    self.feature = Box(feature)
+  }
+
+
 
   var canMutiSelect: Bool = false {
     didSet {
@@ -55,5 +65,35 @@ class FeatureViewModel {
     } else {
       feature.value.contents[row].isProcessing.toggle()
     }
+  }
+
+  func addFeatures(relation: Relation, features: [Feature], completion: @escaping () -> Void) {
+
+    var newFeatures = features
+
+    relation.feature.forEach { existFeature in
+      for index in 0..<newFeatures.count {
+        if newFeatures[index].categoryIndex == existFeature.categoryIndex {
+          newFeatures[index].contents.append(contentsOf: existFeature.contents)
+        } else {
+          newFeatures.append(existFeature)
+        }
+      }
+    }
+
+    newFeatures.sort(by: { $0.categoryIndex < $1.categoryIndex })
+
+    updateFeature(categoryIndex: relation.categoryIndex, features: newFeatures) {
+      completion()
+    }
+  }
+
+  func updateFeature(categoryIndex: Int, features: [Feature], completion: @escaping () -> Void = { }) {
+
+    let dict = features.map { $0.toDict() }
+
+    FirebaseManager.shared.updateRelation(categoryIndex: categoryIndex, dict: ["feature": dict]) {
+      completion()
+    } 
   }
 }

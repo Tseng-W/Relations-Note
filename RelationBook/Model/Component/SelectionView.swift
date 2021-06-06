@@ -172,7 +172,7 @@ class SelectionView: UIView {
     layoutIfNeeded()
     var width: CGFloat = 0
     width = scrollView.subviews.reduce(width) { sum, view in
-      return sum + view.frame.width
+      return sum + view.frame.width + padding
     }
     scrollView.contentSize = CGSize(width: width, height: scrollView.frame.height)
   }

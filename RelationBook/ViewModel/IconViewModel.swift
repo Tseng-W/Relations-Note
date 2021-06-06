@@ -13,15 +13,22 @@ class IconViewModel {
 
   var iconSets = titledImages()
 
-  init(type: CategoryType) {
+  init(type: CategoryType, hierachy: CategoryHierarchy? = nil) {
 
     switch type {
     case .relation:
-      let lineIcons = fetchLocalIcons(in: LocalIconRelationLine.self)
-      iconSets.append(("線條圖示", lineIcons))
+      if hierachy == .main {
 
-      let colorIcons = fetchLocalIcons(in: LocalIconRelationColor.self)
-      iconSets.append(("彩色圖示", colorIcons))
+        let lineIcons = fetchLocalIcons(in: LocalRelationCategoryLine.self)
+        iconSets.append(("線條圖示", lineIcons))
+
+      } else {
+        let lineIcons = fetchLocalIcons(in: LocalRelationIconLine.self)
+        iconSets.append(("線條圖示", lineIcons))
+
+        let colorIcons = fetchLocalIcons(in: LocalRelationIconColor.self)
+        iconSets.append(("彩色圖示", colorIcons))
+      }
     case .event:
       break
     case .feature:

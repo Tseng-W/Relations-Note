@@ -10,7 +10,7 @@ import UIKit
 enum ImageAsset: String {
 
   // MARK: Main Icons
-  case icon = "icon_24px_icon"
+  case icon = "icon_60px_icon"
   case pen = "icon_24px_pen"
   case note = "icon_24px_note"
   case category = "icon_24px_category"
@@ -18,7 +18,8 @@ enum ImageAsset: String {
 }
 
 enum Placeholder: String {
-  case placeholderTalk = "icon_128px_talk,icon_128px_talk_w"
+  case event = "icon_128px_talk,icon_128px_talk_w"
+  case profile = "icon_128px_profile,icon_128px_profile_w"
 }
 
 enum EmojiIcon: String, CaseIterable {
@@ -33,7 +34,7 @@ enum EmojiIcon: String, CaseIterable {
   case emojiWinking = "icon_32px_winking"
 }
 
-enum LocalIconRelationColor: String, CaseIterable {
+enum LocalRelationIconColor: String, CaseIterable {
   case r1 = "icon_32px_r_1"
   case r2 = "icon_32px_r_2"
   case r3 = "icon_32px_r_3"
@@ -66,7 +67,7 @@ enum LocalIconRelationColor: String, CaseIterable {
   case r30 = "icon_32px_r_30"
 }
 
-enum LocalIconRelationLine: String, CaseIterable {
+enum LocalRelationIconLine: String, CaseIterable {
   case r1 = "icon_32px_r_l_1"
   case r2 = "icon_32px_r_l_2"
   case r3 = "icon_32px_r_l_3"
@@ -100,26 +101,61 @@ enum LocalIconRelationLine: String, CaseIterable {
   case r31 = "icon_32px_r_l_31"
 }
 
-enum LocalIconEvent: String, CaseIterable {
+enum LocalRelationCategoryLine: String, CaseIterable {
+  case r1 = "icon_32px_c_l_1"
+  case r2 = "icon_32px_c_l_2"
+  case r3 = "icon_32px_c_l_3"
+  case r4 = "icon_32px_c_l_4"
+  case r5 = "icon_32px_c_l_5"
+  case r6 = "icon_32px_c_l_6"
+  case r7 = "icon_32px_c_l_7"
+  case r8 = "icon_32px_c_l_8"
+  case r9 = "icon_32px_c_l_9"
+  case r10 = "icon_32px_c_l_10"
+  case r11 = "icon_32px_c_l_11"
+  case r12 = "icon_32px_c_l_12"
+  case r13 = "icon_32px_c_l_13"
+  case r14 = "icon_32px_c_l_14"
+  case r15 = "icon_32px_c_l_15"
+  case r16 = "icon_32px_c_l_16"
+  case r17 = "icon_32px_c_l_17"
+  case r18 = "icon_32px_c_l_18"
+  case r19 = "icon_32px_c_l_19"
+  case r20 = "icon_32px_c_l_20"
+  case r21 = "icon_32px_c_l_21"
+  case r22 = "icon_32px_c_l_22"
+  case r23 = "icon_32px_c_l_23"
+  case r24 = "icon_32px_c_l_24"
+  case r25 = "icon_32px_c_l_25"
+  case r26 = "icon_32px_c_l_26"
+  case r27 = "icon_32px_c_l_27"
+  case r28 = "icon_32px_c_l_28"
+  case r29 = "icon_32px_c_l_29"
+  case r30 = "icon_32px_c_l_30"
+  case r31 = "icon_32px_c_l_31"
+  case r32 = "icon_32px_c_l_32"
+  case r33 = "icon_32px_c_l_33"
+  case r34 = "icon_32px_c_l_34"
+  case r35 = "icon_32px_c_l_35"
+  case r36 = "icon_32px_c_l_36"
+}
+
+enum LocalRelationCategoryColor: String, CaseIterable {
   case test = "asd"
 }
 
-enum LocalIconFeature: String, CaseIterable {
+enum LocalIconEventLine: String, CaseIterable {
+  case test = "asd"
+}
+
+enum LocalIconFeatureLine: String, CaseIterable {
   case test = "asd"
 }
 
 enum SysetmAsset: String {
   // tabItems
-  case book
-  case book_fill = "book.fill"
-  case clock
-  case clock_fill = "clock.fill"
-  case person
-  case preson_fill = "person.fill"
-  case person3 = "person.3"
-  case person3_fill = "person.3.fill"
-  case lobby = "plus"
-  case lobby_fill = "plusa"
+  case add = "plus"
+  case add_fill = "plus_fill"
   case camera = "camera"
 }
 

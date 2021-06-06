@@ -20,9 +20,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="－  同學" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzX-R0-2Nj">
-                    <rect key="frame" x="16" y="10" width="61" height="50"/>
+                    <rect key="frame" x="16" y="25" width="61" height="20.5"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="nV0-ky-pon"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="nV0-ky-pon"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -43,7 +43,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Yn0-AP-wdW"/>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Yn0-AP-wdW" firstAttribute="trailing" secondItem="f5I-Pv-Jfl" secondAttribute="trailing" constant="16" id="0OU-En-3gU"/>
                 <constraint firstItem="RzX-R0-2Nj" firstAttribute="leading" secondItem="Yn0-AP-wdW" secondAttribute="leading" constant="16" id="7I5-GB-7bN"/>
@@ -62,9 +62,6 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

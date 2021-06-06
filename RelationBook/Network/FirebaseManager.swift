@@ -88,14 +88,17 @@ class FirebaseManager {
       categories.sub.append(category)
     }
 
-    updateDocument(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
+    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
       if let error = error { completion(error); return}
     }
   }
 
-  func fetchRelations(uid: String, completion: @escaping (([Relation]) -> Void)) {
+  func fetchRelations(uid: String, index: Int? = nil, completion: @escaping (([Relation]) -> Void)) {
 
-    let docRef = db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
+    let docRef = index == nil ?
+      db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid) :
+      db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
+          .whereField("categoryIndex", isEqualTo: index!)
 
     docRef.addSnapshotListener { snapShot, error in
 
@@ -166,17 +169,43 @@ class FirebaseManager {
     let newEvent = try? db.collection(Collections.event.rawValue).addDocument(from: data) { error in
       if let error = error { completion(.failure(error)) }
     }
-
     completion(.success(newEvent!.documentID))
   }
 
-  func updateDocument(uid: String, dict: [String: Any], completion: @escaping ((Error?)) -> Void) {
+  func updateUser(uid: String, dict: [String: Any], completion: @escaping (Error?) -> Void) {
 
     let userDoc = db.collection(Collections.user.rawValue).document(uid)
     userDoc.updateData(dict) { error in
       if let error = error { completion(error) ; return }
       completion(nil)
     }
+  }
+
+  func updateRelation(categoryIndex index: Int, dict: [String: Any], completion: @escaping () -> Void = { } ) {
+
+    guard let userID = UserDefaults.standard.getString(key: .uid) else { return }
+
+    db.collection(Collections.relation.rawValue)
+      .whereField("owner", isEqualTo: userID)
+      .whereField("categoryIndex", isEqualTo: index)
+      .getDocuments { [weak self] snapshot, error in
+        if let error = error {
+          print("\(error.localizedDescription)")
+          completion()
+        }
+
+        for documenet in snapshot!.documents {
+          self?.db.collection(Collections.relation.rawValue)
+            .document(documenet.documentID)
+            .updateData(dict) { error in
+              if let error = error {
+                print("\(error.localizedDescription)")
+                completion()
+              }
+              completion()
+            }
+        }
+      }
   }
 
   func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {

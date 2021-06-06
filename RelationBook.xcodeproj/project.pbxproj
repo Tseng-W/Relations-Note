@@ -92,6 +92,7 @@
 		47A217EB265A42BD0096149C /* IconSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A217EA265A42BD0096149C /* IconSelectView.xib */; };
 		47A217ED265A43FF0096149C /* IconSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EC265A43FF0096149C /* IconSelectView.swift */; };
 		47A217F0265A71840096149C /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A217EF265A71840096149C /* NibLoadable.swift */; };
+		47A63965266D1C260083EEF2 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A63964266D1C250083EEF2 /* Array+Extension.swift */; };
 		47B6B903265340860090218C /* BookTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B902265340860090218C /* BookTableCell.swift */; };
 		47B6B905265340A80090218C /* BookTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6B904265340A80090218C /* BookTableCell.xib */; };
 		47B6B90826535BD10090218C /* ProfileHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6B90726535BD10090218C /* ProfileHeaderViewCell.xib */; };
@@ -226,6 +227,7 @@
 		47A217EA265A42BD0096149C /* IconSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconSelectView.xib; sourceTree = "<group>"; };
 		47A217EC265A43FF0096149C /* IconSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectView.swift; sourceTree = "<group>"; };
 		47A217EF265A71840096149C /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		47A63964266D1C250083EEF2 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		47B6B902265340860090218C /* BookTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableCell.swift; sourceTree = "<group>"; };
 		47B6B904265340A80090218C /* BookTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookTableCell.xib; sourceTree = "<group>"; };
 		47B6B90726535BD10090218C /* ProfileHeaderViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderViewCell.xib; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 				477F3633265F93FB00BB8E15 /* UserDefault+Extension.swift */,
 				479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */,
 				476CF849266BB29F000B5DC9 /* UIFont+Extension.swift */,
+				47A63964266D1C250083EEF2 /* Array+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1091,6 +1094,7 @@
 				476D2EB3264A9FB900A9200A /* Box.swift in Sources */,
 				47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */,
 				47339E48263C2D6F0092860F /* SceneDelegate.swift in Sources */,
+				47A63965266D1C260083EEF2 /* Array+Extension.swift in Sources */,
 				479DE3D726412896000E2CFC /* String+Extension.swift in Sources */,
 				479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */,
 				476D2EB7264AC9A000A9200A /* Base.swift in Sources */,

@@ -69,27 +69,44 @@ class CategoryViewModel: Codable {
 
     switch type {
     case .relation:
-      filter = ["同學", "家人", "同事", "點頭之交", "其他"]
+      filter = ["家庭成員", "閨蜜死黨", "同儕好友", "導師前輩", "同事下屬", "鄰里住居", "親暱關係", "結拜關係", "其他"]
       main = [
-        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: true, title: "大學同學", imageLink: "graduationcap", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 1, isCustom: false, superIndex: 0, isSubEnable: true, title: "高中同學", imageLink: "graduationcap", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 2, isCustom: false, superIndex: 0, isSubEnable: true, title: "國中同學", imageLink: "graduationcap", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 3, isCustom: false, superIndex: 0, isSubEnable: true, title: "小學同學", imageLink: "graduationcap", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
-        Category(id: 4, isCustom: false, superIndex: 1, isSubEnable: true, title: "父母", imageLink: "house.circle", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
-        Category(id: 5, isCustom: false, superIndex: 1, isSubEnable: true, title: "親戚", imageLink: "house.circle", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
-        Category(id: 6, isCustom: false, superIndex: 1, isSubEnable: true, title: "兒女", imageLink: "house.circle", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
-        Category(id: 7, isCustom: false, superIndex: 1, isSubEnable: true, title: "配偶", imageLink: "house.circle", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
-        Category(id: 8, isCustom: false, superIndex: 2, isSubEnable: true, title: "XX公司", imageLink: "building.2.crop.circle", backgroundColor: UIColor.systemPink.StringFromUIColor()),
-        Category(id: 9, isCustom: false, superIndex: 2, isSubEnable: true, title: "OO公司", imageLink: "building.2.crop.circle", backgroundColor: UIColor.systemPink.StringFromUIColor()),
-        Category(id: 10, isCustom: false, superIndex: 2, isSubEnable: true, title: "YY公司", imageLink: "building.2.crop.circle", backgroundColor: UIColor.systemPink.StringFromUIColor()),
-        Category(id: 11, isCustom: false, superIndex: 3, isSubEnable: true, title: "鄰居", imageLink: "person.2", backgroundColor: UIColor.systemGray.StringFromUIColor()),
-        Category(id: 11, isCustom: false, superIndex: 3, isSubEnable: true, title: "陌生人", imageLink: "person.2", backgroundColor: UIColor.systemGray.StringFromUIColor()),
-        Category(id: 11, isCustom: false, superIndex: 3, isSubEnable: true, title: "朋友的朋友", imageLink: "person.2", backgroundColor: UIColor.systemGray.StringFromUIColor()),
-        Category(id: 11, isCustom: false, superIndex: 4, isSubEnable: true, title: "路人", imageLink: "person.fill.questionmark", backgroundColor: UIColor.systemGray.StringFromUIColor()),
-        Category(id: 11, isCustom: false, superIndex: 4, isSubEnable: true, title: "其他", imageLink: "person.fill.questionmark", backgroundColor: UIColor.systemGray.StringFromUIColor())
+        Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: true, title: "祖父母", imageLink: "icon_32px_c_l_17", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 1, isCustom: false, superIndex: 0, isSubEnable: true, title: "父母", imageLink: "icon_32px_c_l_13", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 2, isCustom: false, superIndex: 0, isSubEnable: true, title: "叔叔姑姑", imageLink: "icon_32px_c_l_13", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+        Category(id: 3, isCustom: false, superIndex: 0, isSubEnable: true, title: "兄弟姐妹", imageLink: "icon_32px_c_l_13", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+        Category(id: 4, isCustom: false, superIndex: 0, isSubEnable: true, title: "姪子姪女", imageLink: "icon_32px_c_l_13", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+        Category(id: 5, isCustom: false, superIndex: 0, isSubEnable: true, title: "夫妻", imageLink: "icon_32px_c_l_18", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 6, isCustom: false, superIndex: 0, isSubEnable: true, title: "子女", imageLink: "icon_32px_c_l_15", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
+        Category(id: 7, isCustom: false, superIndex: 0, isSubEnable: true, title: "孫子孫女", imageLink: "icon_32px_c_l_15", backgroundColor: UIColor.systemTeal.StringFromUIColor()),
+        Category(id: 8, isCustom: false, superIndex: 0, isSubEnable: true, title: "遠親", imageLink: "icon_32px_c_l_13", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+        Category(id: 9, isCustom: false, superIndex: 1, isSubEnable: true, title: "閨蜜", imageLink: "icon_32px_c_l_19", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+        Category(id: 10, isCustom: false, superIndex: 1, isSubEnable: true, title: "死黨", imageLink: "icon_32px_c_l_19", backgroundColor: UIColor.systemPink.StringFromUIColor()),
+        Category(id: 11, isCustom: false, superIndex: 2, isSubEnable: true, title: "學長姐", imageLink: "icon_32px_c_l_25", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 12, isCustom: false, superIndex: 2, isSubEnable: true, title: "學弟妹", imageLink: "icon_32px_c_l_25", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 13, isCustom: false, superIndex: 2, isSubEnable: true, title: "社團好友", imageLink: "icon_32px_c_l_25", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 14, isCustom: false, superIndex: 3, isSubEnable: true, title: "老師", imageLink: "icon_32px_c_l_8", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 15, isCustom: false, superIndex: 3, isSubEnable: true, title: "學生", imageLink: "icon_32px_c_l_8", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 16, isCustom: false, superIndex: 4, isSubEnable: true, title: "老闆", imageLink: "icon_32px_c_l_26", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 17, isCustom: false, superIndex: 4, isSubEnable: true, title: "主管", imageLink: "icon_32px_c_l_26", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 18, isCustom: false, superIndex: 4, isSubEnable: true, title: "同事", imageLink: "icon_32px_c_l_26", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 19, isCustom: false, superIndex: 4, isSubEnable: true, title: "前老闆", imageLink: "icon_32px_c_l_26", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 20, isCustom: false, superIndex: 4, isSubEnable: true, title: "前主管", imageLink: "icon_32px_c_l_26", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 21, isCustom: false, superIndex: 4, isSubEnable: true, title: "前同事", imageLink: "icon_32px_c_l_26", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 22, isCustom: false, superIndex: 5, isSubEnable: true, title: "鄰居", imageLink: "icon_32px_c_l_33", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 23, isCustom: false, superIndex: 5, isSubEnable: true, title: "房東", imageLink: "icon_32px_c_l_33", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 24, isCustom: false, superIndex: 5, isSubEnable: true, title: "房客", imageLink: "icon_32px_c_l_33", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 25, isCustom: false, superIndex: 5, isSubEnable: true, title: "同居人", imageLink: "icon_32px_c_l_33", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 26, isCustom: false, superIndex: 6, isSubEnable: true, title: "男女朋友", imageLink: "icon_32px_c_l_18", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 27, isCustom: false, superIndex: 6, isSubEnable: true, title: "前男女朋友", imageLink: "icon_32px_c_l_18", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 28, isCustom: false, superIndex: 6, isSubEnable: true, title: "老友", imageLink: "icon_32px_c_l_23", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 29, isCustom: false, superIndex: 7, isSubEnable: true, title: "乾爹乾媽", imageLink: "icon_32px_c_l_24", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 30, isCustom: false, superIndex: 7, isSubEnable: true, title: "乾兄弟", imageLink: "icon_32px_c_l_24", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 31, isCustom: false, superIndex: 7, isSubEnable: true, title: "乾姐妹", imageLink: "icon_32px_c_l_24", backgroundColor: UIColor.systemGray.StringFromUIColor()),
+        Category(id: 32, isCustom: false, superIndex: 8, isSubEnable: true, title: "其他", imageLink: "icon_32px_c_l_24", backgroundColor: UIColor.systemGray.StringFromUIColor())
       ]
     case .feature:
-      filter = ["學習", "事業", "興趣", "特長", "住所", "其他"]
+      filter = ["聯絡資訊", "事業", "興趣", "特長", "住所", "其他"]
       main = [
         Category(id: 0, isCustom: false, superIndex: 0, isSubEnable: false, title: "畢業", imageLink: "graduationcap", backgroundColor: UIColor.systemBlue.StringFromUIColor()),
         Category(id: 0, isCustom: false, superIndex: 1, isSubEnable: false, title: "任職", imageLink: "building.2", backgroundColor: UIColor.systemBlue.StringFromUIColor()),

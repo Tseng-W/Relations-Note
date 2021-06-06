@@ -48,9 +48,21 @@ struct Feature: Codable {
       return "\(contents[0].text) 等 \(contents.count) 項"
     }
   }
+
+  func toDict() -> [String: Any] {
+    return ["name": name,
+            "relationID": relationID,
+            "categoryIndex": categoryIndex,
+            "contents": contents.map { $0.toDict() } ]
+  }
 }
 
 struct FeatureContent: Codable {
   var isProcessing: Bool
   var text: String
+
+  func toDict() -> [String: Any] {
+    return ["isProcessing": isProcessing,
+            "text": text]
+  }
 }

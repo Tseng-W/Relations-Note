@@ -238,7 +238,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       if number == 0 {
         tableView.addPlaceholder(
           image: UIImage.getPlaceholder(
-            .placeholderTalk,
+            .event,
             style: traitCollection.userInterfaceStyle),
           description: "沒有互動紀錄")
       } else { tableView.removePlaceholder() }
@@ -255,7 +255,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       tableView.addPlaceholder(
         image: UIImage.getPlaceholder(
-          .placeholderTalk,
+          .profile,
           style: traitCollection.userInterfaceStyle),
         description: "沒有互動紀錄")
 
@@ -372,7 +372,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       let blueView = view.addBlurView()
       view.addSubview(detailVC)
 
-      detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 2)
+      detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 1.5)
       detailVC.cornerRadius = detailVC.frame.width * 0.05
 
       view.layoutIfNeeded()
