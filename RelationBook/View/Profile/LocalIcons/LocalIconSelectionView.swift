@@ -12,6 +12,11 @@ protocol LocalIconSelectionDelegate: AnyObject {
   func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String)
 }
 
+extension LocalIconSelectionDelegate {
+
+  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {}
+}
+
 class LocalIconSelectionView: UIViewController {
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

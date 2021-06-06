@@ -19,6 +19,18 @@ protocol SCLAlertViewProviderDelegate:  LocalIconSelectionDelegate {
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType?
 }
 
+extension SCLAlertViewProviderDelegate {
+
+  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
+    return nil
+  }
+
+  func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {}
+
+  func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {}
+
+}
+
 class SCLAlertViewProvider: NSObject {
 
   typealias SCLProviderDelegate = SCLAlertViewProviderDelegate

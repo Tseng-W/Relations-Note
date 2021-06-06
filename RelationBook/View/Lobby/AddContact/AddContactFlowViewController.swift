@@ -21,7 +21,7 @@ class AddContactFlowViewController: FloatingViewController {
       iconSelectView.addGestureRecognizer(tapGesture)
     }
   }
-  @IBOutlet var relationButton: TitledInputView! {
+  @IBOutlet var relationButton: AddFeatureTableCell! {
     didSet {
       relationButton.titleLabel.text = "關係"
 
@@ -59,7 +59,7 @@ class AddContactFlowViewController: FloatingViewController {
       }
     }
   }
-  @IBOutlet var featureButton: TitledInputView! {
+  @IBOutlet var featureButton: AddFeatureTableCell! {
     didSet {
       featureButton.titleLabel.text = "特徵關係"
 

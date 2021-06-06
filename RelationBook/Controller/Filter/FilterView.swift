@@ -120,6 +120,10 @@ class FilterView: UIView {
 
       let layout = UICollectionViewFlowLayout()
       layout.itemSize = CGSize(width: 60, height: 70)
+      layout.minimumInteritemSpacing = 8
+      layout.minimumLineSpacing = 8
+      layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+
 
       let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
       

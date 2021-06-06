@@ -44,7 +44,7 @@ extension SelectionViewDatasource {
 
   func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor { return .systemGray2 }
 
-  func selectionView(_ selectionView: SelectionView, fontForButtonAt index: Int) -> UIFont { return UIFont.systemFont(ofSize: 14) }
+  func selectionView(_ selectionView: SelectionView, fontForButtonAt index: Int) -> UIFont { return UIFont.pingfang(size: 16) }
 }
 
 
@@ -151,6 +151,7 @@ class SelectionView: UIView {
       button.setTitle(title, for: .normal)
       button.setTitleColor(textColor, for: .normal)
       button.addTarget(self, action: #selector(shouldSelect(sender:)), for: .touchUpInside)
+      button.titleLabel?.font = UIFont.pingfang(size: 16)
 
       scrollView.addSubview(button)
 

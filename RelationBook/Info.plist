@@ -37,6 +37,10 @@
 	<string>App 需要您的同意, 才能在使用期間訪問位置</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>啟用讀取相片權限</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>creamfont-2.0.otf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

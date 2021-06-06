@@ -8,7 +8,12 @@
 import UIKit
 
 @IBDesignable
-class TitledInputView: UIView, NibLoadable {
+class AddFeatureTableCell: UITableViewCell {
+
+  enum CellStatus {
+    case add
+    case edit
+  }
 
   @IBInspectable var placeholder: String = "點擊選擇" {
     didSet {
@@ -23,7 +28,16 @@ class TitledInputView: UIView, NibLoadable {
 
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var button: UIButton!
+  @IBOutlet var addButton: UIButton!
 
+
+  var status: CellStatus = .add {
+    didSet {
+      addButton.isHidden = status == .add
+      titleLabel.isHidden = status == .edit
+      button.isHidden = status == .edit
+    }
+  }
   var selectedContent: String? {
     didSet {
       button.setTitle(selectedContent, for: .normal)
@@ -33,25 +47,17 @@ class TitledInputView: UIView, NibLoadable {
 
   var onTapped: (() -> Void)?
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    customInit()
-  }
-
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    customInit()
-  }
-
-  override class func prepareForInterfaceBuilder() {
-    super.prepareForInterfaceBuilder()
-  }
-
   func customInit() {
-    loadNibContent()
     titleLabel.text = title
     button.setTitle(placeholder, for: .normal)
   }
+
+  func setType(status: CellStatus, title: String? = .empty, subTitle: String? = .empty) {
+    self.status = status
+    titleLabel.text = title
+    button.setTitle(subTitle, for: .normal)
+  }
+
   @IBAction func onTapButton(_ sender: UIButton) {
     onTapped?()
   }

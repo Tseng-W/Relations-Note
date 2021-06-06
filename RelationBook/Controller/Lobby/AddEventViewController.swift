@@ -24,19 +24,15 @@ class AddEventViewController: UIViewController {
   @IBOutlet var filterHeightConstraint: NSLayoutConstraint!
 
   // MARK: Buttons.
-  @IBOutlet var tableView: UITableView! {
-    didSet {
-      tableView.delegate = self
-      tableView.dataSource = self
-      tableView.separatorColor = .clear
-    }
-  }
+  @IBOutlet var featureTableView: AddFeatureTableView!
   @IBOutlet var moodButton: UIButton!
   @IBOutlet var eventButton: UIButton!
   @IBOutlet var locationButton: UIButton!
   @IBOutlet var imageButton: UIButton!
   @IBOutlet var dayButton: UIButton!
   @IBOutlet var timeButton: UIButton!
+  @IBOutlet var commentField: UITextField!
+
 
   let popTip = PopTip()
   var userViewModel = UserViewModel()
@@ -48,9 +44,6 @@ class AddEventViewController: UIViewController {
     return vc
   }()
   let setCategoryView = SetCategoryStyleView()
-
-  // MARK: New Category data.
-  var newCategorySetting: (type: CategoryType, hierarchy:  CategoryHierarchy, superIndex: Int)?
 
   // MARK: Event datas.
   var relations: [Category] = []
@@ -76,7 +69,7 @@ class AddEventViewController: UIViewController {
       self?.filterView.setUp(type: .relation)
     }
 
-    tableView.separatorColor = .clear
+    featureTableView.separatorColor = .clear
 
     setCategoryView.delegate = self
 
@@ -95,21 +88,19 @@ class AddEventViewController: UIViewController {
     filterView.onSelected = { categories in
       self.relations = categories
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        self.filterHeightConstraint.constant /= 2
+        self.filterHeightConstraint.constant /= 2.66
         self.view.layoutIfNeeded()
       }
     }
 
     filterView.onStartEdit = {
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        self.filterHeightConstraint.constant *= 2
+        self.filterHeightConstraint.constant *= 2.66
         self.view.layoutIfNeeded()
       }
     }
 
     filterView.onAddCategory = { type, hierarchy, superIndex in
-
-      self.newCategorySetting = (type, hierarchy, superIndex)
 
       self.setCategoryView.show(
         self.view,
@@ -144,8 +135,6 @@ class AddEventViewController: UIViewController {
 
     selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in
 
-      self.newCategorySetting = (type, hierarchy, superIndex)
-
       self.setCategoryView.show(self.view, type: type, hierarchy: hierarchy, superIndex: superIndex)
     }
   }
@@ -163,7 +152,8 @@ class AddEventViewController: UIViewController {
                          location: location,
                          locationName: locationName,
                          time: Timestamp(date: date),
-                         subEvents: subEvents)
+                         subEvents: subEvents,
+                         comment: commentField.text)
     eventViewModel.addEvent(event: newEvent) { result in
       switch result {
       case .success(let docID):
@@ -244,18 +234,6 @@ extension AddEventViewController: UITextFieldDelegate {
 
 // MARK: SCLAlert wrapper delegate
 extension AddEventViewController: SCLAlertViewProviderDelegate {
-
-  func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
-
-  }
-
-  func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
-    newCategorySetting?.type
-  }
-  
-  func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {
-
-  }
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
 

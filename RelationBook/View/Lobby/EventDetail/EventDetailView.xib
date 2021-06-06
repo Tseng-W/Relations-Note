@@ -219,6 +219,11 @@
             <point key="canvasLocation" x="148.55072463768118" y="-8.3705357142857135"/>
         </view>
     </objects>
+    <designables>
+        <designable name="xWN-6H-LOV">
+            <size key="intrinsicContentSize" width="434.5" height="16"/>
+        </designable>
+    </designables>
     <resources>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="pin" catalog="system" width="119" height="128"/>

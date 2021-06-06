@@ -149,7 +149,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
       height: view.frame.height / 2)
 
     view.layoutIfNeeded()
-    
+
     iconSelectView.initial(placeholder: placeholder)
   }
 

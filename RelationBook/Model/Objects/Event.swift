@@ -25,6 +25,7 @@ struct Event: Codable {
   var locationName: String?
   var time: Timestamp
   var subEvents: [SubEvent]
+  var comment: String?
 
   func getRelationImage(completion: @escaping (UIImage?) -> Void) {
     category.getImage{ completion($0) }
