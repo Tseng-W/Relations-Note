@@ -37,7 +37,6 @@ class CheckboxTableCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     inputTextField.text = String.empty
-    inputTextField?.textAlignment = .center
   }
 
   func setup(content: FeatureContent?) {
@@ -63,13 +62,9 @@ extension CheckboxTableCell: UITextFieldDelegate {
   func textFieldDidEndEditing(_ textField: UITextField) {
 
     guard let text = textField.text,
-          text.isEmpty == false else {
-      inputTextField?.textAlignment = .center
-      return
-    }
+          text.isEmpty == false else { return }
 
     content.text = text
-    inputTextField?.textAlignment = .left
     onEndEdit?(self, content)
   }
 }

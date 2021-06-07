@@ -192,7 +192,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMv-Yv-bDe">
-                                <rect key="frame" x="16" y="417" width="382" height="119.5"/>
+                                <rect key="frame" x="16" y="427" width="382" height="119.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyk-LX-R33">
                                         <rect key="frame" x="0.0" y="0.0" width="76.5" height="76.5"/>
@@ -373,18 +373,18 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cg1-84-9Ze" customClass="AddFeatureTableView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="16" y="663.5" width="382" height="232.5"/>
+                                <rect key="frame" x="16" y="711.5" width="382" height="184.5"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="161" width="414" height="210"/>
+                                <rect key="frame" x="0.0" y="161" width="414" height="220"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="210" identifier="height" id="0Tl-0V-QU1"/>
+                                    <constraint firstAttribute="height" constant="220" identifier="height" id="0Tl-0V-QU1"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="備註" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uR0-Df-t9L">
-                                <rect key="frame" x="16" y="544.5" width="382" height="111"/>
+                                <rect key="frame" x="16" y="554.5" width="382" height="111"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
@@ -412,7 +412,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z44-gv-QWl" customClass="RelationTableHeaderCell" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="379" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="389" width="414" height="30"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ghG-EG-H1x"/>
@@ -421,26 +421,38 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="互動詳情"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I9p-SA-YLT" customClass="RelationTableHeaderCell" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="673.5" width="414" height="30"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Lwc-Ef-txK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="更多資訊"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbt-MQ-fzz"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="centerY" secondItem="U6H-wL-9Dr" secondAttribute="centerY" id="0Rv-nh-jqc"/>
+                            <constraint firstItem="cg1-84-9Ze" firstAttribute="top" secondItem="I9p-SA-YLT" secondAttribute="bottom" constant="8" id="2wY-Wg-CZn"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="centerY" secondItem="U6H-wL-9Dr" secondAttribute="centerY" id="7c8-aG-09s"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="9Ei-1P-q5X"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="cg1-84-9Ze" secondAttribute="trailing" constant="16" id="AD0-PK-lew"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="width" secondItem="pm9-hl-yyz" secondAttribute="height" multiplier="1:1" id="Bkg-PC-1qr"/>
                             <constraint firstItem="4Xr-BS-Fa0" firstAttribute="top" secondItem="Ph6-Nq-y8b" secondAttribute="bottom" id="CL4-W6-9Zc"/>
+                            <constraint firstItem="I9p-SA-YLT" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="Ci5-c3-FYt"/>
                             <constraint firstItem="Z44-gv-QWl" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="FXd-2n-k9C"/>
                             <constraint firstItem="Ph6-Nq-y8b" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="MfY-9K-hZ8"/>
                             <constraint firstItem="U6H-wL-9Dr" firstAttribute="top" secondItem="hbt-MQ-fzz" secondAttribute="top" constant="16" id="Mri-mG-jEe"/>
-                            <constraint firstItem="cg1-84-9Ze" firstAttribute="top" secondItem="uR0-Df-t9L" secondAttribute="bottom" constant="8" id="QVc-Zt-q3v"/>
                             <constraint firstItem="4Xr-BS-Fa0" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="SXo-dn-Cwe"/>
                             <constraint firstItem="FMv-Yv-bDe" firstAttribute="top" secondItem="Z44-gv-QWl" secondAttribute="bottom" constant="8" id="TQ4-kk-vxt"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="4Xr-BS-Fa0" secondAttribute="trailing" constant="16" id="Tl9-uk-SME"/>
                             <constraint firstItem="pm9-hl-yyz" firstAttribute="height" secondItem="U6H-wL-9Dr" secondAttribute="height" id="VKq-bp-Od5"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="FMv-Yv-bDe" secondAttribute="trailing" constant="16" id="ZLG-3k-nwe"/>
                             <constraint firstAttribute="bottom" secondItem="cg1-84-9Ze" secondAttribute="bottom" id="abP-Rf-52Y"/>
+                            <constraint firstItem="I9p-SA-YLT" firstAttribute="trailing" secondItem="hbt-MQ-fzz" secondAttribute="trailing" id="b7Z-F3-Mag"/>
                             <constraint firstItem="nvv-iT-43H" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" id="eUZ-EM-i8f"/>
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="Ph6-Nq-y8b" secondAttribute="trailing" id="fKP-pH-7YC"/>
                             <constraint firstItem="Z44-gv-QWl" firstAttribute="trailing" secondItem="hbt-MQ-fzz" secondAttribute="trailing" id="g2F-tB-bKl"/>
@@ -457,6 +469,7 @@
                             <constraint firstItem="hbt-MQ-fzz" firstAttribute="trailing" secondItem="nvv-iT-43H" secondAttribute="trailing" id="uX4-8Z-D6O"/>
                             <constraint firstItem="Ph6-Nq-y8b" firstAttribute="top" secondItem="U6H-wL-9Dr" secondAttribute="bottom" constant="8" id="ujc-GM-mWj"/>
                             <constraint firstItem="QHp-ku-UbC" firstAttribute="leading" secondItem="hbt-MQ-fzz" secondAttribute="leading" constant="16" id="vm7-b9-7Sv"/>
+                            <constraint firstItem="I9p-SA-YLT" firstAttribute="top" secondItem="uR0-Df-t9L" secondAttribute="bottom" constant="8" id="zmi-LX-IPa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uBQ-wQ-sob"/>
@@ -840,7 +853,7 @@
         <image name="face.smiling.fill" catalog="system" width="128" height="121"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Background">
-            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.82700002193450928" green="0.81599998474121094" blue="0.72500002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LableB1">
             <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

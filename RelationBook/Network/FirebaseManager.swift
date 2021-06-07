@@ -76,7 +76,6 @@ class FirebaseManager {
     let categories = type == .event ? user.eventSet :
       type == .feature ? user.featureSet : user.relationSet
 
-
     switch hierarchy {
     case .main:
       category.id = user.getCategoriesWithSuperIndex(mainType: type).count
@@ -86,6 +85,27 @@ class FirebaseManager {
       category.id = user.getCategoriesWithSuperIndex(subType: type).count
       category.isSubEnable = false
       categories.sub.append(category)
+    }
+
+    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
+      if let error = error { completion(error); return}
+    }
+  }
+
+  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
+
+    guard let user = userShared else { return }
+
+    let categories = type == .event ? user.eventSet :
+      type == .feature ? user.featureSet : user.relationSet
+
+    switch hierarchy {
+    case .main:
+      categories.main.removeAll { $0.id == category.id }
+      categories.main.insert(category, at: category.id)
+    case .sub:
+      categories.sub.removeAll { $0.id == category.id }
+      categories.sub.insert(category, at: category.id)
     }
 
     updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in

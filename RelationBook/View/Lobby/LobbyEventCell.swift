@@ -43,6 +43,8 @@ class LobbyEventCell: UITableViewCell {
 
     guard let relation = relations.first else { return }
 
+    let moodData = UserViewModel.moodData
+
     self.event = event
     self.relations = relations
 
@@ -82,10 +84,7 @@ class LobbyEventCell: UITableViewCell {
       }
     }
 
-
-    sideBar.backgroundColor = event.getColor()
-
-
+    sideBar.backgroundColor = UIColor.UIColorFromString(string: moodData[event.mood].colorString)
 
     // MARK: TagView
     tagListView.removeAllTags()

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="UUR-Gu-bSj" customClass="ProfileCategoryTableCell" customModule="RelationBook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UUR-Gu-bSj" id="eBK-1H-15I">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pi-Dn-ftN" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
+                        <rect key="frame" x="16" y="0.0" width="44" height="44"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="4pi-Dn-ftN" secondAttribute="height" multiplier="1:1" id="DBA-dg-fQD"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIq-0W-77V">
+                        <rect key="frame" x="76" y="11.5" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xo-s2-Av7">
+                        <rect key="frame" x="341.5" y="11" width="20.5" height="22"/>
+                        <color key="tintColor" name="LableB1"/>
+                        <state key="normal" image="square.and.pencil" catalog="system"/>
+                        <connections>
+                            <action selector="onEditTapped:" destination="UUR-Gu-bSj" eventType="touchUpInside" id="TIh-eT-1dM"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXC-T8-jYy">
+                        <rect key="frame" x="378" y="11" width="20" height="22"/>
+                        <color key="tintColor" name="LableB1"/>
+                        <state key="normal" image="trash" catalog="system"/>
+                        <connections>
+                            <action selector="onDeleteTapped:" destination="UUR-Gu-bSj" eventType="touchUpInside" id="XhE-PT-Gnd"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                <constraints>
+                    <constraint firstItem="rIq-0W-77V" firstAttribute="centerY" secondItem="eBK-1H-15I" secondAttribute="centerY" id="1oY-qq-nmA"/>
+                    <constraint firstItem="OXC-T8-jYy" firstAttribute="centerY" secondItem="eBK-1H-15I" secondAttribute="centerY" id="I9x-7e-BqB"/>
+                    <constraint firstItem="rIq-0W-77V" firstAttribute="leading" secondItem="4pi-Dn-ftN" secondAttribute="trailing" constant="16" id="Rlx-vt-NeE"/>
+                    <constraint firstItem="2Xo-s2-Av7" firstAttribute="centerY" secondItem="eBK-1H-15I" secondAttribute="centerY" id="XQj-al-0zp"/>
+                    <constraint firstAttribute="trailing" secondItem="OXC-T8-jYy" secondAttribute="trailing" constant="16" id="ZZ7-ua-vo8"/>
+                    <constraint firstItem="OXC-T8-jYy" firstAttribute="leading" secondItem="2Xo-s2-Av7" secondAttribute="trailing" constant="16" id="eAE-3L-N2P"/>
+                    <constraint firstItem="4pi-Dn-ftN" firstAttribute="top" secondItem="eBK-1H-15I" secondAttribute="top" id="jSG-Np-MMc"/>
+                    <constraint firstAttribute="bottom" secondItem="4pi-Dn-ftN" secondAttribute="bottom" id="ma8-lj-hQ9"/>
+                    <constraint firstItem="4pi-Dn-ftN" firstAttribute="leading" secondItem="eBK-1H-15I" secondAttribute="leading" constant="16" id="oj2-8b-q5e"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+            <connections>
+                <outlet property="iconView" destination="4pi-Dn-ftN" id="2iy-Lw-ysv"/>
+                <outlet property="title" destination="rIq-0W-77V" id="kZv-UG-GqD"/>
+            </connections>
+            <point key="canvasLocation" x="77" y="97"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
+        <namedColor name="LableB1">
+            <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -98,7 +98,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
       guard let index = selectedIndex else { return 0 }
       return subCategories[index].count + 2
     case .selected:
-      return selectedCategories.count + 1
+      return selectedCategories.count
     }
   }
 
@@ -128,11 +128,12 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
           cell.category = subCategories[selectedIndex!][indexPath.row - 1]
         }
       case .selected:
-        if indexPath.row == selectedCategories.count {
-          cell.defaultType = .add
-        } else {
-          cell.category = selectedCategories[indexPath.row]
-        }
+        cell.category = selectedCategories[indexPath.row]
+//        if indexPath.row == selectedCategories.count {
+//          cell.defaultType = .add
+//        } else {
+//          cell.category = selectedCategories[indexPath.row]
+//        }
       }
     }
     return cell

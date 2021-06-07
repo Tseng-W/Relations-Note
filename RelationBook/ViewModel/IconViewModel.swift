@@ -20,19 +20,18 @@ class IconViewModel {
       if hierachy == .main {
 
         let lineIcons = fetchLocalIcons(in: LocalRelationCategoryLine.self)
-        iconSets.append(("線條圖示", lineIcons))
+        iconSets.append(("線性圖示", lineIcons))
 
       } else {
         let lineIcons = fetchLocalIcons(in: LocalRelationIconLine.self)
-        iconSets.append(("線條圖示", lineIcons))
+        iconSets.append(("線性圖示", lineIcons))
 
         let colorIcons = fetchLocalIcons(in: LocalRelationIconColor.self)
         iconSets.append(("彩色圖示", colorIcons))
       }
-    case .event:
-      break
-    case .feature:
-      break
+    case .event, .feature:
+      let lineIcons = fetchLocalIcons(in: LocalIconEventFeatureLine.self)
+      iconSets.append(("線性圖示", lineIcons))
     case .mood:
       let emojiIcons = fetchLocalIcons(in: EmojiIcon.self)
       iconSets.append(("情緒", emojiIcons))

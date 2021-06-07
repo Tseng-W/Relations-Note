@@ -38,13 +38,17 @@ extension SCLAlertViewProviderDelegate {
 
 }
 
+protocol SCLAlertViewConfirmDelegate: AnyObject {
+  func didConfirm(isConfirm: Bool)
+}
+
 class SCLAlertViewProvider: NSObject {
 
   typealias SCLProviderDelegate = SCLAlertViewProviderDelegate
   typealias FullDelegate = SCLAlertViewProviderDelegate & CropViewControllerDelegate
 
   enum AlertType {
-    case roundedImage, rectImage
+    case roundedImage, rectImage, delete
 
     var appearance: SCLAlertView.SCLAppearance {
       switch self {
@@ -52,6 +56,13 @@ class SCLAlertViewProvider: NSObject {
         return SCLAlertView.SCLAppearance(
           showCloseButton: false,
           shouldAutoDismiss: false,
+          contentViewColor: .systemBackground,
+          titleColor: .label
+        )
+      case .delete:
+        return SCLAlertView.SCLAppearance(
+          showCloseButton: false,
+          shouldAutoDismiss: true,
           contentViewColor: .systemBackground,
           titleColor: .label
         )
@@ -64,6 +75,8 @@ class SCLAlertViewProvider: NSObject {
         return "設定圖示"
       case .rectImage:
         return "設定事件圖片"
+      case .delete:
+        return "確定要刪除嗎？"
       }
     }
 
@@ -73,6 +86,8 @@ class SCLAlertViewProvider: NSObject {
         return "選擇既有圖示或上傳圖片"
       case .rectImage:
         return "上傳事件描述圖片"
+      case .delete:
+        return "相關數據將一併刪除！"
       }
     }
 
@@ -91,6 +106,11 @@ class SCLAlertViewProvider: NSObject {
           ("拍照", #selector(loadCamera)),
           ("取消", #selector(cancel))
         ]
+      case .delete:
+        return [
+          ("確定", #selector(confirm)),
+          ("取消", #selector(cancel))
+        ]
       }
     }
 
@@ -98,7 +118,10 @@ class SCLAlertViewProvider: NSObject {
       switch self {
       case .roundedImage, .rectImage:
         let icon = UIImage(systemName: "camera")!
-        return icon.withTintColor(.systemGray6)
+        return icon.withTintColor(.label)
+      case .delete:
+        let icon = UIImage(systemName: "trash")!
+        return icon.withTintColor(.label)
       }
     }
   }
@@ -107,8 +130,10 @@ class SCLAlertViewProvider: NSObject {
   var onSelectedImage: ((String) -> Void)?
 
   var alertView: SCLAlertView?
-  var alertDelegate: SCLAlertViewProviderDelegate?
-  var cropViewDelegate: CropViewControllerDelegate?
+  weak var alertDelegate: SCLAlertViewProviderDelegate?
+  weak var cropViewDelegate: CropViewControllerDelegate?
+
+  weak var confirmDelegate: SCLAlertViewConfirmDelegate?
 
   var type: AlertType?
 
@@ -190,7 +215,12 @@ extension SCLAlertViewProvider {
     }
   }
 
+  @objc private func confirm() {
+    confirmDelegate?.didConfirm(isConfirm: true)
+  }
+
   @objc private func cancel() {
+    confirmDelegate?.didConfirm(isConfirm: false)
     alertView?.hideView()
   }
 }

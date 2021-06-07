@@ -17,6 +17,8 @@ class LobbyViewController: UIViewController {
   let relationViewModel = RelationViewModel()
   let eventViewModel = EventViewModel()
 
+  let lottieView = LottieWrapper()
+
   var popViews = [UIView]()
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
@@ -50,11 +52,15 @@ class LobbyViewController: UIViewController {
       tableView.estimatedRowHeight = 60
     }
   }
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    lottieView.dismiss()
+  }
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
-
+    
     calendar.select(Date())
 
     tableView.separatorColor = .clear
@@ -62,24 +68,34 @@ class LobbyViewController: UIViewController {
     navigationItem.title = Date().getDayString(type: .day)
 
     userViewModel.user.bind { value in
+
       guard let _ = value else { return }
       self.eventViewModel.fetchEvents()
       self.relationViewModel.fetchRelations()
       self.tableView.reloadData()
       self.calendar.reloadData()
+
+      self.lottieView.leave()
     }
 
     eventViewModel.events.bind { events in
+
       self.tableView.reloadData()
       self.calendar.reloadData()
+
+      self.lottieView.leave()
     }
 
     relationViewModel.relations.bind { relations in
+
       self.tableView.reloadData()
       self.calendar.reloadData()
+
+      self.lottieView.leave()
     }
 
     userViewModel.fetchUserDate()
+    lottieView.show(view, animation: .mail, jobs: 3)
 
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
@@ -215,7 +231,7 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     if let cell = cell as? LobbyEventCell {
 
-      let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.row]
+      let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
 
       cell.cellSetup(type: .lobby, event: event, relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
     }
@@ -268,6 +284,8 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 extension LobbyViewController: TabBarTapDelegate {
 
   func tabBarTapped(_ controller: PBTabBarViewController, index: Int) {
+
+    lottieView.show(view, animation: .mail)
     performSegue(withIdentifier: "addEvent", sender: self)
   }
 }

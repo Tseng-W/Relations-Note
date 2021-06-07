@@ -77,6 +77,8 @@ class SetCategoryStyleView: UIView, NibLoadable {
   var superIndex: Int?
   var placeholder: String = .empty
 
+  var noSubmit = false  // MARK: 預設上傳 應調整
+
   var categoryType: CategoryType? {
     didSet {
 
@@ -126,6 +128,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
 
   func customInit() {
+
     loadNibContent()
 
     canConfirm = false
@@ -136,10 +139,11 @@ class SetCategoryStyleView: UIView, NibLoadable {
     colorPicker.delegate = self
   }
 
-  func show(_ view: UIView, type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+  func show(_ view: UIView, type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, noSubmit: Bool = false) {
 
     reset()
 
+    self.noSubmit = noSubmit
     self.hierarchy = hierarchy
     self.superIndex = superIndex
     categoryType = type
@@ -178,31 +182,33 @@ class SetCategoryStyleView: UIView, NibLoadable {
             name != .empty else { return }
 
 
-      // MARK: 新增互動對象，透過 ralationViewModel 處理
-      if categoryType == .relation && hierarchy == .sub {
+      if !noSubmit {
+        // MARK: 新增互動對象，透過 ralationViewModel 處理
+        if categoryType == .relation && hierarchy == .sub {
 
-        let relationViewModel = RelationViewModel()
-        
-        relationViewModel.addRelation(
-          name: name, iconString: imageString,
-          bgColor: colorPicker.selectedColor,
-          superIndex: superIndex, feature: nil)
+          let relationViewModel = RelationViewModel()
 
-      } else {
+          relationViewModel.addRelation(
+            name: name, iconString: imageString,
+            bgColor: colorPicker.selectedColor,
+            superIndex: superIndex, feature: nil)
 
-        // MARK: 單純新增標籤部分直接呼叫 FirebaseManager 處理
-        var category = Category(
-          id: -1,
-          isCustom: imageString.verifyUrl(),
-          superIndex: superIndex,
-          isSubEnable: Category.canSubView(
-            type: categoryType,
-            hierarchy: hierarchy),
-          title: name,
-          imageLink: imageString,
-          backgroundColor: colorPicker.selectedColor.StringFromUIColor())
+        } else {
 
-        FirebaseManager.shared.addUserCategory(type: categoryType, hierarchy: hierarchy, category: &category) { _ in
+          // MARK: 單純新增標籤部分直接呼叫 FirebaseManager 處理
+          var category = Category(
+            id: -1,
+            isCustom: imageString.verifyUrl(),
+            superIndex: superIndex,
+            isSubEnable: Category.canSubView(
+              type: categoryType,
+              hierarchy: hierarchy),
+            title: name,
+            imageLink: imageString,
+            backgroundColor: colorPicker.selectedColor.StringFromUIColor())
+
+          FirebaseManager.shared.addUserCategory(type: categoryType, hierarchy: hierarchy, category: &category) { _ in
+          }
         }
       }
 

@@ -89,7 +89,7 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
           index: indexPath.row) {
 
         if indexPath.section == 0 {
-          image = image.withTintColor(.white)
+          image = image.withTintColor(.label)
         }
 
         cell.setImage(image: image)

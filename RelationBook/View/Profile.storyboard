@@ -3,13 +3,12 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--個人-->
+        <!--設置-->
         <scene sceneID="p0e-gc-XTP">
             <objects>
                 <viewController id="kGY-ak-nz1" customClass="ProfileViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,11 +18,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Od-OP-cDC">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R0K-R5-Pg9"/>
-                        <color key="backgroundColor" name="Background"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9Od-OP-cDC" firstAttribute="top" secondItem="R0K-R5-Pg9" secondAttribute="top" id="B9O-IW-I35"/>
                             <constraint firstItem="R0K-R5-Pg9" firstAttribute="bottom" secondItem="9Od-OP-cDC" secondAttribute="bottom" id="TG0-d2-6ln"/>
@@ -31,14 +30,60 @@
                             <constraint firstItem="R0K-R5-Pg9" firstAttribute="trailing" secondItem="9Od-OP-cDC" secondAttribute="trailing" id="yVz-Os-Bi7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="個人" id="elW-zV-KkM"/>
+                    <navigationItem key="navigationItem" title="設置" id="elW-zV-KkM">
+                        <barButtonItem key="backBarButtonItem" title=" " id="uqB-yA-OzZ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="9Od-OP-cDC" id="xcy-Fg-GmE"/>
+                        <segue destination="1tJ-PT-fQL" kind="show" identifier="detail" id="tzT-yx-1Gt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BX9-SV-oaX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1398.5507246376812" y="29.464285714285712"/>
+        </scene>
+        <!--類別詳情-->
+        <scene sceneID="IiD-5h-gQ3">
+            <objects>
+                <viewController id="1tJ-PT-fQL" customClass="ProfileCategoryListView" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3BB-za-4Ii">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxs-g2-Isq" customClass="SelectionView" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="MfF-Sz-HGH"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCB-pQ-91I">
+                                <rect key="frame" x="0.0" y="146" width="414" height="716"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="2xk-g0-iX6"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="sqE-wk-bJ6"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sw0-Xz-zbO"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZCB-pQ-91I" firstAttribute="top" secondItem="Hxs-g2-Isq" secondAttribute="bottom" id="8xw-DK-qjm"/>
+                            <constraint firstItem="ZCB-pQ-91I" firstAttribute="leading" secondItem="sw0-Xz-zbO" secondAttribute="leading" id="H9b-Mk-ixy"/>
+                            <constraint firstItem="sw0-Xz-zbO" firstAttribute="trailing" secondItem="Hxs-g2-Isq" secondAttribute="trailing" id="JgQ-Ef-I37"/>
+                            <constraint firstItem="ZCB-pQ-91I" firstAttribute="bottom" secondItem="sw0-Xz-zbO" secondAttribute="bottom" id="Ufo-7T-3HD"/>
+                            <constraint firstItem="ZCB-pQ-91I" firstAttribute="trailing" secondItem="sw0-Xz-zbO" secondAttribute="trailing" id="Uls-Uc-tXL"/>
+                            <constraint firstItem="Hxs-g2-Isq" firstAttribute="top" secondItem="sw0-Xz-zbO" secondAttribute="top" id="oqh-gc-6T4"/>
+                            <constraint firstItem="Hxs-g2-Isq" firstAttribute="leading" secondItem="sw0-Xz-zbO" secondAttribute="leading" id="wKS-2o-aoD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="類別詳情" id="doV-uk-FaE"/>
+                    <connections>
+                        <outlet property="scrollView" destination="ZCB-pQ-91I" id="v9N-km-snK"/>
+                        <outlet property="selectionView" destination="Hxs-g2-Isq" id="UCE-Ew-wZ2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="URS-ae-ZIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2386.9565217391305" y="28.794642857142854"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bOm-17-DqX">
@@ -60,11 +105,8 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="Background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

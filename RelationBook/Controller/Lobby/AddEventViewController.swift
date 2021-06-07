@@ -52,6 +52,7 @@ class AddEventViewController: UIViewController {
 
   let selectedColor: UIColor = .label
 
+  let lottieView = LottieWrapper()
 
   let popTip = PopTip()
   var userViewModel = UserViewModel()

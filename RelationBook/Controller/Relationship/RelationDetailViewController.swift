@@ -26,6 +26,8 @@ class RelationDetailViewController: UIViewController {
   }
   @IBOutlet var contentView: UIView!
 
+  var sortedRelation = [Int: [Feature]]()
+
   var scrollView: UIScrollView = {
 
     let scrollView = UIScrollView()
@@ -192,12 +194,12 @@ class RelationDetailViewController: UIViewController {
     scrollView.contentSize = CGSize(width: x, height: height)
   }
 
-  override func viewWillDisappear(_ animated: Bool) {
-
-    super.viewWillDisappear(true)
-
-    navigationController?.backToRoot()
-  }
+//  override func viewWillDisappear(_ animated: Bool) {
+//
+//    super.viewWillDisappear(true)
+//
+//    navigationController?.backToRoot()
+//  }
 }
 
 // MARK: - Selection bar Delegate
@@ -256,9 +258,28 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
     case .profile:
 
       if let relation = relation,
-         relation.feature.count > 0 {
+         relation.feature.count > 0,
+         let user = userViewModel.user.value {
         tableView.removePlaceholder()
-        return relation.feature.count
+
+        sortedRelation = [Int: [Feature]]()
+
+        relation.feature.forEach { feature in
+
+          let filterIndex = user.getCategoriesWithSuperIndex(mainType: .feature).first { $0.id == feature.categoryIndex }!
+
+          if sortedRelation.keys.contains(filterIndex.superIndex) {
+            if sortedRelation[filterIndex.superIndex]!.contains(where: { data in
+              data.contents[0].text != feature.contents[0].text
+            }) {
+              sortedRelation[filterIndex.superIndex]!.append(feature)
+            }
+          } else {
+            sortedRelation[filterIndex.superIndex] = [feature]
+          }
+        }
+
+        return sortedRelation.keys.count
       }
 
       tableView.addPlaceholder(
@@ -284,8 +305,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
     case .profile:
 
-      guard let relation = relation else { return 0 }
-      return relation.feature[section].contents.count
+      return sortedRelation[section]?.count ?? 0
 
     case .none:
       return 0
@@ -310,9 +330,12 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       let filter = user.getFilter(type: .feature)
 
+      let feature = relation.feature[section]
+      let category = user.getCategoriesWithSuperIndex(mainType: .feature).filter { $0.id == feature.categoryIndex }[0]
+
       let header = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
 
-      header.tagTitleLabel.text = filter[relation.feature[section].categoryIndex]
+      header.tagTitleLabel.text = filter[category.superIndex]
 
       return header
 
@@ -351,8 +374,8 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       if let cell = cell as? RelationProfileCell {
         cell.setup(
-          feature: relation.feature[indexPath.section],
-          index: indexPath.row)
+          feature: sortedRelation[indexPath.section]![indexPath.row],
+          index: 0)
       }
 
       return cell

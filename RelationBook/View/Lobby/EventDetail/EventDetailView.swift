@@ -91,6 +91,10 @@ class EventDetailView: UIView, NibLoadable {
     moodImage.isCornerd = true
 
     commentTextView.text = event.comment
+    
+    if event.comment == .empty {
+      commentTextView.frame.size.height = 0
+    }
   }
 
   func backgroundSet(event: Event) {

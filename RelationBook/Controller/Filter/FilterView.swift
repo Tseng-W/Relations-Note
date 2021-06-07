@@ -119,7 +119,7 @@ class FilterView: UIView {
     for index in 0..<filterSource.count {
 
       let layout = UICollectionViewFlowLayout()
-      layout.itemSize = CGSize(width: 60, height: 70)
+      layout.itemSize = CGSize(width: 60, height: 76)
       layout.minimumInteritemSpacing = 8
       layout.minimumLineSpacing = 8
       layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
@@ -135,6 +135,7 @@ class FilterView: UIView {
 
       collectionView.onSelectedSubCategory = { [weak self] category in
         if let category = category {
+          self?.selectedCategories.removeAll()
           self?.selectedCategories.append(category)
           self?.onSelected?(self?.selectedCategories ?? [])
         }

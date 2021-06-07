@@ -96,6 +96,7 @@ class SelectionView: UIView {
     }
 
     let index = datasource.initialButtonIndex(self)
+
     addIndicatorView(index: index)
   }
 
@@ -204,15 +205,21 @@ class SelectionView: UIView {
   }
 
   private func addIndicatorView(index: Int) {
+
+    indicatorView.removeFromSuperview()
+    indicatorView.constraints.forEach { $0.isActive = false }
+
     indicatorView.translatesAutoresizingMaskIntoConstraints = false
+
     indicatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
     indicatorView.backgroundColor = datasource?.colorOfIndicator(self)
 
     self.addSubview(indicatorView)
     indicatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 
-    guard let button = self.subviews.first?.subviews[index] as? UIButton else { return }
+    guard index < (self.subviews.first?.subviews.count)!,
+          let button = self.subviews.first?.subviews[index] as? UIButton else { return }
     moveIndicatorView(reference: button, duration: 0)
   }
 }
-

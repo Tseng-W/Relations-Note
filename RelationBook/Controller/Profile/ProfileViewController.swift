@@ -11,55 +11,93 @@ class ProfileViewController: UIViewController {
   
   @IBOutlet var tableView: UITableView! {
     didSet {
-      tableView.lk_registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
-      tableView.lk_registerHeaderWithNib(identifier: String(describing: ProfileHeaderViewCell.self), bundle: nil)
+      tableView.lk_registerCellWithNib(identifier: String(describing: AddFeatureTableCell.self), bundle: nil)
+      tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
       tableView.delegate = self
       tableView.dataSource = self
     }
   }
 
-  let headers = ["個人資料", "帳戶綁定", "個人化設定", "更多"]
+  let headers = ["標籤設定", "個人化設定"]
   let sections = [
-    ["個人數據"],
-    ["Facebook", "Line", "Twitter", "LinkedIn"],
-    ["文字大小", "深色模式"],
-    ["推播通知"]
+    ["關係類別", "事件類別", "特徵類別"],
+    ["深色模式"]
   ]
 
+  var type: CategoryType?
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+    if let detailVC = segue.destination as? ProfileCategoryListView {
+
+      guard let type = type else { return }
+
+      detailVC.type = type
+    }
+  }
+
   override func viewDidLoad() {
+
     super.viewDidLoad()
+
+    tableView.separatorColor = .clear
   }
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
-//    headers.count
-    0
+    headers.count
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    sections[section].count
-    0
+    sections[section].count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddFeatureTableCell.self), for: indexPath)
 
-//    if let cell = cell as? ProfileTableViewCell {
-//      cell.titleLabel.text = sections[indexPath.section][indexPath.row]
-//    }
+    if let cell = cell as? AddFeatureTableCell {
+      cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
+    }
 
     return cell
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderViewCell.self))
 
-//    if let header = headerView as? ProfileHeaderViewCell {
-//      header.titleLabel.text = headers[section]
-//    }
+    let headerView = RelationTableHeaderCell()
+
+    headerView.tagTitleLabel.text = headers[section]
 
     return headerView
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+
+    if indexPath.section == 0 {
+      switch indexPath.row {
+      case 0:
+        type = .relation
+        performSegue(withIdentifier: "detail", sender: self)
+      case 1:
+        type = .event
+        performSegue(withIdentifier: "detail", sender: self)
+      case 2:
+        type = .feature
+        performSegue(withIdentifier: "detail", sender: self)
+      default:
+        break
+      }
+    }
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    60
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    60
   }
 }

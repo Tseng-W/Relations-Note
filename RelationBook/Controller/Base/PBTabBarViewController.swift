@@ -81,21 +81,14 @@ class PBTabBarViewController: UITabBarController {
 
   private var tabs: [Tab] = [.relationship, .lobby, .profiles]
 
-  var lobbyImageButton: UIImageView = {
-    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-    imageView.image = Tab.lobby.images()?.add
-    imageView.backgroundColor = .secondarySystemBackground
-    imageView.contentMode = .scaleToFill
-    imageView.isUserInteractionEnabled = true
-    imageView.isCornerd = true
-    return imageView
-  }()
-
   var iconImageButton: IconView = {
 
     let iconView = IconView()
-    iconView.frame.size = CGSize(width: 50, height: 50)
-    iconView.setIcon(isCropped: false, image: Tab.lobby.images()?.add, bgColor: .systemBackground, borderWidth: 3, borderColor: .systemOrange)
+
+    iconView.frame.size = CGSize(width: 80, height: 80)
+
+    iconView.setIcon(isCropped: false, image: Tab.lobby.images()?.add, bgColor: .secondarySystemBackground, borderWidth: 3, borderColor: .systemOrange, multiple: 0.8)
+
     iconView.isUserInteractionEnabled = true
 
     return iconView
@@ -160,7 +153,6 @@ extension PBTabBarViewController: UITabBarControllerDelegate {
 
   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
-    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0)
-//    lobbyImageButton.image = Tab.lobby.images()?.icon
+    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, multiple: 0.8)
   }
 }
