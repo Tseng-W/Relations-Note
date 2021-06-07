@@ -29,6 +29,7 @@ target 'RelationBook' do
   # pod 'IBAnimatable'
   pod 'lottie-ios'
   pod 'CropViewController'
+  pod 'Firebase/Crashlytics'
 
   target 'RelationBookTests' do
     inherit! :search_paths

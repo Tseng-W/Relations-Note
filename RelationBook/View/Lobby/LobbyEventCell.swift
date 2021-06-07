@@ -30,6 +30,11 @@ class LobbyEventCell: UITableViewCell {
     }
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    
+  }
 
   var event: Event?
   var relations = [Category]()
@@ -42,30 +47,44 @@ class LobbyEventCell: UITableViewCell {
     self.relations = relations
 
     switch type {
+
     case .lobby:
+
       if relations.count > 1 {
         extraLabel.text = "與 \(relations[1].title) 等\(relations.count - 1)人"
       } else {
         extraLabel.isHidden = true
       }
 
+      nameLabel.text = relation.title
+
+      relation.getImage { [weak self] image in
+        self?.iconImage.setIcon(
+          isCropped: relation.isCustom,
+          image: image,
+          bgColor: .clear,
+          tintColor: .label,
+          multiple: 1)
+      }
+
     case .relation:
+
+      nameLabel.text = event.category.title
       extraLabel.text = event.time.dateValue().getDayString(type: .time)
+
+      layoutIfNeeded()
+      event.category.getImage { [weak self] image in
+        self?.iconImage.setIcon(
+          isCropped: event.category.isCustom,
+          image: image,
+          bgColor: event.category.getColor()
+          )
+      }
     }
 
-    // MARK: Label
-    nameLabel.text = relation.title
+
     sideBar.backgroundColor = event.getColor()
 
-    // MARK: Image
-    relation.getImage { [weak self] image in
-      self?.iconImage.setIcon(
-        isCropped: relation.isCustom,
-        image: image,
-        bgColor: .clear,
-        tintColor: .label,
-        multiple: 1)
-    }
 
 
     // MARK: TagView

@@ -52,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
       if let user = Auth.auth().currentUser {
 
-        UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
+          UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
         UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
 
         if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {

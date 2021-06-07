@@ -50,8 +50,7 @@ class RelationTableCell: UITableViewCell {
       self?.iconView.setIcon(
         isCropped: category.isCustom,
         image: image,
-        bgColor: category.getColor(),
-        tintColor: .white)
+        bgColor: category.getColor())
     }
 
     tagTitleLabel.text = "\(category.title) (\(subRelations.count) 人)"

@@ -64,6 +64,13 @@ class RelationListViewController: UIViewController {
 
     userViewModel.fetchUserDate()
   }
+
+  override func viewWillDisappear(_ animated: Bool) {
+
+    super.viewWillDisappear(true)
+
+    navigationController?.backToRoot()
+  }
 }
 
 extension RelationListViewController: UITableViewDelegate, UITableViewDataSource {

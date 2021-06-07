@@ -11,7 +11,7 @@
         <!--關係類別-->
         <scene sceneID="BC3-Lx-mxG">
             <objects>
-                <viewController id="e4M-lx-m9L" customClass="RelationshipViewContoller" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="e4M-lx-m9L" customClass="RelationViewContoller" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hJP-9V-ibm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,7 +118,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpz-oB-N5D">
-                                <rect key="frame" x="8" y="278.5" width="398" height="583.5"/>
+                                <rect key="frame" x="0.0" y="278.5" width="414" height="583.5"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -128,10 +128,10 @@
                             <constraint firstItem="SrP-TT-N0z" firstAttribute="top" secondItem="6Gn-UT-QUa" secondAttribute="bottom" id="Ch3-1f-ukz"/>
                             <constraint firstItem="6Gn-UT-QUa" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="MSK-gS-vvP"/>
                             <constraint firstItem="hpz-oB-N5D" firstAttribute="top" secondItem="SrP-TT-N0z" secondAttribute="bottom" constant="16" id="TnF-gd-Uu9"/>
-                            <constraint firstItem="hpz-oB-N5D" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" constant="8" id="WDn-RC-ZvI"/>
+                            <constraint firstItem="hpz-oB-N5D" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="WDn-RC-ZvI"/>
                             <constraint firstItem="6Gn-UT-QUa" firstAttribute="height" secondItem="z9F-93-1Gp" secondAttribute="height" multiplier="0.15" id="XaM-1f-Xgk"/>
                             <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="SrP-TT-N0z" secondAttribute="trailing" id="bWK-Q8-hcY"/>
-                            <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="hpz-oB-N5D" secondAttribute="trailing" constant="8" id="cNf-1J-xlQ"/>
+                            <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="hpz-oB-N5D" secondAttribute="trailing" id="cNf-1J-xlQ"/>
                             <constraint firstItem="5Wn-jb-1xf" firstAttribute="bottom" secondItem="hpz-oB-N5D" secondAttribute="bottom" id="d0V-pZ-oLM"/>
                             <constraint firstItem="SrP-TT-N0z" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="fou-Lr-eh9"/>
                             <constraint firstItem="6Gn-UT-QUa" firstAttribute="top" secondItem="5Wn-jb-1xf" secondAttribute="top" id="qPp-wO-ZwV"/>

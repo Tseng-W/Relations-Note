@@ -16,6 +16,8 @@ class LobbyViewController: UIViewController {
   let userViewModel = UserViewModel()
   let relationViewModel = RelationViewModel()
   let eventViewModel = EventViewModel()
+
+  var popViews = [UIView]()
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
@@ -81,6 +83,17 @@ class LobbyViewController: UIViewController {
 
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+
+    super.viewWillDisappear(true)
+
+    popViews.forEach { $0.removeFromSuperview() }
+  }
+
+  @IBAction func logout(_ sender: UIBarButtonItem) {
+    try? Auth.auth().signOut()
   }
 }
 
@@ -167,12 +180,30 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
 
 // MARK: - tableView delegate / datasource
 extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+  func numberOfSections(in tableView: UITableView) -> Int {
 
     guard let selectedDate = calendar.selectedDate else { return 0 }
 
     return eventViewModel.fetchEventIn(date: selectedDate).count
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    return 1
+  }
+
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+    let header = UIView()
+
+    header.backgroundColor = .clear
+
+    return header
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 10
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -223,6 +254,9 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
     detailVC.onDismiss = {
       blurView.removeFromSuperview()
     }
+
+    popViews.append(detailVC)
+    popViews.append(blurView)
   }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

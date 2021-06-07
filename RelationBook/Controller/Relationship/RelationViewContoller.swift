@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RelationshipViewContoller: UIViewController {
+class RelationViewContoller: UIViewController {
   
   let userViewModel = UserViewModel()
   
@@ -55,7 +55,7 @@ class RelationshipViewContoller: UIViewController {
   }
 }
 
-extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource {
+extension RelationViewContoller: UITableViewDelegate, UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
     guard let user = userViewModel.user.value else { return 0 }
@@ -116,6 +116,6 @@ extension RelationshipViewContoller: UITableViewDelegate, UITableViewDataSource 
   }
   
   @objc private func didSelectHeaderAt(tapGesture: UITapGestureRecognizer) {
-    
+
   }
 }

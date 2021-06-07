@@ -191,6 +191,13 @@ class RelationDetailViewController: UIViewController {
 
     scrollView.contentSize = CGSize(width: x, height: height)
   }
+
+  override func viewWillDisappear(_ animated: Bool) {
+
+    super.viewWillDisappear(true)
+
+    navigationController?.backToRoot()
+  }
 }
 
 // MARK: - Selection bar Delegate

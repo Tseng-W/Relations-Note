@@ -9,13 +9,18 @@ import UIKit
 import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
+import WebKit
 
 class LoginViewController: UIViewController {
   
   @IBOutlet var loginButtonView: UIView!
+  @IBOutlet var iconCenterYAnchor: NSLayoutConstraint!
+  @IBOutlet var privacyLabel: UILabel!
+  @IBOutlet var privacyButton: UIButton!
 
   fileprivate var currentNonce: String?
 
+  let privacyLink = "https://www.privacypolicies.com/live/d35f1ffb-2fb1-4689-b2d5-7f9ccb5c9589"
   var cornerRadius: CGFloat = 8.0 {
     didSet {
       updateRadius()
@@ -33,7 +38,21 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
 
     super.viewDidLoad()
+
     setupButton()
+
+    view.layoutIfNeeded()
+
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+      self.iconCenterYAnchor.constant = -200
+      self.view.layoutIfNeeded()
+    }, completion: { _ in
+      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
+        self.loginButtonView.alpha = 1
+        self.privacyLabel.alpha = 1
+        self.privacyButton.alpha = 1
+      }
+    })
   }
   
   @objc func appleLoginButtonTapped() {
@@ -51,6 +70,25 @@ class LoginViewController: UIViewController {
     controller.presentationContextProvider = self
     controller.performRequests()
   }
+
+  @IBAction func onTapPrivacy(_ sender: UIButton) {
+
+    let privacyVC = UIViewController()
+
+    let mWebView = WKWebView(frame: self.view.frame)
+
+    mWebView.navigationDelegate = self
+    mWebView.load(URLRequest(url: URL(string: privacyLink)!))
+    privacyVC.view.addSubview(mWebView)
+
+    mWebView.addConstarint(
+      top: privacyVC.view.topAnchor,
+      left: privacyVC.view.leftAnchor,
+      bottom: privacyVC.view.bottomAnchor,
+      right: privacyVC.view.rightAnchor)
+
+    showDetailViewController(privacyVC, sender: self)
+  }
 }
 
 private extension LoginViewController {
@@ -59,7 +97,7 @@ private extension LoginViewController {
 
     switch traitCollection.userInterfaceStyle {
 
-    case .light:
+    case .dark:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(whiteButton)
       whiteButton.addConstarint(
@@ -70,7 +108,7 @@ private extension LoginViewController {
       whiteButton.layer.cornerRadius = cornerRadius
       whiteButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 
-    case .unspecified, .dark:
+    case .unspecified, .light:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(blackButton)
       blackButton.addConstarint(
@@ -191,5 +229,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
   
   func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
     return self.view.window!
+  }
+}
+
+extension LoginViewController: WKNavigationDelegate {
+
+  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    print(error.localizedDescription)
   }
 }

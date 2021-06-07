@@ -24,13 +24,13 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgi-lA-sdQ">
-                        <rect key="frame" x="87" y="16" width="43" height="24"/>
+                        <rect key="frame" x="95" y="14" width="43" height="24"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCq-sr-X16">
-                        <rect key="frame" x="87" y="46.5" width="33" height="18.5"/>
+                        <rect key="frame" x="95" y="40.5" width="33" height="18.5"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="13"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJN-a1-do2" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
-                        <rect key="frame" x="22" y="8" width="57" height="57"/>
+                        <rect key="frame" x="34" y="14" width="45" height="45"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="CJN-a1-do2" secondAttribute="height" multiplier="1:1" id="5hk-RY-pM8"/>
@@ -75,20 +75,20 @@
                 </subviews>
                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 <constraints>
-                    <constraint firstItem="PCq-sr-X16" firstAttribute="leading" secondItem="CJN-a1-do2" secondAttribute="trailing" constant="8" id="2dD-U9-FOA"/>
+                    <constraint firstItem="PCq-sr-X16" firstAttribute="leading" secondItem="CJN-a1-do2" secondAttribute="trailing" constant="16" id="2dD-U9-FOA"/>
+                    <constraint firstItem="CJN-a1-do2" firstAttribute="bottom" secondItem="nNi-zQ-052" secondAttribute="bottom" constant="-8" id="4x5-Qe-4Cc"/>
                     <constraint firstAttribute="bottom" secondItem="dTo-RY-dP1" secondAttribute="bottom" constant="8" id="5ZI-uc-g4f"/>
+                    <constraint firstItem="CJN-a1-do2" firstAttribute="top" secondItem="nNi-zQ-052" secondAttribute="top" constant="8" id="80M-Ca-VrC"/>
                     <constraint firstItem="dTo-RY-dP1" firstAttribute="width" secondItem="ab3-9P-EEh" secondAttribute="width" multiplier="0.5" id="Bcb-vs-RyF"/>
                     <constraint firstItem="nNi-zQ-052" firstAttribute="top" secondItem="ab3-9P-EEh" secondAttribute="top" constant="6" id="LKP-Jh-mxj"/>
-                    <constraint firstItem="CJN-a1-do2" firstAttribute="top" secondItem="ab3-9P-EEh" secondAttribute="top" constant="8" id="MRq-Z2-jK2"/>
                     <constraint firstAttribute="bottom" secondItem="nNi-zQ-052" secondAttribute="bottom" constant="6" id="N25-zE-Fxn"/>
                     <constraint firstItem="dTo-RY-dP1" firstAttribute="height" secondItem="ab3-9P-EEh" secondAttribute="height" multiplier="0.2" id="O3M-xU-YFE"/>
                     <constraint firstItem="nNi-zQ-052" firstAttribute="leading" secondItem="ab3-9P-EEh" secondAttribute="leading" constant="16" id="OAg-si-L3f"/>
                     <constraint firstAttribute="trailing" secondItem="dTo-RY-dP1" secondAttribute="trailing" constant="16" id="Tw8-gM-5WF"/>
                     <constraint firstItem="PCq-sr-X16" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xgi-lA-sdQ" secondAttribute="bottom" id="VZy-lm-atW"/>
-                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="top" secondItem="CJN-a1-do2" secondAttribute="top" constant="8" id="eWC-h1-NPY"/>
-                    <constraint firstItem="CJN-a1-do2" firstAttribute="leading" secondItem="nNi-zQ-052" secondAttribute="trailing" constant="4" id="k5c-Lu-1vb"/>
-                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="leading" secondItem="CJN-a1-do2" secondAttribute="trailing" constant="8" id="ouw-15-waQ"/>
-                    <constraint firstAttribute="bottom" secondItem="CJN-a1-do2" secondAttribute="bottom" constant="8" id="tLg-Or-I1G"/>
+                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="top" secondItem="CJN-a1-do2" secondAttribute="top" id="eWC-h1-NPY"/>
+                    <constraint firstItem="CJN-a1-do2" firstAttribute="leading" secondItem="nNi-zQ-052" secondAttribute="trailing" constant="16" id="k5c-Lu-1vb"/>
+                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="leading" secondItem="CJN-a1-do2" secondAttribute="trailing" constant="16" id="ouw-15-waQ"/>
                     <constraint firstItem="PCq-sr-X16" firstAttribute="bottom" secondItem="CJN-a1-do2" secondAttribute="bottom" id="tx2-k1-WIn"/>
                 </constraints>
             </tableViewCellContentView>
@@ -102,11 +102,6 @@
             <point key="canvasLocation" x="131.8840579710145" y="145.64732142857142"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="dTo-RY-dP1">
-            <size key="intrinsicContentSize" width="207" height="16"/>
-        </designable>
-    </designables>
     <resources>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

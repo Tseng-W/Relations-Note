@@ -175,6 +175,9 @@ class AddEventViewController: UIViewController {
 
     guard let event = event else { return }
     guard let userID = userViewModel.user.value?.uid else { return }
+
+    let comment: String = commentTextView.text == "備註" ? .empty : commentTextView.text
+
     var newEvent = Event(docID: "",
                          owner: userID,
                          relations: relationCategories.map { $0.id },
@@ -185,7 +188,7 @@ class AddEventViewController: UIViewController {
                          locationName: locationName,
                          time: Timestamp(date: date),
                          subEvents: subEvents,
-                         comment: commentTextView.text)
+                         comment: comment)
 
     dispachGroup.enter()
     eventViewModel.addEvent(event: newEvent) { result in

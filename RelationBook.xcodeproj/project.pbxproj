@@ -23,7 +23,7 @@
 		472D1371264CD1ED001F3B85 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */; };
 		47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E45263C2D6F0092860F /* AppDelegate.swift */; };
 		47339E48263C2D6F0092860F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E47263C2D6F0092860F /* SceneDelegate.swift */; };
-		47339E4A263C2D6F0092860F /* RelationshipViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */; };
+		47339E4A263C2D6F0092860F /* RelationViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E49263C2D6F0092860F /* RelationViewContoller.swift */; };
 		47339E4D263C2D6F0092860F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339E4B263C2D6F0092860F /* Main.storyboard */; };
 		47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47339E4E263C2D700092860F /* PersonBook.xcdatamodeld */; };
 		47339E52263C2D710092860F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47339E51263C2D710092860F /* Assets.xcassets */; };
@@ -105,6 +105,7 @@
 		47B806D62647D5AD00EC711D /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806D52647D5AD00EC711D /* AddEventViewController.swift */; };
 		47B806DB2648CFB700EC711D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DA2648CFB700EC711D /* UIButton+Extension.swift */; };
 		47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DC2648D30A00EC711D /* RelationViewModel.swift */; };
+		47D665F1266DBB9E00BD42EE /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */; };
 		47DD642F2644308500D3CD9C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DD642E2644308500D3CD9C /* Login.storyboard */; };
 		47E6EF0E263D725F000172DC /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E6EF0D263D725F000172DC /* Lobby.storyboard */; };
 		47E6EF17263D732D000172DC /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6EF16263D732D000172DC /* LobbyViewController.swift */; };
@@ -153,7 +154,7 @@
 		47339E42263C2D6F0092860F /* RelationBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47339E45263C2D6F0092860F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47339E47263C2D6F0092860F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationshipViewContoller.swift; sourceTree = "<group>"; };
+		47339E49263C2D6F0092860F /* RelationViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewContoller.swift; sourceTree = "<group>"; };
 		47339E4C263C2D6F0092860F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47339E4F263C2D700092860F /* PersonBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonBook.xcdatamodel; sourceTree = "<group>"; };
 		47339E51263C2D710092860F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -240,6 +241,7 @@
 		47B806D52647D5AD00EC711D /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		47B806DA2648CFB700EC711D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		47B806DC2648D30A00EC711D /* RelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewModel.swift; sourceTree = "<group>"; };
+		47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		47DD642D264419A800D3CD9C /* RelationBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RelationBook.entitlements; sourceTree = "<group>"; };
 		47DD642E2644308500D3CD9C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		47E6EF0D263D725F000172DC /* Lobby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lobby.storyboard; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */,
 				476CF849266BB29F000B5DC9 /* UIFont+Extension.swift */,
 				47A63964266D1C250083EEF2 /* Array+Extension.swift */,
+				47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -480,7 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				475BF5732669AB2000AD5441 /* RelationDetailViewController.swift */,
-				47339E49263C2D6F0092860F /* RelationshipViewContoller.swift */,
+				47339E49263C2D6F0092860F /* RelationViewContoller.swift */,
 				475BF57126691B9900AD5441 /* RelationListViewController.swift */,
 			);
 			path = Relationship;
@@ -723,6 +726,7 @@
 				476D2EB1264A8B0700A9200A /* ShellScript */,
 				7DEDA4098F070BBE8B1A43AD /* [CP] Embed Pods Frameworks */,
 				933EC9BB61EBD37D589A3D48 /* [CP] Copy Pods Resources */,
+				47D665F2266E0BE800BD42EE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -903,6 +907,25 @@
 			shellPath = /bin/sh;
 			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
 		};
+		47D665F2266E0BE800BD42EE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		71F21585DB11CBEA0BC757E5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1045,7 +1068,7 @@
 				47339ECD263C3E760092860F /* UIImage+Extension.swift in Sources */,
 				47339EE9263C41FF0092860F /* TimelineViewContoller.swift in Sources */,
 				47779E8326679C3F00972194 /* IconViewModel.swift in Sources */,
-				47339E4A263C2D6F0092860F /* RelationshipViewContoller.swift in Sources */,
+				47339E4A263C2D6F0092860F /* RelationViewContoller.swift in Sources */,
 				4765B1772650129700A6D18D /* SelectionView.swift in Sources */,
 				47339EC2263C3C140092860F /* UIStoryboard+Extension.swift in Sources */,
 				47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */,
@@ -1056,6 +1079,7 @@
 				476D2ECA264BBA3600A9200A /* Date+Extension.swift in Sources */,
 				47A217F0265A71840096149C /* NibLoadable.swift in Sources */,
 				47B6B9102653C2E20090218C /* FloatingView.swift in Sources */,
+				47D665F1266DBB9E00BD42EE /* UIViewController+Extension.swift in Sources */,
 				47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */,
 				479DE3E5264128F5000E2CFC /* MJRefreshWrapper.swift in Sources */,
 				47779E7E26676EA200972194 /* LocalIconSelectionViewHeader.swift in Sources */,

@@ -116,6 +116,11 @@
                                 <segue destination="YR8-Wn-Hxw" kind="show" id="B2d-hW-vGy"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="1dS-bA-BJv">
+                            <connections>
+                                <action selector="logout:" destination="TRd-7X-kQ2" id="5WK-W9-2h4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="ATx-iw-HYq" id="3kf-Wq-IMI"/>
@@ -835,7 +840,7 @@
         <image name="face.smiling.fill" catalog="system" width="128" height="121"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LableB1">
             <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
