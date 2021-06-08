@@ -286,7 +286,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
         image: UIImage.getPlaceholder(
           .profile,
           style: traitCollection.userInterfaceStyle),
-        description: "沒有互動紀錄")
+        description: "未記錄個人特徵資訊")
 
       return 0
 

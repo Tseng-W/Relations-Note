@@ -39,6 +39,9 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
+  var selectedID: Int?
+
+
   var mainCategories: [Category] = [] {
     didSet {
       subCategories.removeAll()
@@ -149,6 +152,8 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
           selectedCategories = onSelectedSubCategory?(mainCategories[indexPath.row]) ?? []
         } else {
           selectedIndex = indexPath.row
+          selectedID = mainCategories[indexPath.row
+          ].id
           status = .subCategory
         }
       } else {
@@ -166,8 +171,9 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         status = .mainCategory
       } else if indexPath.row == subCategories[selectedMainIndex].count + 1 {
         // 新增選項
-        guard let type = type else { return }
-        onAddCategory?(type, .sub, selectedMainIndex)
+        guard let type = type,
+              let id = selectedID else { return }
+        onAddCategory?(type, .sub, id)
       } else {
         selectedCategories = onSelectedSubCategory?(subCategories[selectedMainIndex][indexPath.row - 1]) ?? []
       }

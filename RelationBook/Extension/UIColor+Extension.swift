@@ -11,6 +11,10 @@ import FlexColorPicker
 extension UIColor {
   
   static let background: UIColor = UIColor(named: "Background")!
+
+  static let button: UIColor = UIColor(named: "Button")!
+  static let buttonDisable: UIColor = UIColor(named: "ButtonDisable")!
+
   
   static let lableB1: UIColor = UIColor(named: "LabelB1")!
   

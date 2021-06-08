@@ -22,10 +22,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2E-PU-o7z" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="42.5" width="402" height="210"/>
+                    <rect key="frame" x="0.0" y="42.5" width="402" height="220"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="210" id="Jas-W4-KAG"/>
+                        <constraint firstAttribute="height" constant="220" id="Jas-W4-KAG"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新增特徵興趣" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TG-bi-Azc">
@@ -42,7 +42,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AsV-vT-g94">
-                    <rect key="frame" x="16" y="268.5" width="370" height="292.5"/>
+                    <rect key="frame" x="16" y="278.5" width="370" height="282.5"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="NY1-ww-FoB">

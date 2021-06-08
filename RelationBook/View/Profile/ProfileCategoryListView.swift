@@ -131,7 +131,7 @@ class ProfileCategoryListView: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(true)
 
-    backToRoot()
+//    backToRoot()
   }
 }
 
