@@ -21,10 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     IQKeyboardManager.shared.enable = true
 
-    UITabBar.appearance().tintColor = .label
+    UITabBar.appearance().tintColor = .button
 
-    UINavigationBar.appearance().barTintColor = .secondarySystemBackground
-    UINavigationBar.appearance().tintColor = .label
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.button]
+    UINavigationBar.appearance().barTintColor = .background
+    UINavigationBar.appearance().tintColor = .button
     UINavigationBar.appearance().isTranslucent = false
     UINavigationBar.appearance().shadowImage = UIImage()
 

@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,15 +17,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="事件標題" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCk-gG-BFl">
-                        <rect key="frame" x="67" y="4" width="70" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" name="LableB1"/>
+                        <rect key="frame" x="67" y="4" width="68" height="24"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
+                        <color key="textColor" name="Button"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近聯絡時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D07-bd-iTC">
-                        <rect key="frame" x="67" y="39" width="80" height="16"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                        <color key="textColor" name="LableB4"/>
+                        <rect key="frame" x="67" y="34" width="90" height="21"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
+                        <color key="textColor" name="ButtonDisable"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yc-az-pp3" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
@@ -37,7 +36,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                <color key="backgroundColor" name="Background"/>
                 <constraints>
                     <constraint firstItem="1yc-az-pp3" firstAttribute="leading" secondItem="dBT-7a-1Tw" secondAttribute="leading" constant="8" id="70C-by-jOc"/>
                     <constraint firstItem="D07-bd-iTC" firstAttribute="leading" secondItem="1yc-az-pp3" secondAttribute="trailing" constant="16" id="End-7l-nM3"/>
@@ -48,6 +47,7 @@
                     <constraint firstAttribute="bottom" secondItem="1yc-az-pp3" secondAttribute="bottom" constant="8" id="xBT-DR-rqv"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" name="Background"/>
             <connections>
                 <outlet property="iconView" destination="1yc-az-pp3" id="go0-Hq-FYQ"/>
                 <outlet property="subLabel" destination="D07-bd-iTC" id="QXf-SK-niu"/>
@@ -57,14 +57,14 @@
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="LableB1">
-            <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="LableB4">
-            <color red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <namedColor name="ButtonDisable">
+            <color red="0.31607759786833789" green="0.53936141208085808" blue="0.6528967432228916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

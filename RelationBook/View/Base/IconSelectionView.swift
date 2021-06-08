@@ -21,7 +21,7 @@ class IconSelectionView: UICollectionView {
 
     self.init(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout.init())
 
-    backgroundColor = .secondarySystemBackground
+    backgroundColor = .background
     isScrollEnabled = true
 
     let layout = UICollectionViewFlowLayout.init()

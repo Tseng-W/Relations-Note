@@ -161,7 +161,7 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
     } else if date.week == 7 && date.month == calendar.currentPage.month {
       return todayEvents.count > 0 ? .greenB1 : .greenB2
     } else {
-      return todayEvents.count > 0 ? .label : .secondaryLabel
+      return todayEvents.count > 0 ? .button : . buttonDisable
     }
   }
 
@@ -178,10 +178,14 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
       date.isSameDay(date: event.time.dateValue())
     }
 
-    if date.isWeekend {
+    if date.week == 1 && date.month == calendar.currentPage.month {
       return todayEvents.count > 0 ? .redB1 : .redB2
+    } else if date.week == 7 && date.month == calendar.currentPage.month {
+      return todayEvents.count > 0 ? .greenB1 : .greenB2
+    } else if date.isSameDay(date: Date()) {
+      return .systemGray6
     } else {
-      return todayEvents.count > 0 ? .label : .secondaryLabel
+      return todayEvents.count > 0 ? .button : .buttonDisable
     }
   }
 
@@ -189,7 +193,7 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
     if date.isSameDay(date: Date()) {
       return appearance.todayColor
     } else {
-      return appearance.todaySelectionColor
+      return .clear
     }
   }
 }
@@ -258,6 +262,7 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     let detailVC = EventDetailView()
     let blurView = view.addBlurView()
+
     view.addSubview(detailVC)
 
     detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 1.5)

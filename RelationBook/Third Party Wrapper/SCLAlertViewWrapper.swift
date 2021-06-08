@@ -51,20 +51,22 @@ class SCLAlertViewProvider: NSObject {
     case roundedImage, rectImage, delete
 
     var appearance: SCLAlertView.SCLAppearance {
+
       switch self {
       case .roundedImage, .rectImage:
         return SCLAlertView.SCLAppearance(
           showCloseButton: false,
           shouldAutoDismiss: false,
-          contentViewColor: .systemBackground,
-          titleColor: .label
+          contentViewColor: .background,
+          titleColor: .button
         )
+
       case .delete:
         return SCLAlertView.SCLAppearance(
           showCloseButton: false,
           shouldAutoDismiss: true,
-          contentViewColor: .systemBackground,
-          titleColor: .label
+          contentViewColor: .background,
+          titleColor: .button
         )
       }
     }
@@ -152,14 +154,13 @@ class SCLAlertViewProvider: NSObject {
 
     alertView = SCLAlertView(appearance: type.appearance)
 
-    alertView?.iconTintColor = .label
+    alertView?.iconTintColor = .systemGray6
 
     type.buttons.forEach { button in
-      alertView!.addButton(button.title, backgroundColor: .systemGray, textColor: .label, showTimeout: nil, target: self, selector: button.action)
+      alertView!.addButton(button.title, backgroundColor: .button, textColor: .systemGray6, showTimeout: nil, target: self, selector: button.action)
     }
 
-    alertView!.showCustom(type.title, subTitle: type.subTitle, color: .secondarySystemBackground, icon: type.icon)
-
+    alertView!.showCustom(type.title, subTitle: type.subTitle, color: .button, icon: type.icon)
   }
 }
 

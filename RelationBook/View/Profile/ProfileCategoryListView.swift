@@ -111,7 +111,7 @@ class ProfileCategoryListView: UIViewController {
       tableView.dataSource = self
       tableView.tag = index
       tableView.separatorColor = .clear
-      tableView.backgroundColor = .secondarySystemBackground
+      tableView.backgroundColor = .background
       tableView.lk_registerCellWithNib(
         identifier: String(describing: ProfileCategoryTableCell.self),
         bundle: nil)

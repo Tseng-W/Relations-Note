@@ -83,11 +83,9 @@ class PBTabBarViewController: UITabBarController {
 
   var iconImageButton: IconView = {
 
-    let iconView = IconView()
+    let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
 
-    iconView.frame.size = CGSize(width: 80, height: 80)
-
-    iconView.setIcon(isCropped: false, image: Tab.lobby.images()?.add, bgColor: .secondarySystemBackground, borderWidth: 3, borderColor: .systemOrange, multiple: 0.8)
+    iconView.setIcon(isCropped: false, image: Tab.lobby.images()?.add, bgColor: .background, borderWidth: 3, borderColor: .systemOrange, multiple: 0.8)
 
     iconView.isUserInteractionEnabled = true
 
@@ -101,6 +99,10 @@ class PBTabBarViewController: UITabBarController {
     super.viewDidLoad()
 
     lobbyButtonInit()
+
+    tabBar.tintColor = .button
+    tabBar.barTintColor = .secondaryBackground
+    tabBar.unselectedItemTintColor = .buttonDisable
 
     viewControllers = tabs.map{ $0.controller() }
 
@@ -128,11 +130,14 @@ class PBTabBarViewController: UITabBarController {
       target: self,
       action: #selector(onLobbyButtonTap(tapGestureRecognizer:))
     )
+
     iconImageButton.addGestureRecognizer(tapGesture)
   }
 
   @objc func onLobbyButtonTap(tapGestureRecognizer: UITapGestureRecognizer) {
+
     guard let tappedImage   = tapGestureRecognizer.view as? IconView else { return }
+
     if selectedIndex == 1 {
       tabBarDelegate?.tabBarTapped(self, index: 2)
     } else {

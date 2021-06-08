@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,7 +36,7 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P64-J9-OEt">
                             <rect key="frame" x="16" y="16" width="25" height="25"/>
-                            <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                            <color key="backgroundColor" name="Button"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="P64-J9-OEt" secondAttribute="height" multiplier="1:1" id="frX-gx-tOi"/>
                             </constraints>
@@ -92,7 +93,7 @@
                     <rect key="frame" x="114.5" y="398.5" width="434.5" height="150.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <color key="textColor" systemColor="labelColor"/>
+                    <color key="textColor" name="Button"/>
                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="12"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -118,7 +119,7 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5cb-y8-mck">
                             <rect key="frame" x="0.0" y="0.5" width="30" height="29"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" name="Button"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="5cb-y8-mck" secondAttribute="height" multiplier="1:1" id="wGh-GC-OMP"/>
                             </constraints>
@@ -126,7 +127,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg2-6p-6J4">
                             <rect key="frame" x="38" y="5" width="72" height="20"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" name="Button"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -146,7 +147,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbD-GN-22n">
                             <rect key="frame" x="46" y="4" width="83.5" height="22.5"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" name="Button"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T8t-Vf-0aA">
@@ -179,7 +180,7 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uGQ-pE-Lbf">
                             <rect key="frame" x="0.0" y="-0.5" width="30" height="31.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" name="Button"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="uGQ-pE-Lbf" secondAttribute="height" multiplier="1:1" id="TZ6-Gd-Pm7"/>
                             </constraints>
@@ -187,7 +188,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJu-aP-xKB">
                             <rect key="frame" x="38" y="5" width="96.5" height="20"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" name="Button"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -203,7 +204,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+            <color key="backgroundColor" name="Background"/>
             <constraints>
                 <constraint firstItem="PdA-SS-XBc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="0Ug-uw-Ny9"/>
                 <constraint firstItem="35j-Qs-1G0" firstAttribute="height" secondItem="ReZ-qp-6c8" secondAttribute="height" id="2IW-X4-aH6"/>
@@ -239,21 +240,16 @@
             <point key="canvasLocation" x="148.55072463768118" y="27.790178571428569"/>
         </view>
     </objects>
-    <designables>
-        <designable name="xWN-6H-LOV">
-            <size key="intrinsicContentSize" width="434.5" height="16"/>
-        </designable>
-    </designables>
     <resources>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="pin" catalog="system" width="119" height="128"/>
         <image name="xmark.circle" catalog="system" width="128" height="121"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,11 +19,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eq3-JC-YyK">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8gy-bC-k11"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="8gy-bC-k11" firstAttribute="trailing" secondItem="eq3-JC-YyK" secondAttribute="trailing" id="3R2-M4-icK"/>
                             <constraint firstItem="eq3-JC-YyK" firstAttribute="top" secondItem="8gy-bC-k11" secondAttribute="top" id="DRq-al-vEI"/>
@@ -52,11 +53,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6YV-sc-tzf">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KMD-Fi-HcJ"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="KMD-Fi-HcJ" firstAttribute="bottom" secondItem="6YV-sc-tzf" secondAttribute="bottom" id="5FU-NR-HHi"/>
                             <constraint firstItem="6YV-sc-tzf" firstAttribute="top" secondItem="KMD-Fi-HcJ" secondAttribute="top" id="G2I-1m-UNp"/>
@@ -112,7 +113,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrP-TT-N0z" customClass="SelectionView" customModule="RelationBook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="222.5" width="414" height="40"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="J9f-Om-Isd"/>
                                 </constraints>
@@ -159,6 +160,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zwn-gZ-eXN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="Background"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -171,11 +173,11 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

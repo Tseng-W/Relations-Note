@@ -25,14 +25,14 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIq-0W-77V">
-                        <rect key="frame" x="76" y="11.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <rect key="frame" x="76" y="11" width="40.5" height="22.5"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
+                        <color key="textColor" name="Button"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xo-s2-Av7">
                         <rect key="frame" x="341.5" y="11" width="20.5" height="22"/>
-                        <color key="tintColor" name="LableB1"/>
+                        <color key="tintColor" name="Button"/>
                         <state key="normal" image="square.and.pencil" catalog="system"/>
                         <connections>
                             <action selector="onEditTapped:" destination="UUR-Gu-bSj" eventType="touchUpInside" id="TIh-eT-1dM"/>
@@ -40,14 +40,14 @@
                     </button>
                     <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXC-T8-jYy">
                         <rect key="frame" x="378" y="11" width="20" height="22"/>
-                        <color key="tintColor" name="LableB1"/>
+                        <color key="tintColor" name="Button"/>
                         <state key="normal" image="trash" catalog="system"/>
                         <connections>
                             <action selector="onDeleteTapped:" destination="UUR-Gu-bSj" eventType="touchUpInside" id="XhE-PT-Gnd"/>
                         </connections>
                     </button>
                 </subviews>
-                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                <color key="backgroundColor" name="Background"/>
                 <constraints>
                     <constraint firstItem="rIq-0W-77V" firstAttribute="centerY" secondItem="eBK-1H-15I" secondAttribute="centerY" id="1oY-qq-nmA"/>
                     <constraint firstItem="OXC-T8-jYy" firstAttribute="centerY" secondItem="eBK-1H-15I" secondAttribute="centerY" id="I9x-7e-BqB"/>
@@ -71,8 +71,11 @@
     <resources>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="trash" catalog="system" width="121" height="128"/>
-        <namedColor name="LableB1">
-            <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

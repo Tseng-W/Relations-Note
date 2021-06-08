@@ -63,7 +63,7 @@ class FilterView: UIView {
 
     userViewModel.fetchUserDate()
 
-    backgroundColor = .secondarySystemBackground
+    backgroundColor = .background
 
     filterIndex = 0
 
@@ -197,7 +197,11 @@ extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
   }
 
   func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor {
-    .systemGray2
+    .buttonDisable
+  }
+
+  func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? {
+    .buttonDisable
   }
 }
 

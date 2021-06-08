@@ -38,7 +38,7 @@ class RelationDetailViewController: UIViewController {
     scrollView.alwaysBounceVertical = false
     scrollView.alwaysBounceHorizontal = false
     scrollView.bounces = false
-    scrollView.backgroundColor = .secondarySystemBackground
+    scrollView.backgroundColor = .background
 
     return scrollView
   }()
@@ -48,7 +48,7 @@ class RelationDetailViewController: UIViewController {
     let eventTableView = UITableView()
 
     eventTableView.tag = TableType.event.rawValue
-    eventTableView.backgroundColor = .secondarySystemBackground
+    eventTableView.backgroundColor = .background
     eventTableView.estimatedRowHeight = 60
 
     eventTableView.lk_registerCellWithNib(
@@ -66,7 +66,7 @@ class RelationDetailViewController: UIViewController {
     let profileTableView = UITableView()
 
     profileTableView.tag = TableType.profile.rawValue
-    profileTableView.backgroundColor = .secondarySystemBackground
+    profileTableView.backgroundColor = .background
     profileTableView.lk_registerHeaderWithNib(
       identifier: String(describing: RelationTableHeaderCell.self),
       bundle: nil)
@@ -162,9 +162,9 @@ class RelationDetailViewController: UIViewController {
     view.layoutIfNeeded()
 
     eventTableView.separatorColor = .clear
-    eventTableView.backgroundColor = .secondarySystemBackground
+    eventTableView.backgroundColor = .background
     profileTableView.separatorColor = .clear
-    profileTableView.backgroundColor = .secondarySystemBackground
+    profileTableView.backgroundColor = .background
 
     eventTableView.delegate = self
     eventTableView.dataSource = self

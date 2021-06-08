@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,6 +25,7 @@
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="1T3-as-cyh"/>
                     </constraints>
+                    <color key="textColor" name="Button"/>
                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
@@ -52,6 +54,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -92,7 +92,7 @@
     <resources>
         <image name="icon_1024px_icon_nobg" width="1024" height="1024"/>
         <namedColor name="Background">
-            <color red="0.82700002193450928" green="0.81599998474121094" blue="0.72500002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

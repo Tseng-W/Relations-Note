@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +19,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Od-OP-cDC">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R0K-R5-Pg9"/>
@@ -52,19 +53,20 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxs-g2-Isq" customClass="SelectionView" customModule="RelationBook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MfF-Sz-HGH"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCB-pQ-91I">
                                 <rect key="frame" x="0.0" y="146" width="414" height="716"/>
+                                <color key="backgroundColor" name="Background"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="2xk-g0-iX6"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="sqE-wk-bJ6"/>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sw0-Xz-zbO"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="ZCB-pQ-91I" firstAttribute="top" secondItem="Hxs-g2-Isq" secondAttribute="bottom" id="8xw-DK-qjm"/>
                             <constraint firstItem="ZCB-pQ-91I" firstAttribute="leading" secondItem="sw0-Xz-zbO" secondAttribute="leading" id="H9b-Mk-ixy"/>
@@ -105,6 +107,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

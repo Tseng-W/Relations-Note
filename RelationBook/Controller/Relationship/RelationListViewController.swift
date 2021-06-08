@@ -29,7 +29,7 @@ class RelationListViewController: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
-      tableView.backgroundColor = .secondarySystemBackground
+      tableView.backgroundColor = .background
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 60
       tableView.lk_registerCellWithNib(

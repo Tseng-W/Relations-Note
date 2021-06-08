@@ -16,7 +16,7 @@ class RelationViewContoller: UIViewController {
       tableView.delegate = self
       tableView.dataSource = self
       tableView.separatorColor = .clear
-      tableView.backgroundColor = .secondarySystemBackground
+      tableView.backgroundColor = .background
       tableView.lk_registerCellWithNib(identifier: String(describing: RelationTableCell.self), bundle: nil)
       tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
 

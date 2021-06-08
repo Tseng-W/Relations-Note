@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,14 +23,14 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ay2-x7-juO">
                                 <rect key="frame" x="16" y="10" width="43" height="24"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
-                                <color key="textColor" name="LableB1"/>
+                                <color key="textColor" name="Button"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ax-mm-WAD">
                                 <rect key="frame" x="16" y="0.0" width="382" height="44"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
                                 <state key="normal" title="Button">
-                                    <color key="titleColor" systemColor="secondaryLabelColor"/>
+                                    <color key="titleColor" name="ButtonDisable"/>
                                 </state>
                             </button>
                         </subviews>
@@ -51,9 +50,9 @@
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNE-bu-XEv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
-                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <color key="tintColor" name="ButtonDisable"/>
                                 <state key="normal" title="  新增互動對象特徵">
-                                    <color key="titleColor" systemColor="secondaryLabelColor"/>
+                                    <color key="titleColor" name="ButtonDisable"/>
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                 </state>
                             </button>
@@ -67,7 +66,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                <color key="backgroundColor" name="Background"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="sdb-sg-U8X" secondAttribute="bottom" id="1b4-vp-hAC"/>
                     <constraint firstItem="Utj-u7-h8J" firstAttribute="top" secondItem="Z26-Uh-LGq" secondAttribute="top" id="AeB-DV-wR2"/>
@@ -79,7 +78,7 @@
                     <constraint firstItem="sdb-sg-U8X" firstAttribute="top" secondItem="Z26-Uh-LGq" secondAttribute="top" id="cLX-gT-hKA"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" name="Background"/>
             <connections>
                 <outlet property="addButton" destination="YNE-bu-XEv" id="WL2-LH-dKN"/>
                 <outlet property="editButton" destination="9ax-mm-WAD" id="dsI-5x-v9q"/>
@@ -90,14 +89,14 @@
     </objects>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <namedColor name="LableB1">
-            <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ButtonDisable">
+            <color red="0.31607759786833789" green="0.53936141208085808" blue="0.6528967432228916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

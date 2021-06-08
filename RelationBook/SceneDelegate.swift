@@ -47,12 +47,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     } else {
       print("Can't initial main tab bar view controller.")
     }
+
     #else
     if let _ = window?.rootViewController as? LoginViewController {
 
       if let user = Auth.auth().currentUser {
 
-          UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
+        UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
         UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
 
         if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {

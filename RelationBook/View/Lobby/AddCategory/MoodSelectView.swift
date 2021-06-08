@@ -75,7 +75,7 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
         for: indexPath)
 
       if let header = header as? LocalIconSelectionViewHeader {
-        header.subviews.first!.backgroundColor = .secondarySystemBackground
+        header.subviews.first!.backgroundColor = .background
         header.titleLabel.text = iconViewModel.iconSets[indexPath.section].title
       }
 

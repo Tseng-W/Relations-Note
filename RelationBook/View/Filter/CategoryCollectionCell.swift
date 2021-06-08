@@ -22,9 +22,9 @@ class CategoryCollectionCell: UICollectionViewCell {
     didSet {
       switch defaultType {
       case .add:
-        category = Category(id: 0, isCustom: false, superIndex: -1, isSubEnable: true, title: "新增", imageLink: "plus", backgroundColor: UIColor.systemGray2.StringFromUIColor())
+        category = Category(id: 0, isCustom: false, superIndex: -1, isSubEnable: true, title: "新增", imageLink: "plus", backgroundColor: UIColor.buttonDisable.StringFromUIColor())
       case .back:
-        category = Category(id: 0, isCustom: false, superIndex: -1, isSubEnable: true, title: "返回", imageLink: "arrowshape.turn.up.left", backgroundColor: UIColor.systemGray2.StringFromUIColor())
+        category = Category(id: 0, isCustom: false, superIndex: -1, isSubEnable: true, title: "返回", imageLink: "arrowshape.turn.up.left", backgroundColor: UIColor.buttonDisable.StringFromUIColor())
       default:
         break
       }

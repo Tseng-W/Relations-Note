@@ -54,7 +54,8 @@ class SetCategoryStyleView: UIView, NibLoadable {
     didSet {
       confirmButton.isEnabled = canConfirm
       confirmButton.isUserInteractionEnabled = canConfirm
-      confirmButton.backgroundColor = canConfirm ? .systemGray : .systemGray4
+      confirmButton.backgroundColor = canConfirm ? .button : .buttonDisable
+//      confirmButton.titleLabel?.textColor = canConfirm ?
     }
   }
   var title = String.empty {

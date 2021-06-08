@@ -9,21 +9,45 @@ import UIKit
 
 class IconView: UIView {
 
-  static let defaultBackgroundColor: UIColor = .systemGray
-  static let defaultTintColor: UIColor = .systemGray
+  static let defaultBackgroundColor: UIColor = .background
+  static let defaultTintColor: UIColor = .button
   static let defaultImage = UIImage(systemName: "camera")!
 
+  var animationView = LottieWrapper()
+
   var imageView: UIImageView = {
+
     let imageView = UIImageView()
+
     imageView.image = defaultImage
     imageView.backgroundColor = defaultBackgroundColor
     imageView.tintColor = defaultTintColor
     imageView.backgroundColor = .clear
     imageView.contentMode = .scaleAspectFit
+
     return imageView
   }()
+
+  override init(frame: CGRect) {
+    
+    super.init(frame: frame)
+
+    animationView.show(self, animation: .loading, isCorned: true)
+  }
+
+  convenience init() {
+    self.init(frame: CGRect())
+
+    animationView.show(self, animation: .loading, isCorned: true)
+  }
+
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+
+    animationView.show(self, animation: .loading, isCorned: true)
+  }
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .label, multiple: CGFloat? = nil) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .button, multiple: CGFloat? = nil) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)
@@ -76,6 +100,9 @@ class IconView: UIView {
 
     isCornerd = true
     imageView.isCornerd = isCropped
+
+    animationView.leave()
+
     layoutIfNeeded()
   }
 }

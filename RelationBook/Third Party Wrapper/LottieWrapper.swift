@@ -20,7 +20,7 @@ class LottieWrapper: NSObject {
 
   var jobsCount: Int = 1
 
-  func show(_ view: UIView, animation: Animation, jobs: Int = 1) {
+  func show(_ view: UIView, animation: Animation, jobs: Int = 1, isCorned: Bool = false) {
 
     jobsCount = jobs
 
@@ -36,16 +36,21 @@ class LottieWrapper: NSObject {
 
     animationView.addConstarint(
       centerX: view.centerXAnchor, centerY: view.centerYAnchor,
-      width: 200, height: 200)
+      width: max(50, view.frame.width / 3),
+      height: max(50, view.frame.width / 3))
+
+    view.isCornerd = isCorned
+
+    view.layoutIfNeeded()
 
     animationView.play()
   }
 
   func leave(jobs: Int = 1) {
+
     jobsCount -= 1
 
-
-    if jobsCount == 0 {
+    if jobsCount <= 0 {
       dismiss()
     }
   }

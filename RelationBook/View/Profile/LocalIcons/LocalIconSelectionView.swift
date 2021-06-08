@@ -48,7 +48,7 @@ class LocalIconSelectionView: UIViewController {
 
     super.viewDidLoad()
 
-    view.backgroundColor = .secondarySystemBackground
+    view.backgroundColor = .background
 
     collectionView.delegate = self
     collectionView.dataSource = self
@@ -110,7 +110,7 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
         withReuseIdentifier: String(describing: LocalIconSelectionViewHeader.self),
         for: indexPath)
 
-      header.subviews.first!.backgroundColor = .secondarySystemBackground
+      header.subviews.first!.backgroundColor = .background
 
       if let header = header as? LocalIconSelectionViewHeader,
          let iconViewModel = iconViewModel {

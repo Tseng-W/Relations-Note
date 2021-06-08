@@ -162,6 +162,7 @@ class SelectionView: UIView {
         NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: padding)])
       }
       NSLayoutConstraint.activate([button.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)])
+
       buttons.append(button)
       lastButton = button
     }
@@ -194,12 +195,15 @@ class SelectionView: UIView {
       let title = datasource.selectionView(self, titleForButtonAt: index)
       let textColor = datasource.selectionView(self, textColorForButtonAt: index)
       let button = ResizableButton()
+
       button.translatesAutoresizingMaskIntoConstraints = false
       button.tag = index
       button.setTitle(title, for: .normal)
       button.setTitleColor(textColor, for: .normal)
       button.addTarget(self, action: #selector(shouldSelect(sender:)), for: .touchUpInside)
+
       buttons.append(button)
+
       statckView.addArrangedSubview(button)
     }
   }
