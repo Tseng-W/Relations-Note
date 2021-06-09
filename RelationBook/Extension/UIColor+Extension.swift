@@ -15,6 +15,7 @@ extension UIColor {
   static let button: UIColor = UIColor(named: "Button")!
   static let buttonDisable: UIColor = UIColor(named: "ButtonDisable")!
   static let secondaryBackground: UIColor = UIColor(named: "SecondaryBackground")!
+  static let secondaryLabel: UIColor = UIColor(named: "SecondaryLabel")!
 
   
   static let lableB1: UIColor = UIColor(named: "LabelB1")!

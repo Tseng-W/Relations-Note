@@ -178,6 +178,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="cVj-GY-hOR"/>
                                 </constraints>
+                                <color key="textColor" name="SecondaryLabel"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
@@ -201,7 +202,7 @@
                                             <constraint firstAttribute="width" secondItem="xyk-LX-R33" secondAttribute="height" multiplier="1:1" id="nyv-y0-j0j"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <color key="tintColor" name="ButtonDisable"/>
                                         <state key="normal" image="camera" catalog="system"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -223,7 +224,7 @@
                                         <color key="backgroundColor" name="Background"/>
                                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                                         <state key="normal" title="地點">
-                                            <color key="titleColor" name="LableB4"/>
+                                            <color key="titleColor" name="SecondaryLabel"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
@@ -246,7 +247,7 @@
                                         <color key="backgroundColor" name="Background"/>
                                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                                         <state key="normal" title="Time">
-                                            <color key="titleColor" name="LableB4"/>
+                                            <color key="titleColor" name="Button"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
@@ -269,7 +270,7 @@
                                         <color key="backgroundColor" name="Background"/>
                                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                                         <state key="normal" title="Day">
-                                            <color key="titleColor" name="LableB4"/>
+                                            <color key="titleColor" name="Button"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
@@ -295,7 +296,7 @@
                                                 <color key="backgroundColor" name="Background"/>
                                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                                                 <state key="normal" title="事件">
-                                                    <color key="titleColor" name="LableB4"/>
+                                                    <color key="titleColor" name="SecondaryLabel"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -312,9 +313,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Y70-X3-CVR" secondAttribute="height" multiplier="1:1" id="CPd-Ss-x6h"/>
                                                 </constraints>
-                                                <color key="tintColor" name="LableB9"/>
-                                                <state key="normal" image="face.smiling.fill" catalog="system">
-                                                    <color key="titleColor" name="LableB9"/>
+                                                <color key="tintColor" name="SecondaryLabel"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" name="SecondaryLabel"/>
+                                                    <imageReference key="image" image="face.smiling.fill" catalog="system" symbolScale="large"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -377,17 +379,10 @@
                                 <rect key="frame" x="16" y="711.5" width="382" height="184.5"/>
                                 <color key="backgroundColor" name="Background"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="161" width="414" height="220"/>
-                                <color key="backgroundColor" name="Background"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="220" identifier="height" id="0Tl-0V-QU1"/>
-                                </constraints>
-                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="備註" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uR0-Df-t9L">
                                 <rect key="frame" x="16" y="554.5" width="382" height="111"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <color key="textColor" name="SecondaryLabel"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
@@ -431,6 +426,13 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="更多資訊"/>
                                 </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvv-iT-43H" customClass="FilterView" customModule="RelationBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="161" width="414" height="220"/>
+                                <color key="backgroundColor" name="Background"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="220" identifier="height" id="0Tl-0V-QU1"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbt-MQ-fzz"/>
@@ -589,7 +591,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                                 <constraints>
                                     <constraint firstItem="nco-bH-Wv8" firstAttribute="top" secondItem="zHV-E6-kBw" secondAttribute="top" id="0xp-9f-Q1g"/>
                                     <constraint firstItem="zHV-E6-kBw" firstAttribute="top" secondItem="YKB-S6-dIC" secondAttribute="bottom" id="1IY-Kl-zYM"/>
@@ -857,7 +859,7 @@
             <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonDisable">
-            <color red="0.31607759786833789" green="0.53936141208085808" blue="0.6528967432228916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31600001454353333" green="0.53899997472763062" blue="0.65299999713897705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Label">
             <color red="0.97254901960784312" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -868,12 +870,9 @@
         <namedColor name="LableB4">
             <color red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="LableB9">
-            <color red="0.89999997615814209" green="0.89999997615814209" blue="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="SecondaryLabel">
+            <color red="0.28999999165534973" green="0.49399998784065247" blue="0.60000002384185791" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

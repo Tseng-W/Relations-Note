@@ -58,10 +58,22 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddFeatureTableCell.self), for: indexPath)
 
     if let cell = cell as? AddFeatureTableCell {
-      cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
+
+      if indexPath.section == 0 {
+        cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
+      } else {
+
+        cell.setType(status: .trigger, title: sections[indexPath.section][indexPath.row], subTitle: .empty)
+      }
     }
 
     return cell
+  }
+
+  @objc func switchChanged(_ sender : UISwitch!){
+
+        print("table row switch Changed \(sender.tag)")
+        print("The switch is \(sender.isOn ? "ON" : "OFF")")
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -71,6 +83,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     headerView.tagTitleLabel.text = headers[section]
 
     return headerView
+  }
+
+  func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    false
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

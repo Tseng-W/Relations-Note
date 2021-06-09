@@ -160,6 +160,8 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
       return todayEvents.count > 0 ? .redB1 : .redB2
     } else if date.week == 7 && date.month == calendar.currentPage.month {
       return todayEvents.count > 0 ? .greenB1 : .greenB2
+    } else if date.isSameDay(date: Date()) {
+      return todayEvents.count > 0 ? .systemBackground : .secondaryBackground
     } else {
       return todayEvents.count > 0 ? .button : . buttonDisable
     }

@@ -71,6 +71,8 @@ extension AddFeatureTableView: UITableViewDelegate, UITableViewDataSource {
         let feature = features[indexPath.row]
         guard let category = relativeCategory.first(where: { $0.id == feature.categoryIndex }) else { return }
         addFeatureFlowView.show(superview!, category: category, feature: feature)
+      case .trigger:
+        break
       }
     }
   }

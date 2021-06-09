@@ -50,7 +50,7 @@ class AddEventViewController: UIViewController {
   let commentPlaceholder = "備註"
   let commentPlaceholderColor: UIColor = .secondaryLabel
 
-  let selectedColor: UIColor = .label
+  let selectedColor: UIColor = .button
 
   let lottieView = LottieWrapper()
 

@@ -25,13 +25,13 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgi-lA-sdQ">
-                        <rect key="frame" x="107" y="8" width="43" height="24"/>
+                        <rect key="frame" x="107" y="24.5" width="43" height="24"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" name="Button"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCq-sr-X16">
-                        <rect key="frame" x="107" y="46.5" width="33" height="18.5"/>
+                        <rect key="frame" x="107" y="48.5" width="33" height="16.5"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="13"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
@@ -81,13 +81,13 @@
                     <constraint firstAttribute="bottom" secondItem="dTo-RY-dP1" secondAttribute="bottom" constant="8" id="5ZI-uc-g4f"/>
                     <constraint firstItem="CJN-a1-do2" firstAttribute="top" secondItem="nNi-zQ-052" secondAttribute="top" constant="2" id="80M-Ca-VrC"/>
                     <constraint firstItem="dTo-RY-dP1" firstAttribute="width" secondItem="ab3-9P-EEh" secondAttribute="width" multiplier="0.5" id="Bcb-vs-RyF"/>
+                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="centerY" secondItem="CJN-a1-do2" secondAttribute="centerY" id="KeH-oY-QMB"/>
                     <constraint firstItem="nNi-zQ-052" firstAttribute="top" secondItem="ab3-9P-EEh" secondAttribute="top" constant="6" id="LKP-Jh-mxj"/>
                     <constraint firstAttribute="bottom" secondItem="nNi-zQ-052" secondAttribute="bottom" constant="6" id="N25-zE-Fxn"/>
                     <constraint firstItem="dTo-RY-dP1" firstAttribute="height" secondItem="ab3-9P-EEh" secondAttribute="height" multiplier="0.2" id="O3M-xU-YFE"/>
                     <constraint firstItem="nNi-zQ-052" firstAttribute="leading" secondItem="ab3-9P-EEh" secondAttribute="leading" constant="16" id="OAg-si-L3f"/>
                     <constraint firstAttribute="trailing" secondItem="dTo-RY-dP1" secondAttribute="trailing" constant="16" id="Tw8-gM-5WF"/>
                     <constraint firstItem="PCq-sr-X16" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xgi-lA-sdQ" secondAttribute="bottom" id="VZy-lm-atW"/>
-                    <constraint firstItem="xgi-lA-sdQ" firstAttribute="top" secondItem="CJN-a1-do2" secondAttribute="top" id="eWC-h1-NPY"/>
                     <constraint firstItem="CJN-a1-do2" firstAttribute="leading" secondItem="nNi-zQ-052" secondAttribute="trailing" constant="16" id="k5c-Lu-1vb"/>
                     <constraint firstItem="xgi-lA-sdQ" firstAttribute="leading" secondItem="CJN-a1-do2" secondAttribute="trailing" constant="16" id="ouw-15-waQ"/>
                     <constraint firstItem="PCq-sr-X16" firstAttribute="bottom" secondItem="CJN-a1-do2" secondAttribute="bottom" id="tx2-k1-WIn"/>
@@ -107,6 +107,9 @@
     <resources>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

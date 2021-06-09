@@ -13,6 +13,7 @@ class AddFeatureTableCell: UITableViewCell {
   enum CellStatus {
     case add
     case edit
+    case trigger
   }
 
   @IBInspectable var placeholder: String = "點擊選擇" {
@@ -30,11 +31,27 @@ class AddFeatureTableCell: UITableViewCell {
   @IBOutlet var editButton: UIButton!
   @IBOutlet var addButton: UIButton!
 
-
   var status: CellStatus = .add {
     didSet {
       addButton.superview?.isHidden = status != .add
-      editButton.superview?.isHidden = status != .edit
+      editButton.superview?.isHidden = status == .add
+
+      editButton.isHidden = status != .edit
+      editButton.isUserInteractionEnabled = status != .trigger
+
+      if status == .trigger {
+
+        let switchView = UISwitch(frame: .zero)
+
+        switchView.onTintColor = .button
+        switchView.tintColor = .background
+
+        switchView.setOn(false, animated: true)
+        switchView.addTarget(self, action: #selector(self.onSwitchTapped(_:)), for: .valueChanged)
+        accessoryView = switchView
+
+        contentView.superview?.backgroundColor = .background
+      }
     }
   }
   var selectedContent: String? {
@@ -55,5 +72,9 @@ class AddFeatureTableCell: UITableViewCell {
     self.status = status
     titleLabel.text = title
     editButton.setTitle(subTitle, for: .normal)
+  }
+  
+  @objc func onSwitchTapped(_ sender: UISwitch) {
+    window?.overrideUserInterfaceStyle = sender.isOn ? .dark : .light
   }
 }
