@@ -146,7 +146,7 @@ class PBTabBarViewController: UITabBarController {
     if selectedIndex == 1 {
       tabBarDelegate?.tabBarTapped(self, index: 2)
     } else {
-      tappedImage.setIcon(isCropped: false, image: Tab.lobby.images()?.add, borderWidth: 3)
+      tappedImage.setIcon(isCropped: false, image: Tab.lobby.images()?.add, borderWidth: 3, tintColor: .buttonDisable)
       selectedIndex = 1
     }
   }
@@ -163,6 +163,6 @@ extension PBTabBarViewController: UITabBarControllerDelegate {
 
   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
-    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, tintColor: .buttonDisable, multiple: 0.8)
+    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, multiple: 0.8)
   }
 }

@@ -79,6 +79,8 @@ class SelectFloatViewController: FloatingViewController {
   func display(type: SelectType) {
     self.type = type
     isVisable = true
+
+    mapView.centerLocation()
   }
 
   override func viewDidLoad() {
@@ -111,7 +113,7 @@ class SelectFloatViewController: FloatingViewController {
       dateDate = Date()
       datePicker.setDate(dateDate, animated: true)
     case .location:
-      break
+      mapView.centerLocation()
     default:
       return
     }

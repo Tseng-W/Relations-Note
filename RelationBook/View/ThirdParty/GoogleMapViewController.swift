@@ -14,11 +14,14 @@ protocol GoogleMapViewDelegate: AnyObject {
 
 class GoogleMapView: UIView {
 
+  var currentLocation: CLLocationCoordinate2D?
+
   var mapView: GMSMapView? {
     didSet {
       guard let mapView = mapView else { return }
       mapView.settings.zoomGestures = false
       mapView.delegate = self
+      mapView.settings.setAllGesturesEnabled(false)
     }
   }
 
@@ -31,17 +34,20 @@ class GoogleMapView: UIView {
       if CLLocationManager.locationServicesEnabled() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.startUpdatingLocation()
       }
 
       //      let mapId = GMSMapID(identifier: Bundle.valueForString(key: "Google map id"))
 
       mapView = GMSMapView(frame: frame)
-      mapView?.isMyLocationEnabled = true
+      mapView?.isMyLocationEnabled = false
 
       addSubview(mapView!)
 
-      mapView?.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+      mapView?.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+
+      layoutIfNeeded()
+
+      locationManager.startUpdatingLocation()
     }
   }
 
@@ -58,10 +64,15 @@ class GoogleMapView: UIView {
     marker.map = mapView
   }
 
-  private func centerLocation(location: CLLocationCoordinate2D) {
+  func centerLocation(center: CLLocationCoordinate2D? = nil) {
     guard let mapView = mapView else { return }
+
+    let location = center ?? currentLocation
+
+    guard let location = location else { return }
+
     let target = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-    mapView.camera = GMSCameraPosition.camera(withTarget: target, zoom: 19.0)
+    mapView.camera = GMSCameraPosition.camera(withTarget: target, zoom: 16.0)
   }
 }
 
@@ -71,18 +82,20 @@ extension GoogleMapView: CLLocationManagerDelegate {
 
     guard let location = locations.last else { return }
 
-    centerLocation(location: location.coordinate)
+    addMarker(title: "幫前位置", snippet: "我", position: location.coordinate)
 
-    addMarker(title: "幫前位置", snippet: "世界的中心", position: location.coordinate)
+    currentLocation = location.coordinate
 
     locationManager.stopUpdatingLocation()
+
+    centerLocation(center: location.coordinate)
   }
 }
 
 extension GoogleMapView: GMSMapViewDelegate {
 
   func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-    centerLocation(location: marker.position)
+    centerLocation(center: marker.position)
     return true
   }
 }

@@ -94,7 +94,7 @@ class IconSelectView: UIView, NibLoadable {
              backgroundColor: UIColor? = .systemTeal,
              borderWidth: CGFloat = 0,
              borderColor: UIColor? = nil,
-             tintColor: UIColor? = .label) {
+             tintColor: UIColor? = .background) {
 
     if let text = text {
       textField.text = text

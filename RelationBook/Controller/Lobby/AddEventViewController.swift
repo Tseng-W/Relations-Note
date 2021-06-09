@@ -143,11 +143,14 @@ class AddEventViewController: UIViewController {
 
     view.addSubview(selectFloatViewController.view)
 
-    selectFloatViewController.view.addConstarint(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    selectFloatViewController.view.addConstarint(
+      top: view.topAnchor, left: view.leftAnchor,
+      bottom: view.bottomAnchor, right: view.rightAnchor)
 
     selectFloatViewController.onEventSelected = { event in
       self.event = event
       self.eventButton.setTitle(event.title, for: .normal)
+      self.eventButton.titleLabel?.textColor = .button
     }
 
     selectFloatViewController.onDateSelected = { type, date in
@@ -162,6 +165,8 @@ class AddEventViewController: UIViewController {
     selectFloatViewController.onLocationSelected = { geoPoint in
       self.location = geoPoint
       self.locationName = "當前位置"
+      self.locationButton.setTitle(self.locationName, for: .normal)
+      self.locationButton.titleLabel?.textColor = .button
     }
 
     selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in
@@ -226,6 +231,7 @@ class AddEventViewController: UIViewController {
   @IBAction func showLocation(_ sender: UIButton) {
 
     selectFloatViewController.display(type: .location)
+    
   }
 
   @IBAction func showChangeMood(_ sender: UIButton) {

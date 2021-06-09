@@ -548,8 +548,19 @@
                                         <locale key="locale" localeIdentifier="zh_TW"/>
                                     </datePicker>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nco-bH-Wv8" customClass="GoogleMapView" customModule="RelationBook" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="40" width="350" height="167"/>
+                                        <rect key="frame" x="16" y="56" width="350" height="151"/>
                                         <color key="backgroundColor" name="Background"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" name="Button"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2X7-ob-EYl">
                                         <rect key="frame" x="16" y="223" width="350" height="30"/>
@@ -593,7 +604,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Background"/>
                                 <constraints>
-                                    <constraint firstItem="nco-bH-Wv8" firstAttribute="top" secondItem="zHV-E6-kBw" secondAttribute="top" id="0xp-9f-Q1g"/>
+                                    <constraint firstItem="nco-bH-Wv8" firstAttribute="top" secondItem="zHV-E6-kBw" secondAttribute="top" constant="16" id="0xp-9f-Q1g"/>
                                     <constraint firstItem="zHV-E6-kBw" firstAttribute="top" secondItem="YKB-S6-dIC" secondAttribute="bottom" id="1IY-Kl-zYM"/>
                                     <constraint firstItem="2X7-ob-EYl" firstAttribute="top" secondItem="wls-MP-q9D" secondAttribute="bottom" constant="16" id="1Pa-fM-kdr"/>
                                     <constraint firstItem="nco-bH-Wv8" firstAttribute="leading" secondItem="qFe-zh-OBv" secondAttribute="leading" constant="16" id="25T-Q4-gpn"/>
