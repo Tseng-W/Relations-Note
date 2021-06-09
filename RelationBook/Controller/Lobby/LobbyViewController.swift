@@ -108,9 +108,9 @@ class LobbyViewController: UIViewController {
     popViews.forEach { $0.removeFromSuperview() }
   }
 
-  @IBAction func logout(_ sender: UIBarButtonItem) {
-    try? Auth.auth().signOut()
-  }
+//  @IBAction func logout(_ sender: UIBarButtonItem) {
+//    try? Auth.auth().signOut()
+//  }
 }
 
 // MARK: - calendar delegate / datasource
