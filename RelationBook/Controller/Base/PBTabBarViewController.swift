@@ -85,7 +85,12 @@ class PBTabBarViewController: UITabBarController {
 
     let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
 
-    iconView.setIcon(isCropped: false, image: Tab.lobby.images()?.add, bgColor: .background, borderWidth: 3, borderColor: .systemOrange, multiple: 0.8)
+    iconView.setIcon(isCropped: false,
+                     image: Tab.lobby.images()?.add,
+                     bgColor: .background,
+                     borderWidth: 3, borderColor: .button,
+                     tintColor: .buttonDisable,
+                     multiple: 0.8)
 
     iconView.isUserInteractionEnabled = true
 
@@ -158,6 +163,6 @@ extension PBTabBarViewController: UITabBarControllerDelegate {
 
   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
-    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, multiple: 0.8)
+    iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, tintColor: .buttonDisable, multiple: 0.8)
   }
 }

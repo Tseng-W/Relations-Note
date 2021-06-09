@@ -60,6 +60,8 @@ class SelectionView: UIView {
 
   var type: ViewType = .scroll
 
+  var scrollView = UIScrollView()
+
   var indicatorView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
   private var indicatorConstraints: [NSLayoutConstraint] = []
@@ -121,9 +123,23 @@ class SelectionView: UIView {
     
     indicatorConstraints.forEach { $0.isActive = false }
     indicatorConstraints.removeAll()
+
     indicatorConstraints.append(indicatorView.widthAnchor.constraint(equalTo: reference.widthAnchor))
     indicatorConstraints.append(indicatorView.centerXAnchor.constraint(equalTo: reference.centerXAnchor))
     indicatorConstraints.forEach { $0.isActive = true }
+
+    if scrollView.frame.size.width > 0 {
+
+      if scrollView.contentOffset.x > reference.frame.origin.x {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseOut) {
+          self.scrollView.contentOffset.x = reference.frame.origin.x
+        }
+      } else if abs(reference.frame.origin.x + reference.frame.width - scrollView.contentOffset.x) > scrollView.frame.width {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseOut) {
+          self.scrollView.contentOffset.x = reference.frame.origin.x - self.scrollView.frame.width + reference.frame.width
+        }
+      }
+    }
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveLinear) {
       self.layoutIfNeeded()
@@ -134,9 +150,10 @@ class SelectionView: UIView {
 
     guard let datasource = datasource else { return }
 
-    let scrollView = UIScrollView()
     scrollView.showsVerticalScrollIndicator = false
     scrollView.showsHorizontalScrollIndicator = false
+    scrollView.alwaysBounceVertical = false
+    scrollView.alwaysBounceHorizontal = false
 
     var lastButton: ResizableButton? = nil
     let padding: CGFloat = 16

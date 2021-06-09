@@ -32,7 +32,6 @@
 		47339E6B263C2D710092860F /* RelationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E6A263C2D710092860F /* RelationUITests.swift */; };
 		47339EA4263C35C60092860F /* Book.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339EA3263C35C60092860F /* Book.storyboard */; };
 		47339EA9263C374F0092860F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339EA8263C374F0092860F /* Profile.storyboard */; };
-		47339EAE263C37680092860F /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339EAD263C37680092860F /* Timeline.storyboard */; };
 		47339EB3263C37D30092860F /* Relationship.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339EB2263C37D30092860F /* Relationship.storyboard */; };
 		47339EB9263C3ABC0092860F /* PBTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339EB8263C3ABC0092860F /* PBTabBarViewController.swift */; };
 		47339EC2263C3C140092860F /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339EC1263C3C140092860F /* UIStoryboard+Extension.swift */; };
@@ -104,6 +103,7 @@
 		47B6B9102653C2E20090218C /* FloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6B90F2653C2E20090218C /* FloatingView.swift */; };
 		47B6D6D126673C040070E277 /* LobbyEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B6D6D026673C040070E277 /* LobbyEventCell.xib */; };
 		47B6D6D326673C3B0070E277 /* LobbyEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */; };
+		47B7D7182670522100F05FE7 /* ColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B7D7172670522100F05FE7 /* ColorPicker.xib */; };
 		47B806D62647D5AD00EC711D /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806D52647D5AD00EC711D /* AddEventViewController.swift */; };
 		47B806DB2648CFB700EC711D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DA2648CFB700EC711D /* UIButton+Extension.swift */; };
 		47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DC2648D30A00EC711D /* RelationViewModel.swift */; };
@@ -170,7 +170,6 @@
 		47339E6C263C2D710092860F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47339EA3263C35C60092860F /* Book.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Book.storyboard; sourceTree = "<group>"; };
 		47339EA8263C374F0092860F /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		47339EAD263C37680092860F /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		47339EB2263C37D30092860F /* Relationship.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Relationship.storyboard; sourceTree = "<group>"; };
 		47339EB8263C3ABC0092860F /* PBTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBTabBarViewController.swift; sourceTree = "<group>"; };
 		47339EC1263C3C140092860F /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -242,6 +241,7 @@
 		47B6B90F2653C2E20090218C /* FloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingView.swift; sourceTree = "<group>"; };
 		47B6D6D026673C040070E277 /* LobbyEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LobbyEventCell.xib; sourceTree = "<group>"; };
 		47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyEventCell.swift; sourceTree = "<group>"; };
+		47B7D7172670522100F05FE7 /* ColorPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPicker.xib; sourceTree = "<group>"; };
 		47B806D52647D5AD00EC711D /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		47B806DA2648CFB700EC711D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		47B806DC2648D30A00EC711D /* RelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewModel.swift; sourceTree = "<group>"; };
@@ -410,9 +410,9 @@
 				47339EA3263C35C60092860F /* Book.storyboard */,
 				47339E53263C2D710092860F /* LaunchScreen.storyboard */,
 				47339EA8263C374F0092860F /* Profile.storyboard */,
-				47339EAD263C37680092860F /* Timeline.storyboard */,
 				47339EB2263C37D30092860F /* Relationship.storyboard */,
 				47DD642E2644308500D3CD9C /* Login.storyboard */,
+				47B7D7172670522100F05FE7 /* ColorPicker.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -740,7 +740,7 @@
 				476D2EB1264A8B0700A9200A /* ShellScript */,
 				7DEDA4098F070BBE8B1A43AD /* [CP] Embed Pods Frameworks */,
 				933EC9BB61EBD37D589A3D48 /* [CP] Copy Pods Resources */,
-				47D665F2266E0BE800BD42EE /* ShellScript */,
+				47D665F2266E0BE800BD42EE /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -851,9 +851,9 @@
 				47538EF9266E557E0066C91A /* ProfileCategoryTableCell.xib in Resources */,
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
 				471FD4ED265C780B003CF46F /* AddFeatureFloatView.xib in Resources */,
+				47B7D7182670522100F05FE7 /* ColorPicker.xib in Resources */,
 				47339EA9263C374F0092860F /* Profile.storyboard in Resources */,
 				47779E7C26676E8600972194 /* LocalIconSelectionViewHeader.xib in Resources */,
-				47339EAE263C37680092860F /* Timeline.storyboard in Resources */,
 				47339E52263C2D710092860F /* Assets.xcassets in Resources */,
 				47779E7826676BE500972194 /* LocalIconSelectionViewCell.xib in Resources */,
 				476CF844266B4DC0000B5DC9 /* RelationProfileCell.xib in Resources */,
@@ -922,7 +922,7 @@
 			shellPath = /bin/sh;
 			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
 		};
-		47D665F2266E0BE800BD42EE /* ShellScript */ = {
+		47D665F2266E0BE800BD42EE /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -933,6 +933,7 @@
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1229,7 +1230,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

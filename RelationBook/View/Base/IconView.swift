@@ -47,7 +47,7 @@ class IconView: UIView {
     animationView.show(self, animation: .loading, isCorned: true)
   }
   
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .button, multiple: CGFloat? = nil) {
+  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .background, multiple: CGFloat? = nil) {
 
     imageView.removeFromSuperview()
     addSubview(imageView)

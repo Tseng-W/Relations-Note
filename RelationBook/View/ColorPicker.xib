@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="298"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbd-Er-O4q">
+                    <rect key="frame" x="0.0" y="149" width="411" height="149"/>
+                    <color key="backgroundColor" name="TempDarkBackground"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMS-g9-mOF">
+                    <rect key="frame" x="0.0" y="0.0" width="411" height="149"/>
+                    <color key="backgroundColor" name="Background"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="RSy-Z6-CIG">
+                    <rect key="frame" x="182" y="134" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" name="Color4"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" name="Background"/>
+                    </state>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ZMS-g9-mOF" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.5" id="0EQ-R3-uL1"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hbd-Er-O4q" secondAttribute="bottom" id="1WM-Ag-xZl"/>
+                <constraint firstItem="hbd-Er-O4q" firstAttribute="height" secondItem="ZMS-g9-mOF" secondAttribute="height" id="3JR-9m-Vef"/>
+                <constraint firstItem="ZMS-g9-mOF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EUe-xa-EUY"/>
+                <constraint firstItem="hbd-Er-O4q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Elb-lO-cPp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ZMS-g9-mOF" secondAttribute="trailing" id="Iwc-X9-QnR"/>
+                <constraint firstItem="ZMS-g9-mOF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="KCN-g7-6pm"/>
+                <constraint firstItem="hbd-Er-O4q" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ftn-3t-YWg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="129.71014492753625" y="-119.86607142857142"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color4">
+            <color red="0.65098039215686276" green="0.6588235294117647" blue="0.74901960784313726" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TempDarkBackground">
+            <color red="0.27034456184111444" green="0.27034456184111444" blue="0.27034456184111444" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
