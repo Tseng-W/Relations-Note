@@ -9,21 +9,25 @@ import UIKit
 import GoogleMaps
 
 protocol GoogleMapViewDelegate: AnyObject {
-  func didSelectAt(location: CLLocationCoordinate2D)
+  func didSelectAt(location: CLLocationCoordinate2D, name: String)
 }
 
 class GoogleMapView: UIView {
 
   var currentLocation: CLLocationCoordinate2D?
+  var currentName: String?
 
   var mapView: GMSMapView? {
     didSet {
+
       guard let mapView = mapView else { return }
+
       mapView.settings.zoomGestures = false
       mapView.delegate = self
       mapView.settings.setAllGesturesEnabled(false)
     }
   }
+  var marker = GMSMarker()
 
   var locationManager = CLLocationManager()
   weak var delegate: GoogleMapViewDelegate? {
@@ -51,28 +55,38 @@ class GoogleMapView: UIView {
     }
   }
 
-  func getLocation() -> CLLocationCoordinate2D? {
-    guard let mapView = mapView else { return nil }
-    return mapView.myLocation?.coordinate
-  }
-
   private func addMarker(title: String, snippet: String, position: CLLocationCoordinate2D) {
 
-    let marker = GMSMarker(position: position)
+    marker.map = nil
+
+    marker = GMSMarker(position: position)
     marker.title = title
     marker.snippet = snippet
     marker.map = mapView
   }
 
-  func centerLocation(center: CLLocationCoordinate2D? = nil) {
+  func centerLocation(center: CLLocationCoordinate2D? = nil, name: String? = nil) {
     guard let mapView = mapView else { return }
+
+    if let center = center {
+      currentLocation = center
+    }
+
+    if let name = name {
+      currentName = name
+
+      addMarker(title: name, snippet: .empty, position: (center ?? currentLocation)!)
+    }
 
     let location = center ?? currentLocation
 
     guard let location = location else { return }
 
     let target = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+
     mapView.camera = GMSCameraPosition.camera(withTarget: target, zoom: 16.0)
+
+    delegate?.didSelectAt(location: location, name: (name ?? currentName)!)
   }
 }
 
@@ -82,13 +96,11 @@ extension GoogleMapView: CLLocationManagerDelegate {
 
     guard let location = locations.last else { return }
 
-    addMarker(title: "幫前位置", snippet: "我", position: location.coordinate)
-
     currentLocation = location.coordinate
 
     locationManager.stopUpdatingLocation()
 
-    centerLocation(center: location.coordinate)
+    centerLocation(center: location.coordinate, name: "當前位置")
   }
 }
 

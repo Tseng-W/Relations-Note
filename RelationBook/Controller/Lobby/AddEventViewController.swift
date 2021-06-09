@@ -162,9 +162,9 @@ class AddEventViewController: UIViewController {
       }
     }
 
-    selectFloatViewController.onLocationSelected = { geoPoint in
+    selectFloatViewController.onLocationSelected = { geoPoint, name in
       self.location = geoPoint
-      self.locationName = "當前位置"
+      self.locationName = name
       self.locationButton.setTitle(self.locationName, for: .normal)
       self.locationButton.titleLabel?.textColor = .button
     }

@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 import Firebase
 
 class SelectFloatViewController: FloatingViewController {
@@ -23,7 +24,14 @@ class SelectFloatViewController: FloatingViewController {
   @IBOutlet var filterView: FilterView!
   @IBOutlet var mapView: GoogleMapView! {
     didSet {
+
       mapView.delegate = self
+
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(autocompleteClicked(tapGesture:)))
+      tapGesture.numberOfTapsRequired = 1
+      tapGesture.numberOfTouchesRequired = 1
+
+      mapView.addGestureRecognizer(tapGesture)
     }
   }
   @IBOutlet var resetButton: UIButton! {
@@ -36,12 +44,10 @@ class SelectFloatViewController: FloatingViewController {
 
   var onEventSelected: ((Category) -> Void)?
   var onDateSelected: ((SelectType, Date) -> Void)?
-  var onLocationSelected: ((GeoPoint) -> Void)?
+  var onLocationSelected: ((GeoPoint, String) -> Void)?
   var onAddCategorySelected: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
-
   var dateDate = Date()
-
   var type: SelectType = .event {
     didSet {
       titleLabel.text = type.rawValue
@@ -75,6 +81,8 @@ class SelectFloatViewController: FloatingViewController {
       }
     }
   }
+  var locationInfo: (location: CLLocationCoordinate2D, name: String)?
+
 
   func display(type: SelectType) {
     self.type = type
@@ -127,9 +135,10 @@ class SelectFloatViewController: FloatingViewController {
         dateDate = datePicker.date
         onDateSelected?(type, datePicker.date)
       case .location:
-        if let c2d = mapView.getLocation() {
-          let gp = GeoPoint(latitude: c2d.latitude, longitude: c2d.longitude)
-          onLocationSelected?(gp)
+        if let info = locationInfo {
+
+          let gp = GeoPoint(latitude: info.location.latitude, longitude: info.location.longitude)
+          onLocationSelected?(gp, info.name)
         }
       default:
         break
@@ -139,9 +148,60 @@ class SelectFloatViewController: FloatingViewController {
   }
 }
 
-extension SelectFloatViewController: GoogleMapViewDelegate {
+// MARK: Google Map
+extension SelectFloatViewController {
 
-  func didSelectAt(location: CLLocationCoordinate2D) {
+  @objc func autocompleteClicked(tapGesture: UITapGestureRecognizer) {
+    let autocompleteController = GMSAutocompleteViewController()
+    autocompleteController.delegate = self
 
+    // Specify the place data types to return.
+    let fields: GMSPlaceField = GMSPlaceField(
+      rawValue:
+        UInt(GMSPlaceField.name.rawValue) |
+        UInt(GMSPlaceField.coordinate.rawValue)
+    )
+    autocompleteController.placeFields = fields
+
+    // Specify a filter.
+    let filter = GMSAutocompleteFilter()
+    filter.type = .address
+    autocompleteController.autocompleteFilter = filter
+
+    // Display the autocomplete view controller.
+    present(autocompleteController, animated: true, completion: nil)
+  }
+}
+
+// MARK: Google Map & Custom Map View
+extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, GoogleMapViewDelegate {
+
+  func didSelectAt(location: CLLocationCoordinate2D, name: String) {
+    locationInfo = (location, name)
+  }
+
+  func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+
+    mapView.centerLocation(center: place.coordinate, name: place.name)
+
+    dismiss(animated: true, completion: nil)
+  }
+
+  func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+    print("Error: ", error.localizedDescription)
+  }
+
+  // User canceled the operation.
+  func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+    dismiss(animated: true, completion: nil)
+  }
+
+  // Turn the network activity indicator on and off again.
+  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+  }
+
+  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
 }

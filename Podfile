@@ -27,6 +27,7 @@ target 'RelationBook' do
   pod 'FlexColorPicker'
   pod 'SCLAlertView'
   # pod 'IBAnimatable'
+  pod 'GooglePlaces'
   pod 'lottie-ios'
   pod 'CropViewController'
   pod 'Firebase/Crashlytics'

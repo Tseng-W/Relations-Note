@@ -649,6 +649,7 @@
                         <outlet property="mapView" destination="nco-bH-Wv8" id="Exw-m0-PRe"/>
                         <outlet property="resetButton" destination="2bT-0J-9rG" id="N1e-Ag-gYq"/>
                         <outlet property="titleLabel" destination="cBK-ed-DyC" id="7Z5-dI-qXJ"/>
+                        <segue destination="Uqa-tz-Ov7" kind="showDetail" identifier="search" id="dqu-WH-kC2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQF-TZ-lCN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -672,6 +673,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9lk-bp-fx8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="298.55072463768118" y="182.8125"/>
+        </scene>
+        <!--Google Place Search View-->
+        <scene sceneID="ugh-kr-kY1">
+            <objects>
+                <viewController id="Uqa-tz-Ov7" customClass="GooglePlaceSearchView" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aYR-ml-ZxJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="PMr-mU-VNh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O7S-Ut-WJ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3286" y="980"/>
         </scene>
         <!--Add Contact Flow View Controller-->
         <scene sceneID="98B-Q3-HeD">
@@ -855,7 +871,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHN-ZO-W9z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3178" y="980"/>
+            <point key="canvasLocation" x="4365" y="980"/>
         </scene>
     </scenes>
     <resources>
@@ -889,6 +905,9 @@
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
