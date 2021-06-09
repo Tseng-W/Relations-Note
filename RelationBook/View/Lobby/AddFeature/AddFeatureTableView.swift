@@ -81,9 +81,12 @@ extension AddFeatureTableView: UITableViewDelegate, UITableViewDataSource {
 extension AddFeatureTableView: AddFeatureFloatViewDelegate {
 
   func featureFloatView(view: AddFeatureFloatView, category: Category, feature: Feature) {
+
     features.append(feature)
     relativeCategory.append(category)
+
     featureDelagate?.featureTableView(tableView: self, features: features)
+    
     reloadData()
   }
 }

@@ -17,6 +17,8 @@ class GoogleMapView: UIView {
   var currentLocation: CLLocationCoordinate2D?
   var currentName: String?
 
+  var userLocation: CLLocationCoordinate2D?
+
   var mapView: GMSMapView? {
     didSet {
 
@@ -66,17 +68,21 @@ class GoogleMapView: UIView {
   }
 
   func centerLocation(center: CLLocationCoordinate2D? = nil, name: String? = nil) {
+
     guard let mapView = mapView else { return }
 
     if let center = center {
       currentLocation = center
+    } else {
+      currentLocation = userLocation
+      currentName = "當前位置"
     }
 
     if let name = name {
       currentName = name
-
-      addMarker(title: name, snippet: .empty, position: (center ?? currentLocation)!)
     }
+
+    addMarker(title: (name ?? currentName)!, snippet: .empty, position: (center ?? currentLocation)!)
 
     let location = center ?? currentLocation
 
@@ -99,6 +105,8 @@ extension GoogleMapView: CLLocationManagerDelegate {
     currentLocation = location.coordinate
 
     locationManager.stopUpdatingLocation()
+
+    userLocation = location.coordinate
 
     centerLocation(center: location.coordinate, name: "當前位置")
   }

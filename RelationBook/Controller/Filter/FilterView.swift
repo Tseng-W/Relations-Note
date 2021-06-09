@@ -176,6 +176,12 @@ class FilterView: UIView {
   func reloadDate() {
     onHiddenFilter(isHidden: filterHeightConstraint?.constant != 0)
   }
+
+  func reset() {
+    selectedCategories.removeAll()
+    categoryViews.forEach { $0.status = .mainCategory; $0.selectedIndex = nil }
+    onHiddenFilter(isHidden: false)
+  }
 }
 
 extension FilterView: SelectionViewDatasource, SelectionViewDelegate {

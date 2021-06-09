@@ -205,6 +205,14 @@ class RelationDetailViewController: UIViewController {
 // MARK: - Selection bar Delegate
 extension RelationDetailViewController: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
 
+  func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? {
+    .button
+  }
+
+  func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor {
+    .button
+  }
+
   func numberOfButton(_ selectionView: SelectionView) -> Int {
     2
   }

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +24,7 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Jp0-8s-ciw" secondAttribute="height" multiplier="1:1" id="iXY-gg-Ej7"/>
                         </constraints>
-                        <color key="tintColor" systemColor="secondaryLabelColor"/>
+                        <color key="tintColor" name="Button"/>
                         <state key="normal">
                             <color key="titleColor" systemColor="secondaryLabelColor"/>
                             <imageReference key="image" image="checkmark.square" catalog="system" symbolScale="large"/>
@@ -34,11 +35,12 @@
                     </button>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="新增" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z9n-DF-BmS">
                         <rect key="frame" x="78" y="19" width="366" height="24"/>
+                        <color key="textColor" name="Button"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
-                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                <color key="backgroundColor" name="Background"/>
                 <constraints>
                     <constraint firstItem="z9n-DF-BmS" firstAttribute="centerY" secondItem="u8P-2y-rPM" secondAttribute="centerY" id="5IS-yO-gVA"/>
                     <constraint firstAttribute="trailing" secondItem="z9n-DF-BmS" secondAttribute="trailing" constant="16" id="5wQ-K2-5Wd"/>
@@ -58,11 +60,14 @@
     </objects>
     <resources>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

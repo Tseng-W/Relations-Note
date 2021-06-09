@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,7 +32,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新增特徵興趣" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TG-bi-Azc">
                     <rect key="frame" x="0.0" y="8" width="402" height="25.5"/>
                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="18"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" name="Button"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-fI-LPL" userLabel="Bar">
@@ -43,7 +44,7 @@
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AsV-vT-g94">
                     <rect key="frame" x="16" y="278.5" width="370" height="282.5"/>
-                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    <color key="backgroundColor" name="Background"/>
                 </tableView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="NY1-ww-FoB">
                     <rect key="frame" x="16" y="577" width="370" height="40"/>
@@ -54,13 +55,15 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjO-jP-4Ls">
                                     <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
                                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
-                                    <state key="normal" title="取消"/>
+                                    <state key="normal" title="取消">
+                                        <color key="titleColor" name="Background"/>
+                                    </state>
                                     <connections>
                                         <action selector="onTapCancel:" destination="-1" eventType="touchUpInside" id="WBk-Sw-xND"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemGray3Color"/>
+                            <color key="backgroundColor" name="Button"/>
                             <color key="tintColor" systemColor="secondaryLabelColor"/>
                             <constraints>
                                 <constraint firstItem="cjO-jP-4Ls" firstAttribute="top" secondItem="KA6-zf-tFx" secondAttribute="top" id="MyL-ap-IWq"/>
@@ -80,13 +83,15 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGP-Qu-c73">
                                     <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
                                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
-                                    <state key="normal" title="確定"/>
+                                    <state key="normal" title="確定">
+                                        <color key="titleColor" name="Background"/>
+                                    </state>
                                     <connections>
                                         <action selector="onTapConfirm:" destination="-1" eventType="touchUpInside" id="Han-tS-ZiE"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemGray3Color"/>
+                            <color key="backgroundColor" name="Button"/>
                             <color key="tintColor" systemColor="secondaryLabelColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="nGP-Qu-c73" secondAttribute="trailing" id="TMp-AA-eGv"/>
@@ -107,7 +112,7 @@
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+            <color key="backgroundColor" name="Background"/>
             <constraints>
                 <constraint firstItem="AsV-vT-g94" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="9vi-sz-qjW"/>
                 <constraint firstItem="ROq-fI-LPL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="ALt-bW-mrM"/>
@@ -131,14 +136,17 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="Background">
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button">
+            <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

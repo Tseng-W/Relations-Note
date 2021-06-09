@@ -120,11 +120,11 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpz-oB-N5D">
                                 <rect key="frame" x="0.0" y="278.5" width="414" height="583.5"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5Wn-jb-1xf"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="SrP-TT-N0z" firstAttribute="top" secondItem="6Gn-UT-QUa" secondAttribute="bottom" id="Ch3-1f-ukz"/>
                             <constraint firstItem="6Gn-UT-QUa" firstAttribute="leading" secondItem="5Wn-jb-1xf" secondAttribute="leading" id="MSK-gS-vvP"/>

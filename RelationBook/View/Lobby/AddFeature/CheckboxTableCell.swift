@@ -10,7 +10,7 @@ import UIKit
 class CheckboxTableCell: UITableViewCell {
 
   let placeholder: String = "新增"
-  let placeholderColor: UIColor = .secondaryLabel
+  let placeholderColor: UIColor = .buttonDisable
 
   var content = FeatureContent(isProcessing: false, text: "") {
     didSet {

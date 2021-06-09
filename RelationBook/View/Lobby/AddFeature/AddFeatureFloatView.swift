@@ -17,6 +17,7 @@ class AddFeatureFloatView: UIView, NibLoadable{
   @IBOutlet var filterView: FilterView!
   @IBOutlet var tableView: UITableView! {
     didSet {
+
       tableView.delegate = self
       tableView.dataSource = self
 
@@ -24,9 +25,14 @@ class AddFeatureFloatView: UIView, NibLoadable{
       tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
     }
   }
-  @IBOutlet var filterHeight: NSLayoutConstraint!
+  @IBOutlet var filterHeight: NSLayoutConstraint! {
+    didSet {
+      defaultHeight = filterHeight.constant
+    }
+  }
   @IBOutlet var confirmButton: UIButton!
 
+  var defaultHeight: CGFloat?
   var featureViewModel = FeatureViewModel()
 
   var blurView: UIVisualEffectView?
@@ -79,7 +85,16 @@ class AddFeatureFloatView: UIView, NibLoadable{
       }
     }
 
-    featureViewModel.feature.bind { _ in
+    featureViewModel.feature.bind { feature in
+
+      if feature.contents.count == 0 {
+        self.confirmButton.backgroundColor = .buttonDisable
+        self.confirmButton.isEnabled = false
+      } else {
+        self.confirmButton.backgroundColor = .button
+        self.confirmButton.isEnabled = true
+      }
+
       self.tableView.reloadData()
     }
   }
@@ -106,14 +121,12 @@ class AddFeatureFloatView: UIView, NibLoadable{
     cornerRadius = frame.width * 0.05
   }
 
-  private func reset() {
-
-    featureViewModel.feature.value = Feature()
-  }
-
   @IBAction func onTapCancel(_ sender: UIButton) {
     blurView?.removeFromSuperview()
     removeFromSuperview()
+
+    reset()
+
     onCancel?()
   }
 
@@ -126,6 +139,21 @@ class AddFeatureFloatView: UIView, NibLoadable{
     delegate?.featureFloatView(view: self, category: selectedCategory[0], feature: feature)
 
     onTapCancel(sender)
+  }
+}
+
+extension AddFeatureFloatView {
+
+  private func reset() {
+
+    selectedCategory.removeAll()
+    featureViewModel.feature.value = Feature()
+
+    if let defaultHeight = defaultHeight {
+      filterHeight.constant = defaultHeight
+    }
+
+    filterView.reset()
   }
 }
 

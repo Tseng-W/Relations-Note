@@ -73,9 +73,35 @@ class AddEventViewController: UIViewController {
   var relationCategories: [Category] = []
   var imageLink: String?
   var mood = 2
-  var event: Category?
-  var location: GeoPoint?
-  var locationName: String?
+  var event: Category? {
+    didSet {
+      if event != nil {
+        eventButton.titleLabel?.textColor = .button
+      } else {
+        eventButton.titleLabel?.textColor = .buttonDisable
+      }
+    }
+  }
+  var location: GeoPoint? {
+    didSet {
+      if event != nil {
+        locationButton.titleLabel?.textColor = .button
+      } else {
+        locationButton.titleLabel?.textColor = .buttonDisable
+      }
+    }
+  }
+  var locationName: String? {
+    didSet {
+      if let name = locationName {
+        locationButton.setTitle(name, for: .normal)
+        locationButton.titleLabel?.textColor = .button
+      } else {
+        locationButton.setTitle("地點", for: .normal)
+        locationButton.titleLabel?.textColor = .buttonDisable
+      }
+    }
+  }
   var date = Date() {
     didSet {
       dayButton.setTitle(date.getDayString(type: .day), for: .normal)
@@ -149,8 +175,6 @@ class AddEventViewController: UIViewController {
 
     selectFloatViewController.onEventSelected = { event in
       self.event = event
-      self.eventButton.setTitle(event.title, for: .normal)
-      self.eventButton.titleLabel?.textColor = .button
     }
 
     selectFloatViewController.onDateSelected = { type, date in
@@ -165,8 +189,6 @@ class AddEventViewController: UIViewController {
     selectFloatViewController.onLocationSelected = { geoPoint, name in
       self.location = geoPoint
       self.locationName = name
-      self.locationButton.setTitle(self.locationName, for: .normal)
-      self.locationButton.titleLabel?.textColor = .button
     }
 
     selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in

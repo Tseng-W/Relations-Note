@@ -73,10 +73,15 @@ class EventDetailView: UIView, NibLoadable {
 
     relationName.text = mainRelation.title
     if let geoPoint = event.location {
-      locaionLabel.text = "\(geoPoint.longitude.rounded()), \(geoPoint.latitude.rounded())"
+      if let name = event.locationName,
+         name != "當前位置" {
+        locaionLabel.text = "\(geoPoint.longitude.rounded()), \(geoPoint.latitude.rounded()) (\(name))"
+      } else {
+        locaionLabel.text = "\(geoPoint.longitude.rounded()), \(geoPoint.latitude.rounded())"
+      }
+
     } else {
       locaionLabel.text = "-"
-
     }
 
     timeLabel.text = event.time.dateValue().getDayString(type: .time)
