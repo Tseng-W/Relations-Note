@@ -116,6 +116,15 @@ class SelectionView: UIView {
     guard let delegate = delegate,
           let index = self.subviews.first?.subviews.firstIndex(of: sender) else { return }
     moveIndicatorView(reference: sender)
+
+//    switch type {
+//    case .scroll:
+//      for index in 0..<scrollView.
+//      break
+//    case .stack:
+//      break
+//    }
+
     delegate.didSelectedButton(self, at: index)
   }
 

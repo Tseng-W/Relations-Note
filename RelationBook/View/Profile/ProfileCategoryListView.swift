@@ -71,7 +71,7 @@ class ProfileCategoryListView: UIViewController {
     }
 
     eventViewModel.events.bind { [weak self] event in
-      self?.selectionView.reloadDate()
+//      self?.selectionView.reloadDate()
       self?.scrollView.subviews.forEach { view in
         guard let view = view as? UITableView else { return }
         view.reloadData()
@@ -79,7 +79,7 @@ class ProfileCategoryListView: UIViewController {
     }
 
     relationViewModel.relations.bind { [weak self] relation in
-      self?.selectionView.reloadDate()
+//      self?.selectionView.reloadDate()
       self?.scrollView.subviews.forEach { view in
         guard let view = view as? UITableView else { return }
         view.reloadData()
@@ -135,6 +135,7 @@ class ProfileCategoryListView: UIViewController {
   }
 }
 
+// MARK: - Selection View Delegate
 extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -145,7 +146,10 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
   }
 
   func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    scrollView.contentOffset = CGPoint(x: scrollView.frame.width * CGFloat(index), y: 0)
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+      self.scrollView.contentOffset = CGPoint(x: self.scrollView.frame.width * CGFloat(index), y: 0)
+      self.view.layoutIfNeeded()
+    }
   }
 
   func numberOfButton(_ selectionView: SelectionView) -> Int {
@@ -181,6 +185,7 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
   }
 }
 
+// MARK: - Table View Delegate ( For Categories )
 extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
