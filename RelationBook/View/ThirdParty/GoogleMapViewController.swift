@@ -82,11 +82,9 @@ class GoogleMapView: UIView {
       currentName = name
     }
 
-    addMarker(title: (name ?? currentName)!, snippet: .empty, position: (center ?? currentLocation)!)
+    guard let location = center ?? currentLocation else { return }
 
-    let location = center ?? currentLocation
-
-    guard let location = location else { return }
+    addMarker(title: (name ?? currentName)!, snippet: .empty, position: location)
 
     let target = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
 

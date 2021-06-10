@@ -37,10 +37,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cJf-j6-6A2">
-                    <rect key="frame" x="16" y="206.5" width="50" height="21.5"/>
+                    <rect key="frame" x="16" y="206" width="50" height="22"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明暗度" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWI-46-lnc">
-                            <rect key="frame" x="6.5" y="3.5" width="37" height="14.5"/>
+                            <rect key="frame" x="6.5" y="4" width="37" height="14.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <color key="textColor" systemColor="secondaryLabelColor"/>
                             <nil key="highlightedColor"/>
@@ -147,7 +147,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nv0-Yf-djf">
-                    <rect key="frame" x="82" y="203.5" width="332" height="27.5"/>
+                    <rect key="frame" x="82" y="203" width="332" height="28"/>
                     <subviews>
                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uZ5-Me-W5z" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
                             <rect key="frame" x="0.0" y="-10" width="332" height="47"/>
@@ -167,10 +167,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="van-Rd-biP" customClass="IconSelectView" customModule="RelationBook" customModuleProvider="target">
-                    <rect key="frame" x="165.5" y="77" width="83" height="110.5"/>
+                    <rect key="frame" x="103.5" y="77" width="207" height="110"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="van-Rd-biP" secondAttribute="height" multiplier="3:4" id="6Ir-qq-VqI"/>
+                        <constraint firstAttribute="width" secondItem="van-Rd-biP" secondAttribute="height" multiplier="207:110" id="2r0-gd-zQT"/>
                     </constraints>
                 </view>
             </subviews>
@@ -195,7 +195,7 @@
                 <constraint firstItem="kb0-1w-wfx" firstAttribute="top" secondItem="hz3-Da-oQe" secondAttribute="bottom" constant="10" id="n3h-81-oh1"/>
                 <constraint firstItem="Nv0-Yf-djf" firstAttribute="leading" secondItem="cJf-j6-6A2" secondAttribute="trailing" constant="16" id="oxy-LG-kIj"/>
                 <constraint firstItem="lhv-3P-LuS" firstAttribute="leading" secondItem="IdL-dN-vpV" secondAttribute="leading" id="r8A-h2-3P5"/>
-                <constraint firstItem="van-Rd-biP" firstAttribute="width" secondItem="IdL-dN-vpV" secondAttribute="width" multiplier="0.2" id="rP7-Pm-MYx"/>
+                <constraint firstItem="van-Rd-biP" firstAttribute="width" secondItem="IdL-dN-vpV" secondAttribute="width" multiplier="0.5" id="rP7-Pm-MYx"/>
                 <constraint firstItem="hz3-Da-oQe" firstAttribute="leading" secondItem="IdL-dN-vpV" secondAttribute="leading" id="rkl-Qd-D0O"/>
                 <constraint firstItem="Nv0-Yf-djf" firstAttribute="top" secondItem="van-Rd-biP" secondAttribute="bottom" constant="16" id="sLY-fs-BTO"/>
                 <constraint firstItem="cJf-j6-6A2" firstAttribute="height" secondItem="Nv0-Yf-djf" secondAttribute="height" multiplier="0.786667" id="umL-wL-qjf"/>

@@ -46,7 +46,9 @@ class AddFeatureTableCell: UITableViewCell {
         switchView.onTintColor = .button
         switchView.tintColor = .background
 
-        switchView.setOn(false, animated: true)
+        let style = window?.overrideUserInterfaceStyle
+
+        switchView.setOn(style == .dark, animated: true)
         switchView.addTarget(self, action: #selector(self.onSwitchTapped(_:)), for: .valueChanged)
         accessoryView = switchView
 
@@ -76,5 +78,16 @@ class AddFeatureTableCell: UITableViewCell {
   
   @objc func onSwitchTapped(_ sender: UISwitch) {
     window?.overrideUserInterfaceStyle = sender.isOn ? .dark : .light
+
+    if sender.isOn {
+      UserDefaults.standard.setValue(
+        "dark",
+        forKey: UserDefaults.Keys.style.rawValue)
+    } else {
+      UserDefaults.standard.setValue(
+        "light",
+        forKey: UserDefaults.Keys.style.rawValue)
+    }
+
   }
 }

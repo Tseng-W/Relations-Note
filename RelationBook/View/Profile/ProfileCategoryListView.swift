@@ -183,6 +183,14 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
       return .empty
     }
   }
+
+  func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? {
+    .buttonDisable
+  }
+
+  func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor {
+    .buttonDisable
+  }
 }
 
 // MARK: - Table View Delegate ( For Categories )

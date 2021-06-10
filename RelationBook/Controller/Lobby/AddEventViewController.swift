@@ -138,6 +138,13 @@ class AddEventViewController: UIViewController {
     date = Date()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+
+    super.viewWillAppear(true)
+
+    LKProgressHUD.dismiss()
+  }
+
   private func relationFilterSetup() {
 
     view.layoutIfNeeded()

@@ -38,11 +38,19 @@ extension SelectionViewDatasource {
 
   func numberOfButtons(in selectionView: SelectionView) -> Int { return 2 }
 
-  func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? { return .systemGray2 }
+  func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? { if #available(iOS 13.0, *) {
+    return .systemGray2
+  } else {
+    return .categoryColor1
+  } }
 
   func initialButtonIndex(_ selectionView: SelectionView) -> Int { return 0 }
 
-  func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor { return .systemGray2 }
+  func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor { if #available(iOS 13.0, *) {
+    return .systemGray2
+  } else {
+    return .categoryColor1
+  } }
 
   func selectionView(_ selectionView: SelectionView, fontForButtonAt index: Int) -> UIFont { return UIFont.pingfang(size: 16) }
 }
@@ -61,6 +69,7 @@ class SelectionView: UIView {
   var type: ViewType = .scroll
 
   var scrollView = UIScrollView()
+  var statckView = UIStackView()
 
   var indicatorView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
@@ -86,7 +95,11 @@ class SelectionView: UIView {
     subviews.forEach { $0.removeFromSuperview() }
 
     guard let datasource = datasource else { return }
+
     buttons.removeAll()
+    scrollView.subviews.forEach { $0.removeFromSuperview() }
+    statckView.subviews.forEach { $0.removeFromSuperview() }
+
 
 
     let numberOfButton = datasource.numberOfButton(self)
@@ -209,7 +222,7 @@ class SelectionView: UIView {
 
     guard let datasource = datasource else { return }
 
-    let statckView = UIStackView()
+    statckView = UIStackView()
     statckView.alignment = .fill
     statckView.distribution = .fillEqually
     addSubview(statckView)

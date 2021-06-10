@@ -24,6 +24,8 @@
 	<string>AIzaSyAhvr546CaeLBhNiKpqEbLGgycKTQ9YRGo</string>
 	<key>Google map id</key>
 	<string>a9d7fa97fdd6d6b2</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlechromes</string>
@@ -78,8 +80,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 </dict>
 </plist>

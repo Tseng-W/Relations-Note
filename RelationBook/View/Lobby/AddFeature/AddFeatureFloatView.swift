@@ -101,6 +101,13 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
   func show(_ view: UIView, category: Category?, feature: Feature?) {
 
+    isHidden = true
+    LKProgressHUD.show()
+
+    do{
+      sleep(UInt32(0.5))
+    }
+
     reset()
 
     tableView.separatorColor = .clear
@@ -119,9 +126,13 @@ class AddFeatureFloatView: UIView, NibLoadable{
     view.layoutIfNeeded()
 
     cornerRadius = frame.width * 0.05
+
+    LKProgressHUD.dismiss()
+    isHidden = false
   }
 
   @IBAction func onTapCancel(_ sender: UIButton) {
+    
     blurView?.removeFromSuperview()
     removeFromSuperview()
 

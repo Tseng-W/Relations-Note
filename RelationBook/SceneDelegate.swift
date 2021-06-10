@@ -8,10 +8,10 @@
 import UIKit
 import FirebaseAuth
 
+@available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
-
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -65,6 +65,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     #endif
 
+
+    if let style = UserDefaults.standard.getString(key: .style) {
+      if style == "dark" {
+        window?.overrideUserInterfaceStyle = .dark
+      } else if style == "light" {
+        window?.overrideUserInterfaceStyle = .light
+      }
+    }
   }
 
   func sceneDidEnterBackground(_ scene: UIScene) {

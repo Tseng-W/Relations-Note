@@ -108,9 +108,10 @@ class LobbyViewController: UIViewController {
     popViews.forEach { $0.removeFromSuperview() }
   }
 
-//  @IBAction func logout(_ sender: UIBarButtonItem) {
+  @IBAction func logout(_ sender: UIBarButtonItem) {
 //    try? Auth.auth().signOut()
-//  }
+    LKProgressHUD.showSuccess(text: "成功")
+  }
 }
 
 // MARK: - calendar delegate / datasource
@@ -292,7 +293,7 @@ extension LobbyViewController: TabBarTapDelegate {
 
   func tabBarTapped(_ controller: PBTabBarViewController, index: Int) {
 
-    lottieView.show(view, animation: .mail)
+    LKProgressHUD.show()
     performSegue(withIdentifier: "addEvent", sender: self)
   }
 }

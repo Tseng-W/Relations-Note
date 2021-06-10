@@ -86,6 +86,7 @@
 		47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47815AA92664B7C5001FCFBA /* EventDetailView.swift */; };
 		4786930226516EC100BFA750 /* MoodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786930126516EC100BFA750 /* MoodSelectView.swift */; };
 		478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478693032651F2E800BFA750 /* SelectFloatViewController.swift */; };
+		47951F732671FB790075A135 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47951F722671FB790075A135 /* JGProgressHUDWrapper.swift */; };
 		479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */; };
 		479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3CC26412613000E2CFC /* UITableView+Extension.swift */; };
 		479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */; };
@@ -225,6 +226,7 @@
 		47815AA92664B7C5001FCFBA /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		4786930126516EC100BFA750 /* MoodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectView.swift; sourceTree = "<group>"; };
 		478693032651F2E800BFA750 /* SelectFloatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFloatViewController.swift; sourceTree = "<group>"; };
+		47951F722671FB790075A135 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
 		479DE3CC26412613000E2CFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 		479DE3DB264128AF000E2CFC /* Third Party Wrapper */ = {
 			isa = PBXGroup;
 			children = (
+				47951F722671FB790075A135 /* JGProgressHUDWrapper.swift */,
 				479DE3DC264128C7000E2CFC /* KingFisherWrapper.swift */,
 				479DE3E4264128F5000E2CFC /* MJRefreshWrapper.swift */,
 				474C6B8C2661D83700A3C9FD /* SCLAlertViewWrapper.swift */,
@@ -1092,6 +1095,7 @@
 				4765B1772650129700A6D18D /* SelectionView.swift in Sources */,
 				47339EC2263C3C140092860F /* UIStoryboard+Extension.swift in Sources */,
 				47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */,
+				47951F732671FB790075A135 /* JGProgressHUDWrapper.swift in Sources */,
 				4712C23426526D16008D8386 /* RelationTableCell.swift in Sources */,
 				476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */,
 				475BF57026691A8900AD5441 /* RelationListTableCell.swift in Sources */,
@@ -1251,7 +1255,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1306,7 +1310,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

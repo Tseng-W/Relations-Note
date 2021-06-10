@@ -12,7 +12,6 @@ target 'RelationBook' do
   pod 'Kingfisher'
   pod 'JGProgressHUD'
   # pod 'KeychainAccess'
-  # pod 'Reusable'
   pod 'FSCalendar'
   pod 'TagListView', '~> 1.0'
   pod 'Firebase'
