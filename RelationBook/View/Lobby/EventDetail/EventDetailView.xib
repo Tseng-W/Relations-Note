@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -73,7 +74,6 @@
                         <constraint firstItem="FoT-pU-f6e" firstAttribute="leading" secondItem="cNQ-e6-oME" secondAttribute="leading" id="3zo-G3-4MJ"/>
                         <constraint firstItem="P64-J9-OEt" firstAttribute="top" secondItem="cNQ-e6-oME" secondAttribute="top" constant="16" id="FAq-cp-PNr"/>
                         <constraint firstAttribute="trailing" secondItem="jo1-HT-7Wr" secondAttribute="trailing" constant="16" id="Ide-zs-lFA"/>
-                        <constraint firstAttribute="width" secondItem="cNQ-e6-oME" secondAttribute="height" multiplier="1:1" id="KBf-9i-unP"/>
                         <constraint firstItem="YqC-q9-XFo" firstAttribute="centerY" secondItem="cNQ-e6-oME" secondAttribute="centerY" id="MPU-cQ-hlo"/>
                         <constraint firstAttribute="trailing" secondItem="FoT-pU-f6e" secondAttribute="trailing" id="Mko-pu-xyc"/>
                         <constraint firstAttribute="bottom" secondItem="FoT-pU-f6e" secondAttribute="bottom" id="OHI-mi-jVW"/>
@@ -226,7 +226,9 @@
                 <constraint firstItem="TDQ-Sc-Ry5" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.4" id="Vcs-l3-3pm"/>
                 <constraint firstItem="35j-Qs-1G0" firstAttribute="bottom" secondItem="FoT-pU-f6e" secondAttribute="bottom" id="bqm-S2-kTf"/>
                 <constraint firstItem="9BW-zY-PeD" firstAttribute="centerY" secondItem="cNQ-e6-oME" secondAttribute="bottom" id="cz4-ou-tRV"/>
+                <constraint firstItem="cNQ-e6-oME" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="dQy-Ue-iFI"/>
                 <constraint firstItem="ReZ-qp-6c8" firstAttribute="leading" secondItem="9BW-zY-PeD" secondAttribute="trailing" constant="16" id="dzM-pf-PMs"/>
+                <constraint firstItem="cNQ-e6-oME" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.772152" id="hc3-Zu-ihD"/>
                 <constraint firstItem="PdA-SS-XBc" firstAttribute="top" secondItem="z25-nw-uVi" secondAttribute="bottom" constant="8" id="heF-qn-3kR"/>
                 <constraint firstItem="xWN-6H-LOV" firstAttribute="top" secondItem="cNQ-e6-oME" secondAttribute="bottom" constant="8" id="jb8-Xu-GfT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="z25-nw-uVi" secondAttribute="trailing" constant="16" id="kYi-fc-wHy"/>

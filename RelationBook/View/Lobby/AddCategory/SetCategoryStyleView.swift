@@ -156,7 +156,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
       left: view.leftAnchor, right: view.rightAnchor,
       centerY: view.centerYAnchor,
       paddingLeft: 16, paddingRight: 16,
-      height: view.frame.height / 2)
+      height: max(view.frame.height / 2, 400))
 
     view.layoutIfNeeded()
 

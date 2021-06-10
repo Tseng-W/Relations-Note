@@ -67,17 +67,18 @@ class FeatureViewModel {
     }
   }
 
-  func addFeatures(relation: Relation, features: [Feature], completion: @escaping () -> Void) {
+  func addFeatures(relation: Relation, features: [Feature], completion: @escaping () -> Void = {}) {
 
-    var newFeatures = features
+    var newFeatures = relation.feature
 
-    relation.feature.forEach { existFeature in
-      for index in 0..<newFeatures.count {
-        if newFeatures[index].categoryIndex == existFeature.categoryIndex {
-          newFeatures[index].contents.append(contentsOf: existFeature.contents)
-        } else {
-          newFeatures.append(existFeature)
-        }
+    features.forEach { feature in
+
+      if let index = newFeatures.firstIndex(where: { oldFeature in
+        oldFeature.categoryIndex == feature.categoryIndex
+      }) {
+        newFeatures[index].contents.append(contentsOf: feature.contents)
+      } else {
+        newFeatures.append(feature)
       }
     }
 

@@ -69,22 +69,24 @@ class AddEventViewController: UIViewController {
   }()
   let setCategoryView = SetCategoryStyleView()
 
-  // MARK: Event datas.
+  // MARK: Event datas initial.
   var relationCategories: [Category] = []
   var imageLink: String?
   var mood = 2
   var event: Category? {
     didSet {
-      if event != nil {
+      if let event = event {
         eventButton.titleLabel?.textColor = .button
+        eventButton.setTitle(event.title, for: .normal)
       } else {
         eventButton.titleLabel?.textColor = .buttonDisable
+        eventButton.setTitle("事件", for: .normal)
       }
     }
   }
   var location: GeoPoint? {
     didSet {
-      if event != nil {
+      if location != nil {
         locationButton.titleLabel?.textColor = .button
       } else {
         locationButton.titleLabel?.textColor = .buttonDisable
@@ -204,11 +206,16 @@ class AddEventViewController: UIViewController {
     }
   }
 
+  // MARK: - IBOutlets
+
   @IBAction func confirm(_ sender: UIButton) {
 
-    let dispachGroup = DispatchGroup()
+    guard let event = event else {
 
-    guard let event = event else { return }
+      LKProgressHUD.showFailure(text: "請選擇事件類別")
+      return
+    }
+
     guard let userID = userViewModel.user.value?.uid else { return }
 
     let comment: String = commentTextView.text == "備註" ? .empty : commentTextView.text
@@ -225,32 +232,23 @@ class AddEventViewController: UIViewController {
                          subEvents: subEvents,
                          comment: comment)
 
-    dispachGroup.enter()
     eventViewModel.addEvent(event: newEvent) { result in
       switch result {
       case .success(let docID):
         newEvent.docID = docID
-        dispachGroup.leave()
 
       case .failure(let error):
-        dispachGroup.leave()
         print("\(error.localizedDescription)")
       }
     }
 
     if features.count > 0 {
-      dispachGroup.enter()
 
-      guard let relation = relations.first(where: { $0.categoryIndex == relationCategories[0].id }) else { dispachGroup.leave(); return }
+      guard let relation = relations.first(where: { $0.categoryIndex == relationCategories[0].id }) else { return }
 
-      self.featureViewModel.addFeatures(relation: relation, features: self.features) {
-        dispachGroup.leave()
-      }
+      self.featureViewModel.addFeatures(relation: relation, features: self.features)
     }
-
-    dispachGroup.notify(queue: .main) {
-      self.dismiss(animated: true)
-    }
+    self.dismiss(animated: true)
   }
 
   @IBAction func close(_ sender: UIButton) {
@@ -260,7 +258,6 @@ class AddEventViewController: UIViewController {
   @IBAction func showLocation(_ sender: UIButton) {
 
     selectFloatViewController.display(type: .location)
-    
   }
 
   @IBAction func showChangeMood(_ sender: UIButton) {
@@ -336,7 +333,6 @@ extension AddEventViewController: CategoryStyleViewDelegate {
     isCropped: Bool, name: String,
     backgroundColor: UIColor,
     image: UIImage, imageString: String) {
-    print("")
   }
 
   func iconType(styleView: SetCategoryStyleView) -> CategoryType? {

@@ -83,7 +83,7 @@ class PBTabBarViewController: UITabBarController {
 
   var iconImageButton: IconView = {
 
-    let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+    let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
 
     iconView.setIcon(isCropped: false,
                      image: Tab.lobby.images()?.add,
@@ -126,7 +126,7 @@ class PBTabBarViewController: UITabBarController {
   private func lobbyButtonInit() {
 
     var center = tabBar.center
-    center.y -= 40
+    center.y -= iconImageButton.frame.height / 2
     iconImageButton.center = center
 
     view.addSubview(iconImageButton)

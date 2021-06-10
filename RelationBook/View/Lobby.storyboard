@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bcg-GL-qf1">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -113,13 +114,7 @@
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="jjQ-WY-PYS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="5hK-9g-4e4">
-                            <connections>
-                                <action selector="logout:" destination="TRd-7X-kQ2" id="Zt2-Iz-IJ0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7"/>
                     <connections>
                         <outlet property="calendar" destination="ATx-iw-HYq" id="3kf-Wq-IMI"/>
                         <outlet property="calendarHeightConstraint" destination="r9S-K1-4mk" id="Opi-Qu-kuk"/>

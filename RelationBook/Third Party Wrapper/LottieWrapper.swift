@@ -10,15 +10,25 @@ import Lottie
 
 class LottieWrapper: NSObject {
 
+  static let shared = LottieWrapper()
+
   enum Animation: String {
     case mail = "mailSend"
     case loading = "loading"
+  }
+
+  var view: UIView {
+    return UIApplication.shared.windows.first!.rootViewController!.view
   }
 
   var blurView: UIVisualEffectView?
   var animationView = AnimationView()
 
   var jobsCount: Int = 1
+
+  func show(animation: Animation, jobs: Int = 1, isCorned: Bool = false) {
+    show(view, animation: animation, jobs: jobs, isCorned: isCorned)
+  }
 
   func show(_ view: UIView, animation: Animation, jobs: Int = 1, isCorned: Bool = false) {
 
