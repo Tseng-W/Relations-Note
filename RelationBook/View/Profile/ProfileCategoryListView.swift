@@ -140,6 +140,8 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
+    if scrollView != self.scrollView { return }
+
     let paging = scrollView.contentOffset.x / scrollView.frame.width
 
     selectionView.moveIndicatorToIndex(index: Int(paging))

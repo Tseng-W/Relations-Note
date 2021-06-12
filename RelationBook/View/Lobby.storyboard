@@ -114,7 +114,13 @@
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="jjQ-WY-PYS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7"/>
+                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="pa3-yI-bDL">
+                            <connections>
+                                <action selector="logout:" destination="TRd-7X-kQ2" id="TNg-UB-ejg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="ATx-iw-HYq" id="3kf-Wq-IMI"/>
                         <outlet property="calendarHeightConstraint" destination="r9S-K1-4mk" id="Opi-Qu-kuk"/>
@@ -472,13 +478,16 @@
                     <connections>
                         <outlet property="commentTextView" destination="uR0-Df-t9L" id="31G-sL-3FZ"/>
                         <outlet property="dayButton" destination="aGd-Va-Qgr" id="R16-gk-JMw"/>
+                        <outlet property="detailHeader" destination="Z44-gv-QWl" id="qeS-Fc-nOa"/>
                         <outlet property="eventButton" destination="zKL-Wv-Yyu" id="M3D-hS-jGM"/>
+                        <outlet property="featureHeader" destination="I9p-SA-YLT" id="pER-Oa-80w"/>
                         <outlet property="featureTableView" destination="cg1-84-9Ze" id="Dpk-vv-jih"/>
                         <outlet property="filterHeightConstraint" destination="0Tl-0V-QU1" id="fcS-Pk-mKw"/>
                         <outlet property="filterView" destination="nvv-iT-43H" id="WlU-ze-cSN"/>
                         <outlet property="imageButton" destination="xyk-LX-R33" id="G0B-70-HJ1"/>
                         <outlet property="locationButton" destination="c1p-td-rae" id="Mbv-2W-Pmo"/>
                         <outlet property="moodButton" destination="Y70-X3-CVR" id="add-Cb-Scb"/>
+                        <outlet property="relationHeader" destination="Ph6-Nq-y8b" id="83Y-8U-ccz"/>
                         <outlet property="searchTextField" destination="4Xr-BS-Fa0" id="x4k-dB-wmg"/>
                         <outlet property="searchTextFieldHeight" destination="cVj-GY-hOR" id="Oe4-6g-sW5"/>
                         <outlet property="timeButton" destination="Zyt-6i-3uA" id="85n-VB-ClX"/>

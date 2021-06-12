@@ -9,6 +9,10 @@ import UIKit
 
 extension UIView {
 
+  var globalFrame: CGRect? {
+    return self.superview?.convert(self.frame, to: nil)
+  }
+
   func addBlurView() -> UIVisualEffectView {
 
     let blurEffect = UIBlurEffect(style: .dark)
@@ -102,6 +106,8 @@ extension UIView {
       }
     }
   }
+
+
 }
 
 @IBDesignable
@@ -109,10 +115,8 @@ extension UIView {
 
   @IBInspectable var isCornerd: Bool {
     set {
-      if newValue {
-        layer.cornerRadius = frame.size.height / 2
-        layer.masksToBounds = true
-      }
+      layer.cornerRadius = newValue ? frame.size.height / 2 : 0
+      layer.masksToBounds = newValue
     }
     get {
       return layer.cornerRadius > 0

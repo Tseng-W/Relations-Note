@@ -2,7 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +14,7 @@
             <connections>
                 <outlet property="subInfoLabel" destination="f5I-Pv-Jfl" id="Nge-Kx-r7z"/>
                 <outlet property="tagTitleLabel" destination="RzX-R0-2Nj" id="lEq-2A-P5W"/>
+                <outlet property="tipsButton" destination="4sL-hh-Ctx" id="dLR-ez-tEe"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -41,17 +44,29 @@
                         <constraint firstAttribute="height" constant="1" id="aKt-ia-UKc"/>
                     </constraints>
                 </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sL-hh-Ctx">
+                    <rect key="frame" x="94.5" y="24" width="20" height="22"/>
+                    <color key="tintColor" name="SecondaryLabel"/>
+                    <state key="normal">
+                        <imageReference key="image" image="questionmark.circle" catalog="system" renderingMode="template"/>
+                    </state>
+                    <connections>
+                        <action selector="onTappedTipsButton:" destination="-1" eventType="touchUpInside" id="TuW-MK-CNE"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Yn0-AP-wdW"/>
             <color key="backgroundColor" name="Background"/>
             <constraints>
                 <constraint firstItem="Yn0-AP-wdW" firstAttribute="trailing" secondItem="f5I-Pv-Jfl" secondAttribute="trailing" constant="16" id="0OU-En-3gU"/>
                 <constraint firstItem="RzX-R0-2Nj" firstAttribute="leading" secondItem="Yn0-AP-wdW" secondAttribute="leading" constant="16" id="7I5-GB-7bN"/>
+                <constraint firstItem="4sL-hh-Ctx" firstAttribute="leading" secondItem="RzX-R0-2Nj" secondAttribute="trailing" constant="16" id="AjW-39-A9S"/>
                 <constraint firstItem="KMI-hS-qPi" firstAttribute="leading" secondItem="ihz-ad-m6O" secondAttribute="leading" constant="8" id="GQQ-Eb-Gsb"/>
                 <constraint firstAttribute="trailing" secondItem="KMI-hS-qPi" secondAttribute="trailing" constant="8" id="J1r-jI-rRS"/>
                 <constraint firstItem="RzX-R0-2Nj" firstAttribute="centerY" secondItem="ihz-ad-m6O" secondAttribute="centerY" id="LuL-jc-XHI"/>
                 <constraint firstItem="RzX-R0-2Nj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ihz-ad-m6O" secondAttribute="top" id="RUw-TI-vpm"/>
                 <constraint firstAttribute="bottom" secondItem="KMI-hS-qPi" secondAttribute="bottom" constant="1" id="q39-kT-E9A"/>
+                <constraint firstItem="4sL-hh-Ctx" firstAttribute="centerY" secondItem="RzX-R0-2Nj" secondAttribute="centerY" id="rJX-BC-ZCf"/>
                 <constraint firstItem="KMI-hS-qPi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RzX-R0-2Nj" secondAttribute="bottom" id="tuZ-g3-c7h"/>
                 <constraint firstItem="f5I-Pv-Jfl" firstAttribute="centerY" secondItem="ihz-ad-m6O" secondAttribute="centerY" id="wzg-OK-tH2"/>
             </constraints>
@@ -62,6 +77,7 @@
         </view>
     </objects>
     <resources>
+        <image name="questionmark.circle" catalog="system" width="128" height="121"/>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -69,7 +85,10 @@
             <color red="0.29019607843137257" green="0.49411764705882355" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonDisable">
-            <color red="0.31607759786833789" green="0.53936141208085808" blue="0.6528967432228916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.49399998784065247" blue="0.60000002384185791" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SecondaryLabel">
+            <color red="0.28999999165534973" green="0.49399998784065247" blue="0.60000002384185791" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

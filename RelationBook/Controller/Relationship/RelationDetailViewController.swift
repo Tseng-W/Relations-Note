@@ -15,7 +15,6 @@ class RelationDetailViewController: UIViewController {
   }
 
   @IBOutlet var iconView: IconView!
-  @IBOutlet var nameLabel: UILabel!
   @IBOutlet var iconBackground: UIView!
   @IBOutlet var selectionBar: SelectionView! {
     didSet {
@@ -115,7 +114,7 @@ class RelationDetailViewController: UIViewController {
 
     guard let category = relationCategory else { dismiss(animated: true); return }
 
-    nameLabel.text = category.title
+    navigationItem.title = category.title
 
     eventViewModel.events.bind { [weak self] events in
       guard let relation = self?.relationCategory else { return }
@@ -235,6 +234,8 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
   }
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+    guard scrollView == self.scrollView else { return }
 
     let paging: CGFloat = scrollView.contentOffset.x / scrollView.frame.width
 

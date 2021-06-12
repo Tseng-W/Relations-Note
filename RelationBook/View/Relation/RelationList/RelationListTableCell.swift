@@ -17,14 +17,17 @@ class RelationListTableCell: UITableViewCell {
 
   var relation: Category? {
     didSet {
+
       guard let relation = relation else { return }
+
       sideBarView.backgroundColor = relation.getColor()
 
       relation.getImage { [weak self] image in
         self?.iconView.setIcon(
-          isCropped: false,
+          isCropped: relation.isCustom,
           image: image,
           bgColor: .clear,
+          tintColor: relation.getColor(),
           multiple: 1)
       }
 

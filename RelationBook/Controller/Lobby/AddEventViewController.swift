@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AMPopTip
 import Firebase
 
 class AddEventViewController: UIViewController {
@@ -45,6 +44,9 @@ class AddEventViewController: UIViewController {
       commentTextView.delegate = self
     }
   }
+  @IBOutlet var relationHeader: RelationTableHeaderCell!
+  @IBOutlet var detailHeader: RelationTableHeaderCell!
+  @IBOutlet var featureHeader: RelationTableHeaderCell!
 
   // MARK: Initial information
   let commentPlaceholder = "備註"
@@ -54,7 +56,6 @@ class AddEventViewController: UIViewController {
 
   let lottieView = LottieWrapper()
 
-  let popTip = PopTip()
   var userViewModel = UserViewModel()
   var eventViewModel = EventViewModel()
   let featureViewModel = FeatureViewModel()
@@ -143,6 +144,35 @@ class AddEventViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
 
     super.viewWillAppear(true)
+
+    relationHeader.tips = {
+      PopTipManager.shared
+        .addPopTip(at: self.filterView, text: "在此處選擇互動的對象", direction: .up)
+        .addPopTip(at: self.filterView, text: "可以點擊分類頁或滑動切換類型", direction: .up)
+        .addPopTip(at: self.filterView, text: "新的關係人可在分類下點擊新增添加", direction: .down)
+        .show()
+    }
+
+    detailHeader.tips = {
+      PopTipManager.shared
+        .addPopTip(at: self.detailHeader, text: "此處可設定事件的詳細資料", direction: .up)
+        .addPopTip(at: self.eventButton, text: "選取事件的種類，諸如偶遇、會議或是聚會", direction: .up)
+        .addPopTip(at: self.imageButton, text: "點擊新增事件照片，像是互動的現場或合照~", direction: .up)
+        .addPopTip(at: self.moodButton, text: "這次互動心情如何？記錄你的情緒！", direction: .up)
+        .addPopTip(at: self.locationButton, text: "按這裡可以紀錄碰面的地點~", direction: .left)
+        .addPopTip(at: self.dayButton, text: "不是今天發生的？點這裡更改日期", direction: .down)
+        .addPopTip(at: self.timeButton, text: "這裡可以更改時間喔~", direction: .down)
+        .show()
+    }
+
+    featureHeader.tips = {
+      PopTipManager.shared
+        .addPopTip(at: self.featureHeader, text: "這次互動中你更了解了對方？", direction: .up, attributes: PopTipManager.Style.defaultStyle)
+        .addPopTip(at: self.featureTableView, text: "點擊此處新增對方的特徵！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
+        .addPopTip(at: self.featureTableView, text: "例如個人資料、興趣喜好或紀念人！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
+        .addPopTip(at: self.featureTableView, text: "之後可在關係詳情中查看，避免忘記趕快添加吧！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
+        .show()
+    }
 
     LKProgressHUD.dismiss()
   }
@@ -298,6 +328,8 @@ class AddEventViewController: UIViewController {
 
     provider.showAlert(type: .rectImage)
   }
+
+  
 }
 
 extension AddEventViewController: UITextFieldDelegate {

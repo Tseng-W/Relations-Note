@@ -73,11 +73,11 @@ class SelectFloatViewController: FloatingViewController {
           datePicker.datePickerMode = .time
         }
       case .location:
-        titleLabel.text = "AppWorksSchool"
+        titleLabel.text = "互動地點"
         resetButton.isHidden = false
         cancelButton.superview!.isHidden = false
         mapView.isHidden = false
-        resetButton.setTitle("當前", for: .normal)
+        resetButton.setTitle("現在位置", for: .normal)
       }
     }
   }

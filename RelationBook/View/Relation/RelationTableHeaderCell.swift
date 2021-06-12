@@ -40,6 +40,20 @@ class RelationTableHeaderCell: UIView, NibLoadable {
 
   @IBOutlet var subInfoLabel: UILabel!
 
+  @IBOutlet var tipsButton: UIButton!
+
+  var tips: (() -> Void)? {
+    didSet {
+      guard tips != nil else { return }
+
+      tipsButton.isHidden = false
+    }
+  }
+
+  @IBAction func onTappedTipsButton(_ sender: UIButton) {
+    tips?()
+  }
+
   override class func awakeFromNib() {
     super.awakeFromNib()
   }

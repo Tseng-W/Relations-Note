@@ -95,7 +95,7 @@ class LobbyViewController: UIViewController {
     }
 
     userViewModel.fetchUserDate()
-    lottieView.show(view, animation: .mail, jobs: 3)
+    lottieView.show(animation: .mail, jobs: 3)
 
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
@@ -109,8 +109,7 @@ class LobbyViewController: UIViewController {
   }
 
   @IBAction func logout(_ sender: UIBarButtonItem) {
-//    try? Auth.auth().signOut()
-    LKProgressHUD.showSuccess(text: "成功")
+    //    try? Auth.auth().signOut()
   }
 }
 
@@ -128,9 +127,9 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
     view.layoutIfNeeded()
   }
 
-//  func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-// MARK: 每月第一週置頂
-//  }
+  //  func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+  // MARK: 每月第一週置頂
+  //  }
   
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 

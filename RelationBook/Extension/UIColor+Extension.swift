@@ -60,6 +60,8 @@ extension UIColor {
 
   static let categoryColor8: UIColor = UIColor(named: "Color8")!
 
+  static let categoryColor9: UIColor = UIColor(named: "Color9")!
+
   func StringFromUIColor() -> String {
     guard let components = self.cgColor.components else { return "" }
     return "[\(components[0]), \(components[1]), \(components[2]), \(components[3])]"

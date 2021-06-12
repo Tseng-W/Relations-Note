@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mZI-Fh-jFa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -89,26 +90,19 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="134.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA8-oC-AJv" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
-                                        <rect key="frame" x="161.5" y="8" width="91" height="91"/>
+                                        <rect key="frame" x="156" y="16" width="102" height="102.5"/>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="DA8-oC-AJv" secondAttribute="height" multiplier="1:1" id="EcO-oL-HN4"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29R-Cn-b03">
-                                        <rect key="frame" x="186" y="105.5" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="29R-Cn-b03" firstAttribute="centerX" secondItem="6Gn-UT-QUa" secondAttribute="centerX" id="0iR-UI-Fqd"/>
-                                    <constraint firstItem="DA8-oC-AJv" firstAttribute="top" secondItem="6Gn-UT-QUa" secondAttribute="top" constant="8" id="0oh-ym-1Ia"/>
-                                    <constraint firstAttribute="bottom" secondItem="29R-Cn-b03" secondAttribute="bottom" constant="8" id="JR6-3d-t4d"/>
+                                    <constraint firstAttribute="bottom" secondItem="DA8-oC-AJv" secondAttribute="bottom" constant="16" id="ATc-Dn-e1x"/>
+                                    <constraint firstItem="DA8-oC-AJv" firstAttribute="centerY" secondItem="6Gn-UT-QUa" secondAttribute="centerY" id="cfF-6E-Eld"/>
                                     <constraint firstItem="DA8-oC-AJv" firstAttribute="centerX" secondItem="6Gn-UT-QUa" secondAttribute="centerX" id="hWq-41-D4g"/>
-                                    <constraint firstItem="29R-Cn-b03" firstAttribute="top" secondItem="DA8-oC-AJv" secondAttribute="bottom" constant="6.5" id="zyO-Ak-8e6"/>
+                                    <constraint firstItem="DA8-oC-AJv" firstAttribute="top" secondItem="6Gn-UT-QUa" secondAttribute="top" constant="16" id="iFk-ZC-3BG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrP-TT-N0z" customClass="SelectionView" customModule="RelationBook" customModuleProvider="target">
@@ -144,7 +138,6 @@
                         <outlet property="contentView" destination="hpz-oB-N5D" id="3HV-Il-crv"/>
                         <outlet property="iconBackground" destination="6Gn-UT-QUa" id="LXP-JL-0gY"/>
                         <outlet property="iconView" destination="DA8-oC-AJv" id="2GW-VH-KGi"/>
-                        <outlet property="nameLabel" destination="29R-Cn-b03" id="cUZ-cb-VoM"/>
                         <outlet property="selectionBar" destination="SrP-TT-N0z" id="Tmp-xa-qck"/>
                     </connections>
                 </viewController>

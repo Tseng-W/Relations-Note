@@ -88,6 +88,7 @@
 		478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478693032651F2E800BFA750 /* SelectFloatViewController.swift */; };
 		47951F732671FB790075A135 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47951F722671FB790075A135 /* JGProgressHUDWrapper.swift */; };
 		479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */; };
+		479AB9C8267483AA00958B5B /* AMPopTipWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479AB9C7267483AA00958B5B /* AMPopTipWrapper.swift */; };
 		479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3CC26412613000E2CFC /* UITableView+Extension.swift */; };
 		479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */; };
 		479DE3D726412896000E2CFC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479DE3D626412896000E2CFC /* String+Extension.swift */; };
@@ -228,6 +229,7 @@
 		478693032651F2E800BFA750 /* SelectFloatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFloatViewController.swift; sourceTree = "<group>"; };
 		47951F722671FB790075A135 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		479A8A6C2667B6D900962751 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
+		479AB9C7267483AA00958B5B /* AMPopTipWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPopTipWrapper.swift; sourceTree = "<group>"; };
 		479DE3CC26412613000E2CFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		479DE3D626412896000E2CFC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 				479DE3E4264128F5000E2CFC /* MJRefreshWrapper.swift */,
 				474C6B8C2661D83700A3C9FD /* SCLAlertViewWrapper.swift */,
 				47538F01266E86C70066C91A /* LottieWrapper.swift */,
+				479AB9C7267483AA00958B5B /* AMPopTipWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -1127,6 +1130,7 @@
 				47B6D6D326673C3B0070E277 /* LobbyEventCell.swift in Sources */,
 				47815AAA2664B7C5001FCFBA /* EventDetailView.swift in Sources */,
 				479DE3D226412717000E2CFC /* UICollectionView+Extension.swift in Sources */,
+				479AB9C8267483AA00958B5B /* AMPopTipWrapper.swift in Sources */,
 				4765B1752650061D00A6D18D /* ResizableButton.swift in Sources */,
 				47779E7A26676C5A00972194 /* LocalIconSelectionViewCell.swift in Sources */,
 				47E6EF17263D732D000172DC /* LobbyViewController.swift in Sources */,
@@ -1327,19 +1331,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RelationBook/RelationBook.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = AF543CM7YC;
 				INFOPLIST_FILE = RelationBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WenT.RelationBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Relations Note";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1352,19 +1356,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RelationBook/RelationBook.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = AF543CM7YC;
 				INFOPLIST_FILE = RelationBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WenT.RelationBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Relations Note";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
