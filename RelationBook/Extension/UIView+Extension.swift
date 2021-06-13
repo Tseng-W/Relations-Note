@@ -9,6 +9,18 @@ import UIKit
 
 extension UIView {
 
+  static var rootView: UIView {
+    let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+
+    if let topController = keyWindow?.rootViewController {
+      while let presentedViewController = topController.presentedViewController {
+        return presentedViewController.view
+      }
+    }
+
+    return keyWindow!.rootViewController!.view
+  }
+
   var globalFrame: CGRect? {
     return self.superview?.convert(self.frame, to: nil)
   }

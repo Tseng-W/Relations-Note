@@ -22,6 +22,9 @@ class IconViewModel {
         let lineIcons = fetchLocalIcons(in: LocalRelationCategoryLine.self)
         iconSets.append(("線性圖示", lineIcons))
 
+        let colorIcons = fetchLocalIcons(in: LocalIconEventFeatureColor.self)
+        iconSets.append(("彩色圖示", colorIcons))
+
       } else {
         let lineIcons = fetchLocalIcons(in: LocalRelationIconLine.self)
         iconSets.append(("線性圖示", lineIcons))
@@ -30,8 +33,13 @@ class IconViewModel {
         iconSets.append(("彩色圖示", colorIcons))
       }
     case .event, .feature:
+
       let lineIcons = fetchLocalIcons(in: LocalIconEventFeatureLine.self)
       iconSets.append(("線性圖示", lineIcons))
+
+      let colorIcons = fetchLocalIcons(in: LocalIconEventFeatureColor.self)
+      iconSets.append(("彩色圖示", colorIcons))
+
     case .mood:
       let emojiIcons = fetchLocalIcons(in: EmojiIcon.self)
       iconSets.append(("情緒", emojiIcons))

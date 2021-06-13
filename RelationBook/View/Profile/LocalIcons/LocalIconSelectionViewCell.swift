@@ -12,6 +12,6 @@ class LocalIconSelectionViewCell: UICollectionViewCell{
   @IBOutlet var iconView: IconView!
 
   func setImage(image: UIImage) {
-    iconView.setIcon(isCropped: false, image: image, bgColor: .clear, borderWidth: nil, borderColor: nil, tintColor: nil)
+    iconView.setIcon(isCropped: false, image: image, bgColor: .clear)
   }
 }

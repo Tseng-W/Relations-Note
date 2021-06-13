@@ -56,9 +56,14 @@ class FilterView: UIView {
     self.isMainOnly = isMainOnly
 
     userViewModel.user.bind { [weak self] user in
+
       guard let user = user else { return }
+
       self?.filterSource = user.getFilter(type: type)
-      self?.initialFilterView()
+
+      if self?.categoryViews.count == 0 {
+        self?.initialFilterView()
+      }
     }
 
     userViewModel.fetchUserDate()
@@ -71,6 +76,7 @@ class FilterView: UIView {
   }
 
   private func initialFilterView() {
+
     layoutIfNeeded()
     addFilterBar()
     addScrollView()

@@ -162,6 +162,7 @@ class AddEventViewController: UIViewController {
         .addPopTip(at: self.locationButton, text: "按這裡可以紀錄碰面的地點~", direction: .left)
         .addPopTip(at: self.dayButton, text: "不是今天發生的？點這裡更改日期", direction: .down)
         .addPopTip(at: self.timeButton, text: "這裡可以更改時間喔~", direction: .down)
+        .addPopTip(at: self.commentTextView, text: "容易遺忘的細節都可以記錄在此", direction: .up)
         .show()
     }
 
@@ -241,8 +242,17 @@ class AddEventViewController: UIViewController {
   @IBAction func confirm(_ sender: UIButton) {
 
     guard let event = event else {
+      PopTipManager.shared
+        .addPopTip(at: eventButton, text: "請選擇互動事件類型", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
+        .show(isBlur: false)
+      return
+    }
 
-      LKProgressHUD.showFailure(text: "請選擇事件類別")
+    guard relationCategories.count > 0 else {
+      PopTipManager.shared
+        .addPopTip(at: filterView, text: "請選擇互動對象", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
+        .show(isBlur: false)
+
       return
     }
 

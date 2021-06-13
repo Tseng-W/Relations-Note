@@ -12,7 +12,7 @@ class CheckboxTableCell: UITableViewCell {
   let placeholder: String = "新增"
   let placeholderColor: UIColor = .buttonDisable
 
-  var content = FeatureContent(isProcessing: false, text: "") {
+  var content = FeatureContent(isProcessing: true, text: "") {
     didSet {
       checkmarkButton.isSelected = content.isProcessing
       inputTextField.text = content.text
@@ -42,12 +42,12 @@ class CheckboxTableCell: UITableViewCell {
   func setup(content: FeatureContent?) {
 
     guard let content = content else {
-      checkmarkButton.isHidden = true
+//      checkmarkButton.isHidden = true
       return
     }
 
     self.content = content
-    checkmarkButton.isHidden = false
+//    checkmarkButton.isHidden = false
   }
 
   @IBAction func onTapSwitch(_ sender: UIButton) {

@@ -45,13 +45,13 @@ class PopTipManager: NSObject {
         popTip.show(text: text,
                     direction: direction,
                     maxWidth: 200,
-                    in: PopTipManager.shared.view,
+                    in: UIView.rootView,
                     from: target.globalFrame!,
                     duration: duration)
       } else if let view = customView {
         popTip.show(customView: view,
                     direction: direction,
-                    in: PopTipManager.shared.view,
+                    in: UIView.rootView,
                     from: target.globalFrame!,
                     duration: duration)
       }
@@ -92,6 +92,7 @@ class PopTipManager: NSObject {
 
   struct Style {
     static let defaultStyle: [Attribute] = [.bubbleColor(.button), .textColor(.background)]
+    static let alertStyle: [Attribute] = [.bubbleColor(.categoryColor9), .textColor(.background)]
   }
 
   static let shared = PopTipManager()
@@ -100,22 +101,13 @@ class PopTipManager: NSObject {
 
   private var blurView = UIView()
 
-  var view: UIView {
+  var view = UIView.rootView
 
-    let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+  func show(isBlur: Bool = true) {
 
-    if let topController = keyWindow?.rootViewController {
-      while let presentedViewController = topController.presentedViewController {
-        return presentedViewController.view
-      }
+    if isBlur {
+      addBlurView()
     }
-
-    return keyWindow!.rootViewController!.view
-  }
-
-  func show() {
-
-    addBlurView()
     showNext()
   }
 
@@ -148,15 +140,10 @@ class PopTipManager: NSObject {
 
     let shared = PopTipManager.shared
 
-    //    if blurView.gestureRecognizers == nil {
-    //      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
-    //      blurView.addGestureRecognizer(tapGesture)
-    //    }
-
     blurView.backgroundColor = .systemBackground
     blurView.alpha = 0.3
 
-    shared.view.addSubview(blurView)
+    UIView.rootView.addSubview(blurView)
     blurView.addConstarint(
       top: shared.view.topAnchor,
       left: shared.view.leftAnchor,

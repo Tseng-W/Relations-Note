@@ -23,12 +23,6 @@ class LKProgressHUD {
 
   let hud = JGProgressHUD(style: .dark)
 
-  var view: UIView {
-
-    return UIApplication.shared.windows.first!.rootViewController!.view
-//      (UIApplication.shared.windows.first?.rootViewController!.view)!
-  }
-
   static func show(type: HUDType) {
 
     switch type {
@@ -59,7 +53,7 @@ class LKProgressHUD {
 
     shared.hud.indicatorView = JGProgressHUDSuccessIndicatorView()
 
-    shared.hud.show(in: shared.view)
+    shared.hud.show(in: UIView.rootView)
 
     shared.hud.dismiss(afterDelay: 1.5)
   }
@@ -79,7 +73,7 @@ class LKProgressHUD {
 
     shared.hud.indicatorView = JGProgressHUDErrorIndicatorView()
 
-    shared.hud.show(in: shared.view)
+    shared.hud.show(in: UIView.rootView)
 
     shared.hud.dismiss(afterDelay: 1.5)
   }
@@ -99,7 +93,7 @@ class LKProgressHUD {
 
     shared.hud.textLabel.text = "Loading"
 
-    shared.hud.show(in: shared.view)
+    shared.hud.show(in: UIView.rootView)
   }
 
   static func dismiss() {

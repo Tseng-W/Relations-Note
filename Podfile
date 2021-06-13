@@ -17,6 +17,7 @@ target 'RelationBook' do
   pod 'Firebase'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'FirebaseFirestoreSwift'

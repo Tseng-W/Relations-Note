@@ -8,9 +8,12 @@
 import UIKit
 import CoreData
 import Firebase
+import FirebaseMessaging
 import GoogleMaps
 import GooglePlaces
 import IQKeyboardManagerSwift
+import UserNotifications
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +38,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UINavigationBar.appearance().isTranslucent = false
     UINavigationBar.appearance().shadowImage = UIImage()
 
+    //    registerForPushNotifications()
+
+    if #available(iOS 10.0, *) {
+
+      UNUserNotificationCenter.current().delegate = self
+
+      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+      UNUserNotificationCenter.current().requestAuthorization(
+        options: authOptions,
+        completionHandler: {_, _ in })
+    } else {
+      let settings: UIUserNotificationSettings =
+        UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+      application.registerUserNotificationSettings(settings)
+    }
+
+    application.registerForRemoteNotifications()
+
+    Messaging.messaging().delegate = self
+
     return true
   }
   
@@ -47,6 +70,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   @available(iOS 13.0, *)
   func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+  }
+
+  func getNotificationSettings() {
+    UNUserNotificationCenter.current().getNotificationSettings { settings in
+      print("Notification settings: \(settings)")
+
+      guard settings.authorizationStatus == .authorized else { return }
+
+      DispatchQueue.main.async {
+        UIApplication.shared.registerForRemoteNotifications()
+      }
+    }
+  }
+
+  // MARK: - Push notification
+
+  func registerForPushNotifications() {
+
+    UNUserNotificationCenter.current()
+      .requestAuthorization(
+        options: [.alert, .sound, .badge]) { [weak self] granted, _ in
+
+        print("Permission granted: \(granted)")
+
+        guard granted else { return }
+
+        self?.getNotificationSettings()
+      }
+  }
+
+  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+
+    let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+    let token = tokenParts.joined()
+
+    print("Device Token: \(token)")
+  }
+
+  func application(
+    _ application: UIApplication,
+    didFailToRegisterForRemoteNotificationsWithError error: Error
+  ) {
+    print("Failed to register: \(error)")
   }
   
   // MARK: - Core Data stack
@@ -76,3 +142,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 }
 
+
+extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
+
+  func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+
+    let dataDict:[String: String] = ["token": fcmToken ]
+    NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+
+    Messaging.messaging().token { token, error in
+      if let error = error {
+        print("Error fetching FCM registration token: \(error)")
+      } else if let token = token {
+        print("FCM registration token: \(token)")
+      }
+    }
+  }
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification,
+                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    let userInfo = notification.request.content.userInfo
+
+    print(userInfo)
+
+    completionHandler([[.alert, .sound, .badge]])
+  }
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
+    let userInfo = response.notification.request.content.userInfo
+
+    print(userInfo)
+
+    completionHandler()
+  }
+
+}
