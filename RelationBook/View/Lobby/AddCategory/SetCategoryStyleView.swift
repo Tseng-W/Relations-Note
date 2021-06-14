@@ -29,7 +29,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
       iconSelectView.onIconTapped = { [weak self] view in
 
         if let strongSelf = self {
-          let provider = SCLAlertViewProvider(rounded: strongSelf)
+          let provider = SCLAlertViewProvider(roundedImage: strongSelf)
           provider.showAlert(type: .roundedImage)
         }
       }

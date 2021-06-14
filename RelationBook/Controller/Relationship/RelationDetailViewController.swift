@@ -409,6 +409,8 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       let event = eventsSorted[indexPath.section].value[indexPath.row]
 
       let detailVC = EventDetailView()
+      detailVC.delegate = self
+
       let blueView = view.addBlurView()
       view.addSubview(detailVC)
 
@@ -432,5 +434,24 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     return 60
+  }
+}
+
+extension RelationDetailViewController: EventDetailDelegate {
+
+  func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
+
+    if let controller = UIStoryboard.lobby.instantiateViewController(identifier: "addEvent") as? AddEventViewController {
+      controller.editingEvent = event
+      navigationController?.pushViewController(controller, animated: true)
+    }
+  }
+
+  func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {
+
+    let provider = SCLAlertViewProvider()
+
+    provider.setConfirmAction {self.eventViewModel.deleteEvent(event: event)}
+      .showAlert(type: .delete)
   }
 }

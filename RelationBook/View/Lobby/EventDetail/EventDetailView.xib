@@ -14,6 +14,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDetailView" customModule="RelationBook" customModuleProvider="target">
             <connections>
                 <outlet property="categoryIconView" destination="YqC-q9-XFo" id="eA2-ze-HK7"/>
+                <outlet property="commentBackgroundView" destination="35j-Qs-1G0" id="wnX-GW-REo"/>
                 <outlet property="commentTextView" destination="ReZ-qp-6c8" id="0X9-CR-g5u"/>
                 <outlet property="eventBackground" destination="cNQ-e6-oME" id="y0I-uL-3x0"/>
                 <outlet property="eventImage" destination="FoT-pU-f6e" id="D43-a7-aqG"/>
@@ -35,23 +36,6 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FoT-pU-f6e">
                             <rect key="frame" x="0.0" y="0.0" width="549" height="497.5"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P64-J9-OEt">
-                            <rect key="frame" x="16" y="16" width="25" height="25"/>
-                            <color key="backgroundColor" name="Button"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="P64-J9-OEt" secondAttribute="height" multiplier="1:1" id="frX-gx-tOi"/>
-                            </constraints>
-                            <color key="tintColor" systemColor="systemGray6Color"/>
-                            <state key="normal">
-                                <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="NeX-Up-Vpn"/>
-                            </connections>
-                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqC-q9-XFo" customClass="IconView" customModule="RelationBook" customModuleProvider="target">
                             <rect key="frame" x="192.5" y="166.5" width="164" height="164.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,34 +46,111 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="事件"/>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jo1-HT-7Wr">
-                            <rect key="frame" x="333" y="16" width="200" height="35"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCn-a8-hrY" userLabel="textFieldBackground" customClass="GradientView" customModule="RelationBook" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="549" height="60"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P64-J9-OEt">
+                                    <rect key="frame" x="16" y="10" width="40" height="40"/>
+                                    <color key="backgroundColor" name="Button"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="P64-J9-OEt" secondAttribute="height" multiplier="1:1" id="frX-gx-tOi"/>
+                                    </constraints>
+                                    <color key="tintColor" systemColor="systemGray6Color"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="NeX-Up-Vpn"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KE4-HZ-5LQ">
+                                    <rect key="frame" x="493" y="10" width="40" height="40"/>
+                                    <color key="backgroundColor" name="Button"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="KE4-HZ-5LQ" secondAttribute="height" multiplier="1:1" id="xza-NM-GPo"/>
+                                    </constraints>
+                                    <color key="tintColor" systemColor="systemGray6Color"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="trash" catalog="system" symbolScale="large"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onTapDelete:" destination="-1" eventType="touchUpInside" id="c6a-0a-ryw"/>
+                                        <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="UC9-ft-Trs"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDN-Ss-kRt">
+                                    <rect key="frame" x="437" y="10" width="40" height="40"/>
+                                    <color key="backgroundColor" name="Button"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="eDN-Ss-kRt" secondAttribute="height" multiplier="1:1" id="yFU-aw-pCO"/>
+                                    </constraints>
+                                    <color key="tintColor" systemColor="systemGray6Color"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="square.and.pencil" catalog="system" symbolScale="large"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isCornerd" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onTapDismiss:" destination="-1" eventType="touchUpInside" id="TGH-CW-fhU"/>
+                                        <action selector="onTapEdit:" destination="-1" eventType="touchUpInside" id="50u-Nh-oE3"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="35" id="n1J-iQ-qoT"/>
+                                <constraint firstItem="P64-J9-OEt" firstAttribute="leading" secondItem="bCn-a8-hrY" secondAttribute="leading" constant="16" id="0cs-6h-f0d"/>
+                                <constraint firstItem="eDN-Ss-kRt" firstAttribute="width" secondItem="eDN-Ss-kRt" secondAttribute="height" multiplier="1:1" id="6sQ-Kc-N6y"/>
+                                <constraint firstAttribute="bottom" secondItem="eDN-Ss-kRt" secondAttribute="bottom" constant="10" id="Buf-YH-xHM"/>
+                                <constraint firstItem="KE4-HZ-5LQ" firstAttribute="top" secondItem="bCn-a8-hrY" secondAttribute="top" constant="10" id="NoU-K6-Hpy"/>
+                                <constraint firstItem="P64-J9-OEt" firstAttribute="top" secondItem="bCn-a8-hrY" secondAttribute="top" constant="10" id="VX2-SM-SWl"/>
+                                <constraint firstAttribute="bottom" secondItem="KE4-HZ-5LQ" secondAttribute="bottom" constant="10" id="b49-Vd-1XU"/>
+                                <constraint firstItem="KE4-HZ-5LQ" firstAttribute="leading" secondItem="eDN-Ss-kRt" secondAttribute="trailing" constant="16" id="cZH-5z-3TN"/>
+                                <constraint firstItem="eDN-Ss-kRt" firstAttribute="top" secondItem="bCn-a8-hrY" secondAttribute="top" constant="10" id="fC5-sW-9m3"/>
+                                <constraint firstItem="eDN-Ss-kRt" firstAttribute="width" secondItem="eDN-Ss-kRt" secondAttribute="height" multiplier="1:1" id="luk-nu-DBb"/>
+                                <constraint firstItem="KE4-HZ-5LQ" firstAttribute="width" secondItem="KE4-HZ-5LQ" secondAttribute="height" multiplier="1:1" id="sBn-FA-JwD"/>
+                                <constraint firstAttribute="bottom" secondItem="P64-J9-OEt" secondAttribute="bottom" constant="10" id="sdY-Yh-6WU"/>
+                                <constraint firstAttribute="trailing" secondItem="KE4-HZ-5LQ" secondAttribute="trailing" constant="16" id="tp2-ek-W8V"/>
+                                <constraint firstAttribute="height" constant="60" id="w9Z-OT-09N"/>
                             </constraints>
-                        </stackView>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="directionAdapter">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                    <color key="value" systemColor="systemBackgroundColor"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="FoT-pU-f6e" firstAttribute="leading" secondItem="cNQ-e6-oME" secondAttribute="leading" id="3zo-G3-4MJ"/>
-                        <constraint firstItem="P64-J9-OEt" firstAttribute="top" secondItem="cNQ-e6-oME" secondAttribute="top" constant="16" id="FAq-cp-PNr"/>
-                        <constraint firstAttribute="trailing" secondItem="jo1-HT-7Wr" secondAttribute="trailing" constant="16" id="Ide-zs-lFA"/>
                         <constraint firstItem="YqC-q9-XFo" firstAttribute="centerY" secondItem="cNQ-e6-oME" secondAttribute="centerY" id="MPU-cQ-hlo"/>
                         <constraint firstAttribute="trailing" secondItem="FoT-pU-f6e" secondAttribute="trailing" id="Mko-pu-xyc"/>
                         <constraint firstAttribute="bottom" secondItem="FoT-pU-f6e" secondAttribute="bottom" id="OHI-mi-jVW"/>
-                        <constraint firstItem="P64-J9-OEt" firstAttribute="leading" secondItem="cNQ-e6-oME" secondAttribute="leading" constant="16" id="ZP3-ni-MlL"/>
                         <constraint firstItem="YqC-q9-XFo" firstAttribute="height" secondItem="cNQ-e6-oME" secondAttribute="height" multiplier="0.33" id="gAn-ve-nez"/>
+                        <constraint firstAttribute="trailing" secondItem="bCn-a8-hrY" secondAttribute="trailing" id="kTD-iA-fap"/>
                         <constraint firstItem="YqC-q9-XFo" firstAttribute="centerX" secondItem="cNQ-e6-oME" secondAttribute="centerX" id="lue-91-u99"/>
-                        <constraint firstItem="jo1-HT-7Wr" firstAttribute="top" secondItem="cNQ-e6-oME" secondAttribute="top" constant="16" id="p8O-H1-IQO"/>
                         <constraint firstItem="FoT-pU-f6e" firstAttribute="top" secondItem="cNQ-e6-oME" secondAttribute="top" id="wnE-9q-rHu"/>
-                        <constraint firstItem="jo1-HT-7Wr" firstAttribute="width" secondItem="cNQ-e6-oME" secondAttribute="width" multiplier="0.364299" id="yRb-4V-Q1t"/>
+                        <constraint firstItem="bCn-a8-hrY" firstAttribute="top" secondItem="cNQ-e6-oME" secondAttribute="top" id="xtb-kf-8R0"/>
+                        <constraint firstItem="bCn-a8-hrY" firstAttribute="leading" secondItem="cNQ-e6-oME" secondAttribute="leading" id="ztx-Wy-Pba"/>
                     </constraints>
                 </view>
-                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35j-Qs-1G0" userLabel="textFieldBackground">
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35j-Qs-1G0" userLabel="textFieldBackground">
                     <rect key="frame" x="0.0" y="347" width="549" height="150.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReZ-qp-6c8">
+                <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReZ-qp-6c8">
                     <rect key="frame" x="114.5" y="347" width="434.5" height="150.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -245,6 +306,8 @@
     <resources>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="pin" catalog="system" width="119" height="128"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <image name="xmark.circle" catalog="system" width="128" height="121"/>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

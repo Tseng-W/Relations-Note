@@ -7,6 +7,13 @@
 
 import UIKit
 
+protocol EventDetailDelegate: AnyObject {
+
+  func eventDetalView(view: EventDetailView, onEditEvent event: Event)
+
+  func eventDetalView(view: EventDetailView, onDeleteEvent event: Event)
+}
+
 class EventDetailView: UIView, NibLoadable {
 
   let userViewModel = UserViewModel()
@@ -20,7 +27,9 @@ class EventDetailView: UIView, NibLoadable {
   @IBOutlet var locaionLabel: UILabel!
   @IBOutlet var timeLabel: UILabel!
   @IBOutlet var commentTextView: UITextView!
+  @IBOutlet var commentBackgroundView: UIView!
 
+  weak var delegate: EventDetailDelegate?
   var onDismiss: (() -> Void)?
 
   var event: Event?
@@ -98,7 +107,7 @@ class EventDetailView: UIView, NibLoadable {
     commentTextView.text = event.comment
     
     if event.comment == .empty {
-      commentTextView.frame.size.height = 0
+      commentBackgroundView.isHidden = true
     }
   }
 
@@ -126,5 +135,13 @@ class EventDetailView: UIView, NibLoadable {
   @IBAction func onTapDismiss(_ sender: UIButton) {
     removeFromSuperview()
     onDismiss?()
+  }
+
+  @IBAction func onTapEdit(_ sender: UIButton) {
+    delegate?.eventDetalView(view: self, onEditEvent: event!)
+  }
+
+  @IBAction func onTapDelete(_ sender: UIButton) {
+    delegate?.eventDetalView(view: self, onDeleteEvent: event!)
   }
 }

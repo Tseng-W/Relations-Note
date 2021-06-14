@@ -28,6 +28,10 @@ class EventViewModel {
     }
   }
 
+  func updateEvent(event: Event) {
+    FirebaseManager.shared.updateEvent(event: event)
+  }
+
   func fetchEvents() {
 
     guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
@@ -95,6 +99,16 @@ class EventViewModel {
   func getCategories() -> [Category] {
     let categories: [Category] = []
     return categories
+  }
+
+  func deleteEvent(event: Event) {
+    FirebaseManager.shared.deleteEvent(event: event) { isSuccess in
+      if isSuccess {
+        LKProgressHUD.showSuccess(text: "刪除成功")
+      } else {
+        LKProgressHUD.showSuccess(text: "刪除失敗，請稍後再試")
+      }
+    }
   }
 
   func onEventAdded(event: Event) {

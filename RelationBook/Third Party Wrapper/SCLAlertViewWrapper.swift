@@ -38,16 +38,13 @@ extension SCLAlertViewProviderDelegate {
 
 }
 
-protocol SCLAlertViewConfirmDelegate: AnyObject {
-  func didConfirm(isConfirm: Bool)
-}
-
 class SCLAlertViewProvider: NSObject {
 
   typealias SCLProviderDelegate = SCLAlertViewProviderDelegate
   typealias FullDelegate = SCLAlertViewProviderDelegate & CropViewControllerDelegate
 
   enum AlertType {
+
     case roundedImage, rectImage, delete
 
     var appearance: SCLAlertView.SCLAppearance {
@@ -128,24 +125,31 @@ class SCLAlertViewProvider: NSObject {
     }
   }
 
-  var onSelectedLocalIcon: ((String) -> Void)?
-  var onSelectedImage: ((String) -> Void)?
+  private var onConfirm: (() -> Void)?
 
   var alertView: SCLAlertView?
   weak var alertDelegate: SCLAlertViewProviderDelegate?
   weak var cropViewDelegate: CropViewControllerDelegate?
 
-  weak var confirmDelegate: SCLAlertViewConfirmDelegate?
-
   var type: AlertType?
 
-  init<T: FullDelegate >(rounded delegate: T) {
+  init<T: FullDelegate >(roundedImage delegate: T) {
     alertDelegate = delegate
     cropViewDelegate = delegate
   }
 
-  init<T: SCLProviderDelegate>(rect delegate: T) {
+  init<T: SCLProviderDelegate>(rectImage delegate: T) {
     alertDelegate = delegate
+  }
+
+  override init() {
+    super.init()
+  }
+
+  func setConfirmAction(_ completion: @escaping (() -> Void)) -> SCLAlertViewProvider {
+    onConfirm = completion
+
+    return self
   }
 
   func showAlert(type: AlertType) {
@@ -217,11 +221,10 @@ extension SCLAlertViewProvider {
   }
 
   @objc private func confirm() {
-    confirmDelegate?.didConfirm(isConfirm: true)
+    onConfirm?()
   }
 
   @objc private func cancel() {
-    confirmDelegate?.didConfirm(isConfirm: false)
     alertView?.hideView()
   }
 }

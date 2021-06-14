@@ -49,6 +49,8 @@ class AddEventViewController: UIViewController {
   @IBOutlet var featureHeader: RelationTableHeaderCell!
 
   // MARK: Initial information
+  var editingEvent: Event?
+
   let commentPlaceholder = "備註"
   let commentPlaceholderColor: UIColor = .secondaryLabel
 
@@ -111,7 +113,6 @@ class AddEventViewController: UIViewController {
       timeButton.setTitle(date.getDayString(type: .time), for: .normal)
     }
   }
-  var subEvents: [SubEvent] = []
 
   var features = [Feature]()
 
@@ -120,8 +121,34 @@ class AddEventViewController: UIViewController {
     super.viewDidLoad()
 
     userViewModel.user.bind { [weak self] user in
-      guard let _ = user else { return }
+
+      guard let user = user else { return }
+
       self?.filterView.setUp(type: .relation)
+
+      if let event = self?.editingEvent,
+         let strongSelf = self,
+         let subRelation = user.relationSet.sub.first(where: { event.relations.contains( $0.id ) }) {
+
+        strongSelf.relationCategories = [subRelation]
+        strongSelf.imageLink = event.imageLink
+        strongSelf.mood = event.mood
+        strongSelf.event = event.category
+        strongSelf.location = event.location
+        strongSelf.locationName = event.locationName
+        strongSelf.date = event.time.dateValue()
+        strongSelf.commentTextView.text = event.comment
+
+        if let imageLink = strongSelf.imageLink {
+          UIImage.loadImage(imageLink) { image in
+            strongSelf.imageButton.setImage(image, for: .normal)
+          }
+        }
+
+        strongSelf.filterView.onInitialWithTarget = {
+          return (user.relationSet.main.first(where: { $0.id == subRelation.superIndex })!, subRelation)
+        }
+      }
     }
 
     relationViewModel.relations.bind { [weak self] relations in
@@ -269,8 +296,19 @@ class AddEventViewController: UIViewController {
                          location: location,
                          locationName: locationName,
                          time: Timestamp(date: date),
-                         subEvents: subEvents,
+                         subEvents: [],
                          comment: comment)
+
+
+    if let editingEvent = editingEvent {
+
+      newEvent.docID = editingEvent.docID!
+
+      eventViewModel.updateEvent(event: newEvent)
+
+      dismiss(animated: true)
+      return
+    }
 
     eventViewModel.addEvent(event: newEvent) { result in
       switch result {
@@ -288,7 +326,8 @@ class AddEventViewController: UIViewController {
 
       self.featureViewModel.addFeatures(relation: relation, features: self.features)
     }
-    self.dismiss(animated: true)
+
+    dismiss(animated: true)
   }
 
   @IBAction func close(_ sender: UIButton) {
@@ -334,12 +373,10 @@ class AddEventViewController: UIViewController {
   }
 
   @IBAction func setEventPicture(_ sender: UIButton) {
-    let provider = SCLAlertViewProvider(rect: self)
+    let provider = SCLAlertViewProvider(rectImage: self)
 
     provider.showAlert(type: .rectImage)
   }
-
-  
 }
 
 extension AddEventViewController: UITextFieldDelegate {

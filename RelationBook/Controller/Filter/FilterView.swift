@@ -15,13 +15,12 @@ class FilterView: UIView {
   var onSelected: (([Category]) -> Void)?
   var onStartEdit: (() -> Void)?
   var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
+  var onInitialWithTarget: (() -> (main: Category, sub: Category))?
 
   // MARK: Datas
   var filterSource: [String] = []
   var selectedCategories: [Category] = []
-  var isEditing = false
 
-  var filterIndex: Int = 0
   var categoryViews: [CategoryCollectionView] = []
   var canScrollBeHidden = true
 
@@ -69,8 +68,6 @@ class FilterView: UIView {
     userViewModel.fetchUserDate()
 
     backgroundColor = .background
-
-    filterIndex = 0
 
     scrollHeight = categoryScrollView.frame.height
   }
@@ -156,7 +153,6 @@ class FilterView: UIView {
       }
 
       collectionView.onContinueEdit = { [weak self] index in
-        self?.isEditing = index == -1
         self?.onHiddenFilter(isHidden: false)
         self?.onStartEdit?()
       }
@@ -166,6 +162,10 @@ class FilterView: UIView {
       }
     }
     categoryScrollView.contentSize = CGSize(width: x, height: categoryScrollView.frame.size.height)
+
+    if let target = onInitialWithTarget?() {
+      scrollTo(main: target.main, sub: target.sub)
+    }
   }
 
   private func onHiddenFilter(isHidden: Bool) {
@@ -177,6 +177,16 @@ class FilterView: UIView {
       self.categoryScrollView.isScrollEnabled = !isHidden
       self.layoutIfNeeded()
     }
+  }
+
+  func scrollTo(main: Category, sub: Category) {
+
+    guard categoryViews.count > main.superIndex else { return }
+
+    filterScrollView.scrollView.contentOffset = CGPoint(x: filterScrollView.scrollView.frame.width * CGFloat(main.superIndex), y: 0)
+
+    categoryViews[main.superIndex].initialTarget = (main, sub)
+
   }
 
   func reloadDate() {

@@ -129,7 +129,7 @@
         <!--Add Event View Controller-->
         <scene sceneID="MAS-Ir-hbm">
             <objects>
-                <viewController id="JEb-7Y-xVc" customClass="AddEventViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addEvent" id="JEb-7Y-xVc" customClass="AddEventViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ieI-wr-BJH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

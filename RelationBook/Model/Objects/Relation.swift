@@ -20,6 +20,18 @@ struct Relation: Codable {
   var lastContactTime: Timestamp
 }
 
+extension Relation {
+  func toDict() -> [AnyHashable: Any] {
+    return ["name": name,
+            "isPublic": isPublic,
+            "categoryIndex": categoryIndex,
+            "owner": owner,
+            "feature": feature.map{ $0.toDict() },
+            "createdTime": createdTime,
+            "lastContactTime": lastContactTime]
+  }
+}
+
 struct Feature: Codable {
 
   init(id: Int, name: String, index: Int, data: [FeatureContent]) {

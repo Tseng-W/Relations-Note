@@ -15,7 +15,7 @@ enum EventType: Int, Codable {
 }
 
 struct Event: Codable {
-  @DocumentID   var docID: String?
+  @DocumentID var docID: String?
   var owner: String
   var relations: [Int]
   var imageLink: String?
@@ -33,6 +33,33 @@ struct Event: Codable {
 
   func getColor() -> UIColor {
     return category.getColor()
+  }
+}
+
+extension Event {
+  func toDict() -> [AnyHashable: Any] {
+    var dic = ["owner": owner,
+            "relations": relations,
+            "mood": mood,
+            "category": category.toDict(),
+            "time": time,
+            "subEvents": subEvents] as [String : Any]
+
+    if let imageLink = imageLink {
+      dic["imageLink"] = imageLink
+    }
+
+    if let location = location,
+       let locationName = locationName {
+      dic["location"] = location
+      dic["locationName"] = locationName
+    }
+
+    if let comment = comment {
+      dic["comment"] = comment
+    }
+
+    return dic
   }
 }
 

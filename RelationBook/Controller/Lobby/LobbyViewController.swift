@@ -16,10 +16,11 @@ class LobbyViewController: UIViewController {
   let userViewModel = UserViewModel()
   let relationViewModel = RelationViewModel()
   let eventViewModel = EventViewModel()
-
   let lottieView = LottieWrapper()
 
   var popViews = [UIView]()
+
+  var editingEvent: Event?
   
   fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
@@ -54,6 +55,11 @@ class LobbyViewController: UIViewController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+    if let addEventView = segue.destination as? AddEventViewController {
+      addEventView.editingEvent = editingEvent
+    }
+
     lottieView.dismiss()
   }
   
@@ -108,9 +114,6 @@ class LobbyViewController: UIViewController {
     popViews.forEach { $0.removeFromSuperview() }
   }
 
-//  @IBAction func logout(_ sender: UIBarButtonItem) {
-//    //    try? Auth.auth().signOut()
-//  }
 }
 
 // MARK: - calendar delegate / datasource
@@ -263,6 +266,8 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
     let relations = cell.relations
 
     let detailVC = EventDetailView()
+    detailVC.delegate = self
+
     let blurView = view.addBlurView()
 
     view.addSubview(detailVC)
@@ -294,5 +299,23 @@ extension LobbyViewController: TabBarTapDelegate {
 
     LKProgressHUD.show()
     performSegue(withIdentifier: "addEvent", sender: self)
+  }
+}
+
+extension LobbyViewController: EventDetailDelegate {
+
+  func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
+    editingEvent = event
+    print(editingEvent?.docID!)
+
+    performSegue(withIdentifier: "addEvent", sender: self)
+  }
+
+  func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {
+
+    let provider = SCLAlertViewProvider()
+
+    provider.setConfirmAction {self.eventViewModel.deleteEvent(event: event)}
+      .showAlert(type: .delete)
   }
 }

@@ -20,6 +20,7 @@ enum ImageAsset: String {
 enum Placeholder: String {
   case event = "icon_128px_talk,icon_128px_talk_w"
   case profile = "icon_128px_profile,icon_128px_profile_w"
+  case friend = "icon_128px_friend,icon_128px_friend_w"
 }
 
 enum EmojiIcon: String, CaseIterable {

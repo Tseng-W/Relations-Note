@@ -177,7 +177,7 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let header = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
 
-    header.tagTitleLabel.text = "進行中"
+    header.tagTitleLabel.text = "特徵描述"
     header.tagTitleLabel.textColor = .secondaryLabel
 
     return header

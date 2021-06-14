@@ -15,33 +15,33 @@ class CategoryCollectionView: UICollectionView {
     case selected
   }
 
+  // MARK: Closures
   var onSelectedSubCategory: ((Category?) -> [Category])?
-
   var onContinueEdit: ((Int) -> Void)?
-
   var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
 
+  // MARK: Types
   var type: CategoryType?
   var isMainOnly: Bool = false
+  var index: Int?
+  var initialTarget: (main: Category, sub: Category)?
 
+
+  // MARK: Status
   var status: Status = .mainCategory {
     didSet {
       reloadData()
     }
   }
-
-  var userViewModel = UserViewModel()
-  var index: Int?
-
   var selectedIndex: Int? {
     didSet {
       reloadData()
     }
   }
-
   var selectedID: Int?
 
-
+  // MARK: Datas
+  var userViewModel = UserViewModel()
   var mainCategories: [Category] = [] {
     didSet {
       subCategories.removeAll()
@@ -65,6 +65,7 @@ class CategoryCollectionView: UICollectionView {
     }
   }
 
+  // MARK: Functions
   func setUp(index: Int, type: CategoryType, isMainOnly: Bool = false) {
 
     userViewModel.user.bind { [weak self] user in
@@ -72,6 +73,10 @@ class CategoryCollectionView: UICollectionView {
             let index = self?.index,
             let type = self?.type else { return }
       self?.mainCategories = user.getCategoriesWithSuperIndex(mainType: type, filterIndex: index)
+
+      if let target = self?.initialTarget {
+        self?.selectAt(main: target.main, sub: target.sub)
+      }
     }
 
     userViewModel.fetchUserDate()
@@ -87,6 +92,12 @@ class CategoryCollectionView: UICollectionView {
     self.index = index
     self.type = type
     self.isMainOnly = isMainOnly
+  }
+
+  func selectAt(main: Category, sub: Category) {
+    status = .selected
+    selectedIndex = mainCategories.firstIndex(where: { $0.id == main.id })
+    selectedCategories = onSelectedSubCategory?(sub) ?? [sub]
   }
 }
 

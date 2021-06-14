@@ -133,7 +133,9 @@
                             <constraint firstItem="5Wn-jb-1xf" firstAttribute="trailing" secondItem="6Gn-UT-QUa" secondAttribute="trailing" id="qZ9-vg-DKQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Urn-vL-qW0"/>
+                    <navigationItem key="navigationItem" id="Urn-vL-qW0">
+                        <barButtonItem key="backBarButtonItem" title=" " id="aHJ-MJ-DrZ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="hpz-oB-N5D" id="3HV-Il-crv"/>
                         <outlet property="iconBackground" destination="6Gn-UT-QUa" id="LXP-JL-0gY"/>

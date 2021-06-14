@@ -21,6 +21,8 @@ class FirebaseManager {
 
   let db = Firestore.firestore()
 
+  // MARK: - Fetch
+
   func fetchUser(completion: @escaping (User) -> Void) {
 
     guard let uid = UserDefaults.standard.getString(key: .uid) else {
@@ -46,79 +48,12 @@ class FirebaseManager {
     }
   }
 
-  func fetchUser(uid: String, completion: @escaping (Result<User?, Error>) -> Void) {
-
-    let docRef = db.collection(Collections.user.rawValue).document(uid)
-
-    docRef.addSnapshotListener { document, error in
-      if let document = document, document.exists {
-        let user = try? document.data(as: User.self)
-        completion(.success(user))
-      } else {
-        completion(.success(nil))
-      }
-    }
-  }
-
-  func addUser(user: User) {
-    let document = db.collection(Collections.user.rawValue).document(user.uid!)
-    try? document.setData(from: user) { error in
-      if let error = error {
-        print("Set data error \(error.localizedDescription)")
-      }
-    }
-  }
-
-  func addUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
-
-    guard let user = userShared else { return }
-
-    let categories = type == .event ? user.eventSet :
-      type == .feature ? user.featureSet : user.relationSet
-
-    switch hierarchy {
-    case .main:
-      category.id = user.getCategoriesWithSuperIndex(mainType: type).count
-      category.isSubEnable = type == .event ? false : true
-      categories.main.append(category)
-    case .sub:
-      category.id = user.getCategoriesWithSuperIndex(subType: type).count
-      category.isSubEnable = false
-      categories.sub.append(category)
-    }
-
-    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
-      if let error = error { completion(error); return}
-    }
-  }
-
-  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
-
-    guard let user = userShared else { return }
-
-    let categories = type == .event ? user.eventSet :
-      type == .feature ? user.featureSet : user.relationSet
-
-    switch hierarchy {
-    case .main:
-      categories.main.removeAll { $0.id == category.id }
-      categories.main.insert(category, at: category.id)
-    case .sub:
-      categories.sub.removeAll { $0.id == category.id }
-      categories.sub.insert(category, at: category.id)
-    }
-
-    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
-      if let error = error { completion(error); return}
-    }
-  }
-
   func fetchRelations(uid: String, index: Int? = nil, completion: @escaping (([Relation]) -> Void)) {
 
     let docRef = index == nil ?
       db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid) :
       db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
-          .whereField("categoryIndex", isEqualTo: index!)
+      .whereField("categoryIndex", isEqualTo: index!)
 
     docRef.addSnapshotListener { snapShot, error in
 
@@ -174,6 +109,54 @@ class FirebaseManager {
     }
   }
 
+  func fetchUser(uid: String, completion: @escaping (Result<User?, Error>) -> Void) {
+
+    let docRef = db.collection(Collections.user.rawValue).document(uid)
+
+    docRef.addSnapshotListener { document, error in
+      if let document = document, document.exists {
+        let user = try? document.data(as: User.self)
+        completion(.success(user))
+      } else {
+        completion(.success(nil))
+      }
+    }
+  }
+
+  // MARK: - Add
+
+  func addUser(user: User) {
+    let document = db.collection(Collections.user.rawValue).document(user.uid!)
+    try? document.setData(from: user) { error in
+      if let error = error {
+        print("Set data error \(error.localizedDescription)")
+      }
+    }
+  }
+
+  func addUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
+
+    guard let user = userShared else { return }
+
+    let categories = type == .event ? user.eventSet :
+      type == .feature ? user.featureSet : user.relationSet
+
+    switch hierarchy {
+    case .main:
+      category.id = user.getCategoriesWithSuperIndex(mainType: type).count
+      category.isSubEnable = type == .event ? false : true
+      categories.main.append(category)
+    case .sub:
+      category.id = user.getCategoriesWithSuperIndex(subType: type).count
+      category.isSubEnable = false
+      categories.sub.append(category)
+    }
+
+    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
+      if let error = error { completion(error); return}
+    }
+  }
+
   func addRelation(userID: String, data: Relation, completion: @escaping ((String)->Void) = { _ in }) {
     let docRef = try? db.collection(Collections.relation.rawValue).addDocument(from: data) { error in
       if let error = error {
@@ -190,6 +173,49 @@ class FirebaseManager {
       if let error = error { completion(.failure(error)) }
     }
     completion(.success(newEvent!.documentID))
+  }
+
+  // MARK: - Update
+
+  func updateRelation(relation: Relation, completion: @escaping () -> Void) {
+    if let docID = relation.id {
+
+      let doc = db.collection(Collections.relation.rawValue)
+        .document(docID)
+
+      doc.updateData(relation.toDict())
+    }
+  }
+
+  func updateEvent(event: Event, completion: @escaping () -> Void = {}) {
+    if let docID = event.docID {
+
+      let doc = db.collection(Collections.event.rawValue)
+        .document(docID)
+
+      doc.updateData(event.toDict())
+    }
+  }
+
+  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
+
+    guard let user = userShared else { return }
+
+    let categories = type == .event ? user.eventSet :
+      type == .feature ? user.featureSet : user.relationSet
+
+    switch hierarchy {
+    case .main:
+      categories.main.removeAll { $0.id == category.id }
+      categories.main.insert(category, at: category.id)
+    case .sub:
+      categories.sub.removeAll { $0.id == category.id }
+      categories.sub.insert(category, at: category.id)
+    }
+
+    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
+      if let error = error { completion(error); return}
+    }
   }
 
   func updateUser(uid: String, dict: [String: Any], completion: @escaping (Error?) -> Void) {
@@ -248,5 +274,25 @@ class FirebaseManager {
         }
       }
     }
+  }
+
+  // MARK: - Delete
+
+  func deleteEvent(event: Event, completion: @escaping (Bool) -> Void = { _ in}) {
+
+    if let docID = event.docID {
+      let docRef = db.collection(Collections.event.rawValue)
+        .document(docID)
+
+      docRef.delete() { error in
+        if let error = error {
+          print(error.localizedDescription)
+          completion(false)
+        } else {
+          completion(true)
+        }
+      }
+    }
+
   }
 }
