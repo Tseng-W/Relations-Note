@@ -141,11 +141,22 @@
                         <outlet property="iconBackground" destination="6Gn-UT-QUa" id="LXP-JL-0gY"/>
                         <outlet property="iconView" destination="DA8-oC-AJv" id="2GW-VH-KGi"/>
                         <outlet property="selectionBar" destination="SrP-TT-N0z" id="Tmp-xa-qck"/>
+                        <segue destination="2JN-Kf-eUl" kind="presentation" identifier="addEvent" modalPresentationStyle="overFullScreen" id="cad-N5-LB8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUx-u4-VIx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3227.536231884058" y="32.8125"/>
+        </scene>
+        <!--addEvent-->
+        <scene sceneID="7FO-n1-g81">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Lobby" referencedIdentifier="addEvent" id="2JN-Kf-eUl" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="MRT-oo-Wtv"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kZP-jv-O28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3899" y="33"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KiC-sv-r88">

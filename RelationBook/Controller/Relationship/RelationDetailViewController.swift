@@ -26,6 +26,7 @@ class RelationDetailViewController: UIViewController {
   @IBOutlet var contentView: UIView!
 
   var sortedRelation = [Int: [Feature]]()
+  var sortedRelationList = [[Feature]]()
 
   var scrollView: UIScrollView = {
 
@@ -48,7 +49,7 @@ class RelationDetailViewController: UIViewController {
 
     eventTableView.tag = TableType.event.rawValue
     eventTableView.backgroundColor = .background
-    eventTableView.estimatedRowHeight = 60
+    eventTableView.estimatedRowHeight = 40
 
     eventTableView.lk_registerCellWithNib(
       identifier: String(describing: LobbyEventCell.self),
@@ -107,6 +108,13 @@ class RelationDetailViewController: UIViewController {
     }
   }
   var eventsSorted = [Dictionary<Date, [Event]>.Element]()
+  var editingEvent: Event?
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let addEventView = segue.destination as? AddEventViewController {
+      addEventView.editingEvent = editingEvent
+    }
+  }
 
   override func viewDidLoad() {
 
@@ -288,7 +296,9 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
           }
         }
 
-        return sortedRelation.keys.count
+        sortedRelationList = sortedRelation.map { return $0.value }
+
+        return sortedRelationList.count
       }
 
       tableView.addPlaceholder(
@@ -314,7 +324,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
     case .profile:
 
-      return sortedRelation[section]?.count ?? 0
+      return sortedRelationList[section].count
 
     case .none:
       return 0
@@ -383,7 +393,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       if let cell = cell as? RelationProfileCell {
         cell.setup(
-          feature: sortedRelation[indexPath.section]![indexPath.row],
+          feature: sortedRelationList[indexPath.section][indexPath.row],
           index: 0)
       }
 
@@ -432,8 +442,12 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
     }
   }
 
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    60
+  }
+
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 60
+    return 40
   }
 }
 
@@ -441,10 +455,13 @@ extension RelationDetailViewController: EventDetailDelegate {
 
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
 
-    if let controller = UIStoryboard.lobby.instantiateViewController(identifier: "addEvent") as? AddEventViewController {
-      controller.editingEvent = event
-      navigationController?.pushViewController(controller, animated: true)
-    }
+//    if let controller = UIStoryboard.lobby.instantiateViewController(identifier: "addEvent") as? AddEventViewController {
+//      controller.editingEvent = event
+//      navigationController?.pushViewController(controller, animated: true)
+//    }
+
+    editingEvent = event
+    performSegue(withIdentifier: "addEvent", sender: self)
   }
 
   func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {

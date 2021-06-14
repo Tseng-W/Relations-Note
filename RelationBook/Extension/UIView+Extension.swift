@@ -92,7 +92,12 @@ extension UIView {
 
   func addPlaceholder(image: UIImage, description: String) {
 
+    if let placeholder = subviews.first(where: { $0.tag == 999 }) {
+      return
+    }
+
     let label = UILabel()
+    label.textColor = .button
     label.text = description
     label.textAlignment = .center
     label.tag = 999

@@ -68,15 +68,25 @@ class RelationListViewController: UIViewController {
 
 extension RelationListViewController: UITableViewDelegate, UITableViewDataSource {
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
 
     if matchedRelations.count == 0 {
+
       tableView.addPlaceholder(
         image: UIImage.getPlaceholder(
           .friend,
           style: traitCollection.userInterfaceStyle),
         description: "沒有符合的對象")
-    } else { tableView.removePlaceholder() }
+      return 0
+
+    } else {
+
+      tableView.removePlaceholder()
+      return 1
+    }
+  }
+
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
     return matchedRelations.count
   }

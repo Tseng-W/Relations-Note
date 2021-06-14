@@ -29,6 +29,7 @@ class LobbyEventCell: UITableViewCell {
       tagListView.alignment = .right
     }
   }
+  @IBOutlet var nameLableTop: UILabel!
 
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -71,7 +72,10 @@ class LobbyEventCell: UITableViewCell {
 
     case .relation:
 
-      nameLabel.text = event.category.title
+      nameLabel.isHidden = true
+      nameLableTop.isHidden = false
+
+      nameLableTop.text = event.category.title
       extraLabel.text = event.time.dateValue().getDayString(type: .time)
 
       layoutIfNeeded()

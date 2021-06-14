@@ -306,7 +306,6 @@ extension LobbyViewController: EventDetailDelegate {
 
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
     editingEvent = event
-    print(editingEvent?.docID!)
 
     performSegue(withIdentifier: "addEvent", sender: self)
   }
