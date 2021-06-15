@@ -183,10 +183,11 @@ class FilterView: UIView {
 
     guard categoryViews.count > main.superIndex else { return }
 
-    filterScrollView.scrollView.contentOffset = CGPoint(x: filterScrollView.scrollView.frame.width * CGFloat(main.superIndex), y: 0)
+//    filterScrollView.scrollView.contentOffset = CGPoint(x: filterScrollView.scrollView.frame.width * CGFloat(main.superIndex), y: 0)
+
+    didSelectedButton(filterScrollView, at: main.superIndex)
 
     categoryViews[main.superIndex].initialTarget = (main, sub)
-
   }
 
   func reloadDate() {

@@ -116,30 +116,40 @@ class SelectFloatViewController: FloatingViewController {
   }
 
   @objc private func onResetButtonTapped(sender: UIButton) {
+
     switch type {
+
     case .time, .day:
       dateDate = Date()
       datePicker.setDate(dateDate, animated: true)
+
     case .location:
       mapView.centerLocation()
+
     default:
       return
     }
   }
 
   @IBAction func onConfirmButtonTapped(_ sender: UIButton) {
+
     if sender == confirmButton {
+
       switch type {
+
       case .day, .time:
         print(datePicker.date)
         dateDate = datePicker.date
         onDateSelected?(type, datePicker.date)
+
       case .location:
         if let info = locationInfo {
 
-          let gp = GeoPoint(latitude: info.location.latitude, longitude: info.location.longitude)
+          let gp = GeoPoint(latitude: info.location.latitude,
+                            longitude: info.location.longitude)
           onLocationSelected?(gp, info.name)
         }
+
       default:
         break
       }
@@ -152,10 +162,14 @@ class SelectFloatViewController: FloatingViewController {
 extension SelectFloatViewController {
 
   @objc func autocompleteClicked(tapGesture: UITapGestureRecognizer) {
+
+    let visibleRegion = mapView.mapView!.projection.visibleRegion()
+    let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+
     let autocompleteController = GMSAutocompleteViewController()
+
     autocompleteController.delegate = self
 
-    // Specify the place data types to return.
     let fields: GMSPlaceField = GMSPlaceField(
       rawValue:
         UInt(GMSPlaceField.name.rawValue) |
@@ -163,12 +177,11 @@ extension SelectFloatViewController {
     )
     autocompleteController.placeFields = fields
 
-    // Specify a filter.
     let filter = GMSAutocompleteFilter()
-    filter.type = .address
+    filter.type = .noFilter
+    filter.locationBias = GMSPlaceRectangularLocationOption(bounds.northEast, bounds.southWest)
     autocompleteController.autocompleteFilter = filter
 
-    // Display the autocomplete view controller.
     present(autocompleteController, animated: true, completion: nil)
   }
 }

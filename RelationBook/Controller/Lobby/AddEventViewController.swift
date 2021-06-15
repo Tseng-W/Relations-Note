@@ -412,6 +412,7 @@ extension AddEventViewController: CategoryStyleViewDelegate {
     isCropped: Bool, name: String,
     backgroundColor: UIColor,
     image: UIImage, imageString: String) {
+    
   }
 
   func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
