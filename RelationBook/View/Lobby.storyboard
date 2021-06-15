@@ -114,7 +114,13 @@
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="jjQ-WY-PYS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7"/>
+                    <navigationItem key="navigationItem" title="2020 / 05 / 01" id="gxy-Rt-gK7">
+                        <barButtonItem key="rightBarButtonItem" title="   " id="AeF-mK-AhE">
+                            <connections>
+                                <action selector="logout:" destination="TRd-7X-kQ2" id="NoC-Nc-aiI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="ATx-iw-HYq" id="3kf-Wq-IMI"/>
                         <outlet property="calendarHeightConstraint" destination="r9S-K1-4mk" id="Opi-Qu-kuk"/>

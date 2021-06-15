@@ -60,6 +60,8 @@ class LobbyViewController: UIViewController {
       addEventView.editingEvent = editingEvent
     }
 
+    editingEvent = nil
+
     lottieView.dismiss()
   }
   
@@ -114,6 +116,9 @@ class LobbyViewController: UIViewController {
     popViews.forEach { $0.removeFromSuperview() }
   }
 
+  @IBAction func logout(_ sender: UIBarButtonItem) {
+//    try? Auth.auth().signOut()
+  }
 }
 
 // MARK: - calendar delegate / datasource
