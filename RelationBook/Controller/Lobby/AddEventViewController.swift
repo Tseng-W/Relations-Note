@@ -65,7 +65,7 @@ class AddEventViewController: UIViewController {
 
   var relations: [Relation] = []
 
-  let selectFloatViewController = SelectFloatViewController()
+  let selectFloatViewController = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
   let setCategoryView = SetCategoryStyleView()
 
   // MARK: Event datas initial.

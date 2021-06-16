@@ -10,7 +10,7 @@ import UIKit
 extension UIView {
 
   static var rootView: UIView {
-    let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+    let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
 
     if let topController = keyWindow?.rootViewController {
       while let presentedViewController = topController.presentedViewController {

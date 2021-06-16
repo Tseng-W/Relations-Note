@@ -33,15 +33,15 @@ class UserViewModel {
 }
 
 extension UserViewModel {
-  static var moodData: [(imageName: String, colorString: String)] = [
-    (EmojiIcon.emojiAngry.rawValue, UIColor.systemRed.stringFromUIColor()),
-    (EmojiIcon.emojiSad.rawValue, UIColor.systemBlue.stringFromUIColor()),
-    (EmojiIcon.emojiWaiting.rawValue, UIColor.systemPurple.stringFromUIColor()),
-    (EmojiIcon.emojiConfused.rawValue, UIColor.systemTeal.stringFromUIColor()),
-    (EmojiIcon.emojiSleeping.rawValue, UIColor.systemYellow.stringFromUIColor()),
-    (EmojiIcon.emojiHappy.rawValue, UIColor.systemOrange.stringFromUIColor()),
-    (EmojiIcon.emojiGrin.rawValue, UIColor.systemGreen.stringFromUIColor()),
-    (EmojiIcon.emojiWinking.rawValue, UIColor.systemIndigo.stringFromUIColor()),
-    (EmojiIcon.emojiLove.rawValue, UIColor.systemPink.stringFromUIColor())
+  static var moodData: [(image: UIImage, colorString: String)] = [
+    (iconEmoji[0], UIColor.systemRed.stringFromUIColor()),
+    (iconEmoji[1], UIColor.systemBlue.stringFromUIColor()),
+    (iconEmoji[2], UIColor.systemPurple.stringFromUIColor()),
+    (iconEmoji[3], UIColor.systemTeal.stringFromUIColor()),
+    (iconEmoji[4], UIColor.systemYellow.stringFromUIColor()),
+    (iconEmoji[5], UIColor.systemOrange.stringFromUIColor()),
+    (iconEmoji[6], UIColor.systemGreen.stringFromUIColor()),
+    (iconEmoji[7], UIColor.systemIndigo.stringFromUIColor()),
+    (iconEmoji[8], UIColor.systemPink.stringFromUIColor())
   ]
 }

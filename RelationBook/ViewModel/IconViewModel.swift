@@ -16,28 +16,27 @@ class IconViewModel {
     switch type {
     case .relation:
       if hierachy == .main {
-        let lineIcons = fetchLocalIcons(in: LocalRelationCategoryLine.self)
+        let lineIcons = localIconRelationCategoryLine
         iconSets.append(("線性圖示", lineIcons))
 
-        let colorIcons = fetchLocalIcons(in: LocalIconEventFeatureColor.self)
+        let colorIcons = localIconEventFeatureColor
         iconSets.append(("彩色圖示", colorIcons))
       } else {
-        let lineIcons = fetchLocalIcons(in: LocalRelationIconLine.self)
+        let lineIcons = localIconRelationLine
         iconSets.append(("線性圖示", lineIcons))
 
-        let colorIcons = fetchLocalIcons(in: LocalRelationIconColor.self)
+        let colorIcons = localIconRelationColor
         iconSets.append(("彩色圖示", colorIcons))
       }
     case .event, .feature:
-      let lineIcons = fetchLocalIcons(in: LocalIconEventFeatureLine.self)
+      let lineIcons = localIconEventFeatureLine
       iconSets.append(("線性圖示", lineIcons))
 
-      let colorIcons = fetchLocalIcons(in: LocalIconEventFeatureColor.self)
+      let colorIcons = localIconEventFeatureColor
       iconSets.append(("彩色圖示", colorIcons))
 
     case .mood:
-      let emojiIcons = fetchLocalIcons(in: EmojiIcon.self)
-      iconSets.append(("情緒", emojiIcons))
+      iconSets.append(("情緒", iconEmoji))
     }
   }
 
@@ -61,11 +60,20 @@ class IconViewModel {
     return iconSets[set].images[index].accessibilityIdentifier
   }
 
-  private func fetchLocalIcons<E: RawRepresentable & CaseIterable>(in iconEnum: E.Type) -> [UIImage]
-  where E.RawValue == String {
-    let icons = E.allCases.map { imageName -> UIImage in
-      let image = UIImage.asset(imageName) ?? UIImage()
-      image.accessibilityIdentifier = imageName.rawValue
+//  private func fetchLocalIcons<E: RawRepresentable & CaseIterable>(in iconEnum: E.Type) -> [UIImage]
+//  where E.RawValue == String {
+//    let icons = E.allCases.map { imageName -> UIImage in
+//      let image = UIImage.asset(imageName) ?? UIImage()
+//      image.accessibilityIdentifier = imageName.rawValue
+//      return image
+//    }
+//    return icons
+//  }
+
+  private func fetchImages(names: [String]) -> [UIImage] {
+    let icons = names.map { imageName -> UIImage in
+      let image = UIImage(named: imageName) ?? UIImage()
+      image.accessibilityIdentifier = imageName
       return image
     }
     return icons

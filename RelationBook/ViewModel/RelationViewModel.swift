@@ -38,9 +38,6 @@ class RelationViewModel {
   }
 
   func addRelation(name: String, iconString: String, bgColor: UIColor, superIndex: Int, features: [Feature] = [], completion: @escaping () -> Void = {}) {
-
-
-
     guard let user = FirebaseManager.shared.userShared,
           let userId = user.uid else { return }
 
@@ -56,7 +53,7 @@ class RelationViewModel {
       createdTime: Timestamp(date: Date()),
       lastContactTime: Timestamp(date: Date()))
 
-    FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { docID in
+    FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { _ in
       var newContact = Category(
         id: newIndex,
         isCustom: iconString.verifyUrl(),
@@ -70,9 +67,8 @@ class RelationViewModel {
   }
 
   static func updateRelation(categoryIndex: Int, name: String? = nil, bgColor: UIColor? = nil, feature: [Feature]? = nil) {
-
     if let feature = feature {
-      let dict = feature.map{ $0.toDict() }
+      let dict = feature.map { $0.toDict() }
 
       FirebaseManager.shared.updateRelation(categoryIndex: categoryIndex, dict: ["feature": dict])
     }
@@ -83,10 +79,14 @@ class RelationViewModel {
   }
 
   func onRelationModified(relation: Relation) {
-    relations.value[(relations.value.firstIndex(where: { $0.id == relation.id }))!] = relation
+    if let index = relations.value.firstIndex(where: { $0.id == relation.id }) {
+      relations.value[index] = relation
+    }
   }
 
   func onRelationDeleted(relation: Relation) {
-    relations.value.remove(at: (relations.value.firstIndex(where: { $0.id == relation.id }))!)
+    if let index = relations.value.firstIndex(where: { $0.id == relation.id }) {
+      relations.value.remove(at: index)
+    }
   }
 }

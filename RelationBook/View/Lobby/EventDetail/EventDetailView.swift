@@ -97,10 +97,8 @@ class EventDetailView: UIView, NibLoadable {
 
     let moodData = UserViewModel.moodData[event.mood]
 
-    if let image = UIImage(named: moodData.imageName) {
-      moodImage.image = image
-      moodImage.backgroundColor = UIColor.UIColorFromString(string: moodData.colorString)
-    }
+    moodImage.image = moodData.image
+    moodImage.backgroundColor = UIColor.UIColorFromString(string: moodData.colorString)
 
     moodImage.isCornerd = true
 
