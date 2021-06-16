@@ -36,30 +36,32 @@ class PopTipManager: NSObject {
     func showPopTip() -> PopTip {
 
       var popTip = PopTip()
+
       popTip.shouldDismissOnTap = true
       popTip.shouldDismissOnTapOutside = true
 
       popTip = setAttribute(popTip: popTip)
+
+      guard let originRect = target.globalFrame else { return popTip }
 
       if let text = text {
         popTip.show(text: text,
                     direction: direction,
                     maxWidth: 200,
                     in: UIView.rootView,
-                    from: target.globalFrame!,
+                    from: originRect,
                     duration: duration)
       } else if let view = customView {
         popTip.show(customView: view,
                     direction: direction,
                     in: UIView.rootView,
-                    from: target.globalFrame!,
+                    from: originRect,
                     duration: duration)
       }
       return popTip
     }
 
     private func setAttribute(popTip: PopTip) -> PopTip {
-
       attributes.forEach { attribute in
         switch attribute {
         case let .animateFloat(x: x, y: y):
@@ -83,7 +85,6 @@ class PopTipManager: NSObject {
         case let .tintColor(color):
           popTip.tintColor = color
         }
-
       }
 
       return popTip
@@ -104,7 +105,6 @@ class PopTipManager: NSObject {
   var view = UIView.rootView
 
   func show(isBlur: Bool = true) {
-
     if isBlur {
       addBlurView()
     }

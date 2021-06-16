@@ -322,16 +322,14 @@ enum LocalIconEventFeatureColor: String, CaseIterable {
 enum SysetmAsset: String {
   // tabItems
   case add = "plus"
-  case add_fill = "plus_fill"
   case camera = "camera"
 }
 
 extension UIImage {
-
   static func asset<E: RawRepresentable>(_ asset: E) -> UIImage? where E.RawValue == String {
     return UIImage(named: asset.rawValue)
   }
-  
+
   static func assetSystem<E: RawRepresentable>(_ asset: E) -> UIImage? where E.RawValue == String {
     return UIImage(systemName: asset.rawValue)
   }
@@ -342,14 +340,13 @@ extension UIImage {
   }
 
   static func getPlaceholder(_ placeholder: Placeholder, style: UIUserInterfaceStyle) -> UIImage {
-
     let imageString = placeholder.rawValue.split(separator: ",")
 
     switch style {
     case .light:
-      return UIImage(named: String(imageString[0]))!
+      return UIImage(named: String(imageString[0])) ?? UIImage()
     default:
-      return UIImage(named: String(imageString[1]))!
+      return UIImage(named: String(imageString[1])) ?? UIImage()
     }
   }
 }

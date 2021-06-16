@@ -12,17 +12,16 @@ import FSCalendar
 
 
 class LobbyViewController: UIViewController {
-
   let userViewModel = UserViewModel()
   let relationViewModel = RelationViewModel()
   let eventViewModel = EventViewModel()
   let lottieView = LottieWrapper()
 
-  var popViews = [UIView]()
+  var popViews: [UIView] = []
 
   var editingEvent: Event?
-  
-  fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
+
+  lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
     let panGesture = UIPanGestureRecognizer(
       target: calendar,
@@ -33,7 +32,7 @@ class LobbyViewController: UIViewController {
     panGesture.maximumNumberOfTouches = 2
     return panGesture
   }()
-  
+
   @IBOutlet var calendar: FSCalendar! {
     didSet {
       calendar.delegate = self
@@ -41,9 +40,9 @@ class LobbyViewController: UIViewController {
       calendar.locale = Locale.init(identifier: "zh-tw")
     }
   }
-  
+
   @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
-  
+
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.delegate = self
@@ -64,7 +63,7 @@ class LobbyViewController: UIViewController {
 
     lottieView.dismiss()
   }
-  
+
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -117,14 +116,12 @@ class LobbyViewController: UIViewController {
   }
 
   @IBAction func logout(_ sender: UIBarButtonItem) {
-//    try? Auth.auth().signOut()
+    try? Auth.auth().signOut()
   }
-
 }
 
 // MARK: - calendar delegate / datasource
 extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance, UIGestureRecognizerDelegate {
-
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     navigationItem.title = date.getDayString(type: .day)
     tableView.reloadData()
@@ -139,7 +136,7 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
   //  func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
   // MARK: 每月第一週置頂
   //  }
-  
+
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
     let shouldBegin = tableView.contentOffset.y <= -tableView.contentInset.top
@@ -166,13 +163,13 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
     }
 
     if date.week == 1 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .redB1 : .redB2
+      return !todayEvents.isEmpty ? .redB1 : .redB2
     } else if date.week == 7 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .greenB1 : .greenB2
+      return !todayEvents.isEmpty ? .greenB1 : .greenB2
     } else if date.isSameDay(date: Date()) {
-      return todayEvents.count > 0 ? .systemBackground : .secondaryBackground
+      return !todayEvents.isEmpty ? .systemBackground : .secondaryBackground
     } else {
-      return todayEvents.count > 0 ? .button : . buttonDisable
+      return !todayEvents.isEmpty ? .button : . buttonDisable
     }
   }
 
@@ -190,13 +187,13 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
     }
 
     if date.week == 1 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .redB1 : .redB2
+      return !todayEvents.isEmpty ? .redB1 : .redB2
     } else if date.week == 7 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .greenB1 : .greenB2
+      return !todayEvents.isEmpty ? .greenB1 : .greenB2
     } else if date.isSameDay(date: Date()) {
       return .systemGray6
     } else {
-      return todayEvents.count > 0 ? .button : .buttonDisable
+      return !todayEvents.isEmpty ? .button : .buttonDisable
     }
   }
 
@@ -211,16 +208,13 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
 
 // MARK: - tableView delegate / datasource
 extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
-
     guard let selectedDate = calendar.selectedDate else { return 0 }
 
     return eventViewModel.fetchEventIn(date: selectedDate).count
   }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }
 
@@ -236,19 +230,20 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 10
   }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventCell.self), for: indexPath)
 
     guard let selectedDate = calendar.selectedDate,
           let user = userViewModel.user.value else { return cell }
 
     if let cell = cell as? LobbyEventCell {
-
       let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
 
-      cell.cellSetup(type: .lobby, event: event, relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
+      cell.cellSetup(
+        type: .lobby,
+        event: event,
+        relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
     }
 
     cell.updateConstraintsIfNeeded()
@@ -261,10 +256,8 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    guard let user = userViewModel.user.value,
+    guard userViewModel.user.value != nil,
           let cell = tableView.cellForRow(at: indexPath) as? LobbyEventCell else { return }
-
     cell.isSelected = false
 
     guard let event = cell.event else { return }
@@ -278,7 +271,13 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     view.addSubview(detailVC)
 
-    detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 1.5)
+    detailVC.addConstarint(
+      left: view.leftAnchor,
+      right: view.rightAnchor,
+      centerY: view.centerYAnchor,
+      paddingLeft: 16,
+      paddingRight: 16,
+      height: view.frame.height / 1.5)
     detailVC.cornerRadius = detailVC.frame.width * 0.05
 
     view.layoutIfNeeded()
@@ -300,16 +299,13 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - custom tab bar delegate
 extension LobbyViewController: TabBarTapDelegate {
-
   func tabBarTapped(_ controller: PBTabBarViewController, index: Int) {
-
     LKProgressHUD.show()
     performSegue(withIdentifier: "addEvent", sender: self)
   }
 }
 
 extension LobbyViewController: EventDetailDelegate {
-
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
     editingEvent = event
 
@@ -317,7 +313,6 @@ extension LobbyViewController: EventDetailDelegate {
   }
 
   func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {
-
     let provider = SCLAlertViewProvider()
 
     provider.setConfirmAction {self.eventViewModel.deleteEvent(event: event)}

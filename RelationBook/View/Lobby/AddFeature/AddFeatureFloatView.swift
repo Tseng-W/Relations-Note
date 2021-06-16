@@ -63,14 +63,13 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   func customInit() {
-
     loadNibContent()
 
     filterView.onSelected = { [weak self] categoris in
       self?.selectedCategory = categoris
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
         if let strongSelf = self {
-          strongSelf.filterHeight.constant = strongSelf.filterHeight.constant / 2.66
+          strongSelf.filterHeight.constant /= 2.66
           strongSelf.layoutIfNeeded()
         }
       }
@@ -79,15 +78,14 @@ class AddFeatureFloatView: UIView, NibLoadable{
     filterView.onStartEdit = { [weak self] in
       UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
         if let strongSelf = self {
-          strongSelf.filterHeight.constant = strongSelf.filterHeight.constant * 2.66
+          strongSelf.filterHeight.constant *= 2.66
           strongSelf.layoutIfNeeded()
         }
       }
     }
 
     featureViewModel.feature.bind { feature in
-
-      if feature.contents.count == 0 {
+      if feature.contents.isEmpty {
         self.confirmButton.backgroundColor = .buttonDisable
         self.confirmButton.isEnabled = false
       } else {
@@ -104,7 +102,7 @@ class AddFeatureFloatView: UIView, NibLoadable{
     isHidden = true
     LKProgressHUD.show()
 
-    do{
+    do {
       sleep(UInt32(0.5))
     }
 
@@ -118,9 +116,11 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
     view.addSubview(self)
     addConstarint(
-      left: view.leftAnchor, right: view.rightAnchor,
+      left: view.leftAnchor,
+      right: view.rightAnchor,
       centerY: view.centerYAnchor,
-      paddingLeft: 16, paddingRight: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
       height: view.frame.height / 2)
 
     view.layoutIfNeeded()
@@ -132,7 +132,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   @IBAction func onTapCancel(_ sender: UIButton) {
-    
     blurView?.removeFromSuperview()
     removeFromSuperview()
 
@@ -142,7 +141,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   @IBAction func onTapConfirm(_ sender: UIButton) {
-
     var feature = featureViewModel.feature.value
     feature.name = selectedCategory[0].title
     feature.categoryIndex = selectedCategory[0].id
@@ -156,7 +154,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
 extension AddFeatureFloatView {
 
   private func reset() {
-
     selectedCategory.removeAll()
     featureViewModel.feature.value = Feature()
 
@@ -169,7 +166,6 @@ extension AddFeatureFloatView {
 }
 
 extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
-
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     featureViewModel.amount() + 1
   }
@@ -184,7 +180,6 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CheckboxTableCell.self), for: indexPath)
 
     if let cell = cell as? CheckboxTableCell {

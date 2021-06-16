@@ -60,14 +60,13 @@ class CategoryCollectionView: UICollectionView {
 
   var selectedCategories: [Category] = [] {
     didSet {
-      status = selectedCategories.count > 0 ? .selected : .mainCategory
+      status = !selectedCategories.isEmpty ? .selected : .mainCategory
       reloadData()
     }
   }
 
   // MARK: Functions
   func setUp(index: Int, type: CategoryType, isMainOnly: Bool = false) {
-
     userViewModel.user.bind { [weak self] user in
       guard let user = user,
             let index = self?.index,

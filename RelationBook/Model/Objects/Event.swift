@@ -15,7 +15,7 @@ enum EventType: Int, Codable {
 }
 
 struct Event: Codable {
-  @DocumentID var docID: String?
+  @DocumentID var docId: String?
   var owner: String
   var relations: [Int]
   var imageLink: String?

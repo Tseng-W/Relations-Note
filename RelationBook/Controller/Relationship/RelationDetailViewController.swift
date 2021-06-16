@@ -29,7 +29,6 @@ class RelationDetailViewController: UIViewController {
   var sortedRelationList = [[Feature]]()
 
   var scrollView: UIScrollView = {
-
     let scrollView = UIScrollView()
 
     scrollView.isPagingEnabled = true
@@ -62,7 +61,6 @@ class RelationDetailViewController: UIViewController {
   }()
 
   let profileTableView: UITableView = {
-
     let profileTableView = UITableView()
 
     profileTableView.tag = TableType.profile.rawValue
@@ -90,7 +88,6 @@ class RelationDetailViewController: UIViewController {
 
   var events = [Event]() {
     didSet {
-
       eventsSorted.removeAll()
       var eventPool = [Date: [Event]]()
 
@@ -117,7 +114,6 @@ class RelationDetailViewController: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     guard let category = relationCategory else { dismiss(animated: true); return }
@@ -126,11 +122,11 @@ class RelationDetailViewController: UIViewController {
 
     eventViewModel.events.bind { [weak self] events in
       guard let relation = self?.relationCategory else { return }
-      self?.events = events.filter { $0.relations.contains(relation.id)}
+      self?.events = events.filter { $0.relations.contains(relation.id) }
     }
 
     relationViewModel.relations.bind { [weak self] relations in
-      self?.relation = relations.first(where: { $0.categoryIndex == self?.relationCategory?.id })
+      self?.relation = relations.first { $0.categoryIndex == self?.relationCategory?.id }
     }
 
     userViewModel.fetchUserDate()
@@ -143,7 +139,6 @@ class RelationDetailViewController: UIViewController {
   }
 
   private func iconSetup(category relation: Category) {
-
     relation.getImage { [weak self] image in
       self?.iconView.setIcon(
         isCropped: relation.isCustom,
@@ -159,12 +154,13 @@ class RelationDetailViewController: UIViewController {
 
   // MARK: Content set up
   private func contentViewSetup(category relation: Category) {
-
     contentView.addSubview(scrollView)
 
     scrollView.addConstarint(
-      top: contentView.topAnchor, left: contentView.leftAnchor,
-      bottom: contentView.bottomAnchor, right: contentView.rightAnchor)
+      top: contentView.topAnchor,
+      left: contentView.leftAnchor,
+      bottom: contentView.bottomAnchor,
+      right: contentView.rightAnchor)
 
     view.layoutIfNeeded()
 
@@ -183,13 +179,11 @@ class RelationDetailViewController: UIViewController {
   }
 
   private func scrollViewAddSubPaging<T: UIView>(views: [T]) {
-
     let width = contentView.frame.width
     let height = contentView.frame.height - 200
     var x: CGFloat = 0
 
     for index in 0..<views.count {
-
       scrollView.addSubview(views[index])
 
       views[index].frame.origin = CGPoint(x: x, y: 0)
@@ -201,17 +195,16 @@ class RelationDetailViewController: UIViewController {
     scrollView.contentSize = CGSize(width: x, height: height)
   }
 
-//  override func viewWillDisappear(_ animated: Bool) {
-//
-//    super.viewWillDisappear(true)
-//
-//    navigationController?.backToRoot()
-//  }
+  //  override func viewWillDisappear(_ animated: Bool) {
+  //
+  //    super.viewWillDisappear(true)
+  //
+  //    navigationController?.backToRoot()
+  //  }
 }
 
 // MARK: - Selection bar Delegate
 extension RelationDetailViewController: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
-
   func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? {
     .button
   }
@@ -225,16 +218,13 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
   }
 
   func selectionView(_ selectionView: SelectionView, titleForButtonAt index: Int) -> String {
-
     let buttonTitle = ["事件", "個人資訊"]
 
     return buttonTitle[index]
   }
 
   func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-
       self.scrollView.contentOffset.x =  self.scrollView.frame.width * CGFloat(index)
 
       self.view.layoutIfNeeded()
@@ -242,7 +232,6 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
   }
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
     guard scrollView == self.scrollView else { return }
 
     let paging: CGFloat = scrollView.contentOffset.x / scrollView.frame.width
@@ -253,11 +242,8 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
 
 // MARK: - TableView Delegate
 extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
-
     switch TableType(rawValue: tableView.tag) {
-
     case .event:
 
       let number = eventsSorted.count
@@ -275,14 +261,13 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
     case .profile:
 
       if let relation = relation,
-         relation.feature.count > 0,
+         !relation.feature.isEmpty,
          let user = userViewModel.user.value {
         tableView.removePlaceholder()
 
         sortedRelation = [Int: [Feature]]()
 
         relation.feature.forEach { feature in
-
           let filterIndex = user.getCategoriesWithSuperIndex(mainType: .feature).first { $0.id == feature.categoryIndex }!
 
           if sortedRelation.keys.contains(filterIndex.superIndex) {
@@ -315,9 +300,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
     switch TableType(rawValue: tableView.tag) {
-
     case .event:
 
       return eventsSorted[section].value.count
@@ -332,13 +315,11 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
     switch TableType(rawValue: tableView.tag) {
-
     case .event:
       let header = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 60))
 
-        header.tagTitleLabel.text = eventsSorted[section].key.getDayString(type: .day)
+      header.tagTitleLabel.text = eventsSorted[section].key.getDayString(type: .day)
 
       return header
 
@@ -364,9 +345,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
     switch TableType(rawValue: tableView.tag) {
-
     case .event:
 
       let events = eventsSorted.sorted { $0.key > $1.key }
@@ -377,8 +356,9 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
         withIdentifier: String(describing: LobbyEventCell.self),
         for: indexPath)
 
-      if let cell = cell as? LobbyEventCell {
-        cell.cellSetup(type: .relation, event: event, relations: [relationCategory!])
+      if let cell = cell as? LobbyEventCell,
+         let category = relationCategory {
+        cell.cellSetup(type: .relation, event: event, relations: [category])
       }
 
       return cell
@@ -389,7 +369,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
         withIdentifier: String(describing: RelationProfileCell.self),
         for: indexPath)
 
-      guard let relation = relation else { return cell }
+      guard relation != nil else { return cell }
 
       if let cell = cell as? RelationProfileCell {
         cell.setup(
@@ -406,7 +386,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
     guard let cell = tableView.cellForRow(at: indexPath) else { return }
 
     cell.isSelected = false
@@ -424,7 +403,12 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       let blueView = view.addBlurView()
       view.addSubview(detailVC)
 
-      detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 1.5)
+      detailVC.addConstarint(left: view.leftAnchor,
+                             right: view.rightAnchor,
+                             centerY: view.centerYAnchor,
+                             paddingLeft: 16,
+                             paddingRight: 16,
+                             height: view.frame.height / 1.5)
       detailVC.cornerRadius = detailVC.frame.width * 0.05
 
       view.layoutIfNeeded()
@@ -452,23 +436,20 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 extension RelationDetailViewController: EventDetailDelegate {
-
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
-
-//    if let controller = UIStoryboard.lobby.instantiateViewController(identifier: "addEvent") as? AddEventViewController {
-//      controller.editingEvent = event
-//      navigationController?.pushViewController(controller, animated: true)
-//    }
+    //    if let controller = UIStoryboard.lobby.instantiateViewController(identifier: "addEvent") as? AddEventViewController {
+    //      controller.editingEvent = event
+    //      navigationController?.pushViewController(controller, animated: true)
+    //    }
 
     editingEvent = event
     performSegue(withIdentifier: "addEvent", sender: self)
   }
 
   func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {
-
     let provider = SCLAlertViewProvider()
 
-    provider.setConfirmAction {self.eventViewModel.deleteEvent(event: event)}
+    provider.setConfirmAction { self.eventViewModel.deleteEvent(event: event) }
       .showAlert(type: .delete)
   }
 }

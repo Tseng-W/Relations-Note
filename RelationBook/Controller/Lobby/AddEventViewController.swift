@@ -275,7 +275,7 @@ class AddEventViewController: UIViewController {
       return
     }
 
-    guard relationCategories.count > 0 else {
+    guard !relationCategories.isEmpty else {
       PopTipManager.shared
         .addPopTip(at: filterView, text: "請選擇互動對象", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
         .show(isBlur: false)
@@ -287,7 +287,7 @@ class AddEventViewController: UIViewController {
 
     let comment: String = commentTextView.text == "備註" ? .empty : commentTextView.text
 
-    var newEvent = Event(docID: "",
+    var newEvent = Event(docId: "",
                          owner: userID,
                          relations: relationCategories.map { $0.id },
                          imageLink: imageLink ?? nil,
@@ -300,9 +300,9 @@ class AddEventViewController: UIViewController {
                          comment: comment)
 
 
-    if let editingEvent = editingEvent {
-
-      newEvent.docID = editingEvent.docID!
+    if let editingEvent = editingEvent,
+       let originId = editingEvent.docId {
+      newEvent.docId = originId
 
       eventViewModel.updateEvent(event: newEvent)
 
@@ -312,15 +312,15 @@ class AddEventViewController: UIViewController {
 
     eventViewModel.addEvent(event: newEvent) { result in
       switch result {
-      case .success(let docID):
-        newEvent.docID = docID
+      case .success(let docId):
+        newEvent.docId = docId
 
       case .failure(let error):
         print("\(error.localizedDescription)")
       }
     }
 
-    if features.count > 0 {
+    if !features.isEmpty {
 
       guard let relation = relations.first(where: { $0.categoryIndex == relationCategories[0].id }) else { return }
 
@@ -335,24 +335,23 @@ class AddEventViewController: UIViewController {
   }
 
   @IBAction func showLocation(_ sender: UIButton) {
-
     selectFloatViewController.display(type: .location)
   }
 
   @IBAction func showChangeMood(_ sender: UIButton) {
-
     let moodSelectView = MoodSelectView()
     moodSelectView.cornerRadius = 16
     let blurView = view.addBlurView()
     view.addSubview(moodSelectView)
 
-    moodSelectView.addConstarint(
-      left: view.leftAnchor, right: view.rightAnchor,
-      centerY: view.centerYAnchor,
-      paddingLeft: 16, paddingRight: 16,
-      height: 200)
+    moodSelectView.addConstarint(left: view.leftAnchor,
+                                 right: view.rightAnchor,
+                                 centerY: view.centerYAnchor,
+                                 paddingLeft: 16,
+                                 paddingRight: 16,
+                                 height: 200)
 
-    moodSelectView.onSelected = { [weak self] (index, image, color) in
+    moodSelectView.onSelected = { [weak self] index, image, color in
       self?.mood = index
       self?.moodButton.setImage(image, for: .normal)
       self?.moodButton.backgroundColor = color
@@ -380,17 +379,14 @@ class AddEventViewController: UIViewController {
 }
 
 extension AddEventViewController: UITextFieldDelegate {
-  
   func textFieldDidEndEditing(_ textField: UITextField) {
-    print(textField.text!)
+
   }
 }
 
 // MARK: SCLAlert wrapper delegate
 extension AddEventViewController: SCLAlertViewProviderDelegate {
-
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
-
     imageButton.setImage(image, for: .normal)
 
     FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
@@ -406,12 +402,13 @@ extension AddEventViewController: SCLAlertViewProviderDelegate {
 
 // MARK: Add category delegate
 extension AddEventViewController: CategoryStyleViewDelegate {
-
   func categoryStyleView(
     styleView: SetCategoryStyleView,
-    isCropped: Bool, name: String,
+    isCropped: Bool,
+    name: String,
     backgroundColor: UIColor,
-    image: UIImage, imageString: String) {
+    image: UIImage,
+    imageString: String) {
     
   }
 
@@ -422,7 +419,6 @@ extension AddEventViewController: CategoryStyleViewDelegate {
 
 // MARK: TextFiled Delegate
 extension AddEventViewController: UITextViewDelegate {
-
   func textViewDidBeginEditing(_ textView: UITextView) {
     if textView.textColor == commentPlaceholderColor {
       textView.text = nil

@@ -93,15 +93,15 @@ class FirebaseManager {
 
         switch diff.type {
         case .added:
-          if !self.events.contains(where: { $0.docID == event.docID }) {
+          if !self.events.contains(where: { $0.docId == event.docId }) {
             self.events.append(event)
           }
         case.modified:
-          if let index = self.events.firstIndex(where: { $0.docID == event.docID }) {
+          if let index = self.events.firstIndex(where: { $0.docId == event.docId }) {
             self.events[index] = event
           }
         case.removed:
-          self.events.removeAll(where: { $0.docID == event.docID })
+          self.events.removeAll(where: { $0.docId == event.docId })
         }
       })
 
@@ -188,7 +188,7 @@ class FirebaseManager {
   }
 
   func updateEvent(event: Event, completion: @escaping () -> Void = {}) {
-    if let docID = event.docID {
+    if let docID = event.docId {
 
       let doc = db.collection(Collections.event.rawValue)
         .document(docID)
@@ -280,7 +280,7 @@ class FirebaseManager {
 
   func deleteEvent(event: Event, completion: @escaping (Bool) -> Void = { _ in}) {
 
-    if let docID = event.docID {
+    if let docID = event.docId {
       let docRef = db.collection(Collections.event.rawValue)
         .document(docID)
 

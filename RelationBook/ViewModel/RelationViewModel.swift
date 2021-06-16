@@ -65,7 +65,7 @@ class RelationViewModel {
         isSubEnable: false,
         title: name,
         imageLink: iconString,
-        backgroundColor: bgColor.StringFromUIColor())
+        backgroundColor: bgColor.stringFromUIColor())
       FirebaseManager.shared.addUserCategory(type: .relation, hierarchy: .sub, category: &newContact)
     }
 

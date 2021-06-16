@@ -60,7 +60,8 @@ class FilterView: UIView {
 
       self?.filterSource = user.getFilter(type: type)
 
-      if self?.categoryViews.count == 0 {
+      if let categoryViews = self?.categoryViews,
+         categoryViews.isEmpty {
         self?.initialFilterView()
       }
     }
@@ -84,7 +85,6 @@ class FilterView: UIView {
   }
 
   private func addFilterBar() {
-
     filterScrollView.removeFromSuperview()
 
     filterScrollView.delegate = self
@@ -95,8 +95,11 @@ class FilterView: UIView {
     let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
     topConstraint.priority = .required
 
-    filterScrollView.addConstarint(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
-    filterHeightConstraint = filterScrollView.constraints.first(where: { $0.constant == 50 })
+    filterScrollView.addConstarint(top: topAnchor,
+                                   left: leftAnchor,
+                                   right: rightAnchor,
+                                   height: 50)
+    filterHeightConstraint = filterScrollView.constraints.first { $0.constant == 50 }
   }
 
   private func addScrollView() {
@@ -104,13 +107,14 @@ class FilterView: UIView {
 
     addSubview(categoryScrollView)
     categoryScrollView.addConstarint(
-      top: filterScrollView.bottomAnchor, left: leftAnchor,
-      bottom: bottomAnchor, right: rightAnchor)
+      top: filterScrollView.bottomAnchor,
+      left: leftAnchor,
+      bottom: bottomAnchor,
+      right: rightAnchor)
   }
 
   private func addCategoryCollectionViews(type: CategoryType) {
-
-    guard let user = userViewModel.user.value else { return }
+    guard userViewModel.user.value != nil else { return }
 
     categoryScrollView.delegate = self
     categoryScrollView.subviews.forEach { $0.removeFromSuperview() }
@@ -128,8 +132,9 @@ class FilterView: UIView {
       layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 
 
-      let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight), collectionViewLayout: layout)
-      
+      let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight),
+                                                  collectionViewLayout: layout)
+    
       collectionView.setUp(index: index, type: type, isMainOnly: isMainOnly)
 
       categoryScrollView.addSubview(collectionView)
@@ -148,7 +153,6 @@ class FilterView: UIView {
             strongSelf.onHiddenFilter(isHidden: true)
           }
         }
-        
         return self?.selectedCategories ?? []
       }
 
@@ -180,7 +184,6 @@ class FilterView: UIView {
   }
 
   func scrollTo(main: Category, sub: Category) {
-
     guard categoryViews.count > main.superIndex else { return }
 
 //    filterScrollView.scrollView.contentOffset = CGPoint(x: filterScrollView.scrollView.frame.width * CGFloat(main.superIndex), y: 0)
@@ -202,7 +205,6 @@ class FilterView: UIView {
 }
 
 extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
-
   func numberOfButton(_ selectionView: SelectionView) -> Int {
     filterSource.count
   }
@@ -212,7 +214,6 @@ extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
   }
 
   func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
       self.categoryScrollView.contentOffset.x = self.categoryScrollView.frame.width * CGFloat(index)
       self.layoutIfNeeded()

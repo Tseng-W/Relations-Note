@@ -61,7 +61,7 @@ class ProfileCategoryListView: UIViewController {
       guard let user = user,
             let type = self?.type else { return }
 
-      if self?.scrollView.subviews.count == 0 {
+      if self?.scrollView.subviews.isEmpty ?? false {
         self?.scrollViewInitial()
       }
 
@@ -249,12 +249,12 @@ extension ProfileCategoryListView: CategoryStyleViewDelegate {
 
   func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
 
-    guard let user = userViewModel.user.value,
+    guard userViewModel.user.value != nil,
           var category = editingCategory else { return }
 
     category.isCustom = isCropped
     category.title = name
-    category.backgroundColor = backgroundColor.StringFromUIColor()
+    category.backgroundColor = backgroundColor.stringFromUIColor()
     category.imageLink = imageString
 
     FirebaseManager.shared.updateUserCategory(

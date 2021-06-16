@@ -37,14 +37,14 @@ class UserViewModel {
 
 extension UserViewModel {
   static var moodData: [(title: String, imageName: String, colorString: String)] = [
-    ("憤怒", EmojiIcon.emojiAngry.rawValue, UIColor.systemRed.StringFromUIColor()),
-    ("傷心", EmojiIcon.emojiSad.rawValue, UIColor.systemBlue.StringFromUIColor()),
-    ("無言", EmojiIcon.emojiWaiting.rawValue, UIColor.systemPurple.StringFromUIColor()),
-    ("困惑", EmojiIcon.emojiConfused.rawValue, UIColor.systemTeal.StringFromUIColor()),
-    ("無聊", EmojiIcon.emojiSleeping.rawValue, UIColor.systemYellow.StringFromUIColor()),
-    ("快樂", EmojiIcon.emojiHappy.rawValue, UIColor.systemOrange.StringFromUIColor()),
-    ("興奮", EmojiIcon.emojiGrin.rawValue, UIColor.systemGreen.StringFromUIColor()),
-    ("期待", EmojiIcon.emojiWinking.rawValue, UIColor.systemIndigo.StringFromUIColor()),
-    ("著迷", EmojiIcon.emojiLove.rawValue, UIColor.systemPink.StringFromUIColor())
+    ("憤怒", EmojiIcon.emojiAngry.rawValue, UIColor.systemRed.stringFromUIColor()),
+    ("傷心", EmojiIcon.emojiSad.rawValue, UIColor.systemBlue.stringFromUIColor()),
+    ("無言", EmojiIcon.emojiWaiting.rawValue, UIColor.systemPurple.stringFromUIColor()),
+    ("困惑", EmojiIcon.emojiConfused.rawValue, UIColor.systemTeal.stringFromUIColor()),
+    ("無聊", EmojiIcon.emojiSleeping.rawValue, UIColor.systemYellow.stringFromUIColor()),
+    ("快樂", EmojiIcon.emojiHappy.rawValue, UIColor.systemOrange.stringFromUIColor()),
+    ("興奮", EmojiIcon.emojiGrin.rawValue, UIColor.systemGreen.stringFromUIColor()),
+    ("期待", EmojiIcon.emojiWinking.rawValue, UIColor.systemIndigo.stringFromUIColor()),
+    ("著迷", EmojiIcon.emojiLove.rawValue, UIColor.systemPink.stringFromUIColor())
   ]
 }

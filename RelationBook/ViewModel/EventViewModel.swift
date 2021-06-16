@@ -116,10 +116,10 @@ class EventViewModel {
   }
 
   func onEventModified(event: Event) {
-    events.value[(events.value.firstIndex(where: { $0.docID == event.docID }))!] = event
+    events.value[(events.value.firstIndex(where: { $0.docId == event.docId }))!] = event
   }
 
   func onEventDeleted(event: Event) {
-    events.value.remove(at: (events.value.firstIndex(where: { $0.docID == event.docID }))!)
+    events.value.remove(at: (events.value.firstIndex(where: { $0.docId == event.docId }))!)
   }
 }

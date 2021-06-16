@@ -206,7 +206,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
               hierarchy: hierarchy),
             title: name,
             imageLink: imageString,
-            backgroundColor: colorPicker.selectedColor.StringFromUIColor())
+            backgroundColor: colorPicker.selectedColor.stringFromUIColor())
 
           FirebaseManager.shared.addUserCategory(type: categoryType, hierarchy: hierarchy, category: &category) { _ in
           }

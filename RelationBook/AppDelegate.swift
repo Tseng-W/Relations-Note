@@ -17,7 +17,6 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
   static let shared = UIApplication.shared.delegate as! AppDelegate
 
   var window: UIWindow?
@@ -41,13 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    registerForPushNotifications()
 
     if #available(iOS 10.0, *) {
-
       UNUserNotificationCenter.current().delegate = self
 
       let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
       UNUserNotificationCenter.current().requestAuthorization(
-        options: authOptions,
-        completionHandler: {_, _ in })
+        options: authOptions) { _, _ in }
     } else {
       let settings: UIUserNotificationSettings =
         UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -60,14 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
-  
+
   // MARK: UISceneSession Lifecycle
-  
   @available(iOS 13.0, *)
   func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
     return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
   }
-  
+
   @available(iOS 13.0, *)
   func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
   }
@@ -87,7 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // MARK: - Push notification
 
   func registerForPushNotifications() {
-
     UNUserNotificationCenter.current()
       .requestAuthorization(
         options: [.alert, .sound, .badge]) { [weak self] granted, _ in
@@ -114,21 +109,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   ) {
     print("Failed to register: \(error)")
   }
-  
+
   // MARK: - Core Data stack
-  
   lazy var persistentContainer: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "PersonBook")
-    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+    container.loadPersistentStores { storeDescription, error in
       if let error = error as NSError? {
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
-    })
+    }
     return container
   }()
-  
+
   // MARK: - Core Data Saving support
-  
   func saveContext () {
     let context = persistentContainer.viewContext
     if context.hasChanges {
@@ -144,9 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
-
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-
     let dataDict:[String: String] = ["token": fcmToken ]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
 
@@ -178,5 +169,4 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
 
     completionHandler()
   }
-
 }

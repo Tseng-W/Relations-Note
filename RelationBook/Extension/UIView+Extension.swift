@@ -91,8 +91,7 @@ extension UIView {
   }
 
   func addPlaceholder(image: UIImage, description: String) {
-
-    if let placeholder = subviews.first(where: { $0.tag == 999 }) {
+    if subviews.first(where: { $0.tag == 999 }) != nil {
       return
     }
 
@@ -109,27 +108,25 @@ extension UIView {
     addSubview(label)
 
     imageView.addConstarint(
-      centerX: centerXAnchor, centerY: centerYAnchor,
-      width: frame.width / 3, height: frame.width / 3)
+      centerX: centerXAnchor,
+      centerY: centerYAnchor,
+      width: frame.width / 3,
+      height: frame.width / 3)
     label.addConstarint(
       top: imageView.bottomAnchor, centerX: centerXAnchor, paddingTop: 16, width: frame.width, height: 30)
   }
 
   func removePlaceholder() {
-
     subviews.forEach { view in
       if view.tag == 999 {
         view.removeFromSuperview()
       }
     }
   }
-
-
 }
 
 @IBDesignable
 extension UIView {
-
   @IBInspectable var isCornerd: Bool {
     set {
       layer.cornerRadius = newValue ? frame.size.height / 2 : 0
@@ -139,9 +136,8 @@ extension UIView {
       return layer.cornerRadius > 0
     }
   }
-  
-  @IBInspectable var cornerRadius: CGFloat {
 
+  @IBInspectable var cornerRadius: CGFloat {
     set {
       layer.cornerRadius = newValue
       layer.masksToBounds = newValue > 0

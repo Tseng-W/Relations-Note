@@ -9,60 +9,41 @@ import UIKit
 import FlexColorPicker
 
 extension UIColor {
-  
-  static let background: UIColor = UIColor(named: "Background")!
 
-  static let button: UIColor = UIColor(named: "Button")!
-  static let buttonDisable: UIColor = UIColor(named: "ButtonDisable")!
-  static let secondaryBackground: UIColor = UIColor(named: "SecondaryBackground")!
-  static let secondaryLabel: UIColor = UIColor(named: "SecondaryLabel")!
+  static let background = UIColor(named: "Background") ?? .systemBackground
 
-  
-  static let lableB1: UIColor = UIColor(named: "LabelB1")!
-  
-  static let lableB2: UIColor = UIColor(named: "LabelB2")!
-  
-  static let lableB3: UIColor = UIColor(named: "LabelB3")!
-  
-  static let lableB4: UIColor = UIColor(named: "LabelB4")!
-  
-  static let lableB5: UIColor = UIColor(named: "LabelB5")!
-  
-  static let lableB6: UIColor = UIColor(named: "LabelB6")!
-  
-  static let lableB7: UIColor = UIColor(named: "LabelB7")!
-  
-  static let lableB8: UIColor = UIColor(named: "LabelB8")!
-  
-  static let lableB9: UIColor = UIColor(named: "LabelB9")!
+  static let button = UIColor(named: "Button") ?? .systemGray
+  static let buttonDisable = UIColor(named: "ButtonDisable")  ?? .systemGray
+  static let secondaryBackground = UIColor(named: "SecondaryBackground")  ?? .secondarySystemBackground
+  static let secondaryLabel = UIColor(named: "SecondaryLabel") ?? .secondaryLabel
 
-  static let redB1: UIColor = UIColor(named: "RedB1")!
+  static let lableB1 = UIColor(named: "LabelB1") ?? .label
+  static let lableB2 = UIColor(named: "LabelB2") ?? .label
+  static let lableB3 = UIColor(named: "LabelB3") ?? .label
+  static let lableB4 = UIColor(named: "LabelB4") ?? .label
+  static let lableB5 = UIColor(named: "LabelB5") ?? .label
+  static let lableB6 = UIColor(named: "LabelB6") ?? .label
+  static let lableB7 = UIColor(named: "LabelB7") ?? .label
+  static let lableB8 = UIColor(named: "LabelB8") ?? .label
+  static let lableB9 = UIColor(named: "LabelB9") ?? .label
 
-  static let redB2: UIColor = UIColor(named: "RedB2")!
+  static let redB1 = UIColor(named: "RedB1") ?? .systemRed
+  static let redB2 = UIColor(named: "RedB2") ?? .systemRed
 
-  static let greenB1: UIColor = UIColor(named: "GreenB1")!
+  static let greenB1 = UIColor(named: "GreenB1") ?? .systemGreen
+  static let greenB2 = UIColor(named: "GreenB2") ?? .systemGreen
 
-  static let greenB2: UIColor = UIColor(named: "GreenB2")!
+  static let categoryColor1 = UIColor(named: "Color1") ?? .clear
+  static let categoryColor2 = UIColor(named: "Color2") ?? .clear
+  static let categoryColor3 = UIColor(named: "Color3") ?? .clear
+  static let categoryColor4 = UIColor(named: "Color4") ?? .clear
+  static let categoryColor5 = UIColor(named: "Color5") ?? .clear
+  static let categoryColor6 = UIColor(named: "Color6") ?? .clear
+  static let categoryColor7 = UIColor(named: "Color7") ?? .clear
+  static let categoryColor8 = UIColor(named: "Color8") ?? .clear
+  static let categoryColor9 = UIColor(named: "Color9") ?? .clear
 
-  static let categoryColor1: UIColor = UIColor(named: "Color1")!
-
-  static let categoryColor2: UIColor = UIColor(named: "Color2")!
-
-  static let categoryColor3: UIColor = UIColor(named: "Color3")!
-
-  static let categoryColor4: UIColor = UIColor(named: "Color4")!
-
-  static let categoryColor5: UIColor = UIColor(named: "Color5")!
-
-  static let categoryColor6: UIColor = UIColor(named: "Color6")!
-
-  static let categoryColor7: UIColor = UIColor(named: "Color7")!
-
-  static let categoryColor8: UIColor = UIColor(named: "Color8")!
-
-  static let categoryColor9: UIColor = UIColor(named: "Color9")!
-
-  func StringFromUIColor() -> String {
+  func stringFromUIColor() -> String {
     guard let components = self.cgColor.components else { return "" }
     return "[\(components[0]), \(components[1]), \(components[2]), \(components[3])]"
   }
@@ -91,11 +72,11 @@ extension UIColor {
   }
 
   public var hsba: HSBColor {
-    var h: CGFloat = 0
-    var s: CGFloat = 0
-    var b: CGFloat = 0
-    var a: CGFloat = 0
-    getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-    return HSBColor(hue: h * 360, saturation: s, brightness: b)
+    var hColor: CGFloat = 0
+    var sColor: CGFloat = 0
+    var bColor: CGFloat = 0
+    var aColor: CGFloat = 0
+    getHue(&hColor, saturation: &sColor, brightness: &bColor, alpha: &aColor)
+    return HSBColor(hue: hColor * 360, saturation: sColor, brightness: bColor)
   }
 }

@@ -52,7 +52,7 @@ struct Feature: Codable {
 
   func getContentDescription() -> String {
 
-    if contents.count == 0 {
+    if contents.isEmpty {
       return .empty
     } else if contents.count == 1 {
       return contents[0].text

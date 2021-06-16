@@ -9,9 +9,9 @@ import UIKit
 
 class IconViewModel {
 
-  typealias titledImages = [(title: String, images: [UIImage])]
+  typealias TitledImages = [(title: String, images: [UIImage])]
 
-  var iconSets = titledImages()
+  var iconSets = TitledImages()
 
   init(type: CategoryType, hierachy: CategoryHierarchy? = nil) {
 

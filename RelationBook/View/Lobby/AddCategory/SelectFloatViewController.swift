@@ -92,7 +92,6 @@ class SelectFloatViewController: FloatingViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     filterView.setUp(type: .event)
@@ -118,7 +117,6 @@ class SelectFloatViewController: FloatingViewController {
   @objc private func onResetButtonTapped(sender: UIButton) {
 
     switch type {
-
     case .time, .day:
       dateDate = Date()
       datePicker.setDate(dateDate, animated: true)
@@ -132,11 +130,8 @@ class SelectFloatViewController: FloatingViewController {
   }
 
   @IBAction func onConfirmButtonTapped(_ sender: UIButton) {
-
     if sender == confirmButton {
-
       switch type {
-
       case .day, .time:
         print(datePicker.date)
         dateDate = datePicker.date
@@ -160,7 +155,6 @@ class SelectFloatViewController: FloatingViewController {
 
 // MARK: Google Map
 extension SelectFloatViewController {
-
   @objc func autocompleteClicked(tapGesture: UITapGestureRecognizer) {
 
     let visibleRegion = mapView.mapView!.projection.visibleRegion()
@@ -188,13 +182,11 @@ extension SelectFloatViewController {
 
 // MARK: Google Map & Custom Map View
 extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, GoogleMapViewDelegate {
-
   func didSelectAt(location: CLLocationCoordinate2D, name: String) {
     locationInfo = (location, name)
   }
 
   func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-
     mapView.centerLocation(center: place.coordinate, name: place.name)
 
     dismiss(animated: true, completion: nil)
@@ -207,14 +199,5 @@ extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, Goog
   // User canceled the operation.
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     dismiss(animated: true, completion: nil)
-  }
-
-  // Turn the network activity indicator on and off again.
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-  }
-
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
 }

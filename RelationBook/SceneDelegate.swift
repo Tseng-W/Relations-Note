@@ -10,7 +10,6 @@ import FirebaseAuth
 
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
   var window: UIWindow?
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -49,18 +48,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     #else
-    if let _ = window?.rootViewController as? LoginViewController {
+    if let user = Auth.auth().currentUser {
+      UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
+      UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
 
-      if let user = Auth.auth().currentUser {
-
-        UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
-        UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
-
-        if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
-          window?.rootViewController = mainVC
-        } else {
-          print("Can't initial main tab bar view controller.")
-        }
+      if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
+        window?.rootViewController = mainVC
+      } else {
+        print("Can't initial main tab bar view controller.")
+      }
+    } else {
+      if let loginViewController = UIStoryboard.login.instantiateViewController(identifier: "login") as? LoginViewController {
+        window?.rootViewController = loginViewController
+      } else {
+        print("Can't initial main tab bar view controller.")
       }
     }
     #endif
@@ -83,7 +84,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Save changes in the application's managed object context when the application transitions to the background.
     (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
   }
-
-
 }
-
