@@ -8,23 +8,19 @@
 import UIKit
 
 class IconViewModel {
-
   typealias TitledImages = [(title: String, images: [UIImage])]
 
   var iconSets = TitledImages()
 
   init(type: CategoryType, hierachy: CategoryHierarchy? = nil) {
-
     switch type {
     case .relation:
       if hierachy == .main {
-
         let lineIcons = fetchLocalIcons(in: LocalRelationCategoryLine.self)
         iconSets.append(("線性圖示", lineIcons))
 
         let colorIcons = fetchLocalIcons(in: LocalIconEventFeatureColor.self)
         iconSets.append(("彩色圖示", colorIcons))
-
       } else {
         let lineIcons = fetchLocalIcons(in: LocalRelationIconLine.self)
         iconSets.append(("線性圖示", lineIcons))
@@ -33,7 +29,6 @@ class IconViewModel {
         iconSets.append(("彩色圖示", colorIcons))
       }
     case .event, .feature:
-
       let lineIcons = fetchLocalIcons(in: LocalIconEventFeatureLine.self)
       iconSets.append(("線性圖示", lineIcons))
 
@@ -69,7 +64,7 @@ class IconViewModel {
   private func fetchLocalIcons<E: RawRepresentable & CaseIterable>(in iconEnum: E.Type) -> [UIImage]
   where E.RawValue == String {
     let icons = E.allCases.map { imageName -> UIImage in
-      let image = UIImage.asset(imageName)!
+      let image = UIImage.asset(imageName) ?? UIImage()
       image.accessibilityIdentifier = imageName.rawValue
       return image
     }

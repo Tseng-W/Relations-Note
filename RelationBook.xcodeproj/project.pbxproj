@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		47055320265B597300DCEC1D /* AddContactFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705531F265B597300DCEC1D /* AddContactFlowViewController.swift */; };
 		47101B962654D4C200D7D171 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47101B952654D4C200D7D171 /* Bundle+Extension.swift */; };
 		47101B992655366C00D7D171 /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47101B982655366C00D7D171 /* GoogleMapViewController.swift */; };
 		4712C23226526C62008D8386 /* RelationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4712C23126526C62008D8386 /* RelationTableCell.xib */; };
@@ -142,7 +141,6 @@
 		1984D27C283572812AC9DBBB /* Pods-RelationBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBook.debug.xcconfig"; path = "Target Support Files/Pods-RelationBook/Pods-RelationBook.debug.xcconfig"; sourceTree = "<group>"; };
 		2830793C7C004838E839C831 /* Pods_RelationBook_RelationBookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelationBook_RelationBookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C08E4B95EF50A3240DEDCDF /* Pods-RelationBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelationBookTests.debug.xcconfig"; path = "Target Support Files/Pods-RelationBookTests/Pods-RelationBookTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4705531F265B597300DCEC1D /* AddContactFlowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactFlowViewController.swift; sourceTree = "<group>"; };
 		47101B952654D4C200D7D171 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		47101B982655366C00D7D171 /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		4712C23126526C62008D8386 /* RelationTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelationTableCell.xib; sourceTree = "<group>"; };
@@ -626,7 +624,6 @@
 			children = (
 				47A217EA265A42BD0096149C /* IconSelectView.xib */,
 				47A217EC265A43FF0096149C /* IconSelectView.swift */,
-				4705531F265B597300DCEC1D /* AddContactFlowViewController.swift */,
 			);
 			path = AddContact;
 			sourceTree = "<group>";
@@ -1058,7 +1055,6 @@
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
 				475D33852661064200A697DB /* IconView.swift in Sources */,
 				479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */,
-				47055320265B597300DCEC1D /* AddContactFlowViewController.swift in Sources */,
 				476D2EBD264ADD5800A9200A /* EventViewModel.swift in Sources */,
 				47B7D71A2670B78800F05FE7 /* GooglePlaceSearchView.swift in Sources */,
 				47101B962654D4C200D7D171 /* Bundle+Extension.swift in Sources */,

@@ -8,14 +8,13 @@
 import UIKit
 
 class FilterView: UIView {
-
   var userViewModel = UserViewModel()
 
   // MARK: Event closures
   var onSelected: (([Category]) -> Void)?
   var onStartEdit: (() -> Void)?
   var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
-  var onInitialWithTarget: (() -> (main: Category, sub: Category))?
+  var onInitialWithTarget: (() -> (main: Category, sub: Category)?)?
 
   // MARK: Datas
   var filterSource: [String] = []
@@ -37,7 +36,6 @@ class FilterView: UIView {
   var filterHeightConstraint: NSLayoutConstraint?
 
   let categoryScrollView: UIScrollView = {
-
     let scrollView = UIScrollView()
     scrollView.isPagingEnabled = true
     scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,12 +48,10 @@ class FilterView: UIView {
   var scrollHeight: CGFloat = 0
 
   func setUp(type: CategoryType, isMainOnly: Bool = false) {
-
     self.type = type
     self.isMainOnly = isMainOnly
 
     userViewModel.user.bind { [weak self] user in
-
       guard let user = user else { return }
 
       self?.filterSource = user.getFilter(type: type)
@@ -74,7 +70,6 @@ class FilterView: UIView {
   }
 
   private func initialFilterView() {
-
     layoutIfNeeded()
     addFilterBar()
     addScrollView()
@@ -95,10 +90,11 @@ class FilterView: UIView {
     let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
     topConstraint.priority = .required
 
-    filterScrollView.addConstarint(top: topAnchor,
-                                   left: leftAnchor,
-                                   right: rightAnchor,
-                                   height: 50)
+    filterScrollView.addConstarint(
+      top: topAnchor,
+      left: leftAnchor,
+      right: rightAnchor,
+      height: 50)
     filterHeightConstraint = filterScrollView.constraints.first { $0.constant == 50 }
   }
 
@@ -124,7 +120,6 @@ class FilterView: UIView {
     var x: CGFloat = 0
 
     for index in 0..<filterSource.count {
-
       let layout = UICollectionViewFlowLayout()
       layout.itemSize = CGSize(width: 60, height: 76)
       layout.minimumInteritemSpacing = 8
@@ -132,9 +127,10 @@ class FilterView: UIView {
       layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 
 
-      let collectionView = CategoryCollectionView(frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight),
-                                                  collectionViewLayout: layout)
-    
+      let collectionView = CategoryCollectionView(
+        frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight),
+        collectionViewLayout: layout)
+
       collectionView.setUp(index: index, type: type, isMainOnly: isMainOnly)
 
       categoryScrollView.addSubview(collectionView)
@@ -173,7 +169,6 @@ class FilterView: UIView {
   }
 
   private func onHiddenFilter(isHidden: Bool) {
-
     filterHeightConstraint?.constant = isHidden ? 0 : 40
     filterScrollView.indicatorView.isHidden = isHidden
 
@@ -185,8 +180,6 @@ class FilterView: UIView {
 
   func scrollTo(main: Category, sub: Category) {
     guard categoryViews.count > main.superIndex else { return }
-
-//    filterScrollView.scrollView.contentOffset = CGPoint(x: filterScrollView.scrollView.frame.width * CGFloat(main.superIndex), y: 0)
 
     didSelectedButton(filterScrollView, at: main.superIndex)
 
@@ -230,7 +223,6 @@ extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
 }
 
 extension FilterView: UIScrollViewDelegate {
-
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     let paging: CGFloat = scrollView.contentOffset.x / scrollView.frame.width
     filterScrollView.moveIndicatorToIndex(index: Int(paging))

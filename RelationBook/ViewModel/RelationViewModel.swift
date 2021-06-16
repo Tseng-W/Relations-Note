@@ -9,11 +9,9 @@ import UIKit
 import Firebase
 
 class RelationViewModel {
-
   var relations = Box([Relation]())
 
   func fetchRelations() {
-
     guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
 
     FirebaseManager.shared.fetchRelations(uid: uid) { [weak self] relations in
@@ -22,12 +20,11 @@ class RelationViewModel {
   }
 
   func fetchRelations(index: Int, completion: @escaping (Relation?) -> Void) {
-
     guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
 
     FirebaseManager.shared.fetchRelations(uid: uid, index: index) { [weak self] relations in
       self?.relations.value = relations
-      if relations.count == 1{
+      if relations.count == 1 {
         completion(relations[0])
       }
     }
@@ -40,9 +37,12 @@ class RelationViewModel {
     return nil
   }
 
-  func addRelation(name: String, iconString: String, bgColor: UIColor, superIndex: Int, feature: Feature? = nil, completion: @escaping () -> Void = {}) {
+  func addRelation(name: String, iconString: String, bgColor: UIColor, superIndex: Int, features: [Feature] = [], completion: @escaping () -> Void = {}) {
 
-    guard let user = FirebaseManager.shared.userShared else { return }
+
+
+    guard let user = FirebaseManager.shared.userShared,
+          let userId = user.uid else { return }
 
     let newIndex = user.getCategoriesWithSuperIndex(subType: .relation).count
 
@@ -51,11 +51,10 @@ class RelationViewModel {
       name: name,
       isPublic: false,
       categoryIndex: newIndex,
-      owner: user.uid!,
-      feature: feature != nil ? [feature!] : [],
+      owner: userId,
+      feature: features,
       createdTime: Timestamp(date: Date()),
       lastContactTime: Timestamp(date: Date()))
-
 
     FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { docID in
       var newContact = Category(
@@ -68,19 +67,15 @@ class RelationViewModel {
         backgroundColor: bgColor.stringFromUIColor())
       FirebaseManager.shared.addUserCategory(type: .relation, hierarchy: .sub, category: &newContact)
     }
-
   }
 
   static func updateRelation(categoryIndex: Int, name: String? = nil, bgColor: UIColor? = nil, feature: [Feature]? = nil) {
 
-
     if let feature = feature {
-
       let dict = feature.map{ $0.toDict() }
 
       FirebaseManager.shared.updateRelation(categoryIndex: categoryIndex, dict: ["feature": dict])
     }
-
   }
 
   func onRelationAdded(relation: Relation) {

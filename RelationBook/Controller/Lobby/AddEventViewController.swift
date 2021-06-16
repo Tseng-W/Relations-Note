@@ -63,13 +63,9 @@ class AddEventViewController: UIViewController {
   let featureViewModel = FeatureViewModel()
   let relationViewModel = RelationViewModel()
 
-  var relations = [Relation]()
+  var relations: [Relation] = []
 
-  let selectFloatViewController: SelectFloatViewController = {
-    let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
-
-    return vc
-  }()
+  let selectFloatViewController = SelectFloatViewController()
   let setCategoryView = SetCategoryStyleView()
 
   // MARK: Event datas initial.
@@ -114,14 +110,12 @@ class AddEventViewController: UIViewController {
     }
   }
 
-  var features = [Feature]()
+  var features: [Feature] = []
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     userViewModel.user.bind { [weak self] user in
-
       guard let user = user else { return }
 
       self?.filterView.setUp(type: .relation)
@@ -129,7 +123,6 @@ class AddEventViewController: UIViewController {
       if let event = self?.editingEvent,
          let strongSelf = self,
          let subRelation = user.relationSet.sub.first(where: { event.relations.contains( $0.id ) }) {
-
         strongSelf.relationCategories = [subRelation]
         strongSelf.imageLink = event.imageLink
         strongSelf.mood = event.mood
@@ -146,7 +139,10 @@ class AddEventViewController: UIViewController {
         }
 
         strongSelf.filterView.onInitialWithTarget = {
-          return (user.relationSet.main.first(where: { $0.id == subRelation.superIndex })!, subRelation)
+          if let mainRelation = user.relationSet.main.first(where: { $0.id == subRelation.superIndex }) {
+            return (mainRelation, subRelation)
+          }
+          return nil
         }
       }
     }
@@ -195,10 +191,10 @@ class AddEventViewController: UIViewController {
 
     featureHeader.tips = {
       PopTipManager.shared
-        .addPopTip(at: self.featureHeader, text: "這次互動中你更了解了對方？", direction: .up, attributes: PopTipManager.Style.defaultStyle)
-        .addPopTip(at: self.featureTableView, text: "點擊此處新增對方的特徵！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
-        .addPopTip(at: self.featureTableView, text: "例如個人資料、興趣喜好或紀念人！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
-        .addPopTip(at: self.featureTableView, text: "之後可在關係詳情中查看，避免忘記趕快添加吧！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
+        .addPopTip(at: self.featureHeader, text: "這次互動中你更了解了對方？", direction: .up)
+        .addPopTip(at: self.featureTableView, text: "點擊此處新增對方的特徵！", direction: .up)
+        .addPopTip(at: self.featureTableView, text: "例如個人資料、興趣喜好或紀念人！", direction: .up)
+        .addPopTip(at: self.featureTableView, text: "之後可在關係詳情中查看，避免忘記趕快添加吧！", direction: .up)
         .show()
     }
 
@@ -206,7 +202,6 @@ class AddEventViewController: UIViewController {
   }
 
   private func relationFilterSetup() {
-
     view.layoutIfNeeded()
 
     filterView.onSelected = { categories in
@@ -225,10 +220,11 @@ class AddEventViewController: UIViewController {
     }
 
     filterView.onAddCategory = { type, hierarchy, superIndex in
-
       self.setCategoryView.show(
         self.view,
-        type: type, hierarchy: hierarchy, superIndex: superIndex)
+        type: type,
+        hierarchy: hierarchy,
+        superIndex: superIndex)
     }
   }
 
@@ -237,8 +233,10 @@ class AddEventViewController: UIViewController {
     view.addSubview(selectFloatViewController.view)
 
     selectFloatViewController.view.addConstarint(
-      top: view.topAnchor, left: view.leftAnchor,
-      bottom: view.bottomAnchor, right: view.rightAnchor)
+      top: view.topAnchor,
+      left: view.leftAnchor,
+      bottom: view.bottomAnchor,
+      right: view.rightAnchor)
 
     selectFloatViewController.onEventSelected = { event in
       self.event = event
@@ -259,7 +257,6 @@ class AddEventViewController: UIViewController {
     }
 
     selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in
-
       self.setCategoryView.show(self.view, type: type, hierarchy: hierarchy, superIndex: superIndex)
     }
   }
@@ -267,17 +264,16 @@ class AddEventViewController: UIViewController {
   // MARK: - IBOutlets
 
   @IBAction func confirm(_ sender: UIButton) {
-
     guard let event = event else {
       PopTipManager.shared
-        .addPopTip(at: eventButton, text: "請選擇互動事件類型", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
+        .addPopTip(at: eventButton, text: "請選擇互動事件類型", direction: .up, duration: 3, style: .normal)
         .show(isBlur: false)
       return
     }
 
     guard !relationCategories.isEmpty else {
       PopTipManager.shared
-        .addPopTip(at: filterView, text: "請選擇互動對象", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
+        .addPopTip(at: filterView, text: "請選擇互動對象", direction: .up, duration: 3, style: .normal)
         .show(isBlur: false)
 
       return
@@ -287,18 +283,18 @@ class AddEventViewController: UIViewController {
 
     let comment: String = commentTextView.text == "備註" ? .empty : commentTextView.text
 
-    var newEvent = Event(docId: "",
-                         owner: userID,
-                         relations: relationCategories.map { $0.id },
-                         imageLink: imageLink ?? nil,
-                         mood: mood,
-                         category: event,
-                         location: location,
-                         locationName: locationName,
-                         time: Timestamp(date: date),
-                         subEvents: [],
-                         comment: comment)
-
+    var newEvent = Event(
+      docId: "",
+      owner: userID,
+      relations: relationCategories.map { $0.id },
+      imageLink: imageLink ?? nil,
+      mood: mood,
+      category: event,
+      location: location,
+      locationName: locationName,
+      time: Timestamp(date: date),
+      subEvents: [],
+      comment: comment)
 
     if let editingEvent = editingEvent,
        let originId = editingEvent.docId {
@@ -321,7 +317,6 @@ class AddEventViewController: UIViewController {
     }
 
     if !features.isEmpty {
-
       guard let relation = relations.first(where: { $0.categoryIndex == relationCategories[0].id }) else { return }
 
       self.featureViewModel.addFeatures(relation: relation, features: self.features)
@@ -344,12 +339,13 @@ class AddEventViewController: UIViewController {
     let blurView = view.addBlurView()
     view.addSubview(moodSelectView)
 
-    moodSelectView.addConstarint(left: view.leftAnchor,
-                                 right: view.rightAnchor,
-                                 centerY: view.centerYAnchor,
-                                 paddingLeft: 16,
-                                 paddingRight: 16,
-                                 height: 200)
+    moodSelectView.addConstarint(
+      left: view.leftAnchor,
+      right: view.rightAnchor,
+      centerY: view.centerYAnchor,
+      paddingLeft: 16,
+      paddingRight: 16,
+      height: 200)
 
     moodSelectView.onSelected = { [weak self] index, image, color in
       self?.mood = index
@@ -380,7 +376,6 @@ class AddEventViewController: UIViewController {
 
 extension AddEventViewController: UITextFieldDelegate {
   func textFieldDidEndEditing(_ textField: UITextField) {
-
   }
 }
 
@@ -409,7 +404,6 @@ extension AddEventViewController: CategoryStyleViewDelegate {
     backgroundColor: UIColor,
     image: UIImage,
     imageString: String) {
-    
   }
 
   func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
@@ -435,7 +429,6 @@ extension AddEventViewController: UITextViewDelegate {
 }
 
 extension AddEventViewController: AddFeatureTableViewDelegate {
-
   func featureTableView(tableView: AddFeatureTableView, features: [Feature]) {
     self.features = features
   }

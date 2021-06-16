@@ -20,18 +20,31 @@ class PopTipManager: NSObject {
     case shadowOffset(_: CGSize)
 
     case animateBounce(_: CGFloat)
-    case animateFloat(x: CGFloat, y:CGFloat)
+    case animateFloat(x: CGFloat, y: CGFloat)
     case animatePulse(_: CGFloat?)
   }
 
-  struct PopTarget {
+  enum Style {
+    case normal
+    case alert
 
+    func getAttribute() -> [Attribute] {
+      switch self {
+      case .normal:
+        return [.bubbleColor(.button), .textColor(.background)]
+      case .alert:
+        return [.bubbleColor(.categoryColor9), .textColor(.background)]
+      }
+    }
+  }
+
+  struct PopTarget {
     var target: UIView
     var text: String?
     var customView: UIView?
     var direction: PopTipDirection
     var duration: TimeInterval?
-    var attributes: [Attribute]
+    var style: Style
 
     func showPopTip() -> PopTip {
 
@@ -45,23 +58,27 @@ class PopTipManager: NSObject {
       guard let originRect = target.globalFrame else { return popTip }
 
       if let text = text {
-        popTip.show(text: text,
-                    direction: direction,
-                    maxWidth: 200,
-                    in: UIView.rootView,
-                    from: originRect,
-                    duration: duration)
+        popTip.show(
+          text: text,
+          direction: direction,
+          maxWidth: 200,
+          in: UIView.rootView,
+          from: originRect,
+          duration: duration)
       } else if let view = customView {
-        popTip.show(customView: view,
-                    direction: direction,
-                    in: UIView.rootView,
-                    from: originRect,
-                    duration: duration)
+        popTip.show(
+          customView: view,
+          direction: direction,
+          in: UIView.rootView,
+          from: originRect,
+          duration: duration)
       }
       return popTip
     }
 
     private func setAttribute(popTip: PopTip) -> PopTip {
+      let attributes = style.getAttribute()
+
       attributes.forEach { attribute in
         switch attribute {
         case let .animateFloat(x: x, y: y):
@@ -91,14 +108,9 @@ class PopTipManager: NSObject {
     }
   }
 
-  struct Style {
-    static let defaultStyle: [Attribute] = [.bubbleColor(.button), .textColor(.background)]
-    static let alertStyle: [Attribute] = [.bubbleColor(.categoryColor9), .textColor(.background)]
-  }
-
   static let shared = PopTipManager()
 
-  private var popTargets = [PopTarget]()
+  private var popTargets: [PopTarget] = []
 
   private var blurView = UIView()
 
@@ -111,9 +123,14 @@ class PopTipManager: NSObject {
     showNext()
   }
 
-  func addPopTip(at target: UIView, text: String, direction: PopTipDirection, duration: TimeInterval? = nil, attributes: [Attribute]? = nil) -> PopTipManager {
-
-    let popData = PopTarget(target: target, text: text, customView: nil, direction: direction, duration: duration, attributes: attributes ?? PopTipManager.Style.defaultStyle)
+  func addPopTip(at target: UIView, text: String, direction: PopTipDirection, duration: TimeInterval? = nil, style: Style = .normal) -> PopTipManager {
+    let popData = PopTarget(
+      target: target,
+      text: text,
+      customView: nil,
+      direction: direction,
+      duration: duration,
+      style: style)
 
     popTargets.append(popData)
 
@@ -121,9 +138,7 @@ class PopTipManager: NSObject {
   }
 
   private func showNext() {
-
     if let next = popTargets.first {
-
       popTargets.removeFirst()
       let popTip = next.showPopTip()
 
@@ -137,7 +152,6 @@ class PopTipManager: NSObject {
   }
 
   private func addBlurView() {
-
     let shared = PopTipManager.shared
 
     blurView.backgroundColor = .systemBackground
@@ -152,9 +166,7 @@ class PopTipManager: NSObject {
   }
 
   @objc func dismiss() {
-
     if !Thread.isMainThread {
-
       DispatchQueue.main.async {
         PopTipManager.shared.dismiss()
       }

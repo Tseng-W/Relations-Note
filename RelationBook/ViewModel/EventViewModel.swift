@@ -9,7 +9,6 @@ import Foundation
 import Firebase
 
 class EventViewModel {
-
   enum SortType {
     case date
   }
@@ -17,7 +16,6 @@ class EventViewModel {
   let events = Box([Event]())
 
   func addEvent(event: Event, completion: @escaping ((Result<String, Error>) -> Void)) {
-
     FirebaseManager.shared.addEvent(data: event) { result in
       switch result {
       case .success(let docID):
@@ -33,7 +31,6 @@ class EventViewModel {
   }
 
   func fetchEvents() {
-
     guard let uid = UserDefaults.standard.getString(key: .uid) else { return }
 
     FirebaseManager.shared.fetchEvents(uid: uid) { [weak self] events in
@@ -42,9 +39,7 @@ class EventViewModel {
   }
 
   func fetchEventIn(date: Date) -> [Event] {
-    
     let events = events.value.filter { event in
-
       return date.isSameDay(date: event.time.dateValue())
     }
 
@@ -52,49 +47,48 @@ class EventViewModel {
   }
 
   func fetchEventIn(relation: Category) -> [Event] {
-
     let events = events.value.filter { event in
-
       return event.relations.contains(relation.id)
     }
 
     return events
   }
 
-  func fetchEventSorted(type: SortType) -> [[Event]] {
-
-    var eventsSorted = [Date: [Event]]()
-
-    switch type {
-    case .date:
-
-      events.value.forEach { event in
-        let eventDate = event.time.dateValue().midnight
-        if eventsSorted[eventDate] != nil {
-          eventsSorted[eventDate]!.append(event)
-        } else {
-          eventsSorted[eventDate] = [event]
-        }
-      }
-
-      let eventArray = eventsSorted.map { $1 }
-      return eventArray
-    }
-  }
-
-  func fetchEventsDate() -> [Date] {
-
-    var dates = [Date]()
-
-    events.value.forEach { event in
-      let eventDate = event.time.dateValue().midnight
-      if dates.contains(eventDate) {
-        dates.append(eventDate)
-      }
-    }
-
-    return dates.sorted { $0.day > $1.day }
-  }
+//  func fetchEventSorted(type: SortType) -> [[Event]] {
+//    var eventsSorted: [Date: [Event]] = [:]
+//
+//    switch type {
+//    case .date:
+//      events.value.forEach { event in
+//        let eventDate = event.time.dateValue().midnight
+//        if var eventValue = eventsSorted[eventDate] {
+//          eventValue.append(event)
+//          eventsSorted.updateValue(eventValue, forKey: eventDate)
+//        }
+////        if eventsSorted[eventDate] != nil {
+////          eventsSorted[eventDate]!.append(event)
+////        } else {
+////          eventsSorted[eventDate] = [event]
+////        }
+//      }
+//
+//      let eventArray = eventsSorted.map { $1 }
+//      return eventArray
+//    }
+//  }
+//
+//  func fetchEventsDate() -> [Date] {
+//    var dates: [Date] = []
+//
+//    events.value.forEach { event in
+//      let eventDate = event.time.dateValue().midnight
+//      if dates.contains(eventDate) {
+//        dates.append(eventDate)
+//      }
+//    }
+//
+//    return dates.sorted { $0.day > $1.day }
+//  }
 
   func getCategories() -> [Category] {
     let categories: [Category] = []
@@ -116,10 +110,12 @@ class EventViewModel {
   }
 
   func onEventModified(event: Event) {
-    events.value[(events.value.firstIndex(where: { $0.docId == event.docId }))!] = event
+    guard let index = events.value.firstIndex(where: { $0.docId == event.docId }) else { return }
+    events.value[index] = event
   }
 
   func onEventDeleted(event: Event) {
-    events.value.remove(at: (events.value.firstIndex(where: { $0.docId == event.docId }))!)
+    guard let index = events.value.firstIndex(where: { $0.docId == event.docId }) else { return }
+    events.value.remove(at: index)
   }
 }

@@ -67,20 +67,11 @@
                         <outlet property="loginButtonView" destination="VUc-Cw-Fv1" id="rGl-RO-2hz"/>
                         <outlet property="privacyButton" destination="u5B-p2-TqG" id="LUT-Pa-8gj"/>
                         <outlet property="privacyLabel" destination="Ob0-Fw-2SL" id="dVa-G1-bhk"/>
-                        <segue destination="Rk0-P5-uAm" kind="presentation" identifier="main" modalPresentationStyle="overFullScreen" modalTransitionStyle="coverVertical" id="TjC-mF-5ch"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GVW-fv-KcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-991" y="104"/>
-        </scene>
-        <!--Main-->
-        <scene sceneID="eRo-5E-YeP">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Main" id="Rk0-P5-uAm" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JxB-Rp-Xw1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-401" y="104"/>
         </scene>
     </scenes>
     <resources>

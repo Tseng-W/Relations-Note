@@ -214,8 +214,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate,
           autoResult?.user.email,
           forKey: UserDefaults.Keys.email.rawValue)
 
-//        self?.performSegue(withIdentifier: "main", sender: self)
-
         if let mainViewController = UIStoryboard.main.instantiateInitialViewController() {
           UIApplication.shared.windows[0].rootViewController = mainViewController
         }

@@ -192,7 +192,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
           relationViewModel.addRelation(
             name: name, iconString: imageString,
             bgColor: colorPicker.selectedColor,
-            superIndex: superIndex, feature: nil)
+            superIndex: superIndex)
 
         } else {
 

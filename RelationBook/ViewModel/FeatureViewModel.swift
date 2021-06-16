@@ -8,7 +8,6 @@
 import Foundation
 
 class FeatureViewModel {
-
   var feature: Box<Feature>
 
   init() {
@@ -20,11 +19,9 @@ class FeatureViewModel {
   }
 
 
-
   var canMutiSelect: Bool = false {
     didSet {
       if !canMutiSelect {
-
         var content = feature.value
         for index in 0..<content.contents.count {
           content.contents[index].isProcessing = false
@@ -35,7 +32,6 @@ class FeatureViewModel {
   }
 
   func editCellContent(index: Int, content: FeatureContent) {
-    
     if index == feature.value.contents.count {
       feature.value.contents.append(content)
     } else {
@@ -48,7 +44,6 @@ class FeatureViewModel {
   }
 
   func cellForRowAt(row: Int) -> FeatureContent? {
-
     if row < feature.value.contents.count {
       return feature.value.contents[row]
     }
@@ -56,7 +51,6 @@ class FeatureViewModel {
   }
 
   func selectedSwitchAt(row: Int) {
-
     guard row < feature.value.contents.count else { return }
 
     if !canMutiSelect {
@@ -68,11 +62,9 @@ class FeatureViewModel {
   }
 
   func addFeatures(relation: Relation, features: [Feature], completion: @escaping () -> Void = {}) {
-
     var newFeatures = relation.feature
 
     features.forEach { feature in
-
       if let index = newFeatures.firstIndex(where: { oldFeature in
         oldFeature.categoryIndex == feature.categoryIndex
       }) {
@@ -82,7 +74,7 @@ class FeatureViewModel {
       }
     }
 
-    newFeatures.sort(by: { $0.categoryIndex < $1.categoryIndex })
+    newFeatures.sort { $0.categoryIndex < $1.categoryIndex }
 
     updateFeature(categoryIndex: relation.categoryIndex, features: newFeatures) {
       completion()
@@ -90,11 +82,10 @@ class FeatureViewModel {
   }
 
   func updateFeature(categoryIndex: Int, features: [Feature], completion: @escaping () -> Void = { }) {
-
     let dict = features.map { $0.toDict() }
 
     FirebaseManager.shared.updateRelation(categoryIndex: categoryIndex, dict: ["feature": dict]) {
       completion()
-    } 
+    }
   }
 }
