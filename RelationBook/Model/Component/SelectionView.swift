@@ -8,19 +8,16 @@
 import UIKit
 
 protocol SelectionViewDelegate: AnyObject {
-
   func didSelectedButton(_ selectionView: SelectionView, at index: Int)
 
   func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool
 }
 
 extension SelectionViewDelegate {
-
   func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool { return true }
 }
 
 protocol SelectionViewDatasource: AnyObject {
-
   func numberOfButton(_ selectionView: SelectionView) -> Int
 
   func initialButtonIndex(_ selectionView: SelectionView) -> Int
@@ -35,7 +32,6 @@ protocol SelectionViewDatasource: AnyObject {
 }
 
 extension SelectionViewDatasource {
-
   func numberOfButtons(in selectionView: SelectionView) -> Int { return 2 }
 
   func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? { if #available(iOS 13.0, *) {
@@ -55,9 +51,7 @@ extension SelectionViewDatasource {
   func selectionView(_ selectionView: SelectionView, fontForButtonAt index: Int) -> UIFont { return UIFont.pingfang(size: 16) }
 }
 
-
 class SelectionView: UIView {
-
   enum ViewType {
     case stack
     case scroll
@@ -68,10 +62,9 @@ class SelectionView: UIView {
 
   var type: ViewType = .scroll
 
-  var scrollView = UIScrollView()
+  var scrollView = RBScrollView()
   var statckView = UIStackView()
-
-  var indicatorView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+  var indicatorView = UIView()
 
   private var indicatorConstraints: [NSLayoutConstraint] = []
 
@@ -84,14 +77,12 @@ class SelectionView: UIView {
   weak var delegate: SelectionViewDelegate?
 
   func moveIndicatorToIndex(index: Int) {
-
     guard index < buttons.count else { return }
 
     moveIndicatorView(reference: buttons[index])
   }
 
   func reloadDate() {
-    
     subviews.forEach { $0.removeFromSuperview() }
 
     guard let datasource = datasource else { return }
@@ -100,9 +91,8 @@ class SelectionView: UIView {
     scrollView.subviews.forEach { $0.removeFromSuperview() }
     statckView.subviews.forEach { $0.removeFromSuperview() }
 
-
-
     let numberOfButton = datasource.numberOfButton(self)
+
     switch type {
     case .scroll:
       addScrollViewContent(numberOfButton)
@@ -130,19 +120,10 @@ class SelectionView: UIView {
           let index = self.subviews.first?.subviews.firstIndex(of: sender) else { return }
     moveIndicatorView(reference: sender)
 
-//    switch type {
-//    case .scroll:
-//      for index in 0..<scrollView.
-//      break
-//    case .stack:
-//      break
-//    }
-
     delegate.didSelectedButton(self, at: index)
   }
 
   private func moveIndicatorView(reference: UIButton, duration: Double = 0.3) {
-    
     indicatorConstraints.forEach { $0.isActive = false }
     indicatorConstraints.removeAll()
 
@@ -150,15 +131,17 @@ class SelectionView: UIView {
     indicatorConstraints.append(indicatorView.centerXAnchor.constraint(equalTo: reference.centerXAnchor))
     indicatorConstraints.forEach { $0.isActive = true }
 
-    if scrollView.frame.size.width > 0 {
+    let buttonLocate = (width: reference.frame.width, originX: reference.frame.origin.x)
+    let scrollLocate = (width: scrollView.frame.width, offset: scrollView.contentOffset.x)
 
-      if scrollView.contentOffset.x > reference.frame.origin.x {
+    if scrollLocate.width > 0 {
+      if scrollLocate.offset > buttonLocate.originX {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseOut) {
-          self.scrollView.contentOffset.x = reference.frame.origin.x
+          self.scrollView.contentOffset.x = buttonLocate.originX
         }
-      } else if abs(reference.frame.origin.x + reference.frame.width - scrollView.contentOffset.x) > scrollView.frame.width {
+      } else if abs(buttonLocate.originX + buttonLocate.width - scrollLocate.offset) > scrollLocate.width {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseOut) {
-          self.scrollView.contentOffset.x = reference.frame.origin.x - self.scrollView.frame.width + reference.frame.width
+          self.scrollView.contentOffset.x = buttonLocate.originX - scrollLocate.width + buttonLocate.width
         }
       }
     }
@@ -169,19 +152,12 @@ class SelectionView: UIView {
   }
 
   private func addScrollViewContent(_ numberOfButton: Int) {
-
     guard let datasource = datasource else { return }
 
-    scrollView.showsVerticalScrollIndicator = false
-    scrollView.showsHorizontalScrollIndicator = false
-    scrollView.alwaysBounceVertical = false
-    scrollView.alwaysBounceHorizontal = false
-
-    var lastButton: ResizableButton? = nil
+    var lastButton: ResizableButton?
     let padding: CGFloat = 16
 
     for index in 0..<numberOfButton {
-
       let title = datasource.selectionView(self, titleForButtonAt: index)
       let textColor = datasource.selectionView(self, textColorForButtonAt: index)
 
@@ -196,19 +172,22 @@ class SelectionView: UIView {
       scrollView.addSubview(button)
 
       if let lastButton = lastButton {
-        NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: lastButton.trailingAnchor, constant: padding)])
+        NSLayoutConstraint.activate(
+          [button.leadingAnchor.constraint(equalTo: lastButton.trailingAnchor, constant: padding)]
+        )
       } else {
-        NSLayoutConstraint.activate([button.leadingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: padding)])
+        NSLayoutConstraint.activate(
+          [button.leadingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: padding)]
+        )
       }
       NSLayoutConstraint.activate([button.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)])
-
       buttons.append(button)
       lastButton = button
     }
 
     self.addSubview(scrollView)
 
-    scrollView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 00, paddingRight: 0, width: 0, height: 0)
+    scrollView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
 
     layoutIfNeeded()
     var width: CGFloat = 0
@@ -219,7 +198,6 @@ class SelectionView: UIView {
   }
 
   private func addStatckViewContent(_ numberOfButton: Int) {
-
     guard let datasource = datasource else { return }
 
     statckView = UIStackView()
@@ -227,10 +205,9 @@ class SelectionView: UIView {
     statckView.distribution = .fillEqually
     addSubview(statckView)
 
-    statckView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    statckView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
 
     for index in 0..<numberOfButton {
-
       let title = datasource.selectionView(self, titleForButtonAt: index)
       let textColor = datasource.selectionView(self, textColorForButtonAt: index)
       let button = ResizableButton()
@@ -248,7 +225,6 @@ class SelectionView: UIView {
   }
 
   private func addIndicatorView(index: Int) {
-
     indicatorView.removeFromSuperview()
     indicatorView.constraints.forEach { $0.isActive = false }
 
@@ -261,8 +237,9 @@ class SelectionView: UIView {
     self.addSubview(indicatorView)
     indicatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 
-    guard index < (self.subviews.first?.subviews.count)!,
-          let button = self.subviews.first?.subviews[index] as? UIButton else { return }
+    guard let contentView = self.subviews.first,
+          index < contentView.subviews.count,
+          let button = contentView.subviews[index] as? UIButton else { return }
     moveIndicatorView(reference: button, duration: 0)
   }
 }

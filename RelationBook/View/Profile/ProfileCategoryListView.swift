@@ -49,7 +49,6 @@ class ProfileCategoryListView: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     guard type != nil else { navigationController?.popViewController(animated: false); return }
@@ -92,7 +91,6 @@ class ProfileCategoryListView: UIViewController {
   }
 
   private func scrollViewInitial() {
-
     guard let user = userViewModel.user.value,
           let type = type else { return }
 
@@ -105,7 +103,6 @@ class ProfileCategoryListView: UIViewController {
     pageCount = user.getFilter(type: type).count
 
     for index in 0..<pageCount {
-
       let tableView = UITableView()
       tableView.delegate = self
       tableView.dataSource = self
@@ -137,7 +134,6 @@ class ProfileCategoryListView: UIViewController {
 
 // MARK: - Selection View Delegate
 extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
-
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
     if scrollView != self.scrollView { return }
@@ -155,7 +151,6 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
   }
 
   func numberOfButton(_ selectionView: SelectionView) -> Int {
-
     guard let user = userViewModel.user.value else { return 0 }
 
     switch type {
@@ -171,7 +166,6 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
   }
 
   func selectionView(_ selectionView: SelectionView, titleForButtonAt index: Int) -> String {
-
     guard let user = userViewModel.user.value else { return .empty }
 
     switch type {
@@ -197,7 +191,6 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
 
 // MARK: - Table View Delegate ( For Categories )
 extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
     categories.filter { $0.superIndex == tableView.tag }.count
   }
@@ -207,17 +200,14 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
     let cell = tableView.dequeueReusableCell(
       withIdentifier: String(describing: ProfileCategoryTableCell.self),
       for: indexPath)
 
     if let cell = cell as? ProfileCategoryTableCell {
-
       cell.category = categories.filter { $0.superIndex == tableView.tag } [indexPath.section]
 
       cell.onEdit = { category in
-
         self.editingCategory = category
 
         self.setCategoryStyleView.show(self.view, type: self.type!, hierarchy: .main, superIndex: category.superIndex, noSubmit: true)
@@ -228,7 +218,6 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
     let header = UIView()
 
     header.backgroundColor = .clear
@@ -246,9 +235,7 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ProfileCategoryListView: CategoryStyleViewDelegate {
-
   func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
-
     guard userViewModel.user.value != nil,
           var category = editingCategory else { return }
 

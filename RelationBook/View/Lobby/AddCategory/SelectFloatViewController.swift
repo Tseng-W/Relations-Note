@@ -94,19 +94,13 @@ class SelectFloatViewController: FloatingViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    filterView.delegate = self
+
     filterView.setUp(type: .event)
     googleMapSetup()
 
     filterView.canScrollBeHidden = false
 
-    filterView.onSelected = { categories in
-      self.onEventSelected?(categories.last!)
-      self.isVisable = false
-    }
-
-    filterView.onAddCategory = { [weak self] type, hierarchy, superIndex in
-      self?.onAddCategorySelected?(type, hierarchy, superIndex)
-    }
     setBlurBackground()
   }
 
@@ -199,5 +193,21 @@ extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, Goog
   // User canceled the operation.
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     dismiss(animated: true, completion: nil)
+  }
+}
+
+extension SelectFloatViewController: CategorySelectionDelegate {
+  func didSelectedCategory(category: Category) {
+    filterView.hiddenFilterScroll(isHidden: true)
+    onEventSelected?(category)
+    isVisable = false
+  }
+
+  func didStartEdit(pageIndex: Int) {
+    filterView.hiddenFilterScroll(isHidden: false)
+  }
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+    onAddCategorySelected?(type, hierarchy, superIndex)
   }
 }

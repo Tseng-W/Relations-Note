@@ -18,7 +18,7 @@ private enum Tab {
   case lobby
 
   func controller() -> UIViewController {
-    var controller: UIViewController?
+    var controller: UIViewController
 
     switch self {
     case .profiles: controller = UIStoryboard.profile.instantiateInitialViewController()!

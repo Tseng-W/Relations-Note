@@ -107,6 +107,7 @@
 		47B806D62647D5AD00EC711D /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806D52647D5AD00EC711D /* AddEventViewController.swift */; };
 		47B806DB2648CFB700EC711D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DA2648CFB700EC711D /* UIButton+Extension.swift */; };
 		47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DC2648D30A00EC711D /* RelationViewModel.swift */; };
+		47D1789A267B389B002D9A15 /* RBScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D17899267B389B002D9A15 /* RBScrollView.swift */; };
 		47D665F1266DBB9E00BD42EE /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */; };
 		47DD642F2644308500D3CD9C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DD642E2644308500D3CD9C /* Login.storyboard */; };
 		47E6EF0E263D725F000172DC /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E6EF0D263D725F000172DC /* Lobby.storyboard */; };
@@ -243,6 +244,7 @@
 		47B806D52647D5AD00EC711D /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		47B806DA2648CFB700EC711D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		47B806DC2648D30A00EC711D /* RelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewModel.swift; sourceTree = "<group>"; };
+		47D17899267B389B002D9A15 /* RBScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBScrollView.swift; sourceTree = "<group>"; };
 		47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		47DD642D264419A800D3CD9C /* RelationBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RelationBook.entitlements; sourceTree = "<group>"; };
 		47DD642E2644308500D3CD9C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 		47A217EE265A716D0096149C /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				47D17899267B389B002D9A15 /* RBScrollView.swift */,
 				47A217EF265A71840096149C /* NibLoadable.swift */,
 				475D33842661064200A697DB /* IconView.swift */,
 				47FDEA062668D79500F5A2BA /* IconSelectionView.swift */,
@@ -1054,6 +1057,7 @@
 				476CF846266B4F4E000B5DC9 /* RelationProfileCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
 				475D33852661064200A697DB /* IconView.swift in Sources */,
+				47D1789A267B389B002D9A15 /* RBScrollView.swift in Sources */,
 				479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */,
 				476D2EBD264ADD5800A9200A /* EventViewModel.swift in Sources */,
 				47B7D71A2670B78800F05FE7 /* GooglePlaceSearchView.swift in Sources */,

@@ -201,6 +201,27 @@ class CategoryViewModel: Codable {
 
 struct Category: Icon {
 
+  internal init(id: Int, isCustom: Bool, superIndex: Int, isSubEnable: Bool, title: String, imageLink: String, backgroundColor: String) {
+    self.id = id
+    self.isCustom = isCustom
+    self.superIndex = superIndex
+    self.isSubEnable = isSubEnable
+    self.title = title
+    self.imageLink = imageLink
+    self.backgroundColor = backgroundColor
+  }
+
+  init() {
+    self.id = -1
+    self.isCustom = false
+    self.superIndex = -1
+    self.isSubEnable = false
+    self.title = .empty
+    self.imageLink = .empty
+    self.imageLink = .empty
+    self.backgroundColor = .empty
+  }
+
   var id: Int
 
   var isCustom: Bool
@@ -214,6 +235,12 @@ struct Category: Icon {
   var imageLink: String
 
   var backgroundColor: String
+}
+
+extension Category {
+  func isInitialed() -> Bool {
+    return id != -1 && superIndex != -1
+  }
 
   func toDict() -> [String: Any] {
     return [

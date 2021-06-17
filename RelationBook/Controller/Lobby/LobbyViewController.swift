@@ -55,7 +55,10 @@ class LobbyViewController: UIViewController {
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let addEventView = segue.destination as? AddEventViewController {
-      addEventView.editingEvent = editingEvent
+      if let event = editingEvent {
+        addEventView.event = event
+        addEventView.isEditingEvent = true
+      }
     }
 
     editingEvent = nil

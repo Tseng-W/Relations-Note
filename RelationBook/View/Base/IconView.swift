@@ -9,6 +9,12 @@ import UIKit
 
 class IconView: UIView {
 
+  override var frame: CGRect {
+    didSet {
+      layer.cornerRadius = frame.height / 2
+    }
+  }
+
   static let defaultBackgroundColor: UIColor = .background
   static let defaultTintColor: UIColor = .button
   static let defaultImage = UIImage(systemName: "camera")!
@@ -99,6 +105,7 @@ class IconView: UIView {
     ])
 
     isCornerd = true
+//    layer.masksToBounds = true
     imageView.isCornerd = isCropped
 
     animationView.leave()

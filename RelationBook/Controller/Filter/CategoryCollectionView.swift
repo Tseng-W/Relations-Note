@@ -8,17 +8,13 @@
 import UIKit
 
 class CategoryCollectionView: UICollectionView {
-
   enum Status {
     case mainCategory
     case subCategory
     case selected
   }
 
-  // MARK: Closures
-  var onSelectedSubCategory: ((Category?) -> [Category])?
-  var onContinueEdit: ((Int) -> Void)?
-  var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
+  weak var selectionDelegate: CategorySelectionDelegate?
 
   // MARK: Types
   var type: CategoryType?
@@ -58,9 +54,9 @@ class CategoryCollectionView: UICollectionView {
 
   var subCategories: [[Category]] = []
 
-  var selectedCategories: [Category] = [] {
+  var selectedCategory: Category? {
     didSet {
-      status = !selectedCategories.isEmpty ? .selected : .mainCategory
+      status = selectedCategory == nil ? .mainCategory : .selected
       reloadData()
     }
   }
@@ -95,13 +91,12 @@ class CategoryCollectionView: UICollectionView {
 
   func selectAt(main: Category, sub: Category) {
     status = .selected
-    selectedIndex = mainCategories.firstIndex(where: { $0.id == main.id })
-    selectedCategories = onSelectedSubCategory?(sub) ?? [sub]
+    selectedIndex = mainCategories.firstIndex { $0.id == main.id }
+    selectedCategory = sub
   }
 }
 
 extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
-
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
     switch status {
@@ -111,19 +106,16 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
       guard let index = selectedIndex else { return 0 }
       return subCategories[index].count + 2
     case .selected:
-      return selectedCategories.count
+      return 1
     }
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
     let cell = dequeueReusableCell(
       withReuseIdentifier: String(describing: CategoryCollectionCell.self),
       for: indexPath)
 
     if let cell = cell as? CategoryCollectionCell {
-
-
       switch status {
       case .mainCategory:
         if indexPath.row == mainCategories.count {
@@ -141,25 +133,19 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
           cell.category = subCategories[selectedIndex!][indexPath.row - 1]
         }
       case .selected:
-        cell.category = selectedCategories[indexPath.row]
-//        if indexPath.row == selectedCategories.count {
-//          cell.defaultType = .add
-//        } else {
-//          cell.category = selectedCategories[indexPath.row]
-//        }
+        cell.category = selectedCategory
       }
     }
     return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     switch status {
-
     case .mainCategory:  // 主分類頁，最後按鈕為新增主 分類，點其他進入子分類
       if indexPath.row < mainCategories.count {
         if isMainOnly || !mainCategories[indexPath.row].isSubEnable {
-          selectedCategories = onSelectedSubCategory?(mainCategories[indexPath.row]) ?? []
+          selectedCategory = mainCategories[indexPath.row]
+          selectionDelegate?.didSelectedCategory(category: mainCategories[indexPath.row])
         } else {
           selectedIndex = indexPath.row
           selectedID = mainCategories[indexPath.row
@@ -170,7 +156,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         // 新增選項
         guard let superIndex = mainCategories.first?.superIndex,
               let type = type else { return }
-        onAddCategory?(type, .main, superIndex)
+        selectionDelegate?.addCategory(type: type, hierarchy: .main, superIndex: superIndex)
         break
       }
     case .subCategory:  // 子分類頁，第一個按鈕為返回
@@ -183,20 +169,14 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         // 新增選項
         guard let type = type,
               let id = selectedID else { return }
-        onAddCategory?(type, .sub, id)
+        selectionDelegate?.addCategory(type: type, hierarchy: .sub, superIndex: id)
       } else {
-        selectedCategories = onSelectedSubCategory?(subCategories[selectedMainIndex][indexPath.row - 1]) ?? []
+        selectedCategory = subCategories[selectedMainIndex][indexPath.row - 1]
+        selectionDelegate?.didSelectedCategory(category: subCategories[selectedMainIndex][indexPath.row - 1])
       }
     case .selected:
-      if indexPath.row == selectedCategories.count {
-        // 新增項目
-        onContinueEdit?(-1)
-        status = .mainCategory
-      } else {
-        // 修改
-        onContinueEdit?(indexPath.row)
-        status = .mainCategory
-      }
+      status = .mainCategory
+      selectionDelegate?.didStartEdit(pageIndex: indexPath.row)
     }
   }
 

@@ -14,7 +14,11 @@ protocol AddFeatureFloatViewDelegate: AnyObject {
 
 class AddFeatureFloatView: UIView, NibLoadable{
 
-  @IBOutlet var filterView: FilterView!
+  @IBOutlet var filterView: FilterView! {
+    didSet {
+      filterView.delegate = self
+    }
+  }
   @IBOutlet var tableView: UITableView! {
     didSet {
 
@@ -41,7 +45,7 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
   var onCancel: (() -> Void)?
 
-  var selectedCategory = [Category]()
+  var selectedCategory: Category?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -64,25 +68,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
   func customInit() {
     loadNibContent()
-
-    filterView.onSelected = { [weak self] categoris in
-      self?.selectedCategory = categoris
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        if let strongSelf = self {
-          strongSelf.filterHeight.constant /= 2.66
-          strongSelf.layoutIfNeeded()
-        }
-      }
-    }
-
-    filterView.onStartEdit = { [weak self] in
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        if let strongSelf = self {
-          strongSelf.filterHeight.constant *= 2.66
-          strongSelf.layoutIfNeeded()
-        }
-      }
-    }
 
     featureViewModel.feature.bind { feature in
       if feature.contents.isEmpty {
@@ -142,10 +127,12 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
   @IBAction func onTapConfirm(_ sender: UIButton) {
     var feature = featureViewModel.feature.value
-    feature.name = selectedCategory[0].title
-    feature.categoryIndex = selectedCategory[0].id
 
-    delegate?.featureFloatView(view: self, category: selectedCategory[0], feature: feature)
+    if let category = selectedCategory {
+      feature.name = category.title
+      feature.categoryIndex = category.id
+      delegate?.featureFloatView(view: self, category: category, feature: feature)
+    }
 
     onTapCancel(sender)
   }
@@ -154,7 +141,7 @@ class AddFeatureFloatView: UIView, NibLoadable{
 extension AddFeatureFloatView {
 
   private func reset() {
-    selectedCategory.removeAll()
+    selectedCategory = nil
     featureViewModel.feature.value = Feature()
 
     if let defaultHeight = defaultHeight {
@@ -204,5 +191,29 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
     guard let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableCell else { return }
 
     cell.isSelected = false
+  }
+}
+
+extension AddFeatureFloatView: CategorySelectionDelegate {
+  func didSelectedCategory(category: Category) {
+    selectedCategory = category
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.filterView.hiddenFilterScroll(isHidden: true)
+      self.filterHeight.constant /= 2.66
+      self.layoutIfNeeded()
+    }
+  }
+
+  func didStartEdit(pageIndex: Int) {
+
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.filterView.hiddenFilterScroll(isHidden: false)
+      self.filterHeight.constant *= 2.66
+      self.layoutIfNeeded()
+    }
+  }
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+
   }
 }

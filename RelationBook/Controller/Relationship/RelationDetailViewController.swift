@@ -8,7 +8,6 @@
 import UIKit
 
 class RelationDetailViewController: UIViewController {
-
   enum TableType: Int {
     case event
     case profile
@@ -25,29 +24,13 @@ class RelationDetailViewController: UIViewController {
   }
   @IBOutlet var contentView: UIView!
 
-  var sortedRelation = [Int: [Feature]]()
   var sortedRelationList = [[Feature]]()
 
-  var scrollView: UIScrollView = {
-    let scrollView = UIScrollView()
-
-    scrollView.isPagingEnabled = true
-    scrollView.showsVerticalScrollIndicator = false
-    scrollView.showsHorizontalScrollIndicator = false
-    scrollView.alwaysBounceVertical = false
-    scrollView.alwaysBounceHorizontal = false
-    scrollView.bounces = false
-    scrollView.backgroundColor = .background
-
-    return scrollView
-  }()
+  var scrollView = RBScrollView(isPagingEnabled: true)
 
   let eventTableView: UITableView = {
-
     let eventTableView = UITableView()
-
     eventTableView.tag = TableType.event.rawValue
-    eventTableView.backgroundColor = .background
     eventTableView.estimatedRowHeight = 40
 
     eventTableView.lk_registerCellWithNib(
@@ -89,14 +72,15 @@ class RelationDetailViewController: UIViewController {
   var events = [Event]() {
     didSet {
       eventsSorted.removeAll()
-      var eventPool = [Date: [Event]]()
+      var eventPool: [Date: [Event]] = [:]
 
       events.forEach { event in
-        let eventDate = event.time.dateValue().midnight
-        if eventPool[eventDate] != nil {
-          eventPool[eventDate]!.append(event)
+        let date = event.time.dateValue().midnight
+        if var events = eventPool[date] {
+          events.append(event)
+          eventPool.updateValue(events, forKey: date)
         } else {
-          eventPool[eventDate] = [event]
+          eventPool[date] = [event]
         }
       }
 
@@ -104,12 +88,15 @@ class RelationDetailViewController: UIViewController {
       eventTableView.reloadData()
     }
   }
-  var eventsSorted = [Dictionary<Date, [Event]>.Element]()
+  var eventsSorted: [Dictionary<Date, [Event]>.Element] = []
   var editingEvent: Event?
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let addEventView = segue.destination as? AddEventViewController {
-      addEventView.editingEvent = editingEvent
+      if let event = editingEvent {
+        addEventView.event = event
+        addEventView.isEditingEvent = true
+      }
     }
   }
 
@@ -195,12 +182,12 @@ class RelationDetailViewController: UIViewController {
     scrollView.contentSize = CGSize(width: x, height: height)
   }
 
-  //  override func viewWillDisappear(_ animated: Bool) {
-  //
-  //    super.viewWillDisappear(true)
-  //
-  //    navigationController?.backToRoot()
-  //  }
+  override func viewWillDisappear(_ animated: Bool) {
+
+    super.viewWillDisappear(true)
+
+    navigationController?.backToRoot()
+  }
 }
 
 // MARK: - Selection bar Delegate
@@ -250,10 +237,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       if number == 0 {
         tableView.addPlaceholder(
-          image: UIImage.getPlaceholder(
-            .event,
-            style: traitCollection.userInterfaceStyle),
-          description: "沒有互動紀錄")
+          image: UIImage.getPlaceholder(.event, style: traitCollection.userInterfaceStyle), description: "沒有互動紀錄")
       } else { tableView.removePlaceholder() }
 
       return number
@@ -265,7 +249,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
          let user = userViewModel.user.value {
         tableView.removePlaceholder()
 
-        sortedRelation = [Int: [Feature]]()
+        var sortedRelation: [Int: [Feature]] = [:]
 
         relation.feature.forEach { feature in
           let filterIndex = user.getCategoriesWithSuperIndex(mainType: .feature).first { $0.id == feature.categoryIndex }!
@@ -291,10 +275,9 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
           .profile,
           style: traitCollection.userInterfaceStyle),
         description: "未記錄個人特徵資訊")
-
       return 0
 
-    case .none:
+    default:
       return 0
     }
   }
@@ -309,7 +292,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       return sortedRelationList[section].count
 
-    case .none:
+    default:
       return 0
     }
   }
@@ -339,7 +322,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       return header
 
-    case .none:
+    default:
       return nil
     }
   }
@@ -347,7 +330,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch TableType(rawValue: tableView.tag) {
     case .event:
-
       let events = eventsSorted.sorted { $0.key > $1.key }
 
       let event = events[indexPath.section].value[indexPath.row]
@@ -364,7 +346,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       return cell
 
     case .profile:
-
       let cell = tableView.dequeueReusableCell(
         withIdentifier: String(describing: RelationProfileCell.self),
         for: indexPath)
@@ -380,7 +361,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       return cell
 
     case .none:
-
       return UITableViewCell()
     }
   }
@@ -418,10 +398,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       detailVC.onDismiss = {
         blueView.removeFromSuperview()
       }
-    case .profile:
-      break
-
-    case .none:
+    default:
       break
     }
   }
@@ -437,10 +414,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
 extension RelationDetailViewController: EventDetailDelegate {
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
-    //    if let controller = UIStoryboard.lobby.instantiateViewController(identifier: "addEvent") as? AddEventViewController {
-    //      controller.editingEvent = event
-    //      navigationController?.pushViewController(controller, animated: true)
-    //    }
 
     editingEvent = event
     performSegue(withIdentifier: "addEvent", sender: self)

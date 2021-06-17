@@ -10,12 +10,10 @@ import FlexColorPicker
 import CropViewController
 
 protocol CategoryStyleViewDelegate: AnyObject {
-
   func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String)
 }
 
 class SetCategoryStyleView: UIView, NibLoadable {
-
   @IBOutlet var titleLabel: UILabel! {
     didSet {
       titleLabel.text = title
@@ -23,11 +21,9 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
   @IBOutlet var iconSelectView: IconSelectView! {
     didSet {
-
       layoutIfNeeded()
 
       iconSelectView.onIconTapped = { [weak self] view in
-
         if let strongSelf = self {
           let provider = SCLAlertViewProvider(roundedImage: strongSelf)
           provider.showAlert(type: .roundedImage)
@@ -50,7 +46,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
   weak var delegate: CategoryStyleViewDelegate?
 
-  var canConfirm = false  {
+  var canConfirm = false {
     didSet {
       confirmButton.isEnabled = canConfirm
       confirmButton.isUserInteractionEnabled = canConfirm
@@ -82,13 +78,12 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
   var categoryType: CategoryType? {
     didSet {
-
       guard let type = categoryType,
             let hierarchy = hierarchy else { return }
 
       var title = String.empty
       var placeholder = String.empty
-      
+
       switch type {
       case .relation:
         if hierarchy == .sub {
@@ -129,7 +124,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
 
   func customInit() {
-
     loadNibContent()
 
     canConfirm = false
@@ -141,7 +135,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
 
   func show(_ view: UIView, type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, noSubmit: Bool = false) {
-
     reset()
 
     self.noSubmit = noSubmit
@@ -153,9 +146,11 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
     view.addSubview(self)
     addConstarint(
-      left: view.leftAnchor, right: view.rightAnchor,
+      left: view.leftAnchor,
+      right: view.rightAnchor,
       centerY: view.centerYAnchor,
-      paddingLeft: 16, paddingRight: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
       height: max(view.frame.height / 2, 400))
 
     view.layoutIfNeeded()
@@ -172,9 +167,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
   }
 
   @IBAction func buttonTapped(_ sender: UIButton) {
-
     if sender == confirmButton {
-
       guard let imageString = imageString,
             let image = image,
             let superIndex = superIndex,
@@ -186,16 +179,14 @@ class SetCategoryStyleView: UIView, NibLoadable {
       if !noSubmit {
         // MARK: 新增互動對象，透過 ralationViewModel 處理
         if categoryType == .relation && hierarchy == .sub {
-
           let relationViewModel = RelationViewModel()
 
           relationViewModel.addRelation(
-            name: name, iconString: imageString,
+            name: name,
+            iconString: imageString,
             bgColor: colorPicker.selectedColor,
             superIndex: superIndex)
-
         } else {
-
           // MARK: 單純新增標籤部分直接呼叫 FirebaseManager 處理
           var category = Category(
             id: -1,
@@ -214,9 +205,12 @@ class SetCategoryStyleView: UIView, NibLoadable {
       }
 
       delegate?.categoryStyleView(
-        styleView: self, isCropped: isImageCropped,
+        styleView: self,
+        isCropped: isImageCropped,
         name: name,
-        backgroundColor: colorPicker.selectedColor, image: image, imageString: imageString)
+        backgroundColor: colorPicker.selectedColor,
+        image: image,
+        imageString: imageString)
     }
 
     blurView?.removeFromSuperview()
@@ -227,9 +221,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
 // MARK: - Color picker delegate
 extension SetCategoryStyleView: ColorPickerDelegate {
-
   func colorPicker(_ colorPicker: ColorPickerController, selectedColor: UIColor, usingControl: ColorControl) {
-
     layoutIfNeeded()
 
     iconSelectView.iconView.setIcon(isCropped: isImageCropped, bgColor: selectedColor)
@@ -239,9 +231,7 @@ extension SetCategoryStyleView: ColorPickerDelegate {
 
 // MARK: - SCLAlertProvider delegate
 extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewControllerDelegate {
-
   func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {
-
     isImageCropped = false
     self.image = image
     imageString = named
@@ -253,7 +243,6 @@ extension SetCategoryStyleView: SCLAlertViewProviderDelegate, CropViewController
   }
 
   func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-
     cropViewController.dismiss(animated: true, completion: nil)
 
     isImageCropped = true

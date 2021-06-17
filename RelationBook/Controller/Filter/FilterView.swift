@@ -7,18 +7,29 @@
 
 import UIKit
 
+protocol CategorySelectionDelegate: AnyObject {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)?
+
+  func didSelectedCategory(category: Category)
+
+  func didStartEdit(pageIndex: Int)
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int)
+}
+
+extension CategorySelectionDelegate {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)? {
+    return nil
+  }
+}
+
 class FilterView: UIView {
   var userViewModel = UserViewModel()
 
-  // MARK: Event closures
-  var onSelected: (([Category]) -> Void)?
-  var onStartEdit: (() -> Void)?
-  var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
-  var onInitialWithTarget: (() -> (main: Category, sub: Category)?)?
+  weak var delegate: CategorySelectionDelegate?
 
   // MARK: Datas
   var filterSource: [String] = []
-  var selectedCategories: [Category] = []
 
   var categoryViews: [CategoryCollectionView] = []
   var canScrollBeHidden = true
@@ -33,18 +44,9 @@ class FilterView: UIView {
   var isMainOnly: Bool = false
 
   let filterScrollView = SelectionView()
-  var filterHeightConstraint: NSLayoutConstraint?
+  var filterScrollHeightConstraint: NSLayoutConstraint?
 
-  let categoryScrollView: UIScrollView = {
-    let scrollView = UIScrollView()
-    scrollView.isPagingEnabled = true
-    scrollView.translatesAutoresizingMaskIntoConstraints = false
-    scrollView.showsVerticalScrollIndicator = false
-    scrollView.showsHorizontalScrollIndicator = false
-    scrollView.alwaysBounceVertical = false
-    scrollView.alwaysBounceHorizontal = false
-    return scrollView
-  }()
+  let categoryScrollView = RBScrollView(isPagingEnabled: true)
   var scrollHeight: CGFloat = 0
 
   func setUp(type: CategoryType, isMainOnly: Bool = false) {
@@ -95,7 +97,7 @@ class FilterView: UIView {
       left: leftAnchor,
       right: rightAnchor,
       height: 50)
-    filterHeightConstraint = filterScrollView.constraints.first { $0.constant == 50 }
+    filterScrollHeightConstraint = filterScrollView.constraints.first { $0.constant == 50 }
   }
 
   private func addScrollView() {
@@ -137,39 +139,18 @@ class FilterView: UIView {
       categoryViews.append(collectionView)
       x = collectionView.frame.origin.x + viewWidth
 
-      collectionView.onSelectedSubCategory = { [weak self] category in
-        if let category = category {
-          self?.selectedCategories.removeAll()
-          self?.selectedCategories.append(category)
-          self?.onSelected?(self?.selectedCategories ?? [])
-        }
-
-        if let strongSelf = self {
-          if strongSelf.canScrollBeHidden {
-            strongSelf.onHiddenFilter(isHidden: true)
-          }
-        }
-        return self?.selectedCategories ?? []
-      }
-
-      collectionView.onContinueEdit = { [weak self] index in
-        self?.onHiddenFilter(isHidden: false)
-        self?.onStartEdit?()
-      }
-
-      collectionView.onAddCategory = { [weak self] type, hierarchy, superIndex in
-        self?.onAddCategory?(type, hierarchy, superIndex)
-      }
+      collectionView.selectionDelegate = delegate
     }
+    
     categoryScrollView.contentSize = CGSize(width: x, height: categoryScrollView.frame.size.height)
 
-    if let target = onInitialWithTarget?() {
-      scrollTo(main: target.main, sub: target.sub)
+    if let target = delegate?.initialTarget() {
+      scrollTo(main: target.mainCategory, sub: target.subCategory)
     }
   }
 
-  private func onHiddenFilter(isHidden: Bool) {
-    filterHeightConstraint?.constant = isHidden ? 0 : 40
+  func hiddenFilterScroll(isHidden: Bool) {
+    filterScrollHeightConstraint?.constant = isHidden ? 0 : 40
     filterScrollView.indicatorView.isHidden = isHidden
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
@@ -187,13 +168,12 @@ class FilterView: UIView {
   }
 
   func reloadDate() {
-    onHiddenFilter(isHidden: filterHeightConstraint?.constant != 0)
+    hiddenFilterScroll(isHidden: filterScrollHeightConstraint?.constant != 0)
   }
 
   func reset() {
-    selectedCategories.removeAll()
     categoryViews.forEach { $0.status = .mainCategory; $0.selectedIndex = nil }
-    onHiddenFilter(isHidden: false)
+    hiddenFilterScroll(isHidden: false)
   }
 }
 
