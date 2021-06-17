@@ -27,9 +27,7 @@ class ProfileViewController: UIViewController {
   var type: CategoryType?
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
     if let detailVC = segue.destination as? ProfileCategoryListView {
-
       guard let type = type else { return }
 
       detailVC.type = type
@@ -37,7 +35,6 @@ class ProfileViewController: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     tableView.separatorColor = .clear
@@ -58,7 +55,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddFeatureTableCell.self), for: indexPath)
 
     if let cell = cell as? AddFeatureTableCell {
-
       if indexPath.section == 0 {
         cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
       } else {
@@ -70,7 +66,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
     let headerView = RelationTableHeaderCell()
 
     headerView.tagTitleLabel.text = headers[section]
@@ -83,8 +78,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 //  }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-
     if indexPath.section == 0 {
       switch indexPath.row {
       case 0:

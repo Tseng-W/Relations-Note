@@ -54,7 +54,6 @@ class LobbyViewController: UIViewController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
     if let addEventView = segue.destination as? AddEventViewController {
       addEventView.editingEvent = editingEvent
     }
@@ -65,18 +64,17 @@ class LobbyViewController: UIViewController {
   }
 
   override func viewDidLoad() {
-    
     super.viewDidLoad()
-    
+
     calendar.select(Date())
 
     tableView.separatorColor = .clear
 
     navigationItem.title = Date().getDayString(type: .day)
 
-    userViewModel.user.bind { value in
+    userViewModel.user.bind { user in
+      guard user != nil else { return }
 
-      guard let _ = value else { return }
       self.eventViewModel.fetchEvents()
       self.relationViewModel.fetchRelations()
       self.tableView.reloadData()
@@ -85,16 +83,14 @@ class LobbyViewController: UIViewController {
       self.lottieView.leave()
     }
 
-    eventViewModel.events.bind { events in
-
+    eventViewModel.events.bind { _ in
       self.tableView.reloadData()
       self.calendar.reloadData()
 
       self.lottieView.leave()
     }
 
-    relationViewModel.relations.bind { relations in
-
+    relationViewModel.relations.bind { _ in
       self.tableView.reloadData()
       self.calendar.reloadData()
 
@@ -109,7 +105,6 @@ class LobbyViewController: UIViewController {
   }
 
   override func viewWillDisappear(_ animated: Bool) {
-
     super.viewWillDisappear(true)
 
     popViews.forEach { $0.removeFromSuperview() }
@@ -128,7 +123,6 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
   }
 
   func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-    
     calendarHeightConstraint.constant = bounds.height
     view.layoutIfNeeded()
   }
@@ -138,9 +132,8 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
   //  }
 
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-
     let shouldBegin = tableView.contentOffset.y <= -tableView.contentInset.top
-    
+
     if shouldBegin {
       let velocity = scopeGesture.velocity(in: view)
       switch calendar.scope {
@@ -156,7 +149,6 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
   }
 
   func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-
     let events = eventViewModel.events.value
     let todayEvents = events.filter { event in
       date.isSameDay(date: event.time.dateValue())
@@ -219,7 +211,6 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
     let header = UIView()
 
     header.backgroundColor = .clear
@@ -315,7 +306,7 @@ extension LobbyViewController: EventDetailDelegate {
   func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {
     let provider = SCLAlertViewProvider()
 
-    provider.setConfirmAction {self.eventViewModel.deleteEvent(event: event)}
+    provider.setConfirmAction { self.eventViewModel.deleteEvent(event: event) }
       .showAlert(type: .delete)
   }
 }

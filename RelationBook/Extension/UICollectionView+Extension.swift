@@ -17,25 +17,31 @@ extension UICollectionView {
     }
 
     func lk_registerHeaderWithNib(identifier: String, bundle: Bundle?) {
-
       let nib = UINib(nibName: identifier, bundle: bundle)
 
-      register(nib,
-               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-               withReuseIdentifier: identifier)
+      register(
+        nib,
+        forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+        withReuseIdentifier: identifier)
     }
 
     func lk_registerFooterWithNib(identifier: String, bundle: Bundle?) {
 
       let nib = UINib(nibName: identifier, bundle: bundle)
 
-      register(nib,
-               forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-               withReuseIdentifier: identifier)
+      register(
+        nib,
+        forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+        withReuseIdentifier: identifier)
     }
     
-    func rounded(cell: UICollectionViewCell, cornerRadius: CGFloat = 2, borderWidth: CGFloat = 1,
-                 shadowRadius: CGFloat = 2, shadowOpacity: Float = 0.5) -> UICollectionViewCell {
+    func rounded(
+      cell: UICollectionViewCell,
+      cornerRadius: CGFloat = 2,
+      borderWidth: CGFloat = 1,
+      shadowRadius: CGFloat = 2,
+      shadowOpacity: Float = 0.5
+    ) -> UICollectionViewCell {
         cell.contentView.layer.cornerRadius = cornerRadius
         cell.contentView.layer.borderWidth = borderWidth
         cell.contentView.layer.borderColor = UIColor.clear.cgColor

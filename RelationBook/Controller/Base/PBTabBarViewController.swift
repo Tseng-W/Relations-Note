@@ -18,17 +18,14 @@ private enum Tab {
   case lobby
 
   func controller() -> UIViewController {
-
-    var controller: UIViewController
+    var controller: UIViewController?
 
     switch self {
-
     case .profiles: controller = UIStoryboard.profile.instantiateInitialViewController()!
 
     case .relationship: controller = UIStoryboard.relationship.instantiateInitialViewController()!
 
     case .lobby: controller = UIStoryboard.lobby.instantiateInitialViewController()!
-
     }
 
     controller.tabBarItem = tabBarItem()
@@ -38,9 +35,7 @@ private enum Tab {
   }
 
   func tabBarItem() -> UITabBarItem {
-
     switch self {
-
     case .profiles:
       return UITabBarItem(
         title: nil,
@@ -67,10 +62,13 @@ private enum Tab {
   func images() -> (icon: UIImage, add: UIImage)? {
     switch self {
     case .lobby:
-//      return (UIImage.asset(ImageAsset.icon)!,
-//              UIImage.asset(ImageAsset.pen)!)
-      return (UIImage.asset(ImageAsset.icon)!,
-              UIImage.assetSystem(SysetmAsset.add)!)
+      if let icon = UIImage.asset(ImageAsset.icon),
+         let add = UIImage.assetSystem(SysetmAsset.add) {
+        return (icon, add)
+
+      } else {
+        return nil
+      }
     default:
       return nil
     }
@@ -100,7 +98,6 @@ class PBTabBarViewController: UITabBarController {
   weak var tabBarDelegate: TabBarTapDelegate?
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     lobbyButtonInit()
@@ -124,7 +121,6 @@ class PBTabBarViewController: UITabBarController {
   }
 
   private func lobbyButtonInit() {
-
     var center = tabBar.center
     center.y -= iconImageButton.frame.height / 2
     iconImageButton.center = center
@@ -153,7 +149,6 @@ class PBTabBarViewController: UITabBarController {
 }
 
 extension PBTabBarViewController: UITabBarControllerDelegate {
-
   func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
     let index = viewControllers?.firstIndex(of: viewController)
@@ -162,7 +157,6 @@ extension PBTabBarViewController: UITabBarControllerDelegate {
   }
 
   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-
     iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, multiple: 0.8)
   }
 }

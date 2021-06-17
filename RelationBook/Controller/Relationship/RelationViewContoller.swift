@@ -10,7 +10,7 @@ import UIKit
 class RelationViewContoller: UIViewController {
   
   let userViewModel = UserViewModel()
-  
+
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.delegate = self
@@ -24,7 +24,7 @@ class RelationViewContoller: UIViewController {
       tableView.rowHeight = UITableView.automaticDimension
     }
   }
-  
+
   let relationViewModel = RelationViewModel()
 
   private var selectedCategory: Category?
@@ -36,19 +36,18 @@ class RelationViewContoller: UIViewController {
       listVC.navigationTitle = category.title
     }
   }
-  
+
   override func viewDidLoad() {
-    
     super.viewDidLoad()
-    
+
     tableView.separatorColor = .clear
-    
+
     userViewModel.fetchUserDate()
-    
+
     relationViewModel.relations.bind { [weak self] relations in
       self?.tableView.reloadData()
     }
-    
+
     userViewModel.user.bind { [weak self] user in
       self?.tableView.reloadData()
     }

@@ -8,9 +8,9 @@
 import UIKit
 
 extension String {
-  
+
   static let empty = ""
-  
+
   static func timestempToString(_ timestamp: Int) -> String {
     let date = Date(timeIntervalSince1970: TimeInterval(timestamp / 1000))
     let dateFormatter = DateFormatter()
@@ -21,14 +21,13 @@ extension String {
   }
 
   func toImage() -> UIImage? {
-    if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters){
+    if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters) {
       return UIImage(data: data)
     }
     return nil
   }
 
   func verifyUrl() -> Bool {
-
     self.contains("http")
 
 //    var request = URLRequest(url: URL(string: self)!)
