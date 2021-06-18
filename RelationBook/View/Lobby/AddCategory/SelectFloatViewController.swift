@@ -198,13 +198,11 @@ extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, Goog
 
 extension SelectFloatViewController: CategorySelectionDelegate {
   func didSelectedCategory(category: Category) {
-    filterView.hiddenFilterScroll(isHidden: true)
     onEventSelected?(category)
     isVisable = false
   }
 
   func didStartEdit(pageIndex: Int) {
-    filterView.hiddenFilterScroll(isHidden: false)
   }
 
   func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {

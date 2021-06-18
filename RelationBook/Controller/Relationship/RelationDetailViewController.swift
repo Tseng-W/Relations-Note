@@ -183,7 +183,6 @@ class RelationDetailViewController: UIViewController {
   }
 
   override func viewWillDisappear(_ animated: Bool) {
-
     super.viewWillDisappear(true)
 
     navigationController?.backToRoot()
@@ -212,7 +211,7 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
 
   func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-      self.scrollView.contentOffset.x =  self.scrollView.frame.width * CGFloat(index)
+      self.scrollView.contentOffset.x = self.scrollView.frame.width * CGFloat(index)
 
       self.view.layoutIfNeeded()
     }
@@ -227,12 +226,36 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
   }
 }
 
+extension RelationDetailViewController {
+  private func getFeatureSourtedByType(_ relation: Relation, _ user: User) -> [[Feature]] {
+    var sortedRelation: [Int: [Feature]] = [:]
+
+    relation.feature.forEach { feature in
+      let filterIndex = user.getCategoriesWithSuperIndex(mainType: .feature).first { $0.id == feature.categoryIndex }!
+
+      if sortedRelation.keys.contains(filterIndex.superIndex) {
+//        if sortedRelation[filterIndex.superIndex]!.contains(where: { data in
+//          data.contents[0].text != feature.contents[0].text
+//        }) {
+//          sortedRelation[filterIndex.superIndex]!.append(feature)
+//        }
+        sortedRelation[filterIndex.superIndex]!.append(feature)
+      } else {
+        sortedRelation[filterIndex.superIndex] = [feature]
+      }
+    }
+
+    return sortedRelation.map { return $0.value }
+  }
+}
+
 // MARK: - TableView Delegate
 extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSource {
+
   func numberOfSections(in tableView: UITableView) -> Int {
     switch TableType(rawValue: tableView.tag) {
-    case .event:
 
+    case .event:
       let number = eventsSorted.count
 
       if number == 0 {
@@ -243,29 +266,12 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       return number
 
     case .profile:
-
       if let relation = relation,
          !relation.feature.isEmpty,
          let user = userViewModel.user.value {
         tableView.removePlaceholder()
 
-        var sortedRelation: [Int: [Feature]] = [:]
-
-        relation.feature.forEach { feature in
-          let filterIndex = user.getCategoriesWithSuperIndex(mainType: .feature).first { $0.id == feature.categoryIndex }!
-
-          if sortedRelation.keys.contains(filterIndex.superIndex) {
-            if sortedRelation[filterIndex.superIndex]!.contains(where: { data in
-              data.contents[0].text != feature.contents[0].text
-            }) {
-              sortedRelation[filterIndex.superIndex]!.append(feature)
-            }
-          } else {
-            sortedRelation[filterIndex.superIndex] = [feature]
-          }
-        }
-
-        sortedRelationList = sortedRelation.map { return $0.value }
+        sortedRelationList = getFeatureSourtedByType(relation, user)
 
         return sortedRelationList.count
       }
@@ -383,12 +389,14 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       let blueView = view.addBlurView()
       view.addSubview(detailVC)
 
-      detailVC.addConstarint(left: view.leftAnchor,
-                             right: view.rightAnchor,
-                             centerY: view.centerYAnchor,
-                             paddingLeft: 16,
-                             paddingRight: 16,
-                             height: view.frame.height / 1.5)
+      detailVC.addConstarint(
+        left: view.leftAnchor,
+        right: view.rightAnchor,
+        centerY: view.centerYAnchor,
+        paddingLeft: 16,
+        paddingRight: 16,
+        height: view.frame.height / 1.5)
+
       detailVC.cornerRadius = detailVC.frame.width * 0.05
 
       view.layoutIfNeeded()

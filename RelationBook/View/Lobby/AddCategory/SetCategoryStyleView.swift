@@ -10,7 +10,11 @@ import FlexColorPicker
 import CropViewController
 
 protocol CategoryStyleViewDelegate: AnyObject {
-  func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String)
+  func categoryStyleView(isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String)
+}
+
+extension CategoryStyleViewDelegate {
+  func categoryStyleView(isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) { }
 }
 
 class SetCategoryStyleView: UIView, NibLoadable {
@@ -205,7 +209,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
       }
 
       delegate?.categoryStyleView(
-        styleView: self,
         isCropped: isImageCropped,
         name: name,
         backgroundColor: colorPicker.selectedColor,

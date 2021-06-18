@@ -7,22 +7,6 @@
 
 import UIKit
 
-protocol CategorySelectionDelegate: AnyObject {
-  func initialTarget() -> (mainCategory: Category, subCategory: Category)?
-
-  func didSelectedCategory(category: Category)
-
-  func didStartEdit(pageIndex: Int)
-
-  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int)
-}
-
-extension CategorySelectionDelegate {
-  func initialTarget() -> (mainCategory: Category, subCategory: Category)? {
-    return nil
-  }
-}
-
 class FilterView: UIView {
   var userViewModel = UserViewModel()
 
@@ -133,6 +117,10 @@ class FilterView: UIView {
         frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight),
         collectionViewLayout: layout)
 
+      collectionView.onStatusChanged = { status in
+        self.hiddenFilterScroll(isHidden: status == .selected)
+      }
+
       collectionView.setUp(index: index, type: type, isMainOnly: isMainOnly)
 
       categoryScrollView.addSubview(collectionView)
@@ -141,7 +129,7 @@ class FilterView: UIView {
 
       collectionView.selectionDelegate = delegate
     }
-    
+
     categoryScrollView.contentSize = CGSize(width: x, height: categoryScrollView.frame.size.height)
 
     if let target = delegate?.initialTarget() {
@@ -149,12 +137,12 @@ class FilterView: UIView {
     }
   }
 
-  func hiddenFilterScroll(isHidden: Bool) {
+  private func hiddenFilterScroll(isHidden: Bool) {
     filterScrollHeightConstraint?.constant = isHidden ? 0 : 40
     filterScrollView.indicatorView.isHidden = isHidden
+    categoryScrollView.isScrollEnabled = !isHidden
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-      self.categoryScrollView.isScrollEnabled = !isHidden
       self.layoutIfNeeded()
     }
   }

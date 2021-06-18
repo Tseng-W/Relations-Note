@@ -89,9 +89,8 @@ class AddEventViewController: UIViewController {
       self?.filterView.setUp(type: .relation)
 
       if let event = self?.event,
-         let strongSelf = self,
          let subRelation = user.relationSet.sub.first(where: { event.relations.contains( $0.id ) }) {
-        strongSelf.relationCategory = subRelation
+//        self?.didSelectedCategory(category: subRelation)
       }
     }
 
@@ -103,8 +102,6 @@ class AddEventViewController: UIViewController {
 
     featureTableView.separatorColor = .clear
 
-    setCategoryView.delegate = self
-
     userViewModel.fetchUserDate()
     relationViewModel.fetchRelations()
 
@@ -112,7 +109,7 @@ class AddEventViewController: UIViewController {
 
     if isEditingEvent {
       event.time = Timestamp(date: Date())
-      didSelectedCategory(category: event.category)
+//      didSelectedCategory(category: event.category)
     }
   }
 
@@ -210,17 +207,15 @@ class AddEventViewController: UIViewController {
     if isEditingEvent {
       eventViewModel.updateEvent(event: event)
 
-      dismiss(animated: true)
-      return
-    }
+    } else {
+      eventViewModel.addEvent(event: event) { result in
+        switch result {
+        case .success(let docId):
+          self.event.docId = docId
 
-    eventViewModel.addEvent(event: event) { result in
-      switch result {
-      case .success(let docId):
-        self.event.docId = docId
-
-      case .failure(let error):
-        print("\(error.localizedDescription)")
+        case .failure(let error):
+          print("\(error.localizedDescription)")
+        }
       }
     }
 
@@ -346,22 +341,6 @@ extension AddEventViewController: SCLAlertViewProviderDelegate {
   }
 }
 
-// MARK: Add category delegate
-extension AddEventViewController: CategoryStyleViewDelegate {
-  func categoryStyleView(
-    styleView: SetCategoryStyleView,
-    isCropped: Bool,
-    name: String,
-    backgroundColor: UIColor,
-    image: UIImage,
-    imageString: String) {
-  }
-
-  func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
-    .relation
-  }
-}
-
 // MARK: TextFiled Delegate
 extension AddEventViewController: UITextViewDelegate {
   func textViewDidBeginEditing(_ textView: UITextView) {
@@ -372,10 +351,7 @@ extension AddEventViewController: UITextViewDelegate {
   }
 
   func textViewDidEndEditing(_ textView: UITextView) {
-    if textView.text.isEmpty {
-      textView.text = commentPlaceholder
-      textView.textColor = commentPlaceholderColor
-    }
+    event.comment = textView.text
   }
 }
 
@@ -399,7 +375,6 @@ extension AddEventViewController: CategorySelectionDelegate {
     event.relations = [category.id]
     relationCategory = category
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-      self.filterView.hiddenFilterScroll(isHidden: true)
       self.filterHeightConstraint.constant /= 2.66
       self.view.layoutIfNeeded()
     }
@@ -408,7 +383,6 @@ extension AddEventViewController: CategorySelectionDelegate {
   func didStartEdit(pageIndex: Int) {
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
       self.filterHeightConstraint.constant *= 2.66
-      self.filterView.hiddenFilterScroll(isHidden: false)
       self.view.layoutIfNeeded()
     }
   }

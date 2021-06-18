@@ -7,6 +7,22 @@
 
 import UIKit
 
+protocol CategorySelectionDelegate: AnyObject {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)?
+
+  func didSelectedCategory(category: Category)
+
+  func didStartEdit(pageIndex: Int)
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int)
+}
+
+extension CategorySelectionDelegate {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)? {
+    return nil
+  }
+}
+
 class CategoryCollectionView: UICollectionView {
   enum Status {
     case mainCategory
@@ -14,7 +30,9 @@ class CategoryCollectionView: UICollectionView {
     case selected
   }
 
+  // MARK: Delegate and closure
   weak var selectionDelegate: CategorySelectionDelegate?
+  var onStatusChanged: ((Status) -> Void)?
 
   // MARK: Types
   var type: CategoryType?
@@ -27,6 +45,7 @@ class CategoryCollectionView: UICollectionView {
   var status: Status = .mainCategory {
     didSet {
       reloadData()
+      onStatusChanged?(status)
     }
   }
   var selectedIndex: Int? {
@@ -93,12 +112,12 @@ class CategoryCollectionView: UICollectionView {
     status = .selected
     selectedIndex = mainCategories.firstIndex { $0.id == main.id }
     selectedCategory = sub
+    selectionDelegate?.didSelectedCategory(category: sub)
   }
 }
 
 extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
     switch status {
     case .mainCategory:
       return mainCategories.count + 1
@@ -125,12 +144,13 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
           cell.category = mainCategories[indexPath.row]
         }
       case .subCategory:
+        guard let selectedIndex = selectedIndex else { return cell }
         if indexPath.row == 0 {
           cell.defaultType = .back
-        } else if indexPath.row == subCategories[selectedIndex!].count + 1 {
+        } else if indexPath.row == subCategories[selectedIndex].count + 1 {
           cell.defaultType = .add
         } else {
-          cell.category = subCategories[selectedIndex!][indexPath.row - 1]
+          cell.category = subCategories[selectedIndex][indexPath.row - 1]
         }
       case .selected:
         cell.category = selectedCategory

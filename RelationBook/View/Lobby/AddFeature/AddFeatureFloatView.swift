@@ -187,7 +187,6 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
     guard let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableCell else { return }
 
     cell.isSelected = false
@@ -198,22 +197,18 @@ extension AddFeatureFloatView: CategorySelectionDelegate {
   func didSelectedCategory(category: Category) {
     selectedCategory = category
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-      self.filterView.hiddenFilterScroll(isHidden: true)
       self.filterHeight.constant /= 2.66
       self.layoutIfNeeded()
     }
   }
 
   func didStartEdit(pageIndex: Int) {
-
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-      self.filterView.hiddenFilterScroll(isHidden: false)
       self.filterHeight.constant *= 2.66
       self.layoutIfNeeded()
     }
   }
 
   func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
-
   }
 }
