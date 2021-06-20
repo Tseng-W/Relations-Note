@@ -38,8 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func sceneWillEnterForeground(_ scene: UIScene) {
     #if targetEnvironment(simulator)
-    UserDefaults.standard.setValue("mockAppleID2", forKey: UserDefaults.Keys.uid.rawValue)
-    UserDefaults.standard.setValue("mockEmail2", forKey: UserDefaults.Keys.email.rawValue)
+    UserDefaults.standard.setValue("mockAppleID3", forKey: UserDefaults.Keys.uid.rawValue)
+    UserDefaults.standard.setValue("mockEmail3", forKey: UserDefaults.Keys.email.rawValue)
 
     if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
       window?.rootViewController = mainVC

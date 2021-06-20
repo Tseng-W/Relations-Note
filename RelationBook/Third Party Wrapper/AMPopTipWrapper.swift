@@ -33,7 +33,7 @@ class PopTipManager: NSObject {
       case .normal:
         return [.bubbleColor(.button), .textColor(.background)]
       case .alert:
-        return [.bubbleColor(.categoryColor9), .textColor(.background)]
+        return [.bubbleColor(.color9), .textColor(.background)]
       }
     }
   }

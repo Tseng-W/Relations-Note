@@ -37,7 +37,7 @@ extension SelectionViewDatasource {
   func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? { if #available(iOS 13.0, *) {
     return .systemGray2
   } else {
-    return .categoryColor1
+    return .color1
   } }
 
   func initialButtonIndex(_ selectionView: SelectionView) -> Int { return 0 }
@@ -45,7 +45,7 @@ extension SelectionViewDatasource {
   func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor { if #available(iOS 13.0, *) {
     return .systemGray2
   } else {
-    return .categoryColor1
+    return .color1
   } }
 
   func selectionView(_ selectionView: SelectionView, fontForButtonAt index: Int) -> UIFont { return UIFont.pingfang(size: 16) }

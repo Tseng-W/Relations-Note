@@ -32,15 +32,15 @@ extension UIColor {
   static let greenB1 = UIColor(named: "GreenB1") ?? .systemGreen
   static let greenB2 = UIColor(named: "GreenB2") ?? .systemGreen
 
-  static let categoryColor1 = UIColor(named: "Color1") ?? .clear
-  static let categoryColor2 = UIColor(named: "Color2") ?? .clear
-  static let categoryColor3 = UIColor(named: "Color3") ?? .clear
-  static let categoryColor4 = UIColor(named: "Color4") ?? .clear
-  static let categoryColor5 = UIColor(named: "Color5") ?? .clear
-  static let categoryColor6 = UIColor(named: "Color6") ?? .clear
-  static let categoryColor7 = UIColor(named: "Color7") ?? .clear
-  static let categoryColor8 = UIColor(named: "Color8") ?? .clear
-  static let categoryColor9 = UIColor(named: "Color9") ?? .clear
+  static let color1 = UIColor(named: "Color1") ?? .clear
+  static let color2 = UIColor(named: "Color2") ?? .clear
+  static let color3 = UIColor(named: "Color3") ?? .clear
+  static let color4 = UIColor(named: "Color4") ?? .clear
+  static let color5 = UIColor(named: "Color5") ?? .clear
+  static let color6 = UIColor(named: "Color6") ?? .clear
+  static let color7 = UIColor(named: "Color7") ?? .clear
+  static let color8 = UIColor(named: "Color8") ?? .clear
+  static let color9 = UIColor(named: "Color9") ?? .clear
 
   func stringFromUIColor() -> String {
     guard let components = self.cgColor.components else { return "" }
