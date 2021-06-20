@@ -30,7 +30,15 @@ struct Event: Codable {
 
 extension Event {
   static func getEmptyEvent() -> Event {
-    return Event(owner: .empty, relations: [], imageLink: .empty, mood: 0, category: Category(), time: Timestamp(), subEvents: [], comment: .empty)
+    return Event(
+      owner: .empty,
+      relations: [],
+      imageLink: .empty,
+      mood: 0,
+      category: Category(),
+      time: Timestamp(),
+      subEvents: [],
+      comment: .empty)
   }
 
   func isInitialed() -> Bool {
@@ -38,7 +46,7 @@ extension Event {
   }
 
   func getRelationImage(completion: @escaping (UIImage?) -> Void) {
-    category.getImage{ completion($0) }
+    category.getImage { completion($0) }
   }
 
   func getColor() -> UIColor {
@@ -46,12 +54,14 @@ extension Event {
   }
 
   func toDict() -> [AnyHashable: Any] {
-    var dic = ["owner": owner,
-            "relations": relations,
-            "mood": mood,
-            "category": category.toDict(),
-            "time": time,
-            "subEvents": subEvents] as [String : Any]
+    var dic = [
+      "owner": owner,
+      "relations": relations,
+      "mood": mood,
+      "category": category.toDict(),
+      "time": time,
+      "subEvents": subEvents
+    ] as [String: Any]
 
     if let imageLink = imageLink {
       dic["imageLink"] = imageLink

@@ -10,7 +10,6 @@ import UIKit
 extension UICollectionView {
 
     func lk_registerCellWithNib(identifier: String, bundle: Bundle?) {
-
         let nib = UINib(nibName: identifier, bundle: bundle)
 
         register(nib, forCellWithReuseIdentifier: identifier)
@@ -26,7 +25,6 @@ extension UICollectionView {
     }
 
     func lk_registerFooterWithNib(identifier: String, bundle: Bundle?) {
-
       let nib = UINib(nibName: identifier, bundle: bundle)
 
       register(
@@ -34,7 +32,7 @@ extension UICollectionView {
         forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
         withReuseIdentifier: identifier)
     }
-    
+
     func rounded(
       cell: UICollectionViewCell,
       cornerRadius: CGFloat = 2,
@@ -58,4 +56,3 @@ extension UICollectionView {
         return cell
     }
 }
-

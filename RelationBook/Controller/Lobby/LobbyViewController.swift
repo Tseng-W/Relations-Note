@@ -119,7 +119,11 @@ class LobbyViewController: UIViewController {
 }
 
 // MARK: - calendar delegate / datasource
-extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance, UIGestureRecognizerDelegate {
+extension LobbyViewController:
+  FSCalendarDelegate,
+  FSCalendarDataSource,
+  FSCalendarDelegateAppearance,
+  UIGestureRecognizerDelegate {
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     navigationItem.title = date.getDayString(type: .day)
     tableView.reloadData()
@@ -256,34 +260,10 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     guard let event = cell.event else { return }
 
-    let relations = cell.relations
-
     let detailVC = EventDetailView()
     detailVC.delegate = self
 
-    let blurView = view.addBlurView()
-
-    view.addSubview(detailVC)
-
-    detailVC.addConstarint(
-      left: view.leftAnchor,
-      right: view.rightAnchor,
-      centerY: view.centerYAnchor,
-      paddingLeft: 16,
-      paddingRight: 16,
-      height: view.frame.height / 1.5)
-    detailVC.cornerRadius = detailVC.frame.width * 0.05
-
-    view.layoutIfNeeded()
-
-    detailVC.setUp(event: event, relations: relations)
-
-    detailVC.onDismiss = {
-      blurView.removeFromSuperview()
-    }
-
-    popViews.append(detailVC)
-    popViews.append(blurView)
+    detailVC.setUp(event: event, relations: cell.relations)
   }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

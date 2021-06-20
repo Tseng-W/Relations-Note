@@ -12,8 +12,7 @@ protocol AddFeatureFloatViewDelegate: AnyObject {
   func featureFloatView(view: AddFeatureFloatView, category: Category, feature: Feature)
 }
 
-class AddFeatureFloatView: UIView, NibLoadable{
-
+class AddFeatureFloatView: UIView, NibLoadable {
   @IBOutlet var filterView: FilterView! {
     didSet {
       filterView.delegate = self
@@ -21,7 +20,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
   @IBOutlet var tableView: UITableView! {
     didSet {
-
       tableView.delegate = self
       tableView.dataSource = self
 
@@ -83,7 +81,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   func show(_ view: UIView, category: Category?, feature: Feature?) {
-
     isHidden = true
     LKProgressHUD.show()
 
@@ -139,7 +136,6 @@ class AddFeatureFloatView: UIView, NibLoadable{
 }
 
 extension AddFeatureFloatView {
-
   private func reset() {
     selectedCategory = nil
     featureViewModel.feature.value = Feature()
@@ -170,7 +166,6 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CheckboxTableCell.self), for: indexPath)
 
     if let cell = cell as? CheckboxTableCell {
-
       cell.setup(content: featureViewModel.cellForRowAt(row: indexPath.row))
 
       cell.onEndEdit = { [weak self] cell, content in

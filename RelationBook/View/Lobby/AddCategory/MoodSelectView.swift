@@ -23,9 +23,8 @@ class MoodSelectView: UIView {
   }
 
   private func setUp() {
-
     addSubview(collectionView)
-    collectionView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+    collectionView.addConstarint(fill: self)
     collectionView.delegate = self
     collectionView.dataSource = self
 
@@ -33,12 +32,10 @@ class MoodSelectView: UIView {
   }
 
   @objc private func onTap(_ sender: UIButton) {
-
   }
 }
 
 extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
-
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     1
   }
@@ -63,9 +60,7 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
     switch kind {
-
     case UICollectionView.elementKindSectionHeader:
 
       let header = collectionView.dequeueReusableSupplementaryView(
@@ -88,7 +83,6 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionsView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     collectionView.cellForItem(at: indexPath)?.isSelected = false
 
     let moodDetail = iconDetail[indexPath.row]

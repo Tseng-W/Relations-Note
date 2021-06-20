@@ -54,40 +54,34 @@ class LocalIconSelectionView: UIViewController {
     collectionView.dataSource = self
 
     view.addSubview(collectionView)
-    collectionView.addConstarint(
-      top: view.topAnchor, left: view.leftAnchor,
-      bottom: view.bottomAnchor, right: view.rightAnchor)
+    collectionView.addConstarint(fill: view)
   }
 }
 
 extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewDataSource {
-
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-
     guard let iconViewModel = iconViewModel else { return 0 }
 
     return iconViewModel.iconSets.count
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
     guard let iconViewModel = iconViewModel else { return 0 }
 
     return iconViewModel.iconSets[section].images.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self), for: indexPath)
+    let cell = collectionView.dequeueReusableCell(
+      withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self),
+      for: indexPath)
 
     guard let iconViewModel = iconViewModel else { return  cell }
 
     if let cell = cell as? LocalIconSelectionViewCell {
-
       if var image = iconViewModel.searchIconImage(
           set: indexPath.section,
           index: indexPath.row) {
-
         if indexPath.section == 0 {
           image = image.withTintColor(.label)
         }
@@ -100,9 +94,7 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
     switch kind {
-
     case UICollectionView.elementKindSectionHeader:
 
       let header = collectionView.dequeueReusableSupplementaryView(
@@ -127,7 +119,6 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     let iconImage = iconViewModel?.searchIconImage(indexPath: indexPath)
 
     guard let image = iconImage else { return }

@@ -24,7 +24,6 @@ class SelectFloatViewController: FloatingViewController {
   @IBOutlet var filterView: FilterView!
   @IBOutlet var mapView: GoogleMapView! {
     didSet {
-
       mapView.delegate = self
 
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(autocompleteClicked(tapGesture:)))
@@ -50,39 +49,29 @@ class SelectFloatViewController: FloatingViewController {
   var dateDate = Date()
   var type: SelectType = .event {
     didSet {
-      titleLabel.text = type.rawValue
-      datePicker.isHidden = true
-      filterView.isHidden = true
-      mapView.isHidden = true
-      resetButton.isHidden = true
-      cancelButton.superview!.isHidden = true
+      guard let buttonView = cancelButton.superview else { return }
+      titleLabel.text = type == .location ? "互動地點" : type.rawValue
+      datePicker.datePickerMode = type == .day ? .date : .time
+
+      filterView.isHidden = ![.event].contains { $0 == type }
+      datePicker.isHidden = ![.day, .time].contains { $0 == type }
+      resetButton.isHidden = ![.day, .time, .location].contains { $0 == type }
+      buttonView.isHidden = ![.day, .time, .location].contains { $0 == type }
+      mapView.isHidden = ![.location].contains { $0 == type }
 
       switch type {
-      case .event:
-        filterView.isHidden = false
-      case .day, .time :
-        resetButton.isHidden = false
-        datePicker.isHidden = false
-        cancelButton.superview!.isHidden = false
-
-        if type == .day {
-          resetButton.setTitle("今天", for: .normal)
-          datePicker.datePickerMode = .date
-        } else {
-          resetButton.setTitle("現在", for: .normal)
-          datePicker.datePickerMode = .time
-        }
+      case .day:
+        resetButton.setTitle("今天", for: .normal)
+      case .time :
+        resetButton.setTitle("現在", for: .normal)
       case .location:
-        titleLabel.text = "互動地點"
-        resetButton.isHidden = false
-        cancelButton.superview!.isHidden = false
-        mapView.isHidden = false
         resetButton.setTitle("現在位置", for: .normal)
+      default:
+        break
       }
     }
   }
   var locationInfo: (location: CLLocationCoordinate2D, name: String)?
-
 
   func display(type: SelectType) {
     self.type = type
@@ -109,7 +98,6 @@ class SelectFloatViewController: FloatingViewController {
   }
 
   @objc private func onResetButtonTapped(sender: UIButton) {
-
     switch type {
     case .time, .day:
       dateDate = Date()
@@ -133,10 +121,10 @@ class SelectFloatViewController: FloatingViewController {
 
       case .location:
         if let info = locationInfo {
-
-          let gp = GeoPoint(latitude: info.location.latitude,
-                            longitude: info.location.longitude)
-          onLocationSelected?(gp, info.name)
+          let geoPoint = GeoPoint(
+            latitude: info.location.latitude,
+            longitude: info.location.longitude)
+          onLocationSelected?(geoPoint, info.name)
         }
 
       default:
@@ -150,15 +138,16 @@ class SelectFloatViewController: FloatingViewController {
 // MARK: Google Map
 extension SelectFloatViewController {
   @objc func autocompleteClicked(tapGesture: UITapGestureRecognizer) {
+    guard let mapView = mapView.mapView else { return }
 
-    let visibleRegion = mapView.mapView!.projection.visibleRegion()
+    let visibleRegion = mapView.projection.visibleRegion()
     let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
 
     let autocompleteController = GMSAutocompleteViewController()
 
     autocompleteController.delegate = self
 
-    let fields: GMSPlaceField = GMSPlaceField(
+    let fields = GMSPlaceField(
       rawValue:
         UInt(GMSPlaceField.name.rawValue) |
         UInt(GMSPlaceField.coordinate.rawValue)

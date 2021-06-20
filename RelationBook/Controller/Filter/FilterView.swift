@@ -106,16 +106,8 @@ class FilterView: UIView {
     var x: CGFloat = 0
 
     for index in 0..<filterSource.count {
-      let layout = UICollectionViewFlowLayout()
-      layout.itemSize = CGSize(width: 60, height: 76)
-      layout.minimumInteritemSpacing = 8
-      layout.minimumLineSpacing = 8
-      layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-
-
       let collectionView = CategoryCollectionView(
-        frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight),
-        collectionViewLayout: layout)
+        frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight))
 
       collectionView.onStatusChanged = { status in
         self.hiddenFilterScroll(isHidden: status == .selected)

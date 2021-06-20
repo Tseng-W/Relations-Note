@@ -8,7 +8,6 @@
 import Foundation
 
 extension Date {
-
   enum OutputType {
     case day
     case time

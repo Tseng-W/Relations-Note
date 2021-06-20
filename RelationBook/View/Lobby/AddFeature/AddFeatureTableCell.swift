@@ -75,7 +75,7 @@ class AddFeatureTableCell: UITableViewCell {
     titleLabel.text = title
     editButton.setTitle(subTitle, for: .normal)
   }
-  
+
   @objc func onSwitchTapped(_ sender: UISwitch) {
     window?.overrideUserInterfaceStyle = sender.isOn ? .dark : .light
 
@@ -88,6 +88,5 @@ class AddFeatureTableCell: UITableViewCell {
         "light",
         forKey: UserDefaults.Keys.style.rawValue)
     }
-
   }
 }

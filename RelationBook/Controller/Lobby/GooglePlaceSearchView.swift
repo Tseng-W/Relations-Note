@@ -42,11 +42,9 @@ class GooglePlaceSearchView: UIViewController {
     btnLaunchAc.addTarget(self, action: #selector(autocompleteClicked), for: .touchUpInside)
     self.view.addSubview(btnLaunchAc)
   }
-
 }
 
 extension GooglePlaceSearchView: GMSAutocompleteViewControllerDelegate {
-
   // Handle the user's selection.
   func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
     dismiss(animated: true, completion: nil)

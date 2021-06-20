@@ -25,7 +25,6 @@ extension NibLoadable where Self: UIView {
     guard let views = Self.nib.instantiate(withOwner: self, options: nil) as? [UIView],
           let contentView = views.first else { fatalError("Fail to load \(self) nib content") }
     self.addSubview(contentView)
-
-    contentView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    contentView.addConstarint(fill: self)
   }
 }

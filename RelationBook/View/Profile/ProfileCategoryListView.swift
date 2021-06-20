@@ -38,7 +38,7 @@ class ProfileCategoryListView: UIViewController {
     }
   }
 
-  var categories = [Category]() {
+  var categories: [Category] = [] {
     didSet {
       scrollView.subviews.forEach { view in
         if let view = view as? UITableView {
@@ -56,7 +56,6 @@ class ProfileCategoryListView: UIViewController {
     setCategoryStyleView.delegate = self
 
     userViewModel.user.bind { [weak self] user in
-
       guard let user = user,
             let type = self?.type else { return }
 
@@ -69,16 +68,14 @@ class ProfileCategoryListView: UIViewController {
       self?.selectionView.reloadDate()
     }
 
-    eventViewModel.events.bind { [weak self] event in
-//      self?.selectionView.reloadDate()
+    eventViewModel.events.bind { [weak self] _ in
       self?.scrollView.subviews.forEach { view in
         guard let view = view as? UITableView else { return }
         view.reloadData()
       }
     }
 
-    relationViewModel.relations.bind { [weak self] relation in
-//      self?.selectionView.reloadDate()
+    relationViewModel.relations.bind { [weak self] _ in
       self?.scrollView.subviews.forEach { view in
         guard let view = view as? UITableView else { return }
         view.reloadData()
@@ -135,7 +132,6 @@ class ProfileCategoryListView: UIViewController {
 // MARK: - Selection View Delegate
 extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
     if scrollView != self.scrollView { return }
 
     let paging = scrollView.contentOffset.x / scrollView.frame.width
@@ -210,7 +206,13 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
       cell.onEdit = { category in
         self.editingCategory = category
 
-        self.setCategoryStyleView.show(self.view, type: self.type!, hierarchy: .main, superIndex: category.superIndex, noSubmit: true)
+        self.setCategoryStyleView.show(
+          self.view,
+          type: self.type!,
+          hierarchy: .main,
+          superIndex: category.superIndex,
+          noSubmit: true
+        )
       }
     }
 
@@ -235,7 +237,14 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ProfileCategoryListView: CategoryStyleViewDelegate {
-  func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
+  func categoryStyleView(
+    styleView: SetCategoryStyleView,
+    isCropped: Bool,
+    name: String,
+    backgroundColor: UIColor,
+    image: UIImage,
+    imageString: String
+  ) {
     guard userViewModel.user.value != nil,
           var category = editingCategory else { return }
 

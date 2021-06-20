@@ -12,7 +12,6 @@ import CryptoKit
 import WebKit
 
 class LoginViewController: UIViewController {
-  
   @IBOutlet var loginButtonView: UIView!
   @IBOutlet var iconCenterYAnchor: NSLayoutConstraint!
   @IBOutlet var privacyLabel: UILabel!
@@ -27,11 +26,12 @@ class LoginViewController: UIViewController {
     }
   }
 
-  private lazy var blackButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn,
-                                                              authorizationButtonStyle: .black)
-  private lazy var whiteButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn,
-                                                              authorizationButtonStyle: .white)
-
+  private lazy var blackButton = ASAuthorizationAppleIDButton(
+    authorizationButtonType: .signIn,
+    authorizationButtonStyle: .black)
+  private lazy var whiteButton = ASAuthorizationAppleIDButton(
+    authorizationButtonType: .signIn,
+    authorizationButtonStyle: .white)
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     setupButton()
@@ -81,12 +81,7 @@ class LoginViewController: UIViewController {
     guard let privacyURL = URL(string: privacyLink) else { return }
     mWebView.load(URLRequest(url: privacyURL))
     privacyVC.view.addSubview(mWebView)
-
-    mWebView.addConstarint(
-      top: privacyVC.view.topAnchor,
-      left: privacyVC.view.leftAnchor,
-      bottom: privacyVC.view.bottomAnchor,
-      right: privacyVC.view.rightAnchor)
+    mWebView.addConstarint(fill: privacyVC.view)
 
     showDetailViewController(privacyVC, sender: self)
   }
@@ -98,22 +93,14 @@ private extension LoginViewController {
     case .dark:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(whiteButton)
-      whiteButton.addConstarint(
-        top: loginButtonView.topAnchor,
-        left: loginButtonView.leftAnchor,
-        bottom: loginButtonView.bottomAnchor,
-        right: loginButtonView.rightAnchor)
+      loginButtonView.addConstarint(fill: loginButtonView)
       whiteButton.layer.cornerRadius = cornerRadius
       whiteButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 
     case .unspecified, .light:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(blackButton)
-      blackButton.addConstarint(
-        top: loginButtonView.topAnchor,
-        left: loginButtonView.leftAnchor,
-        bottom: loginButtonView.bottomAnchor,
-        right: loginButtonView.rightAnchor)
+      blackButton.addConstarint(fill: loginButtonView)
       blackButton.layer.cornerRadius = cornerRadius
       blackButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 
@@ -231,7 +218,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate,
 }
 
 extension LoginViewController: WKNavigationDelegate {
-  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+  func webView(
+    _ webView: WKWebView,
+    didFailProvisionalNavigation navigation: WKNavigation!,
+    withError error: Error) {
     print(error.localizedDescription)
   }
 }

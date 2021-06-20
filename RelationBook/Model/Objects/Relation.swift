@@ -22,18 +22,19 @@ struct Relation: Codable {
 
 extension Relation {
   func toDict() -> [AnyHashable: Any] {
-    return ["name": name,
-            "isPublic": isPublic,
-            "categoryIndex": categoryIndex,
-            "owner": owner,
-            "feature": feature.map{ $0.toDict() },
-            "createdTime": createdTime,
-            "lastContactTime": lastContactTime]
+    return [
+      "name": name,
+      "isPublic": isPublic,
+      "categoryIndex": categoryIndex,
+      "owner": owner,
+      "feature": feature.map{ $0.toDict() },
+      "createdTime": createdTime,
+      "lastContactTime": lastContactTime
+    ]
   }
 }
 
-struct Feature: Codable {
-
+struct Feature: Codable, Equatable {
   init(id: Int, name: String, index: Int, data: [FeatureContent]) {
     self.name = name
     relationID = id
@@ -51,7 +52,6 @@ struct Feature: Codable {
   var contents: [FeatureContent]
 
   func getContentDescription() -> String {
-
     if contents.isEmpty {
       return .empty
     } else if contents.count == 1 {
@@ -62,19 +62,39 @@ struct Feature: Codable {
   }
 
   func toDict() -> [String: Any] {
-    return ["name": name,
-            "relationID": relationID,
-            "categoryIndex": categoryIndex,
-            "contents": contents.map { $0.toDict() } ]
+    return [
+      "name": name,
+      "relationID": relationID,
+      "categoryIndex": categoryIndex,
+      "contents": contents.map { $0.toDict() }
+    ]
+  }
+
+  static func == (lhs: Feature, rhs: Feature) -> Bool {
+    guard lhs.categoryIndex == rhs.categoryIndex,
+          lhs.contents == rhs.contents,
+          lhs.name == rhs.name,
+          lhs.relationID == rhs.relationID else { return false }
+
+    return true
   }
 }
 
-struct FeatureContent: Codable {
+struct FeatureContent: Codable, Equatable {
   var isProcessing: Bool
   var text: String
 
   func toDict() -> [String: Any] {
-    return ["isProcessing": isProcessing,
-            "text": text]
+    return [
+      "isProcessing": isProcessing,
+      "text": text
+    ]
+  }
+
+  static func == (lhs: FeatureContent, rhs: FeatureContent) -> Bool {
+    guard lhs.isProcessing == rhs.isProcessing,
+          lhs.text == rhs.text else { return false }
+
+    return true
   }
 }

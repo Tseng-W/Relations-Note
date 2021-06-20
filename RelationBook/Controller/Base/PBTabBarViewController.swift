@@ -12,7 +12,6 @@ protocol TabBarTapDelegate: AnyObject {
 }
 
 private enum Tab {
-
   case profiles
   case relationship
   case lobby
@@ -65,7 +64,6 @@ private enum Tab {
       if let icon = UIImage.asset(ImageAsset.icon),
          let add = UIImage.assetSystem(SysetmAsset.add) {
         return (icon, add)
-
       } else {
         return nil
       }
@@ -76,20 +74,19 @@ private enum Tab {
 }
 
 class PBTabBarViewController: UITabBarController {
-
   private var tabs: [Tab] = [.relationship, .lobby, .profiles]
 
   var iconImageButton: IconView = {
-
     let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
 
-    iconView.setIcon(isCropped: false,
-                     image: Tab.lobby.images()?.add,
-                     bgColor: .background,
-                     borderWidth: 3, borderColor: .button,
-                     tintColor: .buttonDisable,
-                     multiple: 0.8)
-
+    iconView.setIcon(
+      isCropped: false,
+      image: Tab.lobby.images()?.add,
+      bgColor: .background,
+      borderWidth: 3,
+      borderColor: .button,
+      tintColor: .buttonDisable,
+      multiple: 0.8)
     iconView.isUserInteractionEnabled = true
 
     return iconView
@@ -106,10 +103,10 @@ class PBTabBarViewController: UITabBarController {
     tabBar.barTintColor = .secondaryBackground
     tabBar.unselectedItemTintColor = .buttonDisable
 
-    viewControllers = tabs.map{ $0.controller() }
+    viewControllers = tabs.map { $0.controller() }
 
-    viewControllers?.forEach { vc in
-      if let navVC = vc as? UINavigationController,
+    viewControllers?.forEach { viewController in
+      if let navVC = viewController as? UINavigationController,
          let lobbyVC = navVC.viewControllers.first as? LobbyViewController {
         tabBarDelegate = lobbyVC
       }
@@ -136,8 +133,7 @@ class PBTabBarViewController: UITabBarController {
   }
 
   @objc func onLobbyButtonTap(tapGestureRecognizer: UITapGestureRecognizer) {
-
-    guard let tappedImage   = tapGestureRecognizer.view as? IconView else { return }
+    guard let tappedImage = tapGestureRecognizer.view as? IconView else { return }
 
     if selectedIndex == 1 {
       tabBarDelegate?.tabBarTapped(self, index: 2)
@@ -150,7 +146,6 @@ class PBTabBarViewController: UITabBarController {
 
 extension PBTabBarViewController: UITabBarControllerDelegate {
   func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-
     let index = viewControllers?.firstIndex(of: viewController)
 
     return index != 1

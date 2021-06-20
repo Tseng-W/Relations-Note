@@ -17,12 +17,11 @@ class IconView: UIView {
 
   static let defaultBackgroundColor: UIColor = .background
   static let defaultTintColor: UIColor = .button
-  static let defaultImage = UIImage(systemName: "camera")!
+  static let defaultImage = UIImage(systemName: "camera") ?? UIImage()
 
   var animationView = LottieWrapper()
 
   var imageView: UIImageView = {
-
     let imageView = UIImageView()
 
     imageView.image = defaultImage
@@ -35,7 +34,7 @@ class IconView: UIView {
   }()
 
   override init(frame: CGRect) {
-    
+
     super.init(frame: frame)
 
     animationView.show(self, animation: .loading, isCorned: true)
@@ -52,9 +51,16 @@ class IconView: UIView {
 
     animationView.show(self, animation: .loading, isCorned: true)
   }
-  
-  func setIcon(isCropped: Bool, image: UIImage? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, tintColor: UIColor? = .background, multiple: CGFloat? = nil) {
 
+  func setIcon(
+    isCropped: Bool,
+    image: UIImage? = nil,
+    bgColor: UIColor? = nil,
+    borderWidth: CGFloat? = nil,
+    borderColor: UIColor? = nil,
+    tintColor: UIColor? = .background,
+    multiple: CGFloat? = nil
+  ) {
     imageView.removeFromSuperview()
     addSubview(imageView)
     imageView.constraints.forEach { $0.isActive = false }
@@ -91,18 +97,8 @@ class IconView: UIView {
     let iconMultiple: CGFloat = multiple ?? defaultMultiple
 
     imageView.addConstarint(centerX: centerXAnchor, centerY: centerYAnchor)
-    NSLayoutConstraint.activate([
-      NSLayoutConstraint.init(
-        item: imageView, attribute: .height,
-        relatedBy: .equal, toItem: self,
-        attribute: .height, multiplier: iconMultiple,
-        constant: 0),
-      NSLayoutConstraint.init(
-        item: imageView, attribute: .width,
-        relatedBy: .equal, toItem: self,
-        attribute: .width, multiplier: iconMultiple,
-        constant: 0)
-    ])
+
+    imageView.addConstarint(relatedBy: self, widthMultiplier: iconMultiple, heightMultiplier: iconMultiple)
 
     isCornerd = true
 //    layer.masksToBounds = true

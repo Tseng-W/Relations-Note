@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     UITabBar.appearance().tintColor = .button
 
-    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.button]
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.button]
     UINavigationBar.appearance().barTintColor = .background
     UINavigationBar.appearance().tintColor = .button
     UINavigationBar.appearance().isTranslucent = false
@@ -86,7 +86,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UNUserNotificationCenter.current()
       .requestAuthorization(
         options: [.alert, .sound, .badge]) { [weak self] granted, _ in
-
         print("Permission granted: \(granted)")
 
         guard granted else { return }
@@ -96,7 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
     let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
     let token = tokenParts.joined()
 
@@ -113,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // MARK: - Core Data stack
   lazy var persistentContainer: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "PersonBook")
-    container.loadPersistentStores { storeDescription, error in
+    container.loadPersistentStores { _, error in
       if let error = error as NSError? {
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
@@ -138,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-    let dataDict:[String: String] = ["token": fcmToken ]
+    let dataDict: [String: String] = ["token": fcmToken]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
 
     Messaging.messaging().token { token, error in
@@ -150,9 +148,11 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
     }
   }
 
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              willPresent notification: UNNotification,
-                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+  func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    willPresent notification: UNNotification,
+    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+  ) {
     let userInfo = notification.request.content.userInfo
 
     print(userInfo)
@@ -160,9 +160,11 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
     completionHandler([[.alert, .sound, .badge]])
   }
 
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              didReceive response: UNNotificationResponse,
-                              withCompletionHandler completionHandler: @escaping () -> Void) {
+  func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    didReceive response: UNNotificationResponse,
+    withCompletionHandler completionHandler: @escaping () -> Void
+  ) {
     let userInfo = response.notification.request.content.userInfo
 
     print(userInfo)

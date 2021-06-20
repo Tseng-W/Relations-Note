@@ -8,12 +8,12 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct User: Codable{
+struct User: Codable {
   @DocumentID var uid: String?
   var email: String
-  var relationSet: CategoryViewModel = CategoryViewModel.init(type: .relation)
-  var featureSet: CategoryViewModel = CategoryViewModel.init(type: .feature)
-  var eventSet: CategoryViewModel = CategoryViewModel.init(type: .event)
+  var relationSet = CategoryViewModel.init(type: .relation)
+  var featureSet = CategoryViewModel.init(type: .feature)
+  var eventSet = CategoryViewModel.init(type: .event)
 
   func getFilter(type: CategoryType) -> [String] {
     switch type {

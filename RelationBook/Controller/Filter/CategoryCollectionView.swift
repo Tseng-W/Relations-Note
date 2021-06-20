@@ -40,7 +40,6 @@ class CategoryCollectionView: UICollectionView {
   var index: Int?
   var initialTarget: (main: Category, sub: Category)?
 
-
   // MARK: Status
   var status: Status = .mainCategory {
     didSet {
@@ -79,6 +78,25 @@ class CategoryCollectionView: UICollectionView {
       reloadData()
     }
   }
+
+  override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    super.init(frame: frame, collectionViewLayout: layout)
+  }
+
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+
+  convenience init(frame: CGRect) {
+    let layout = UICollectionViewFlowLayout()
+    layout.itemSize = CGSize(width: 60, height: 76)
+    layout.minimumInteritemSpacing = 8
+    layout.minimumLineSpacing = 8
+    layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+
+    self.init(frame: frame, collectionViewLayout: layout)
+  }
+
 
   // MARK: Functions
   func setUp(index: Int, type: CategoryType, isMainOnly: Bool = false) {

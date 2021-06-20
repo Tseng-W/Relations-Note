@@ -28,7 +28,7 @@
 		47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47339E4E263C2D700092860F /* PersonBook.xcdatamodeld */; };
 		47339E52263C2D710092860F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47339E51263C2D710092860F /* Assets.xcassets */; };
 		47339E55263C2D710092860F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339E53263C2D710092860F /* LaunchScreen.storyboard */; };
-		47339E60263C2D710092860F /* RelationBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E5F263C2D710092860F /* RelationBookTests.swift */; };
+		47339E60263C2D710092860F /* RelationBookSortFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E5F263C2D710092860F /* RelationBookSortFeatureTests.swift */; };
 		47339E6B263C2D710092860F /* RelationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E6A263C2D710092860F /* RelationUITests.swift */; };
 		47339EA9263C374F0092860F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339EA8263C374F0092860F /* Profile.storyboard */; };
 		47339EB3263C37D30092860F /* Relationship.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47339EB2263C37D30092860F /* Relationship.storyboard */; };
@@ -105,7 +105,6 @@
 		47B7D7182670522100F05FE7 /* ColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B7D7172670522100F05FE7 /* ColorPicker.xib */; };
 		47B7D71A2670B78800F05FE7 /* GooglePlaceSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B7D7192670B78800F05FE7 /* GooglePlaceSearchView.swift */; };
 		47B806D62647D5AD00EC711D /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806D52647D5AD00EC711D /* AddEventViewController.swift */; };
-		47B806DB2648CFB700EC711D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DA2648CFB700EC711D /* UIButton+Extension.swift */; };
 		47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DC2648D30A00EC711D /* RelationViewModel.swift */; };
 		47D1789A267B389B002D9A15 /* RBScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D17899267B389B002D9A15 /* RBScrollView.swift */; };
 		47D665F1266DBB9E00BD42EE /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */; };
@@ -162,7 +161,7 @@
 		47339E54263C2D710092860F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47339E56263C2D710092860F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47339E5B263C2D710092860F /* RelationBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelationBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		47339E5F263C2D710092860F /* RelationBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBookTests.swift; sourceTree = "<group>"; };
+		47339E5F263C2D710092860F /* RelationBookSortFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBookSortFeatureTests.swift; sourceTree = "<group>"; };
 		47339E61263C2D710092860F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47339E66263C2D710092860F /* RelationBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelationBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47339E6A263C2D710092860F /* RelationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationUITests.swift; sourceTree = "<group>"; };
@@ -242,7 +241,6 @@
 		47B7D7172670522100F05FE7 /* ColorPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPicker.xib; sourceTree = "<group>"; };
 		47B7D7192670B78800F05FE7 /* GooglePlaceSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceSearchView.swift; sourceTree = "<group>"; };
 		47B806D52647D5AD00EC711D /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
-		47B806DA2648CFB700EC711D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		47B806DC2648D30A00EC711D /* RelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewModel.swift; sourceTree = "<group>"; };
 		47D17899267B389B002D9A15 /* RBScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBScrollView.swift; sourceTree = "<group>"; };
 		47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -380,7 +378,7 @@
 		47339E5E263C2D710092860F /* RelationBookTests */ = {
 			isa = PBXGroup;
 			children = (
-				47339E5F263C2D710092860F /* RelationBookTests.swift */,
+				47339E5F263C2D710092860F /* RelationBookSortFeatureTests.swift */,
 				47339E61263C2D710092860F /* Info.plist */,
 			);
 			path = RelationBookTests;
@@ -468,7 +466,6 @@
 				479DE3D126412717000E2CFC /* UICollectionView+Extension.swift */,
 				479DE3D626412896000E2CFC /* String+Extension.swift */,
 				47E7032626464AB000C82A9C /* UIColor+Extension.swift */,
-				47B806DA2648CFB700EC711D /* UIButton+Extension.swift */,
 				476D2EA9264A119100A9200A /* UIView+Extension.swift */,
 				476D2EC9264BBA3600A9200A /* Date+Extension.swift */,
 				47101B952654D4C200D7D171 /* Bundle+Extension.swift */,
@@ -1124,7 +1121,6 @@
 				479DE3CD26412613000E2CFC /* UITableView+Extension.swift in Sources */,
 				476D2EB7264AC9A000A9200A /* Base.swift in Sources */,
 				476D2EB0264A2F4400A9200A /* User.swift in Sources */,
-				47B806DB2648CFB700EC711D /* UIButton+Extension.swift in Sources */,
 				471FD4EB265C7581003CF46F /* CheckboxTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1133,7 +1129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47339E60263C2D710092860F /* RelationBookTests.swift in Sources */,
+				47339E60263C2D710092860F /* RelationBookSortFeatureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

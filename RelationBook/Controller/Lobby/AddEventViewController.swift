@@ -151,12 +151,7 @@ class AddEventViewController: UIViewController {
 
   private func selectionViewSetup() {
     view.addSubview(selectFloatViewController.view)
-
-    selectFloatViewController.view.addConstarint(
-      top: view.topAnchor,
-      left: view.leftAnchor,
-      bottom: view.bottomAnchor,
-      right: view.rightAnchor)
+    selectFloatViewController.view.addConstarint(fill: view)
 
     selectFloatViewController.onEventSelected = { event in
       self.event.category = event
@@ -206,7 +201,6 @@ class AddEventViewController: UIViewController {
 
     if isEditingEvent {
       eventViewModel.updateEvent(event: event)
-
     } else {
       eventViewModel.addEvent(event: event) { result in
         switch result {

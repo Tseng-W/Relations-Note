@@ -24,11 +24,13 @@ class RelationDetailViewController: UIViewController {
   }
   @IBOutlet var contentView: UIView!
 
-  var sortedRelationList = [[Feature]]()
+  var relationCategory: Category?
 
-  var scrollView = RBScrollView(isPagingEnabled: true)
+  private var sortedFeatures: [(index: Int, features: [Feature])] = []
 
-  let eventTableView: UITableView = {
+  private var scrollView = RBScrollView(isPagingEnabled: true)
+
+  private let eventTableView: UITableView = {
     let eventTableView = UITableView()
     eventTableView.tag = TableType.event.rawValue
     eventTableView.estimatedRowHeight = 40
@@ -43,7 +45,7 @@ class RelationDetailViewController: UIViewController {
     return eventTableView
   }()
 
-  let profileTableView: UITableView = {
+  private let profileTableView: UITableView = {
     let profileTableView = UITableView()
 
     profileTableView.tag = TableType.profile.rawValue
@@ -58,18 +60,17 @@ class RelationDetailViewController: UIViewController {
     return profileTableView
   }()
 
-  let relationViewModel = RelationViewModel()
-  let eventViewModel = EventViewModel()
-  let userViewModel = UserViewModel()
+  private let relationViewModel = RelationViewModel()
+  private let eventViewModel = EventViewModel()
+  private let userViewModel = UserViewModel()
 
-  var relationCategory: Category?
-  var relation: Relation? {
+  private var relation: Relation? {
     didSet {
       profileTableView.reloadData()
     }
   }
 
-  var events = [Event]() {
+  private var events: [Event] = [] {
     didSet {
       eventsSorted.removeAll()
       var eventPool: [Date: [Event]] = [:]
@@ -88,8 +89,8 @@ class RelationDetailViewController: UIViewController {
       eventTableView.reloadData()
     }
   }
-  var eventsSorted: [Dictionary<Date, [Event]>.Element] = []
-  var editingEvent: Event?
+  private var eventsSorted: [Dictionary<Date, [Event]>.Element] = []
+  private var editingEvent: Event?
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let addEventView = segue.destination as? AddEventViewController {
@@ -189,6 +190,25 @@ class RelationDetailViewController: UIViewController {
   }
 }
 
+extension RelationDetailViewController {
+  func getFeatureSourtedByType(features: [Feature], categories: [Category]) -> [(index: Int, features: [Feature])] {
+    var sortedFeatures: [Int: [Feature]] = [:]
+
+    features.forEach { feature in
+      let category = categories.first { $0.id == feature.categoryIndex }!
+
+      if var features = sortedFeatures[category.superIndex] {
+        features.append(feature)
+        sortedFeatures.updateValue(features, forKey: category.superIndex)
+      } else {
+        sortedFeatures[category.superIndex] = [feature]
+      }
+    }
+
+    return sortedFeatures.map { return ($0.key, $0.value) }.sorted { $0.index < $1.index }
+  }
+}
+
 // MARK: - Selection bar Delegate
 extension RelationDetailViewController: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
   func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? {
@@ -226,35 +246,10 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
   }
 }
 
-extension RelationDetailViewController {
-  private func getFeatureSourtedByType(_ relation: Relation, _ user: User) -> [[Feature]] {
-    var sortedRelation: [Int: [Feature]] = [:]
-
-    relation.feature.forEach { feature in
-      let filterIndex = user.getCategoriesWithSuperIndex(mainType: .feature).first { $0.id == feature.categoryIndex }!
-
-      if sortedRelation.keys.contains(filterIndex.superIndex) {
-//        if sortedRelation[filterIndex.superIndex]!.contains(where: { data in
-//          data.contents[0].text != feature.contents[0].text
-//        }) {
-//          sortedRelation[filterIndex.superIndex]!.append(feature)
-//        }
-        sortedRelation[filterIndex.superIndex]!.append(feature)
-      } else {
-        sortedRelation[filterIndex.superIndex] = [feature]
-      }
-    }
-
-    return sortedRelation.map { return $0.value }
-  }
-}
-
 // MARK: - TableView Delegate
 extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
     switch TableType(rawValue: tableView.tag) {
-
     case .event:
       let number = eventsSorted.count
 
@@ -271,9 +266,13 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
          let user = userViewModel.user.value {
         tableView.removePlaceholder()
 
-        sortedRelationList = getFeatureSourtedByType(relation, user)
+        let featureCategories = user.getCategoriesWithSuperIndex(mainType: .feature)
 
-        return sortedRelationList.count
+        sortedFeatures = getFeatureSourtedByType(
+          features: relation.feature,
+          categories: featureCategories)
+
+        return sortedFeatures.count
       }
 
       tableView.addPlaceholder(
@@ -291,13 +290,12 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch TableType(rawValue: tableView.tag) {
     case .event:
-
       return eventsSorted[section].value.count
 
     case .profile:
+      guard section < sortedFeatures.count else { return 0}
 
-      return sortedRelationList[section].count
-
+      return sortedFeatures[section].features.count
     default:
       return 0
     }
@@ -313,18 +311,14 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       return header
 
     case.profile:
-
-      guard let relation = relation,
-            let user = userViewModel.user.value else { return nil }
+      guard let user = userViewModel.user.value else { return nil }
 
       let filter = user.getFilter(type: .feature)
 
-      let feature = relation.feature[section]
-      let category = user.getCategoriesWithSuperIndex(mainType: .feature).filter { $0.id == feature.categoryIndex }[0]
+      let header = RelationTableHeaderCell(
+        frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
 
-      let header = RelationTableHeaderCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
-
-      header.tagTitleLabel.text = filter[category.superIndex]
+      header.tagTitleLabel.text = filter[sortedFeatures[section].index]
 
       return header
 
@@ -360,7 +354,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       if let cell = cell as? RelationProfileCell {
         cell.setup(
-          feature: sortedRelationList[indexPath.section][indexPath.row],
+          feature: sortedFeatures[indexPath.section].features[indexPath.row],
           index: 0)
       }
 
@@ -386,26 +380,8 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       let detailVC = EventDetailView()
       detailVC.delegate = self
 
-      let blueView = view.addBlurView()
-      view.addSubview(detailVC)
-
-      detailVC.addConstarint(
-        left: view.leftAnchor,
-        right: view.rightAnchor,
-        centerY: view.centerYAnchor,
-        paddingLeft: 16,
-        paddingRight: 16,
-        height: view.frame.height / 1.5)
-
-      detailVC.cornerRadius = detailVC.frame.width * 0.05
-
-      view.layoutIfNeeded()
-
       detailVC.setUp(event: event, relations: [category])
 
-      detailVC.onDismiss = {
-        blueView.removeFromSuperview()
-      }
     default:
       break
     }
@@ -422,7 +398,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
 extension RelationDetailViewController: EventDetailDelegate {
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
-
     editingEvent = event
     performSegue(withIdentifier: "addEvent", sender: self)
   }

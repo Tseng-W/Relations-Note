@@ -186,8 +186,7 @@ class SelectionView: UIView {
     }
 
     self.addSubview(scrollView)
-
-    scrollView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+    scrollView.addConstarint(fill: self)
 
     layoutIfNeeded()
     var width: CGFloat = 0
@@ -203,9 +202,9 @@ class SelectionView: UIView {
     statckView = UIStackView()
     statckView.alignment = .fill
     statckView.distribution = .fillEqually
-    addSubview(statckView)
 
-    statckView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+    addSubview(statckView)
+    statckView.addConstarint(fill: self)
 
     for index in 0..<numberOfButton {
       let title = datasource.selectionView(self, titleForButtonAt: index)

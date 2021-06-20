@@ -48,8 +48,7 @@ class GoogleMapView: UIView {
       mapView?.isMyLocationEnabled = false
 
       addSubview(mapView!)
-
-      mapView?.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+      mapView?.addConstarint(fill: self)
 
       layoutIfNeeded()
 

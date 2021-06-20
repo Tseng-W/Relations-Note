@@ -194,7 +194,7 @@ class FirebaseManager {
     }
   }
 
-  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
+  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?) -> Void) = {_ in}) {
     guard let user = userShared,
           let uid = user.uid else { return }
 
@@ -210,7 +210,7 @@ class FirebaseManager {
       categories.sub.insert(category, at: category.id)
     }
 
-    updateUser(uid: uid, dict: [categories.type.rawValue : categories.toDict()]) { error in
+    updateUser(uid: uid, dict: [categories.type.rawValue: categories.toDict()]) { error in
       if let error = error { completion(error); return }
     }
   }
@@ -223,7 +223,7 @@ class FirebaseManager {
     }
   }
 
-  func updateRelation(categoryIndex index: Int, dict: [String: Any], completion: @escaping () -> Void = { } ) {
+  func updateRelation(categoryIndex index: Int, dict: [String: Any], completion: @escaping () -> Void = {}) {
     guard let userID = UserDefaults.standard.getString(key: .uid) else { return }
 
     dataBase.collection(Collections.relation.rawValue)
@@ -275,12 +275,12 @@ class FirebaseManager {
 
   // MARK: - Delete
 
-  func deleteEvent(event: Event, completion: @escaping (Bool) -> Void = { _ in}) {
+  func deleteEvent(event: Event, completion: @escaping (Bool) -> Void = { _ in }) {
     if let docID = event.docId {
       let docRef = dataBase.collection(Collections.event.rawValue)
         .document(docID)
 
-      docRef.delete() { error in
+      docRef.delete { error in
         if let error = error {
           print(error.localizedDescription)
           completion(false)

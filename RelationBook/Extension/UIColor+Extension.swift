@@ -9,7 +9,6 @@ import UIKit
 import FlexColorPicker
 
 extension UIColor {
-
   static let background = UIColor(named: "Background") ?? .systemBackground
 
   static let button = UIColor(named: "Button") ?? .systemGray
@@ -45,23 +44,26 @@ extension UIColor {
 
   func stringFromUIColor() -> String {
     guard let components = self.cgColor.components else { return "" }
+
     return "[\(components[0]), \(components[1]), \(components[2]), \(components[3])]"
   }
 
   static func UIColorFromString(string: String) -> UIColor {
     let componentsString = string.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "")
+
     let components = componentsString.components(separatedBy: ", ")
-    return UIColor(red: CGFloat((components[0] as NSString).floatValue),
-                   green: CGFloat((components[1] as NSString).floatValue),
-                   blue: CGFloat((components[2] as NSString).floatValue),
-                   alpha: CGFloat((components[3] as NSString).floatValue))
-  }
+
+    return UIColor(
+      red: CGFloat((components[0] as NSString).floatValue),
+      green: CGFloat((components[1] as NSString).floatValue),
+      blue: CGFloat((components[2] as NSString).floatValue),
+      alpha: CGFloat((components[3] as NSString).floatValue)
+    )}
 
   func toUInt() -> UInt {
     var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
     if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
-
-      var colorAsUInt : UInt32 = 0
+      var colorAsUInt: UInt32 = 0
 
       colorAsUInt += UInt32(red * 255.0) << 16 +
         UInt32(green * 255.0) << 8 +

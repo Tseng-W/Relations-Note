@@ -33,15 +33,12 @@ class LobbyEventCell: UITableViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-
-    
   }
 
   var event: Event?
-  var relations = [Category]()
+  var relations: [Category] = []
 
   func cellSetup(type: CellType, event: Event, relations: [Category]) {
-
     guard let relation = relations.first else { return }
 
     let moodData = UserViewModel.moodData
@@ -50,7 +47,6 @@ class LobbyEventCell: UITableViewCell {
     self.relations = relations
 
     switch type {
-
     case .lobby:
 
       if relations.count > 1 {
