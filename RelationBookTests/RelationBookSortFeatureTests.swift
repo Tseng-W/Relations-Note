@@ -48,8 +48,8 @@ class RelationBookSortFeatureTests: XCTestCase {
         isProcessing: false,
         text: "FCN")
     ])
-  let mockCategories = CategoryViewModel(type: .feature).main
 
+  let mockCategories = CategoryViewModel(type: .feature).main
   typealias SortedFeatures = [(index: Int, features: [Feature])]
 
   override func setUpWithError() throws {

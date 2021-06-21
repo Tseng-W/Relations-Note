@@ -163,15 +163,18 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CheckboxTableCell.self), for: indexPath)
+    guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: CheckboxTableCell.self),
+            for: indexPath) as? CheckboxTableCell else {
+      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
+      return CheckboxTableCell()
+    }
 
-    if let cell = cell as? CheckboxTableCell {
-      cell.setup(content: featureViewModel.cellForRowAt(row: indexPath.row))
+    cell.setup(content: featureViewModel.cellForRowAt(row: indexPath.row))
 
-      cell.onEndEdit = { [weak self] cell, content in
-        guard let index = self?.tableView.indexPath(for: cell)?.row else { return }
-        self?.featureViewModel.editCellContent(index: index, content: content)
-      }
+    cell.onEndEdit = { [weak self] cell, content in
+      guard let index = self?.tableView.indexPath(for: cell)?.row else { return }
+      self?.featureViewModel.editCellContent(index: index, content: content)
     }
 
     return cell

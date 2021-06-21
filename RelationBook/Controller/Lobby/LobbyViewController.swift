@@ -229,20 +229,22 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventCell.self), for: indexPath)
-
-    guard let selectedDate = calendar.selectedDate,
-          let user = userViewModel.user.value else { return cell }
-
-    if let cell = cell as? LobbyEventCell {
-      let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
-
-      cell.cellSetup(
-        type: .lobby,
-        event: event,
-        relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
+    guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: LobbyEventCell.self),
+            for: indexPath) as? LobbyEventCell,
+          let selectedDate = calendar.selectedDate,
+          let user = userViewModel.user.value else {
+      assertionFailure("dequeueReusableCell failed: \(#file) \(#function) \(#line)" )
+      return LobbyEventCell()
     }
 
+    let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
+
+    cell.cellSetup(
+      type: .lobby,
+      event: event,
+      relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) }
+    )
     cell.updateConstraintsIfNeeded()
 
     return cell
@@ -254,10 +256,10 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard userViewModel.user.value != nil,
-          let cell = tableView.cellForRow(at: indexPath) as? LobbyEventCell else { return }
-    cell.isSelected = false
+          let cell = tableView.cellForRow(at: indexPath) as? LobbyEventCell,
+          let event = cell.event else { return }
 
-    guard let event = cell.event else { return }
+    cell.isSelected = false
 
     let detailVC = EventDetailView()
     detailVC.delegate = self

@@ -18,7 +18,7 @@ class FirebaseManager {
   var relations: [Relation] = []
   var events: [Event] = []
 
-  let dataBase = Firestore.firestore()
+  var dataBase = Firestore.firestore()
 
   // MARK: - Fetch
 
