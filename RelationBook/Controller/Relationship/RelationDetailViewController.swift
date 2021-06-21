@@ -293,7 +293,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       return eventsSorted[section].value.count
 
     case .profile:
-      guard section < sortedFeatures.count else { return 0}
+      guard section < sortedFeatures.count else { return 0 }
 
       return sortedFeatures[section].features.count
     default:
@@ -314,7 +314,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       guard let user = userViewModel.user.value else { return nil }
 
       let filter = user.getFilter(type: .feature)
-
       let header = RelationTableHeaderCell(
         frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
 
@@ -357,7 +356,6 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
           feature: sortedFeatures[indexPath.section].features[indexPath.row],
           index: 0)
       }
-
       return cell
 
     case .none:
@@ -372,14 +370,12 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
     switch TableType(rawValue: tableView.tag) {
     case .event:
-
       guard let category = relationCategory else { return }
 
       let event = eventsSorted[indexPath.section].value[indexPath.row]
 
       let detailVC = EventDetailView()
       detailVC.delegate = self
-
       detailVC.setUp(event: event, relations: [category])
 
     default:

@@ -11,7 +11,6 @@ import GooglePlaces
 import Firebase
 
 class SelectFloatViewController: FloatingViewController {
-
   enum SelectType: String {
     case event = "事件"
     case day = "日期"

@@ -79,6 +79,8 @@ class PBTabBarViewController: UITabBarController {
   var iconImageButton: IconView = {
     let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
 
+    iconView.accessibilityIdentifier = "addEventButton"
+
     iconView.setIcon(
       isCropped: false,
       image: Tab.lobby.images()?.add,

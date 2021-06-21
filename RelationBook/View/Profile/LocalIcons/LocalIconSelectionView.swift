@@ -13,12 +13,10 @@ protocol LocalIconSelectionDelegate: AnyObject {
 }
 
 extension LocalIconSelectionDelegate {
-
   func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {}
 }
 
 class LocalIconSelectionView: UIViewController {
-
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
@@ -28,7 +26,6 @@ class LocalIconSelectionView: UIViewController {
   }
 
   convenience init(type: CategoryType, hierachy: CategoryHierarchy? = nil) {
-
     self.init(nibName: nil, bundle: nil)
 
     iconViewModel = IconViewModel(type: type, hierachy: hierachy)
@@ -102,7 +99,9 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
         withReuseIdentifier: String(describing: LocalIconSelectionViewHeader.self),
         for: indexPath)
 
-      header.subviews.first!.backgroundColor = .background
+      if let headerSuperView = header.subviews.first {
+        headerSuperView.backgroundColor = .background
+      }
 
       if let header = header as? LocalIconSelectionViewHeader,
          let iconViewModel = iconViewModel {

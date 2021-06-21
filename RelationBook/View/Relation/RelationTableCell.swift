@@ -10,12 +10,10 @@ import UIKit
 class RelationTableCell: UITableViewCell {
 
   @IBOutlet var iconView: IconView!
-  
   @IBOutlet var tagTitleLabel: UILabel!
-  
   @IBOutlet var subLabel: UILabel!
 
-  var subRelations = [Category]() {
+  var subRelations: [Category] = [] {
     didSet {
       update()
     }
@@ -26,13 +24,12 @@ class RelationTableCell: UITableViewCell {
       update()
     }
   }
-  
+
   override func awakeFromNib() {
     super.awakeFromNib()
   }
 
   override func prepareForReuse() {
-
     alpha = 0
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear) {

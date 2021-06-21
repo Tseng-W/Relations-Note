@@ -11,18 +11,18 @@ import UIKit
 class GradientView: UIView {
 
   enum Direction: Int {
-    case up
+    case top
     case left
     case right
-    case down
+    case bottom
   }
 
   @IBInspectable var directionAdapter: Int {
     get {
-      return direction?.rawValue ?? Direction.up.rawValue
+      return direction?.rawValue ?? Direction.top.rawValue
     }
     set(index) {
-      self.direction = Direction(rawValue: index) ?? .down
+      self.direction = Direction(rawValue: index) ?? .bottom
     }
   }
 
@@ -56,7 +56,6 @@ class GradientView: UIView {
   let gradientLayer = CAGradientLayer()
 
   func setGradient() {
-
     guard let direction = direction,
           let startColor = startColor,
           let endColor = endColor,
@@ -66,7 +65,7 @@ class GradientView: UIView {
     gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
 
     switch direction {
-    case .up:
+    case .top:
       gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
       gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     case .left:
@@ -75,7 +74,7 @@ class GradientView: UIView {
     case .right:
       gradientLayer.startPoint = CGPoint(x: 1, y: 0.5)
       gradientLayer.endPoint = CGPoint(x: 0, y: 0.5)
-    case .down:
+    case .bottom:
       gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
       gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
     }

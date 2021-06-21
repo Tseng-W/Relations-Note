@@ -42,7 +42,6 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
     headers.count
   }
@@ -52,7 +51,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddFeatureTableCell.self), for: indexPath)
+    let cell = tableView.dequeueReusableCell(
+      withIdentifier: String(describing: AddFeatureTableCell.self),
+      for: indexPath
+    )
 
     if let cell = cell as? AddFeatureTableCell {
       if indexPath.section == 0 {

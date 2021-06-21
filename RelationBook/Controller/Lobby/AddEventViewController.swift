@@ -9,7 +9,6 @@ import UIKit
 import Firebase
 
 class AddEventViewController: UIViewController {
-
   @IBOutlet var searchTextField: UITextField! {
     didSet {
 //      searchTextField.delegate = self
@@ -87,11 +86,6 @@ class AddEventViewController: UIViewController {
 
       self?.event.owner = uid
       self?.filterView.setUp(type: .relation)
-
-      if let event = self?.event,
-         let subRelation = user.relationSet.sub.first(where: { event.relations.contains( $0.id ) }) {
-//        self?.didSelectedCategory(category: subRelation)
-      }
     }
 
     filterView.delegate = self

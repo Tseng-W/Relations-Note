@@ -31,7 +31,6 @@ class LottieWrapper: NSObject {
   }
 
   func show(_ view: UIView, animation: Animation, jobs: Int = 1, isCorned: Bool = false) {
-
     jobsCount = jobs
 
     blurView = view.addBlurView()
@@ -45,9 +44,11 @@ class LottieWrapper: NSObject {
     view.addSubview(animationView)
 
     animationView.addConstarint(
-      centerX: view.centerXAnchor, centerY: view.centerYAnchor,
+      centerX: view.centerXAnchor,
+      centerY: view.centerYAnchor,
       width: max(50, view.frame.width / 3),
-      height: max(50, view.frame.width / 3))
+      height: max(50, view.frame.width / 3)
+    )
 
     view.isCornerd = isCorned
 

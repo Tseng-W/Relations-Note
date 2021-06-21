@@ -27,7 +27,7 @@ extension Relation {
       "isPublic": isPublic,
       "categoryIndex": categoryIndex,
       "owner": owner,
-      "feature": feature.map{ $0.toDict() },
+      "feature": feature.map { $0.toDict() },
       "createdTime": createdTime,
       "lastContactTime": lastContactTime
     ]

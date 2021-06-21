@@ -34,7 +34,6 @@ class IconView: UIView {
   }()
 
   override init(frame: CGRect) {
-
     super.init(frame: frame)
 
     animationView.show(self, animation: .loading, isCorned: true)

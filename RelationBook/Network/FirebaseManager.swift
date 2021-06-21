@@ -48,7 +48,6 @@ class FirebaseManager {
   }
 
   func fetchRelations(uid: String, index: Int? = nil, completion: @escaping (([Relation]) -> Void)) {
-
     var docRef = dataBase.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
 
     if let index = index {
@@ -132,7 +131,12 @@ class FirebaseManager {
     }
   }
 
-  func addUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
+  func addUserCategory(
+    type: CategoryType,
+    hierarchy: CategoryHierarchy,
+    category: inout Category ,
+    completion: @escaping ((Error?) -> Void) = { _ in }
+  ) {
     guard let user = userShared,
           let uid = user.uid else { return }
 
@@ -171,6 +175,8 @@ class FirebaseManager {
       if let error = error { completion(.failure(error)) }
     }
 
+//    guard let newEvent = newEvent else { return }
+
     completion(.success(newEvent!.documentID))
   }
 
@@ -194,7 +200,12 @@ class FirebaseManager {
     }
   }
 
-  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?) -> Void) = {_ in}) {
+  func updateUserCategory(
+    type: CategoryType,
+    hierarchy: CategoryHierarchy,
+    category: inout Category ,
+    completion: @escaping ((Error?) -> Void) = { _ in }
+  ) {
     guard let user = userShared,
           let uid = user.uid else { return }
 

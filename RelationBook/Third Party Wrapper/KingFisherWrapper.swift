@@ -9,11 +9,8 @@ import UIKit
 import Kingfisher
 
 extension UIImageView {
-
     func loadImage(_ urlString: String?, placeHolder: UIImage? = nil) {
-
       guard let urlString = urlString else { return }
-        
         let url = URL(string: urlString)
 
         self.kf.setImage(with: url, placeholder: placeHolder)
@@ -22,9 +19,7 @@ extension UIImageView {
 
 
 extension UIImage {
-
   static func loadImage(_ urlString: String?, completion: @escaping  (UIImage?) -> Void ) {
-
     guard let urlString = urlString,
           let url = URL(string: urlString) else { completion(nil); return }
 

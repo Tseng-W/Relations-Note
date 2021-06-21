@@ -10,7 +10,6 @@ import TagListView
 
 
 class LobbyEventCell: UITableViewCell {
-
   enum CellType {
     case lobby
     case relation

@@ -9,8 +9,8 @@ import UIKit
 import GooglePlaces
 
 class GooglePlaceSearchView: UIViewController {
-
   override func viewDidLoad() {
+    super.viewDidLoad()
     makeButton()
   }
 
@@ -20,7 +20,7 @@ class GooglePlaceSearchView: UIViewController {
     autocompleteController.delegate = self
 
     // Specify the place data types to return.
-    let fields: GMSPlaceField = GMSPlaceField(
+    let fields = GMSPlaceField(
       rawValue: UInt(GMSPlaceField.name.rawValue) |
         UInt(GMSPlaceField.placeID.rawValue))
     autocompleteController.placeFields = fields

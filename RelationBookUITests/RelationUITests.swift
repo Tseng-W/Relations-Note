@@ -8,16 +8,23 @@
 import XCTest
 
 class RelationBookUITests: XCTestCase {
+  var app: XCUIApplication!
+
   override func setUpWithError() throws {
     continueAfterFailure = false
+
+    app = XCUIApplication()
   }
 
   override func tearDownWithError() throws {
   }
 
-  func testExample() throws {
-    let app = XCUIApplication()
+  func testAddEventViewAppear() throws {
     app.launch()
+//    let addEventImage = app.images["addEventButton"]
+//
+//    addEventImage.tap()
+    
   }
 
   func testLaunchPerformance() throws {

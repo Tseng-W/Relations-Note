@@ -20,12 +20,10 @@ extension UITableView {
     }
 
     func beginHeaderRefreshing() {
-
         mj_header?.beginRefreshing()
     }
 
     func addRefreshFooter(refreshingBlock: @escaping () -> Void) {
-
         mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: refreshingBlock)
     }
 
@@ -43,7 +41,6 @@ extension UITableView {
 }
 
 extension UICollectionView {
-
     func addRefreshHeader(refreshingBlock: @escaping () -> Void) {
         mj_header = MJRefreshNormalHeader(refreshingBlock: refreshingBlock)
     }

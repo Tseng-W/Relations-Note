@@ -119,11 +119,10 @@ class LobbyViewController: UIViewController {
 }
 
 // MARK: - calendar delegate / datasource
-extension LobbyViewController:
-  FSCalendarDelegate,
-  FSCalendarDataSource,
-  FSCalendarDelegateAppearance,
-  UIGestureRecognizerDelegate {
+extension LobbyViewController: FSCalendarDelegate,
+                               FSCalendarDataSource,
+                               FSCalendarDelegateAppearance,
+                               UIGestureRecognizerDelegate {
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     navigationItem.title = date.getDayString(type: .day)
     tableView.reloadData()

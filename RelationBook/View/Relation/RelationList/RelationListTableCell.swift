@@ -17,7 +17,6 @@ class RelationListTableCell: UITableViewCell {
 
   var relation: Category? {
     didSet {
-
       guard let relation = relation else { return }
 
       sideBarView.backgroundColor = relation.getColor()

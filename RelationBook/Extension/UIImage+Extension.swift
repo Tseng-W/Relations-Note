@@ -8,7 +8,6 @@
 import UIKit
 
 enum ImageAsset: String {
-
   // MARK: Main Icons
   case icon = "icon_1024px_icon_nobg"
   case pen = "icon_24px_pen"

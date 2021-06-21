@@ -79,7 +79,7 @@ extension AddFeatureTableView: AddFeatureFloatViewDelegate {
     relativeCategory.append(category)
 
     featureDelagate?.featureTableView(tableView: self, features: features)
-    
+
     reloadData()
   }
 }

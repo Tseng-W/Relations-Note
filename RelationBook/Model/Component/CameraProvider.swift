@@ -8,9 +8,6 @@
 import UIKit
 import MobileCoreServices
 
-import MobileCoreServices
-import UIKit
-
 class CameraProvider: NSObject {
     enum PhotoLibraryTypes {
         case photoLibrary, savedPhotosAlbum, camera

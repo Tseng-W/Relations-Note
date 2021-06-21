@@ -221,7 +221,8 @@ extension LoginViewController: WKNavigationDelegate {
   func webView(
     _ webView: WKWebView,
     didFailProvisionalNavigation navigation: WKNavigation!,
-    withError error: Error) {
+    withError error: Error
+  ) {
     print(error.localizedDescription)
   }
 }

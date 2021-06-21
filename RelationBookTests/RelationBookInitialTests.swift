@@ -29,14 +29,20 @@ class RelationBookInitialTests: XCTestCase {
   }
 
   func testRelationInitialResult() {
-    print(sutRelation.main)
+    for index in 0..<sutRelation.main.count {
+      XCTAssertEqual(sutRelation.main[index].id, index)
+    }
   }
 
   func testEventInitialResult() {
-    print(sutEvent.main)
+    for index in 0..<sutEvent.main.count {
+      XCTAssertEqual(sutRelation.main[index].id, index)
+    }
   }
 
   func testFeatureInitialResult() {
-    print(sutFeature.main)
+    for index in 0..<sutFeature.main.count {
+      XCTAssertEqual(sutRelation.main[index].id, index)
+    }
   }
 }

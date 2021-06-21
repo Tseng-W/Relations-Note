@@ -47,7 +47,6 @@ class PopTipManager: NSObject {
     var style: Style
 
     func showPopTip() -> PopTip {
-
       var popTip = PopTip()
 
       popTip.shouldDismissOnTap = true

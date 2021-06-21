@@ -8,7 +8,6 @@
 import UIKit
 
 extension UITableView {
-  
   func lk_registerCellWithNib(identifier: String, bundle: Bundle?) {
     let nib = UINib(nibName: identifier, bundle: bundle)
 
@@ -45,14 +44,12 @@ extension UITableView {
 }
 
 extension UITableViewCell {
-
   static var identifier: String {
     return String(describing: self)
   }
 }
 
 extension UITableViewHeaderFooterView {
-
   static var identifier: String {
     return String(describing: self)
   }

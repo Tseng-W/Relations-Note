@@ -18,7 +18,6 @@ class IconSelectionView: UICollectionView {
   }
 
   convenience init() {
-
     self.init(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout.init())
 
     backgroundColor = .background

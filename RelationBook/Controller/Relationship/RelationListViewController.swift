@@ -47,7 +47,6 @@ class RelationListViewController: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     tableView.separatorColor = .clear
