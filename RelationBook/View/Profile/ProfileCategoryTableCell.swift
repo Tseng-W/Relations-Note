@@ -28,9 +28,8 @@ class ProfileCategoryTableCell: UITableViewCell {
       }
     }
   }
-  
-  @IBAction func onEditTapped(_ sender: Any) {
 
+  @IBAction func onEditTapped(_ sender: Any) {
     guard let category = category else { return }
 
     onEdit?(category)

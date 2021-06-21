@@ -58,7 +58,6 @@ class LottieWrapper: NSObject {
   }
 
   func leave(jobs: Int = 1) {
-
     jobsCount -= 1
 
     if jobsCount <= 0 {

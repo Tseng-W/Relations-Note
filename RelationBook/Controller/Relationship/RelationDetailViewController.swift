@@ -132,7 +132,7 @@ class RelationDetailViewController: UIViewController {
         isCropped: relation.isCustom,
         image: image,
         bgColor: relation.getColor(),
-        borderWidth: 3,
+        borderWidth: 2,
         borderColor: .white,
         tintColor: .white)
     }
@@ -143,13 +143,7 @@ class RelationDetailViewController: UIViewController {
   // MARK: Content set up
   private func contentViewSetup(category relation: Category) {
     contentView.addSubview(scrollView)
-
-    scrollView.addConstarint(
-      top: contentView.topAnchor,
-      left: contentView.leftAnchor,
-      bottom: contentView.bottomAnchor,
-      right: contentView.rightAnchor)
-
+    scrollView.addConstarint(fill: contentView)
     view.layoutIfNeeded()
 
     eventTableView.separatorColor = .clear
@@ -195,13 +189,15 @@ extension RelationDetailViewController {
     var sortedFeatures: [Int: [Feature]] = [:]
 
     features.forEach { feature in
-      let category = categories.first { $0.id == feature.categoryIndex }!
-
-      if var features = sortedFeatures[category.superIndex] {
-        features.append(feature)
-        sortedFeatures.updateValue(features, forKey: category.superIndex)
+      if let category = categories.first(where: { $0.id == feature.categoryIndex }) {
+        if var features = sortedFeatures[category.superIndex] {
+          features.append(feature)
+          sortedFeatures.updateValue(features, forKey: category.superIndex)
+        } else {
+          sortedFeatures[category.superIndex] = [feature]
+        }
       } else {
-        sortedFeatures[category.superIndex] = [feature]
+        print("Unexpected feature index: \(feature) out of range.")
       }
     }
 

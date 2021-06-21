@@ -246,7 +246,8 @@ extension ProfileCategoryListView: CategoryStyleViewDelegate {
     imageString: String
   ) {
     guard userViewModel.user.value != nil,
-          var category = editingCategory else { return }
+          var category = editingCategory,
+          let type = type else { return }
 
     category.isCustom = isCropped
     category.title = name
@@ -254,7 +255,7 @@ extension ProfileCategoryListView: CategoryStyleViewDelegate {
     category.imageLink = imageString
 
     FirebaseManager.shared.updateUserCategory(
-      type: type!,
+      type: type,
       hierarchy: .main,
       category: &category)
   }

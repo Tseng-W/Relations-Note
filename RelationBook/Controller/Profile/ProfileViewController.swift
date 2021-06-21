@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-  
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.lk_registerCellWithNib(identifier: String(describing: AddFeatureTableCell.self), bundle: nil)

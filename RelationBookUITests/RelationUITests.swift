@@ -24,7 +24,6 @@ class RelationBookUITests: XCTestCase {
 //    let addEventImage = app.images["addEventButton"]
 //
 //    addEventImage.tap()
-    
   }
 
   func testLaunchPerformance() throws {

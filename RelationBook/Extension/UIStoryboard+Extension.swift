@@ -7,21 +7,21 @@
 
 import UIKit
 
-private struct StoryboardCategory {
-  static let main = "Main"
-
-  static let login = "Login"
-
-  static let profile = "Profile"
-
-  static let timeline = "Timeline"
-
-  static let relationship = "Relationship"
-
-  static let lobby = "Lobby"
-}
-
 extension UIStoryboard {
+  struct StoryboardCategory {
+    static let main = "Main"
+
+    static let login = "Login"
+
+    static let profile = "Profile"
+
+    static let timeline = "Timeline"
+
+    static let relationship = "Relationship"
+
+    static let lobby = "Lobby"
+  }
+
   static var main: UIStoryboard { return pbStorybord(name: StoryboardCategory.main) }
 
   static var login: UIStoryboard { return pbStorybord(name: StoryboardCategory.login) }

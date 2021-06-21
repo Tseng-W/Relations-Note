@@ -13,7 +13,6 @@ protocol GoogleMapViewDelegate: AnyObject {
 }
 
 class GoogleMapView: UIView {
-
   var currentLocation: CLLocationCoordinate2D?
   var currentName: String?
 

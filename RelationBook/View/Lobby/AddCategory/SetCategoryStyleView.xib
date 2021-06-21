@@ -138,7 +138,7 @@
                     <rect key="frame" x="0.0" y="247" width="414" height="113"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-tL-nDb" customClass="RectangularPaletteControl" customModule="FlexColorPicker">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+                            <rect key="frame" x="-16" y="-16" width="446" height="145"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -154,7 +154,7 @@
                     <rect key="frame" x="82" y="203" width="332" height="28"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZ5-Me-W5z" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                            <rect key="frame" x="0.0" y="4" width="332" height="20"/>
+                            <rect key="frame" x="-16" y="-12" width="364" height="52"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="hm5-p7-WeE"/>

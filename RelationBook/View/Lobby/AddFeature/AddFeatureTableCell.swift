@@ -40,7 +40,6 @@ class AddFeatureTableCell: UITableViewCell {
       editButton.isUserInteractionEnabled = status != .trigger
 
       if status == .trigger {
-
         let switchView = UISwitch(frame: .zero)
 
         switchView.onTintColor = .button

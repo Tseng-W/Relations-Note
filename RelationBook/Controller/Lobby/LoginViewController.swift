@@ -220,7 +220,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate,
 extension LoginViewController: WKNavigationDelegate {
   func webView(
     _ webView: WKWebView,
-    didFailProvisionalNavigation navigation: WKNavigation!,
+    didFailProvisionalNavigation navigation: WKNavigation,
     withError error: Error
   ) {
     print(error.localizedDescription)
