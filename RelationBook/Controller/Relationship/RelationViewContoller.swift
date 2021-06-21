@@ -8,7 +8,6 @@
 import UIKit
 
 class RelationViewContoller: UIViewController {
-  
   let userViewModel = UserViewModel()
 
   @IBOutlet var tableView: UITableView! {

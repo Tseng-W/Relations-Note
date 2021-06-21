@@ -11,5 +11,4 @@ class LocalIconSelectionViewHeader: UICollectionReusableView{
 
 
   @IBOutlet var titleLabel: UILabel!
-
 }

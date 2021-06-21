@@ -11,7 +11,6 @@ import CropViewController
 import FirebaseStorage
 
 protocol SCLAlertViewProviderDelegate: LocalIconSelectionDelegate {
-
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String)
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage)

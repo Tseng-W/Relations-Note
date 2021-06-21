@@ -135,6 +135,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Urn-vL-qW0">
                         <barButtonItem key="backBarButtonItem" title=" " id="aHJ-MJ-DrZ"/>
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="b3A-Fe-Sk6"/>
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="hpz-oB-N5D" id="3HV-Il-crv"/>
@@ -179,6 +180,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

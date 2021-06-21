@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LocalIconSelectionViewCell: UICollectionViewCell{
+class LocalIconSelectionViewCell: UICollectionViewCell {
 
   @IBOutlet var iconView: IconView!
 

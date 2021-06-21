@@ -8,7 +8,6 @@
 import UIKit
 
 extension UserDefaults {
-
   enum Keys: String {
     case style
     case uid

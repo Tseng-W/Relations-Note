@@ -39,7 +39,18 @@ class RelationBookSortFeatureTests: XCTestCase {
         isProcessing: false,
         text: "FC3")
     ])
+  let mockFeatureTN = Feature(
+    id: 4,
+    name: "outOfRange",
+    index: 9999,
+    data: [
+      FeatureContent(
+        isProcessing: false,
+        text: "FCN")
+    ])
   let mockCategories = CategoryViewModel(type: .feature).main
+
+  typealias SortedFeatures = [(index: Int, features: [Feature])]
 
   override func setUpWithError() throws {
     try super.setUpWithError()
@@ -53,20 +64,14 @@ class RelationBookSortFeatureTests: XCTestCase {
 
   func testFeatureSortedWithSameType() {
     let mockFeature = [mockFeatureT0, mockFeatureT0]
-    let expected: [(index: Int, features: [Feature])] =
-      [(index: 0, [mockFeatureT0, mockFeatureT0])]
+    let expected = [(index: 0, [mockFeatureT0, mockFeatureT0])]
 
     let result = sut.getFeatureSourtedByType(
       features: mockFeature,
       categories: mockCategories
     )
 
-    XCTAssertEqual(expected.count, result.count)
-
-    for index in 0..<result.count {
-      XCTAssertEqual(result[index].index, expected[index].index)
-      XCTAssertEqual(result[index].features, expected[index].features)
-    }
+    assertEqualFeatures(expected: expected, result: result)
   }
 
   func testFeatureSortedWithDifferentType() {
@@ -79,11 +84,20 @@ class RelationBookSortFeatureTests: XCTestCase {
 
     let result = sut.getFeatureSourtedByType(features: mockFeature, categories: mockCategories)
 
-    XCTAssertEqual(expected.count, result.count)
-    for index in 0..<result.count {
-      XCTAssertEqual(result[index].index, expected[index].index)
-      XCTAssertEqual(result[index].features, expected[index].features)
-    }
+    assertEqualFeatures(expected: expected, result: result)
+  }
+
+  func testFeatureSortedWithMultiType() {
+    let mockFeature = [mockFeatureT2, mockFeatureT0, mockFeatureT1, mockFeatureT0, mockFeatureT2, mockFeatureT1]
+    let expected = [
+      (index: 0, features: [mockFeatureT0, mockFeatureT0]),
+      (index: 1, features: [mockFeatureT1, mockFeatureT1]),
+      (index: 2, features: [mockFeatureT2, mockFeatureT2])
+    ]
+
+    let result = sut.getFeatureSourtedByType(features: mockFeature, categories: mockCategories)
+
+    assertEqualFeatures(expected: expected, result: result)
   }
 
   func testFeatureSortedWithEmpty() {
@@ -91,15 +105,24 @@ class RelationBookSortFeatureTests: XCTestCase {
 
     let result = sut.getFeatureSourtedByType(features: [], categories: [])
 
-    XCTAssertEqual(expected.count, result.count)
+    assertEqualFeatures(expected: expected, result: result)
+  }
 
+  func testFeatureSortedOufOfRange() {
+    let mockFeature = [mockFeatureTN]
+
+    let expected: SortedFeatures = []
+
+    let result = sut.getFeatureSourtedByType(features: mockFeature, categories: mockCategories)
+
+    assertEqualFeatures(expected: expected, result: result)
+  }
+
+  private func assertEqualFeatures(expected: SortedFeatures, result: SortedFeatures) {
+    XCTAssertEqual(expected.count, result.count)
     for index in 0..<result.count {
       XCTAssertEqual(result[index].index, expected[index].index)
       XCTAssertEqual(result[index].features, expected[index].features)
     }
-  }
-
-  private func assert() -> Bool {
-    return false
   }
 }

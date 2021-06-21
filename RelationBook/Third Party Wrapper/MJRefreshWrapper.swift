@@ -11,7 +11,6 @@ import MJRefresh
 extension UITableView {
 
     func addRefreshHeader(refreshingBlock: @escaping () -> Void) {
-
         mj_header = MJRefreshNormalHeader(refreshingBlock: refreshingBlock)
     }
 

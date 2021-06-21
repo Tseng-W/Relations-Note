@@ -41,12 +41,17 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    iconViewModel.iconSets.first!.images.count
+    if let titledImage = iconViewModel.iconSets.first {
+      return titledImage.images.count
+    }
+    return 0
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self), for: indexPath)
+    let cell = collectionView.dequeueReusableCell(
+      withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self),
+      for: indexPath
+    )
 
     if let cell = cell as? LocalIconSelectionViewCell {
       cell.iconView.setIcon(

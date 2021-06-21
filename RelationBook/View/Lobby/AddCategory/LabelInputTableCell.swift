@@ -12,6 +12,4 @@ class LabelInputTableCell: UITableViewCell {
   override class func awakeFromNib() {
     super.awakeFromNib()
   }
-
-  
 }

@@ -30,6 +30,7 @@ class RelationTableCell: UITableViewCell {
   }
 
   override func prepareForReuse() {
+    super.prepareForReuse()
     alpha = 0
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear) {
