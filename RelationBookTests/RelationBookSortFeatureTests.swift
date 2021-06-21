@@ -39,6 +39,7 @@ class RelationBookSortFeatureTests: XCTestCase {
         isProcessing: false,
         text: "FC3")
     ])
+  let mockCategories = CategoryViewModel(type: .feature).main
 
   override func setUpWithError() throws {
     try super.setUpWithError()
@@ -55,8 +56,6 @@ class RelationBookSortFeatureTests: XCTestCase {
     let expected: [(index: Int, features: [Feature])] =
       [(index: 0, [mockFeatureT0, mockFeatureT0])]
 
-    let mockCategories = CategoryViewModel(type: .feature).main
-
     let result = sut.getFeatureSourtedByType(
       features: mockFeature,
       categories: mockCategories
@@ -72,7 +71,6 @@ class RelationBookSortFeatureTests: XCTestCase {
 
   func testFeatureSortedWithDifferentType() {
     let mockFeature = [mockFeatureT0, mockFeatureT1, mockFeatureT2]
-    let mockCategories = CategoryViewModel(type: .feature).main
     let expected = [
       (index: 0, features: [mockFeatureT0]),
       (index: 1, features: [mockFeatureT1]),

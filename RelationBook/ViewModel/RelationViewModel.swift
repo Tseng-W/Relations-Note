@@ -37,7 +37,14 @@ class RelationViewModel {
     return nil
   }
 
-  func addRelation(name: String, iconString: String, bgColor: UIColor, superIndex: Int, features: [Feature] = [], completion: @escaping () -> Void = {}) {
+  func addRelation(
+    name: String,
+    iconString: String,
+    bgColor: UIColor,
+    superIndex: Int,
+    features: [Feature] = [],
+    completion: @escaping () -> Void = {}
+  ) {
     guard let user = FirebaseManager.shared.userShared,
           let userId = user.uid else { return }
 
@@ -51,7 +58,8 @@ class RelationViewModel {
       owner: userId,
       feature: features,
       createdTime: Timestamp(date: Date()),
-      lastContactTime: Timestamp(date: Date()))
+      lastContactTime: Timestamp(date: Date())
+    )
 
     FirebaseManager.shared.addRelation(userID: relation.owner, data: relation) { _ in
       var newContact = Category(
@@ -61,7 +69,8 @@ class RelationViewModel {
         isSubEnable: false,
         title: name,
         imageLink: iconString,
-        backgroundColor: bgColor.stringFromUIColor())
+        backgroundColor: bgColor.stringFromUIColor()
+      )
       FirebaseManager.shared.addUserCategory(type: .relation, hierarchy: .sub, category: &newContact)
     }
   }

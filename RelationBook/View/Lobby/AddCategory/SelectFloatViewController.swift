@@ -193,7 +193,7 @@ extension SelectFloatViewController: CategorySelectionDelegate {
   func didStartEdit(pageIndex: Int) {
   }
 
-  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
     onAddCategorySelected?(type, hierarchy, superIndex)
   }
 }

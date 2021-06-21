@@ -375,11 +375,12 @@ extension AddEventViewController: CategorySelectionDelegate {
     }
   }
 
-  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
     setCategoryView.show(
       self.view,
       type: type,
       hierarchy: hierarchy,
-      superIndex: superIndex)
+      superIndex: superIndex,
+      initialColor: categoryColor)
   }
 }

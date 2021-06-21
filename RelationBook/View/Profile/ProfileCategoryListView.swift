@@ -211,7 +211,7 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
           type: self.type!,
           hierarchy: .main,
           superIndex: category.superIndex,
-          noSubmit: true
+          submitWhenConfirm: true
         )
       }
     }

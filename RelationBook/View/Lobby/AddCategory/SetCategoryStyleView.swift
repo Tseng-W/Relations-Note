@@ -55,7 +55,6 @@ class SetCategoryStyleView: UIView, NibLoadable {
       confirmButton.isEnabled = canConfirm
       confirmButton.isUserInteractionEnabled = canConfirm
       confirmButton.backgroundColor = canConfirm ? .button : .buttonDisable
-//      confirmButton.titleLabel?.textColor = canConfirm ?
     }
   }
   var title = String.empty {
@@ -78,7 +77,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
   var superIndex: Int?
   var placeholder: String = .empty
 
-  var noSubmit = false  // MARK: 預設上傳 應調整
+  var submitWhenConfirm = true // MARK: 預設上傳 應調整
 
   var categoryType: CategoryType? {
     didSet {
@@ -138,13 +137,24 @@ class SetCategoryStyleView: UIView, NibLoadable {
     colorPicker.delegate = self
   }
 
-  func show(_ view: UIView, type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, noSubmit: Bool = false) {
+  func show(
+    _ view: UIView,
+    type: CategoryType,
+    hierarchy: CategoryHierarchy,
+    superIndex: Int,
+    submitWhenConfirm: Bool = true,
+    initialColor: UIColor? = nil
+  ) {
     reset()
 
-    self.noSubmit = noSubmit
+    self.submitWhenConfirm = submitWhenConfirm
     self.hierarchy = hierarchy
     self.superIndex = superIndex
     categoryType = type
+
+    if let initialColor = initialColor {
+      colorPicker.selectedColor = initialColor
+    }
 
     blurView = view.addBlurView()
 
@@ -159,7 +169,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
 
     view.layoutIfNeeded()
 
-    iconSelectView.initial(placeholder: placeholder)
+    iconSelectView.initial(placeholder: placeholder, backgroundColor: initialColor)
   }
 
   private func reset() {
@@ -180,7 +190,7 @@ class SetCategoryStyleView: UIView, NibLoadable {
             name != .empty else { return }
 
 
-      if !noSubmit {
+      if submitWhenConfirm {
         // MARK: 新增互動對象，透過 ralationViewModel 處理
         if categoryType == .relation && hierarchy == .sub {
           let relationViewModel = RelationViewModel()

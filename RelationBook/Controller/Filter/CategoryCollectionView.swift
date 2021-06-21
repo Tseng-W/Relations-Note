@@ -14,7 +14,7 @@ protocol CategorySelectionDelegate: AnyObject {
 
   func didStartEdit(pageIndex: Int)
 
-  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int)
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor)
 }
 
 extension CategorySelectionDelegate {
@@ -192,9 +192,13 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         }
       } else {
         // 新增選項
-        guard let superIndex = mainCategories.first?.superIndex,
+        guard let mainCategory = mainCategories.first,
               let type = type else { return }
-        selectionDelegate?.addCategory(type: type, hierarchy: .main, superIndex: superIndex)
+        selectionDelegate?.addCategory(
+          type: type,
+          hierarchy: .main,
+          superIndex: mainCategory.superIndex,
+          categoryColor: mainCategory.getColor())
         break
       }
     case .subCategory:  // 子分類頁，第一個按鈕為返回
@@ -207,7 +211,11 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         // 新增選項
         guard let type = type,
               let id = selectedID else { return }
-        selectionDelegate?.addCategory(type: type, hierarchy: .sub, superIndex: id)
+        selectionDelegate?.addCategory(
+          type: type,
+          hierarchy: .sub,
+          superIndex: id,
+          categoryColor: mainCategories[selectedMainIndex].getColor())
       } else {
         selectedCategory = subCategories[selectedMainIndex][indexPath.row - 1]
         selectionDelegate?.didSelectedCategory(category: subCategories[selectedMainIndex][indexPath.row - 1])

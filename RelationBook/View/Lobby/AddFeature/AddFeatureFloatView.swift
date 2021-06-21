@@ -204,6 +204,6 @@ extension AddFeatureFloatView: CategorySelectionDelegate {
     }
   }
 
-  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int) {
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
   }
 }

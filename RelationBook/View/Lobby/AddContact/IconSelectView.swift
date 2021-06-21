@@ -115,8 +115,8 @@ class IconSelectView: UIView, NibLoadable {
       tintColor: tintColor)
   }
 
-  func initial(placeholder: String) {
-    setUp(isCropped: false, text: placeholder)
+  func initial(placeholder: String, backgroundColor: UIColor?) {
+    setUp(isCropped: false, text: placeholder, backgroundColor: backgroundColor)
   }
 
   @objc func iconTapped(tapGesture: UITapGestureRecognizer) {

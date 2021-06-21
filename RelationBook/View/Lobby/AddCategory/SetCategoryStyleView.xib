@@ -216,6 +216,11 @@
             <point key="canvasLocation" x="-181.15942028985509" y="-720.53571428571422"/>
         </view>
     </objects>
+    <designables>
+        <designable name="uZ5-Me-W5z">
+            <size key="intrinsicContentSize" width="414" height="15"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
