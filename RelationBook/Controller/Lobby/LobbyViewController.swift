@@ -47,7 +47,7 @@ class LobbyViewController: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
-      tableView.lk_registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 60
     }
@@ -229,12 +229,10 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: LobbyEventCell.self),
-            for: indexPath) as? LobbyEventCell,
+    guard let cell = tableView.dequeueReusableCell(cell: LobbyEventCell.self, indexPath: indexPath),
           let selectedDate = calendar.selectedDate,
           let user = userViewModel.user.value else {
-      assertionFailure("dequeueReusableCell failed: \(#file) \(#function) \(#line)" )
+      String.trackFailure("dequeueReusableCell failures")
       return LobbyEventCell()
     }
 

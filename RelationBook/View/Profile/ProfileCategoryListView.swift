@@ -34,7 +34,7 @@ class ProfileCategoryListView: UIViewController {
       scrollView.showsVerticalScrollIndicator = false
       scrollView.showsHorizontalScrollIndicator = false
 
-      scrollView.delegate = self
+      scrollView.delegate = selectionView
     }
   }
 
@@ -54,6 +54,7 @@ class ProfileCategoryListView: UIViewController {
     guard type != nil else { navigationController?.popViewController(animated: false); return }
 
     setCategoryStyleView.delegate = self
+    selectionView.matchedScrollView = scrollView
 
     userViewModel.user.bind { [weak self] user in
       guard let user = user,
@@ -106,7 +107,7 @@ class ProfileCategoryListView: UIViewController {
       tableView.tag = index
       tableView.separatorColor = .clear
       tableView.backgroundColor = .background
-      tableView.lk_registerCellWithNib(
+      tableView.registerCellWithNib(
         identifier: String(describing: ProfileCategoryTableCell.self),
         bundle: nil)
 
@@ -138,14 +139,6 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
 
     selectionView.moveIndicatorToIndex(index: Int(paging))
   }
-
-  func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-      self.scrollView.contentOffset = CGPoint(x: self.scrollView.frame.width * CGFloat(index), y: 0)
-      self.view.layoutIfNeeded()
-    }
-  }
-
   func numberOfButton(_ selectionView: SelectionView) -> Int {
     guard let user = userViewModel.user.value else { return 0 }
 
@@ -196,11 +189,9 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: ProfileCategoryTableCell.self),
-            for: indexPath) as? ProfileCategoryTableCell,
+    guard let cell = tableView.dequeueReusableCell(cell: ProfileCategoryTableCell.self, indexPath: indexPath),
           let type = type else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
+      String.trackFailure("dequeueReusableCell failures")
       return ProfileCategoryTableCell()
     }
 

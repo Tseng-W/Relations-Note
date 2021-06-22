@@ -10,8 +10,8 @@ import UIKit
 class ProfileViewController: UIViewController {
   @IBOutlet var tableView: UITableView! {
     didSet {
-      tableView.lk_registerCellWithNib(identifier: String(describing: AddFeatureTableCell.self), bundle: nil)
-      tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: AddFeatureTableCell.self), bundle: nil)
+      tableView.registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
       tableView.delegate = self
       tableView.dataSource = self
     }
@@ -50,11 +50,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-      withIdentifier: String(describing: AddFeatureTableCell.self),
-      for: indexPath
-    ) as? AddFeatureTableCell else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
+    guard let cell = tableView.dequeueReusableCell(cell: AddFeatureTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
       return AddFeatureTableCell()
     }
 

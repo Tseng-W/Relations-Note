@@ -16,8 +16,8 @@ class RelationViewContoller: UIViewController {
       tableView.dataSource = self
       tableView.separatorColor = .clear
       tableView.backgroundColor = .background
-      tableView.lk_registerCellWithNib(identifier: String(describing: RelationTableCell.self), bundle: nil)
-      tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: RelationTableCell.self), bundle: nil)
+      tableView.registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
 
       tableView.estimatedRowHeight = 50
       tableView.rowHeight = UITableView.automaticDimension
@@ -65,18 +65,15 @@ extension RelationViewContoller: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: RelationTableCell.self),
-            for: indexPath) as? RelationTableCell,
+    guard let cell = tableView.dequeueReusableCell(cell: RelationTableCell.self, indexPath: indexPath),
           let user = userViewModel.user.value else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
+      String.trackFailure("dequeueReusableCell failures")
       return RelationTableCell()
     }
 
     let category = user.getCategoriesWithSuperIndex(
       mainType: .relation,
-      filterIndex: indexPath.section
-    )[indexPath.row]
+      filterIndex: indexPath.section)[indexPath.row]
     cell.category = category
 
     let relations = user.getCategoriesWithSuperIndex(subType: .relation, mainIndex: category.id)

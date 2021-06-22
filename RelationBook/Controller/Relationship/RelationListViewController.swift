@@ -32,7 +32,7 @@ class RelationListViewController: UIViewController {
       tableView.backgroundColor = .background
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 60
-      tableView.lk_registerCellWithNib(
+      tableView.registerCellWithNib(
         identifier: String(describing: RelationListTableCell.self),
         bundle: nil)
     }
@@ -84,12 +84,12 @@ extension RelationListViewController: UITableViewDelegate, UITableViewDataSource
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: RelationListTableCell.self),
-            for: indexPath) as? RelationListTableCell else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
+    guard let cell = tableView.dequeueReusableCell(cell: RelationListTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
       return RelationListTableCell()
     }
+    
+    cell.relation = matchedRelations[indexPath.row]
 
     cell.relation = matchedRelations[indexPath.row]
 

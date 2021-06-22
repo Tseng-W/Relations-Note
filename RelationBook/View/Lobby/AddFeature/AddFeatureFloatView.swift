@@ -23,8 +23,8 @@ class AddFeatureFloatView: UIView, NibLoadable {
       tableView.delegate = self
       tableView.dataSource = self
 
-      tableView.lk_registerCellWithNib(identifier: String(describing: CheckboxTableCell.self), bundle: nil)
-      tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: CheckboxTableCell.self), bundle: nil)
+      tableView.registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
     }
   }
   @IBOutlet var filterHeight: NSLayoutConstraint! {
@@ -81,20 +81,11 @@ class AddFeatureFloatView: UIView, NibLoadable {
   }
 
   func show(_ view: UIView, category: Category?, feature: Feature?) {
-    isHidden = true
-    LKProgressHUD.show()
-
-    do {
-      sleep(UInt32(0.5))
-    }
-
     reset()
 
     tableView.separatorColor = .clear
 
     blurView = view.addBlurView()
-
-    filterView.setUp(type: .feature)
 
     view.addSubview(self)
     addConstarint(
@@ -107,10 +98,9 @@ class AddFeatureFloatView: UIView, NibLoadable {
 
     view.layoutIfNeeded()
 
-    cornerRadius = frame.width * 0.05
+    filterView.setUp(type: .feature)
 
-    LKProgressHUD.dismiss()
-    isHidden = false
+    cornerRadius = frame.width * 0.05
   }
 
   @IBAction func onTapCancel(_ sender: UIButton) {
@@ -163,10 +153,8 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: CheckboxTableCell.self),
-            for: indexPath) as? CheckboxTableCell else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
+    guard let cell = tableView.dequeueReusableCell(cell: CheckboxTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failure")
       return CheckboxTableCell()
     }
 

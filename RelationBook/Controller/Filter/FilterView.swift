@@ -12,9 +12,10 @@ class FilterView: UIView {
 
   weak var delegate: CategorySelectionDelegate?
 
+  var onDidLayout: (() -> Void)?
+
   // MARK: Datas
   var filterSource: [String] = []
-
   var categoryViews: [CategoryCollectionView] = []
   var canScrollBeHidden = true
 
@@ -27,11 +28,17 @@ class FilterView: UIView {
   }
   var isMainOnly: Bool = false
 
-  let filterScrollView = SelectionView()
-  var filterScrollHeightConstraint: NSLayoutConstraint?
+  let selectionView = SelectionView()
+  var selectionHeightConstraint: NSLayoutConstraint?
 
   let categoryScrollView = RBScrollView(isPagingEnabled: true)
   var scrollHeight: CGFloat = 0
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    onDidLayout?()
+  }
 
   func setUp(type: CategoryType, isMainOnly: Bool = false) {
     self.type = type
@@ -66,22 +73,22 @@ class FilterView: UIView {
   }
 
   private func addFilterBar() {
-    filterScrollView.removeFromSuperview()
+    selectionView.removeFromSuperview()
 
-    filterScrollView.delegate = self
-    filterScrollView.datasource = self
+    selectionView.delegate = self
+    selectionView.datasource = self
 
-    addSubview(filterScrollView)
+    addSubview(selectionView)
 
-    let topConstraint = filterScrollView.topAnchor.constraint(equalTo: topAnchor)
+    let topConstraint = selectionView.topAnchor.constraint(equalTo: topAnchor)
     topConstraint.priority = .required
 
-    filterScrollView.addConstarint(
+    selectionView.addConstarint(
       top: topAnchor,
       left: leftAnchor,
       right: rightAnchor,
       height: 50)
-    filterScrollHeightConstraint = filterScrollView.constraints.first { $0.constant == 50 }
+    selectionHeightConstraint = selectionView.constraints.first { $0.constant == 50 }
   }
 
   private func addScrollView() {
@@ -89,7 +96,7 @@ class FilterView: UIView {
 
     addSubview(categoryScrollView)
     categoryScrollView.addConstarint(
-      top: filterScrollView.bottomAnchor,
+      top: selectionView.bottomAnchor,
       left: leftAnchor,
       bottom: bottomAnchor,
       right: rightAnchor)
@@ -98,7 +105,8 @@ class FilterView: UIView {
   private func addCategoryCollectionViews(type: CategoryType) {
     guard userViewModel.user.value != nil else { return }
 
-    categoryScrollView.delegate = self
+    selectionView.matchedScrollView = categoryScrollView
+    categoryScrollView.delegate = selectionView
     categoryScrollView.subviews.forEach { $0.removeFromSuperview() }
 
     let viewWidth = categoryScrollView.frame.width
@@ -130,8 +138,8 @@ class FilterView: UIView {
   }
 
   private func hiddenFilterScroll(isHidden: Bool) {
-    filterScrollHeightConstraint?.constant = isHidden ? 0 : 40
-    filterScrollView.indicatorView.isHidden = isHidden
+    selectionHeightConstraint?.constant = isHidden ? 0 : 40
+    selectionView.indicatorView.isHidden = isHidden
     categoryScrollView.isScrollEnabled = !isHidden
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
@@ -142,13 +150,13 @@ class FilterView: UIView {
   func scrollTo(main: Category, sub: Category) {
     guard categoryViews.count > main.superIndex else { return }
 
-    didSelectedButton(filterScrollView, at: main.superIndex)
+    didSelectedButton(selectionView, at: main.superIndex)
 
     categoryViews[main.superIndex].initialTarget = (main, sub)
   }
 
   func reloadDate() {
-    hiddenFilterScroll(isHidden: filterScrollHeightConstraint?.constant != 0)
+    hiddenFilterScroll(isHidden: selectionHeightConstraint?.constant != 0)
   }
 
   func reset() {
@@ -166,25 +174,11 @@ extension FilterView: SelectionViewDatasource, SelectionViewDelegate {
     filterSource[index]
   }
 
-  func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-      self.categoryScrollView.contentOffset.x = self.categoryScrollView.frame.width * CGFloat(index)
-      self.layoutIfNeeded()
-    }
-  }
-
   func selectionView(_ selectionView: SelectionView, textColorForButtonAt index: Int) -> UIColor {
     .buttonDisable
   }
 
   func colorOfIndicator(_ selectionView: SelectionView) -> UIColor? {
     .buttonDisable
-  }
-}
-
-extension FilterView: UIScrollViewDelegate {
-  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    let paging: CGFloat = scrollView.contentOffset.x / scrollView.frame.width
-    filterScrollView.moveIndicatorToIndex(index: Int(paging))
   }
 }

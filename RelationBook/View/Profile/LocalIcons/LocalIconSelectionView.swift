@@ -69,22 +69,20 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(
-      withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self),
-      for: indexPath)
+    guard let cell = collectionView.dequeueReusableCell(cell: LocalIconSelectionViewCell.self, indexPath: indexPath),
+          let iconViewModel = iconViewModel else {
+      String.trackFailure("dequeueReusableCell failures")
+      return LocalIconSelectionViewCell()
+    }
 
-    guard let iconViewModel = iconViewModel else { return  cell }
-
-    if let cell = cell as? LocalIconSelectionViewCell {
-      if var image = iconViewModel.searchIconImage(
-          set: indexPath.section,
-          index: indexPath.row) {
-        if indexPath.section == 0 {
-          image = image.withTintColor(.label)
-        }
-
-        cell.setImage(image: image)
+    if var image = iconViewModel.searchIconImage(
+        set: indexPath.section,
+        index: indexPath.row) {
+      if indexPath.section == 0 {
+        image = image.withTintColor(.label)
       }
+
+      cell.setImage(image: image)
     }
 
     return cell

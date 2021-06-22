@@ -117,7 +117,7 @@ class CategoryCollectionView: UICollectionView {
     dataSource = self
     backgroundColor = .background
 
-    lk_registerCellWithNib(
+    registerCellWithNib(
       identifier: String(describing: CategoryCollectionCell.self),
       bundle: nil)
 
@@ -148,31 +148,31 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = dequeueReusableCell(
-      withReuseIdentifier: String(describing: CategoryCollectionCell.self),
-      for: indexPath)
+    guard let cell = dequeueReusableCell(
+            cell: CategoryCollectionCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return CategoryCollectionCell()
+    }
 
-    if let cell = cell as? CategoryCollectionCell {
-      switch status {
-      case .mainCategory:
-        if indexPath.row == mainCategories.count {
-          cell.defaultType = .add
-          return cell
-        } else {
-          cell.category = mainCategories[indexPath.row]
-        }
-      case .subCategory:
-        guard let selectedIndex = selectedIndex else { return cell }
-        if indexPath.row == 0 {
-          cell.defaultType = .back
-        } else if indexPath.row == subCategories[selectedIndex].count + 1 {
-          cell.defaultType = .add
-        } else {
-          cell.category = subCategories[selectedIndex][indexPath.row - 1]
-        }
-      case .selected:
-        cell.category = selectedCategory
+    switch status {
+    case .mainCategory:
+      if indexPath.row == mainCategories.count {
+        cell.defaultType = .add
+        return cell
+      } else {
+        cell.category = mainCategories[indexPath.row]
       }
+    case .subCategory:
+      guard let selectedIndex = selectedIndex else { return cell }
+      if indexPath.row == 0 {
+        cell.defaultType = .back
+      } else if indexPath.row == subCategories[selectedIndex].count + 1 {
+        cell.defaultType = .add
+      } else {
+        cell.category = subCategories[selectedIndex][indexPath.row - 1]
+      }
+    case .selected:
+      cell.category = selectedCategory
     }
     return cell
   }
@@ -230,7 +230,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
     cell.alpha = 0
     layoutIfNeeded()
 
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0.2, options: .curveLinear) {
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear) {
       cell.alpha = 1
       self.layoutIfNeeded()
     }

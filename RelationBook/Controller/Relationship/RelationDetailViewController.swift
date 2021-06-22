@@ -35,10 +35,10 @@ class RelationDetailViewController: UIViewController {
     eventTableView.tag = TableType.event.rawValue
     eventTableView.estimatedRowHeight = 40
 
-    eventTableView.lk_registerCellWithNib(
+    eventTableView.registerCellWithNib(
       identifier: String(describing: LobbyEventCell.self),
       bundle: nil)
-    eventTableView.lk_registerHeaderWithNib(
+    eventTableView.registerHeaderWithNib(
       identifier: String(describing: RelationTableHeaderCell.self),
       bundle: nil)
 
@@ -50,10 +50,10 @@ class RelationDetailViewController: UIViewController {
 
     profileTableView.tag = TableType.profile.rawValue
     profileTableView.backgroundColor = .background
-    profileTableView.lk_registerHeaderWithNib(
+    profileTableView.registerHeaderWithNib(
       identifier: String(describing: RelationTableHeaderCell.self),
       bundle: nil)
-    profileTableView.lk_registerCellWithNib(
+    profileTableView.registerCellWithNib(
       identifier: String(describing: RelationProfileCell.self),
       bundle: nil)
 
@@ -155,7 +155,8 @@ class RelationDetailViewController: UIViewController {
     eventTableView.dataSource = self
     profileTableView.delegate = self
     profileTableView.dataSource = self
-    scrollView.delegate = self
+    scrollView.delegate = selectionBar
+    selectionBar.matchedScrollView = scrollView
 
     scrollViewAddSubPaging(views: [eventTableView, profileTableView])
   }
@@ -223,14 +224,6 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
     let buttonTitle = ["事件", "個人資訊"]
 
     return buttonTitle[index]
-  }
-
-  func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-      self.scrollView.contentOffset.x = self.scrollView.frame.width * CGFloat(index)
-
-      self.view.layoutIfNeeded()
-    }
   }
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -325,15 +318,13 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch TableType(rawValue: tableView.tag) {
     case .event:
-      guard let cell = tableView.dequeueReusableCell(
-              withIdentifier: String(describing: LobbyEventCell.self),
-              for: indexPath) as? LobbyEventCell,
+      guard let cell = tableView.dequeueReusableCell(cell: LobbyEventCell.self, indexPath: indexPath),
             let category = relationCategory else {
-        assertionFailure("dequeueReusableCell failed: \(#file) \(#function) \(#line)" )
+        String.trackFailure("dequeueReusableCell failures")
         return LobbyEventCell()
       }
-
       let events = eventsSorted.sorted { $0.key > $1.key }
+
       let event = events[indexPath.section].value[indexPath.row]
 
       cell.cellSetup(type: .relation, event: event, relations: [category])
@@ -341,11 +332,9 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
       return cell
 
     case .profile:
-      guard let cell = tableView.dequeueReusableCell(
-        withIdentifier: String(describing: RelationProfileCell.self),
-              for: indexPath) as? RelationProfileCell,
+      guard let cell = tableView.dequeueReusableCell(cell: RelationProfileCell.self, indexPath: indexPath),
             relation != nil else {
-        assertionFailure("dequeueReusableCell failed: \(#file) \(#function) \(#line)" )
+        String.trackFailure("dequeueReusableCell failures")
         return RelationProfileCell()
       }
 
@@ -373,6 +362,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       let detailVC = EventDetailView()
       detailVC.delegate = self
+      detailVC.show(view: self.view)
       detailVC.setUp(event: event, relations: [category])
 
     default:

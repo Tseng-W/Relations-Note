@@ -38,4 +38,8 @@ extension String {
 //      }
 //    }.resume()
   }
+
+  static func trackFailure(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
+    assertionFailure("\(message): \(file) \(function) \(line)")
+  }
 }
