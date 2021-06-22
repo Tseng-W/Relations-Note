@@ -65,22 +65,19 @@ extension RelationViewContoller: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: RelationTableCell.self),
-            for: indexPath) as? RelationTableCell,
-          let user = userViewModel.user.value else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
-      return RelationTableCell()
+    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RelationTableCell.self), for: indexPath)
+
+    guard let user = userViewModel.user.value else { return cell }
+
+    if let cell = cell as? RelationTableCell {
+      let category = user.getCategoriesWithSuperIndex(
+        mainType: .relation,
+        filterIndex: indexPath.section)[indexPath.row]
+      cell.category = category
+
+      let relations = user.getCategoriesWithSuperIndex(subType: .relation, mainIndex: category.id)
+      cell.subRelations = relations
     }
-
-    let category = user.getCategoriesWithSuperIndex(
-      mainType: .relation,
-      filterIndex: indexPath.section
-    )[indexPath.row]
-    cell.category = category
-
-    let relations = user.getCategoriesWithSuperIndex(subType: .relation, mainIndex: category.id)
-    cell.subRelations = relations
 
     return cell
   }

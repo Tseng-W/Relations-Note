@@ -84,14 +84,13 @@ extension RelationListViewController: UITableViewDelegate, UITableViewDataSource
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: RelationListTableCell.self),
-            for: indexPath) as? RelationListTableCell else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
-      return RelationListTableCell()
-    }
+    let cell = tableView.dequeueReusableCell(
+      withIdentifier: String(describing: RelationListTableCell.self),
+      for: indexPath)
 
-    cell.relation = matchedRelations[indexPath.row]
+    if let cell = cell as? RelationListTableCell {
+      cell.relation = matchedRelations[indexPath.row]
+    }
 
     return cell
   }

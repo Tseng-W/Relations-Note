@@ -125,7 +125,7 @@ class ProfileCategoryListView: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(true)
 
-    //    backToRoot()
+//    backToRoot()
   }
 }
 
@@ -196,25 +196,24 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: ProfileCategoryTableCell.self),
-            for: indexPath) as? ProfileCategoryTableCell,
-          let type = type else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
-      return ProfileCategoryTableCell()
-    }
+    let cell = tableView.dequeueReusableCell(
+      withIdentifier: String(describing: ProfileCategoryTableCell.self),
+      for: indexPath)
 
-    cell.category = categories.filter { $0.superIndex == tableView.tag } [indexPath.section]
-    cell.onEdit = { category in
-      self.editingCategory = category
+    if let cell = cell as? ProfileCategoryTableCell {
+      cell.category = categories.filter { $0.superIndex == tableView.tag } [indexPath.section]
 
-      self.setCategoryStyleView.show(
-        self.view,
-        type: type,
-        hierarchy: .main,
-        superIndex: category.superIndex,
-        submitWhenConfirm: true
-      )
+      cell.onEdit = { category in
+        self.editingCategory = category
+
+        self.setCategoryStyleView.show(
+          self.view,
+          type: self.type!,
+          hierarchy: .main,
+          superIndex: category.superIndex,
+          submitWhenConfirm: true
+        )
+      }
     }
 
     return cell

@@ -37,18 +37,17 @@ extension AddFeatureTableView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
+    let cell = tableView.dequeueReusableCell(
       withIdentifier: String(describing: AddFeatureTableCell.self),
-      for: indexPath) as? AddFeatureTableCell else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
-      return AddFeatureTableCell()
-    }
+      for: indexPath)
 
-    if indexPath.row == features.count {
-      cell.setType(status: .add)
-    } else {
-      let feature = features[indexPath.row]
-      cell.setType(status: .edit, title: feature.name, subTitle: feature.getContentDescription())
+    if let cell = cell as? AddFeatureTableCell {
+      if indexPath.row == features.count {
+        cell.setType(status: .add)
+      } else {
+        let feature = features[indexPath.row]
+        cell.setType(status: .edit, title: feature.name, subTitle: feature.getContentDescription())
+      }
     }
 
     return cell

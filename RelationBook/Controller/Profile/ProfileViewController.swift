@@ -50,18 +50,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
+    let cell = tableView.dequeueReusableCell(
       withIdentifier: String(describing: AddFeatureTableCell.self),
       for: indexPath
-    ) as? AddFeatureTableCell else {
-      assertionFailure("dequeueReusableCell failure: \(#file) \(#function) \(#line)")
-      return AddFeatureTableCell()
-    }
+    )
 
-    if indexPath.section == 0 {
-      cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
-    } else {
-      cell.setType(status: .trigger, title: sections[indexPath.section][indexPath.row], subTitle: .empty)
+    if let cell = cell as? AddFeatureTableCell {
+      if indexPath.section == 0 {
+        cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
+      } else {
+        cell.setType(status: .trigger, title: sections[indexPath.section][indexPath.row], subTitle: .empty)
+      }
     }
 
     return cell

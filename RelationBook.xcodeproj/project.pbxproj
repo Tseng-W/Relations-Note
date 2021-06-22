@@ -108,7 +108,6 @@
 		47B806DD2648D30A00EC711D /* RelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B806DC2648D30A00EC711D /* RelationViewModel.swift */; };
 		47D1789A267B389B002D9A15 /* RBScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D17899267B389B002D9A15 /* RBScrollView.swift */; };
 		47D178B8267F30AA002D9A15 /* RelationBookInitialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D178B7267F30AA002D9A15 /* RelationBookInitialTests.swift */; };
-		47D178BB268074F3002D9A15 /* RelationBookMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D178BA268074F3002D9A15 /* RelationBookMockTests.swift */; };
 		47D665F1266DBB9E00BD42EE /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */; };
 		47DD642F2644308500D3CD9C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DD642E2644308500D3CD9C /* Login.storyboard */; };
 		47E6EF0E263D725F000172DC /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E6EF0D263D725F000172DC /* Lobby.storyboard */; };
@@ -246,7 +245,6 @@
 		47B806DC2648D30A00EC711D /* RelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationViewModel.swift; sourceTree = "<group>"; };
 		47D17899267B389B002D9A15 /* RBScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBScrollView.swift; sourceTree = "<group>"; };
 		47D178B7267F30AA002D9A15 /* RelationBookInitialTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBookInitialTests.swift; sourceTree = "<group>"; };
-		47D178BA268074F3002D9A15 /* RelationBookMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBookMockTests.swift; sourceTree = "<group>"; };
 		47D665F0266DBB9E00BD42EE /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		47DD642D264419A800D3CD9C /* RelationBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RelationBook.entitlements; sourceTree = "<group>"; };
 		47DD642E2644308500D3CD9C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -363,7 +361,6 @@
 		47339E44263C2D6F0092860F /* RelationBook */ = {
 			isa = PBXGroup;
 			children = (
-				47D178B92680716F002D9A15 /* Mock */,
 				476D2EC4264B8E0500A9200A /* Network */,
 				479DE3DB264128AF000E2CFC /* Third Party Wrapper */,
 				47339EC0263C3BF60092860F /* Extension */,
@@ -386,7 +383,6 @@
 				47339E5F263C2D710092860F /* RelationBookSortFeatureTests.swift */,
 				47D178B7267F30AA002D9A15 /* RelationBookInitialTests.swift */,
 				47339E61263C2D710092860F /* Info.plist */,
-				47D178BA268074F3002D9A15 /* RelationBookMockTests.swift */,
 			);
 			path = RelationBookTests;
 			sourceTree = "<group>";
@@ -669,13 +665,6 @@
 				47779E8226679C3F00972194 /* IconViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		47D178B92680716F002D9A15 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Mock;
 			sourceTree = "<group>";
 		};
 		47E6EF12263D7320000172DC /* Lobby */ = {
@@ -1143,7 +1132,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47D178BB268074F3002D9A15 /* RelationBookMockTests.swift in Sources */,
 				47339E60263C2D710092860F /* RelationBookSortFeatureTests.swift in Sources */,
 				47D178B8267F30AA002D9A15 /* RelationBookInitialTests.swift in Sources */,
 			);

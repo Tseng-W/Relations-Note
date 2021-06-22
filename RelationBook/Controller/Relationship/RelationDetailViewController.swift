@@ -325,34 +325,33 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch TableType(rawValue: tableView.tag) {
     case .event:
-      guard let cell = tableView.dequeueReusableCell(
-              withIdentifier: String(describing: LobbyEventCell.self),
-              for: indexPath) as? LobbyEventCell,
-            let category = relationCategory else {
-        assertionFailure("dequeueReusableCell failed: \(#file) \(#function) \(#line)" )
-        return LobbyEventCell()
-      }
-
       let events = eventsSorted.sorted { $0.key > $1.key }
+
       let event = events[indexPath.section].value[indexPath.row]
 
-      cell.cellSetup(type: .relation, event: event, relations: [category])
+      let cell = tableView.dequeueReusableCell(
+        withIdentifier: String(describing: LobbyEventCell.self),
+        for: indexPath)
+
+      if let cell = cell as? LobbyEventCell,
+         let category = relationCategory {
+        cell.cellSetup(type: .relation, event: event, relations: [category])
+      }
 
       return cell
 
     case .profile:
-      guard let cell = tableView.dequeueReusableCell(
+      let cell = tableView.dequeueReusableCell(
         withIdentifier: String(describing: RelationProfileCell.self),
-              for: indexPath) as? RelationProfileCell,
-            relation != nil else {
-        assertionFailure("dequeueReusableCell failed: \(#file) \(#function) \(#line)" )
-        return RelationProfileCell()
+        for: indexPath)
+
+      guard relation != nil else { return cell }
+
+      if let cell = cell as? RelationProfileCell {
+        cell.setup(
+          feature: sortedFeatures[indexPath.section].features[indexPath.row],
+          index: 0)
       }
-
-      cell.setup(
-        feature: sortedFeatures[indexPath.section].features[indexPath.row],
-        index: 0)
-
       return cell
 
     case .none:
