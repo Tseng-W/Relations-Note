@@ -14,12 +14,11 @@ protocol AddFeatureTableViewDelegate: AnyObject {
 class AddFeatureTableView: UITableView {
   var features: [Feature] = []
   var relativeCategory: [Category] = []
-
   let addFeatureFlowView = AddFeatureFloatView()
 
   weak var featureDelagate: AddFeatureTableViewDelegate? {
     didSet {
-      lk_registerCellWithNib(
+      registerCellWithNib(
         identifier: String(describing: AddFeatureTableCell.self),
         bundle: nil)
 
@@ -37,17 +36,16 @@ extension AddFeatureTableView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: String(describing: AddFeatureTableCell.self),
-      for: indexPath)
+    guard let cell = tableView.dequeueReusableCell(cell: AddFeatureTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return AddFeatureTableCell()
+    }
 
-    if let cell = cell as? AddFeatureTableCell {
-      if indexPath.row == features.count {
-        cell.setType(status: .add)
-      } else {
-        let feature = features[indexPath.row]
-        cell.setType(status: .edit, title: feature.name, subTitle: feature.getContentDescription())
-      }
+    if indexPath.row == features.count {
+      cell.setType(status: .add)
+    } else {
+      let feature = features[indexPath.row]
+      cell.setType(status: .edit, title: feature.name, subTitle: feature.getContentDescription())
     }
 
     return cell

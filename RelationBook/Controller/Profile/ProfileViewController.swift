@@ -10,8 +10,8 @@ import UIKit
 class ProfileViewController: UIViewController {
   @IBOutlet var tableView: UITableView! {
     didSet {
-      tableView.lk_registerCellWithNib(identifier: String(describing: AddFeatureTableCell.self), bundle: nil)
-      tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: AddFeatureTableCell.self), bundle: nil)
+      tableView.registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
       tableView.delegate = self
       tableView.dataSource = self
     }
@@ -50,17 +50,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: String(describing: AddFeatureTableCell.self),
-      for: indexPath
-    )
-
-    if let cell = cell as? AddFeatureTableCell {
-      if indexPath.section == 0 {
-        cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
-      } else {
-        cell.setType(status: .trigger, title: sections[indexPath.section][indexPath.row], subTitle: .empty)
-      }
+    guard let cell = tableView.dequeueReusableCell(cell: AddFeatureTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return AddFeatureTableCell()
+    }
+    if indexPath.section == 0 {
+      cell.setType(status: .edit, title: sections[indexPath.section][indexPath.row], subTitle: ">")
+    } else {
+      cell.setType(status: .trigger, title: sections[indexPath.section][indexPath.row], subTitle: .empty)
     }
 
     return cell
@@ -73,10 +70,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
     return headerView
   }
-
-//  func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-//    false
-//  }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {

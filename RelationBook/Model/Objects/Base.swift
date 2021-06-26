@@ -9,7 +9,6 @@ import UIKit
 import Kingfisher
 
 enum Collections: String {
-
   case user = "Users"
 
   case event = "Events"

@@ -15,6 +15,8 @@ protocol SelectionViewDelegate: AnyObject {
 
 extension SelectionViewDelegate {
   func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool { return true }
+
+  func didSelectedButton(_ selectionView: SelectionView, at index: Int) {}
 }
 
 protocol SelectionViewDatasource: AnyObject {
@@ -65,6 +67,12 @@ class SelectionView: UIView {
   var scrollView = RBScrollView()
   var statckView = UIStackView()
   var indicatorView = UIView()
+
+  var matchedScrollView: UIScrollView? {
+    didSet {
+      matchedScrollView?.delegate = self
+    }
+  }
 
   private var indicatorConstraints: [NSLayoutConstraint] = []
 
@@ -119,6 +127,13 @@ class SelectionView: UIView {
     guard let delegate = delegate,
           let index = self.subviews.first?.subviews.firstIndex(of: sender) else { return }
     moveIndicatorView(reference: sender)
+
+    if let scrollView = matchedScrollView {
+      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        scrollView.contentOffset.x = scrollView.frame.width * CGFloat(sender.tag)
+        self.layoutIfNeeded()
+      }
+    }
 
     delegate.didSelectedButton(self, at: index)
   }
@@ -240,5 +255,12 @@ class SelectionView: UIView {
           index < contentView.subviews.count,
           let button = contentView.subviews[index] as? UIButton else { return }
     moveIndicatorView(reference: button, duration: 0)
+  }
+}
+
+extension SelectionView: UIScrollViewDelegate {
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    let paging: CGFloat = scrollView.contentOffset.x / scrollView.frame.width
+    moveIndicatorToIndex(index: Int(paging))
   }
 }

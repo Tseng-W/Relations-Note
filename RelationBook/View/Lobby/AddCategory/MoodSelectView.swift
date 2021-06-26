@@ -48,18 +48,18 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(
-      withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self),
-      for: indexPath
-    )
-
-    if let cell = cell as? LocalIconSelectionViewCell {
-      cell.iconView.setIcon(
-        isCropped: false,
-        image: iconDetail[indexPath.row].image,
-        bgColor: UIColor.UIColorFromString(string: iconDetail[indexPath.row].colorString)
-      )
+    guard let cell = collectionView.dequeueReusableCell(
+            cell: LocalIconSelectionViewCell.self,
+            indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return LocalIconSelectionViewCell()
     }
+
+    cell.iconView.setIcon(
+      isCropped: false,
+      image: iconDetail[indexPath.row].image,
+      bgColor: UIColor.UIColorFromString(string: iconDetail[indexPath.row].colorString)
+    )
 
     return cell
   }

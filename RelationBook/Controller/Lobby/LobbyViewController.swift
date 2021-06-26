@@ -47,7 +47,7 @@ class LobbyViewController: UIViewController {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
-      tableView.lk_registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 60
     }
@@ -229,19 +229,20 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventCell.self), for: indexPath)
-
-    guard let selectedDate = calendar.selectedDate,
-          let user = userViewModel.user.value else { return cell }
-
-    if let cell = cell as? LobbyEventCell {
-      let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
-
-      cell.cellSetup(
-        type: .lobby,
-        event: event,
-        relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
+    guard let cell = tableView.dequeueReusableCell(cell: LobbyEventCell.self, indexPath: indexPath),
+          let selectedDate = calendar.selectedDate,
+          let user = userViewModel.user.value else {
+      String.trackFailure("dequeueReusableCell failures")
+      return LobbyEventCell()
     }
+
+    let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
+
+    cell.cellSetup(
+      type: .lobby,
+      event: event,
+      relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
+
 
     cell.updateConstraintsIfNeeded()
 
@@ -261,7 +262,7 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     let detailVC = EventDetailView()
     detailVC.delegate = self
-
+    detailVC.show(view: self.view)
     detailVC.setUp(event: event, relations: cell.relations)
   }
 

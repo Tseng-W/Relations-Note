@@ -35,10 +35,10 @@ class RelationDetailViewController: UIViewController {
     eventTableView.tag = TableType.event.rawValue
     eventTableView.estimatedRowHeight = 40
 
-    eventTableView.lk_registerCellWithNib(
+    eventTableView.registerCellWithNib(
       identifier: String(describing: LobbyEventCell.self),
       bundle: nil)
-    eventTableView.lk_registerHeaderWithNib(
+    eventTableView.registerHeaderWithNib(
       identifier: String(describing: RelationTableHeaderCell.self),
       bundle: nil)
 
@@ -50,10 +50,10 @@ class RelationDetailViewController: UIViewController {
 
     profileTableView.tag = TableType.profile.rawValue
     profileTableView.backgroundColor = .background
-    profileTableView.lk_registerHeaderWithNib(
+    profileTableView.registerHeaderWithNib(
       identifier: String(describing: RelationTableHeaderCell.self),
       bundle: nil)
-    profileTableView.lk_registerCellWithNib(
+    profileTableView.registerCellWithNib(
       identifier: String(describing: RelationProfileCell.self),
       bundle: nil)
 
@@ -155,7 +155,8 @@ class RelationDetailViewController: UIViewController {
     eventTableView.dataSource = self
     profileTableView.delegate = self
     profileTableView.dataSource = self
-    scrollView.delegate = self
+    scrollView.delegate = selectionBar
+    selectionBar.matchedScrollView = scrollView
 
     scrollViewAddSubPaging(views: [eventTableView, profileTableView])
   }
@@ -223,14 +224,6 @@ extension RelationDetailViewController: SelectionViewDelegate, SelectionViewData
     let buttonTitle = ["事件", "個人資訊"]
 
     return buttonTitle[index]
-  }
-
-  func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-      self.scrollView.contentOffset.x = self.scrollView.frame.width * CGFloat(index)
-
-      self.view.layoutIfNeeded()
-    }
   }
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -325,33 +318,33 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch TableType(rawValue: tableView.tag) {
     case .event:
+      guard let cell = tableView.dequeueReusableCell(cell: LobbyEventCell.self, indexPath: indexPath),
+            let category = relationCategory else {
+        String.trackFailure("dequeueReusableCell failures")
+        return LobbyEventCell()
+      }
+
       let events = eventsSorted.sorted { $0.key > $1.key }
 
       let event = events[indexPath.section].value[indexPath.row]
 
-      let cell = tableView.dequeueReusableCell(
-        withIdentifier: String(describing: LobbyEventCell.self),
-        for: indexPath)
-
-      if let cell = cell as? LobbyEventCell,
-         let category = relationCategory {
-        cell.cellSetup(type: .relation, event: event, relations: [category])
-      }
+      cell.cellSetup(type: .relation, event: event, relations: [category])
 
       return cell
 
     case .profile:
-      let cell = tableView.dequeueReusableCell(
-        withIdentifier: String(describing: RelationProfileCell.self),
-        for: indexPath)
+      guard let cell = tableView.dequeueReusableCell(cell: RelationProfileCell.self, indexPath: indexPath),
+            relation != nil else {
+        String.trackFailure("dequeueReusableCell failures")
+        return RelationProfileCell()
+      }
 
       guard relation != nil else { return cell }
 
-      if let cell = cell as? RelationProfileCell {
-        cell.setup(
-          feature: sortedFeatures[indexPath.section].features[indexPath.row],
-          index: 0)
-      }
+      cell.setup(
+        feature: sortedFeatures[indexPath.section].features[indexPath.row],
+        index: 0)
+
       return cell
 
     case .none:
@@ -372,6 +365,7 @@ extension RelationDetailViewController: UITableViewDelegate, UITableViewDataSour
 
       let detailVC = EventDetailView()
       detailVC.delegate = self
+      detailVC.show(view: self.view)
       detailVC.setUp(event: event, relations: [category])
 
     default:

@@ -31,7 +31,7 @@ class IconSelectionView: UICollectionView {
 
     setCollectionViewLayout(layout, animated: true)
 
-    lk_registerCellWithNib(identifier: String(describing: LocalIconSelectionViewCell.self), bundle: nil)
-    lk_registerHeaderWithNib(identifier: String(describing: LocalIconSelectionViewHeader.self), bundle: nil)
+    registerCellWithNib(identifier: String(describing: LocalIconSelectionViewCell.self), bundle: nil)
+    registerHeaderWithNib(identifier: String(describing: LocalIconSelectionViewHeader.self), bundle: nil)
   }
 }
