@@ -8,11 +8,7 @@
 import UIKit
 import MobileCoreServices
 
-import MobileCoreServices
-import UIKit
-
 class CameraProvider: NSObject {
-
     enum PhotoLibraryTypes {
         case photoLibrary, savedPhotosAlbum, camera
         var casted: UIImagePickerController.SourceType {
@@ -36,10 +32,11 @@ class CameraProvider: NSObject {
 
     // MARK: - Public
 
-    public func getImagePicker(source: PhotoLibraryTypes,
-                               canEditPhotos: Bool = true,
-                               onlyImages: Bool = false) throws -> ImagePicker {
-
+    public func getImagePicker(
+      source: PhotoLibraryTypes,
+      canEditPhotos: Bool = true,
+      onlyImages: Bool = false
+    ) throws -> ImagePicker {
         do {
             return try getBaseController(
                 source: source.casted,
@@ -51,9 +48,10 @@ class CameraProvider: NSObject {
         }
     }
 
-    public func getCamera(canEditPhotos: Bool = true,
-                          onlyImages: Bool = false) throws -> ImagePicker {
-
+    public func getCamera(
+      canEditPhotos: Bool = true,
+      onlyImages: Bool = false
+    ) throws -> ImagePicker {
         do {
             let picker = try getBaseController(
                 source: .camera,
@@ -78,10 +76,11 @@ class CameraProvider: NSObject {
 
     // MARK: - Private
 
-    private func getBaseController(source: SourceType,
-                                   allowsEditing: Bool,
-                                   onlyImages: Bool) throws -> ImagePicker {
-
+    private func getBaseController(
+      source: SourceType,
+      allowsEditing: Bool,
+      onlyImages: Bool
+    ) throws -> ImagePicker {
         guard UIImagePickerController.isSourceTypeAvailable(source) else {
             throw "Requested source not available"
         }
@@ -94,7 +93,7 @@ class CameraProvider: NSObject {
 
         if onlyImages,
            let mediaTypes = UIImagePickerController.availableMediaTypes(for: source),
-           mediaTypes.contains(imageType){
+           mediaTypes.contains(imageType) {
             picker.mediaTypes = [imageType]
         }
 

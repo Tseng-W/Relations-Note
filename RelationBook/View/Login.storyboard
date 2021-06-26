@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qdy-I2-ScZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -9,24 +10,74 @@
     </dependencies>
     <scenes>
         <!--Login View Controller-->
-        <scene sceneID="s0d-6b-0kx">
+        <scene sceneID="sMT-hd-wKO">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="LoginViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                <viewController storyboardIdentifier="login" id="qdy-I2-ScZ" customClass="LoginViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oOW-Pd-ptP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <subviews>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUc-Cw-Fv1">
+                                <rect key="frame" x="62" y="712" width="290" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6Ba-l3-N1T"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="建立帳戶及表示您同意我們的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ob0-Fw-2SL">
+                                <rect key="frame" x="86" y="785" width="182" height="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5B-p2-TqG">
+                                <rect key="frame" x="272" y="778" width="65" height="31"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="13"/>
+                                <state key="normal" title="隱私權政策"/>
+                                <connections>
+                                    <action selector="onTapPrivacy:" destination="qdy-I2-ScZ" eventType="touchUpInside" id="sYL-Ge-f6G"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_1024px_icon_nobg" translatesAutoresizingMaskIntoConstraints="NO" id="zbx-0Y-AMD">
+                                <rect key="frame" x="103.5" y="344.5" width="207" height="207"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zbx-0Y-AMD" secondAttribute="height" multiplier="1:1" id="alc-8W-R9v"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1ql-7F-gZi"/>
                         <color key="backgroundColor" name="Background"/>
+                        <constraints>
+                            <constraint firstItem="zbx-0Y-AMD" firstAttribute="centerY" secondItem="oOW-Pd-ptP" secondAttribute="centerY" id="7OJ-4T-8kS"/>
+                            <constraint firstItem="u5B-p2-TqG" firstAttribute="centerY" secondItem="Ob0-Fw-2SL" secondAttribute="centerY" id="C2u-uq-BhR"/>
+                            <constraint firstItem="Ob0-Fw-2SL" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" constant="-30" id="GOz-nk-Vkb"/>
+                            <constraint firstItem="u5B-p2-TqG" firstAttribute="top" secondItem="VUc-Cw-Fv1" secondAttribute="bottom" constant="16" id="IcC-9K-oBP"/>
+                            <constraint firstItem="zbx-0Y-AMD" firstAttribute="width" secondItem="oOW-Pd-ptP" secondAttribute="width" multiplier="0.5" id="PbW-Ow-tYI"/>
+                            <constraint firstItem="zbx-0Y-AMD" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" id="TYm-8x-9Fd"/>
+                            <constraint firstItem="u5B-p2-TqG" firstAttribute="leading" secondItem="Ob0-Fw-2SL" secondAttribute="trailing" constant="4" id="VDW-Fc-TgT"/>
+                            <constraint firstItem="VUc-Cw-Fv1" firstAttribute="width" secondItem="oOW-Pd-ptP" secondAttribute="width" multiplier="0.7" id="Y4X-2M-hQx"/>
+                            <constraint firstItem="VUc-Cw-Fv1" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" id="b7y-GX-LIC"/>
+                            <constraint firstItem="VUc-Cw-Fv1" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" id="qTB-xY-Nhr"/>
+                            <constraint firstItem="1ql-7F-gZi" firstAttribute="bottom" secondItem="Ob0-Fw-2SL" secondAttribute="bottom" constant="60" id="zye-1m-G37"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5NF-jK-2tx"/>
+                    <connections>
+                        <outlet property="iconCenterYAnchor" destination="7OJ-4T-8kS" id="heN-FP-OnF"/>
+                        <outlet property="loginButtonView" destination="VUc-Cw-Fv1" id="rGl-RO-2hz"/>
+                        <outlet property="privacyButton" destination="u5B-p2-TqG" id="LUT-Pa-8gj"/>
+                        <outlet property="privacyLabel" destination="Ob0-Fw-2SL" id="dVa-G1-bhk"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GVW-fv-KcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101" y="84"/>
+            <point key="canvasLocation" x="-991" y="104"/>
         </scene>
     </scenes>
     <resources>
+        <image name="icon_1024px_icon_nobg" width="1024" height="1024"/>
         <namedColor name="Background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

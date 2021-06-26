@@ -12,17 +12,19 @@ protocol AddFeatureFloatViewDelegate: AnyObject {
   func featureFloatView(view: AddFeatureFloatView, category: Category, feature: Feature)
 }
 
-class AddFeatureFloatView: UIView, NibLoadable{
-
-  @IBOutlet var filterView: FilterView!
+class AddFeatureFloatView: UIView, NibLoadable {
+  @IBOutlet var filterView: FilterView! {
+    didSet {
+      filterView.delegate = self
+    }
+  }
   @IBOutlet var tableView: UITableView! {
     didSet {
-
       tableView.delegate = self
       tableView.dataSource = self
 
-      tableView.lk_registerCellWithNib(identifier: String(describing: CheckboxTableCell.self), bundle: nil)
-      tableView.lk_registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: CheckboxTableCell.self), bundle: nil)
+      tableView.registerHeaderWithNib(identifier: String(describing: RelationTableHeaderCell.self), bundle: nil)
     }
   }
   @IBOutlet var filterHeight: NSLayoutConstraint! {
@@ -41,7 +43,7 @@ class AddFeatureFloatView: UIView, NibLoadable{
 
   var onCancel: (() -> Void)?
 
-  var selectedCategory = [Category]()
+  var selectedCategory: Category?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -63,31 +65,10 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   func customInit() {
-
     loadNibContent()
 
-    filterView.onSelected = { [weak self] categoris in
-      self?.selectedCategory = categoris
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        if let strongSelf = self {
-          strongSelf.filterHeight.constant = strongSelf.filterHeight.constant / 2.66
-          strongSelf.layoutIfNeeded()
-        }
-      }
-    }
-
-    filterView.onStartEdit = { [weak self] in
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        if let strongSelf = self {
-          strongSelf.filterHeight.constant = strongSelf.filterHeight.constant * 2.66
-          strongSelf.layoutIfNeeded()
-        }
-      }
-    }
-
     featureViewModel.feature.bind { feature in
-
-      if feature.contents.count == 0 {
+      if feature.contents.isEmpty {
         self.confirmButton.backgroundColor = .buttonDisable
         self.confirmButton.isEnabled = false
       } else {
@@ -100,39 +81,29 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   func show(_ view: UIView, category: Category?, feature: Feature?) {
-
-    isHidden = true
-    LKProgressHUD.show()
-
-    do{
-      sleep(UInt32(0.5))
-    }
-
     reset()
 
     tableView.separatorColor = .clear
 
     blurView = view.addBlurView()
 
-    filterView.setUp(type: .feature)
-
     view.addSubview(self)
     addConstarint(
-      left: view.leftAnchor, right: view.rightAnchor,
+      left: view.leftAnchor,
+      right: view.rightAnchor,
       centerY: view.centerYAnchor,
-      paddingLeft: 16, paddingRight: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
       height: view.frame.height / 2)
 
     view.layoutIfNeeded()
 
-    cornerRadius = frame.width * 0.05
+    filterView.setUp(type: .feature)
 
-    LKProgressHUD.dismiss()
-    isHidden = false
+    cornerRadius = frame.width * 0.05
   }
 
   @IBAction func onTapCancel(_ sender: UIButton) {
-    
     blurView?.removeFromSuperview()
     removeFromSuperview()
 
@@ -142,22 +113,21 @@ class AddFeatureFloatView: UIView, NibLoadable{
   }
 
   @IBAction func onTapConfirm(_ sender: UIButton) {
-
     var feature = featureViewModel.feature.value
-    feature.name = selectedCategory[0].title
-    feature.categoryIndex = selectedCategory[0].id
 
-    delegate?.featureFloatView(view: self, category: selectedCategory[0], feature: feature)
+    if let category = selectedCategory {
+      feature.name = category.title
+      feature.categoryIndex = category.id
+      delegate?.featureFloatView(view: self, category: category, feature: feature)
+    }
 
     onTapCancel(sender)
   }
 }
 
 extension AddFeatureFloatView {
-
   private func reset() {
-
-    selectedCategory.removeAll()
+    selectedCategory = nil
     featureViewModel.feature.value = Feature()
 
     if let defaultHeight = defaultHeight {
@@ -169,7 +139,6 @@ extension AddFeatureFloatView {
 }
 
 extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
-
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     featureViewModel.amount() + 1
   }
@@ -184,17 +153,16 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(cell: CheckboxTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failure")
+      return CheckboxTableCell()
+    }
 
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CheckboxTableCell.self), for: indexPath)
+    cell.setup(content: featureViewModel.cellForRowAt(row: indexPath.row))
 
-    if let cell = cell as? CheckboxTableCell {
-
-      cell.setup(content: featureViewModel.cellForRowAt(row: indexPath.row))
-
-      cell.onEndEdit = { [weak self] cell, content in
-        guard let index = self?.tableView.indexPath(for: cell)?.row else { return }
-        self?.featureViewModel.editCellContent(index: index, content: content)
-      }
+    cell.onEndEdit = { [weak self] cell, content in
+      guard let index = self?.tableView.indexPath(for: cell)?.row else { return }
+      self?.featureViewModel.editCellContent(index: index, content: content)
     }
 
     return cell
@@ -205,9 +173,28 @@ extension AddFeatureFloatView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
     guard let cell = tableView.cellForRow(at: indexPath) as? CheckboxTableCell else { return }
 
     cell.isSelected = false
+  }
+}
+
+extension AddFeatureFloatView: CategorySelectionDelegate {
+  func didSelectedCategory(category: Category) {
+    selectedCategory = category
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.filterHeight.constant /= 2.66
+      self.layoutIfNeeded()
+    }
+  }
+
+  func didStartEdit(pageIndex: Int) {
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.filterHeight.constant *= 2.66
+      self.layoutIfNeeded()
+    }
+  }
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
   }
 }

@@ -40,7 +40,6 @@ class CheckboxTableCell: UITableViewCell {
   }
 
   func setup(content: FeatureContent?) {
-
     guard let content = content else {
 //      checkmarkButton.isHidden = true
       return
@@ -51,16 +50,13 @@ class CheckboxTableCell: UITableViewCell {
   }
 
   @IBAction func onTapSwitch(_ sender: UIButton) {
-
-    content.isProcessing = !content.isProcessing
+    content.isProcessing.toggle()
     checkmarkButton.isSelected = content.isProcessing
   }
 }
 
 extension CheckboxTableCell: UITextFieldDelegate {
-
   func textFieldDidEndEditing(_ textField: UITextField) {
-
     guard let text = textField.text,
           text.isEmpty == false else { return }
 

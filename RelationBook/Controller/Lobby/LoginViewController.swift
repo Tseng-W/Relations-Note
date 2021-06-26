@@ -12,13 +12,12 @@ import CryptoKit
 import WebKit
 
 class LoginViewController: UIViewController {
-  
   @IBOutlet var loginButtonView: UIView!
   @IBOutlet var iconCenterYAnchor: NSLayoutConstraint!
   @IBOutlet var privacyLabel: UILabel!
   @IBOutlet var privacyButton: UIButton!
 
-  fileprivate var currentNonce: String?
+  var currentNonce: String?
 
   let privacyLink = "https://www.privacypolicies.com/live/d35f1ffb-2fb1-4689-b2d5-7f9ccb5c9589"
   var cornerRadius: CGFloat = 8.0 {
@@ -27,16 +26,18 @@ class LoginViewController: UIViewController {
     }
   }
 
-  private lazy var blackButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .black)
-  private lazy var whiteButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .white)
-
+  private lazy var blackButton = ASAuthorizationAppleIDButton(
+    authorizationButtonType: .signIn,
+    authorizationButtonStyle: .black)
+  private lazy var whiteButton = ASAuthorizationAppleIDButton(
+    authorizationButtonType: .signIn,
+    authorizationButtonStyle: .white)
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     setupButton()
   }
-  
-  override func viewDidLoad() {
 
+  override func viewDidLoad() {
     super.viewDidLoad()
 
     setupButton()
@@ -54,9 +55,8 @@ class LoginViewController: UIViewController {
       }
     })
   }
-  
-  @objc func appleLoginButtonTapped() {
 
+  @objc func appleLoginButtonTapped() {
     let nonce = randomNonceString()
     currentNonce = nonce
 
@@ -72,50 +72,35 @@ class LoginViewController: UIViewController {
   }
 
   @IBAction func onTapPrivacy(_ sender: UIButton) {
-
     let privacyVC = UIViewController()
 
     let mWebView = WKWebView(frame: self.view.frame)
 
     mWebView.navigationDelegate = self
-    mWebView.load(URLRequest(url: URL(string: privacyLink)!))
-    privacyVC.view.addSubview(mWebView)
 
-    mWebView.addConstarint(
-      top: privacyVC.view.topAnchor,
-      left: privacyVC.view.leftAnchor,
-      bottom: privacyVC.view.bottomAnchor,
-      right: privacyVC.view.rightAnchor)
+    guard let privacyURL = URL(string: privacyLink) else { return }
+    mWebView.load(URLRequest(url: privacyURL))
+    privacyVC.view.addSubview(mWebView)
+    mWebView.addConstarint(fill: privacyVC.view)
 
     showDetailViewController(privacyVC, sender: self)
   }
 }
 
 private extension LoginViewController {
-
   func setupButton() {
-
     switch traitCollection.userInterfaceStyle {
-
     case .dark:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(whiteButton)
-      whiteButton.addConstarint(
-        top: loginButtonView.topAnchor,
-        left: loginButtonView.leftAnchor,
-        bottom: loginButtonView.bottomAnchor,
-        right: loginButtonView.rightAnchor)
+      loginButtonView.addConstarint(fill: loginButtonView)
       whiteButton.layer.cornerRadius = cornerRadius
       whiteButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 
     case .unspecified, .light:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(blackButton)
-      blackButton.addConstarint(
-        top: loginButtonView.topAnchor,
-        left: loginButtonView.leftAnchor,
-        bottom: loginButtonView.bottomAnchor,
-        right: loginButtonView.rightAnchor)
+      blackButton.addConstarint(fill: loginButtonView)
       blackButton.layer.cornerRadius = cornerRadius
       blackButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 
@@ -125,15 +110,12 @@ private extension LoginViewController {
   }
 
   func updateRadius() {
-
     switch traitCollection.userInterfaceStyle {
-
     case .light:
       whiteButton.layer.cornerRadius = cornerRadius
 
     case .unspecified, .dark:
       blackButton.layer.cornerRadius = cornerRadius
-      
     @unknown default:
       print("unknown style: \(traitCollection.userInterfaceStyle)")
     }
@@ -145,14 +127,15 @@ private extension LoginViewController {
     let hashedData = SHA256.hash(data: inputData)
     let hashString = hashedData.compactMap {
       return String(format: "%02x", $0)
-    }.joined()
+    }
+    .joined()
 
     return hashString
   }
 
   private func randomNonceString(length: Int = 32) -> String {
     precondition(length > 0)
-    let charset: Array<Character> =
+    let charset: [Character] =
       Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
     var result = ""
     var remainingLength = length
@@ -183,12 +166,10 @@ private extension LoginViewController {
   }
 }
 
-extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-  
+extension LoginViewController: ASAuthorizationControllerDelegate,
+                               ASAuthorizationControllerPresentationContextProviding {
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-
     if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-
       guard let nonce = currentNonce else {
         fatalError("Invalid state: A login callback was received, but no login request was sent.")
       }
@@ -203,38 +184,45 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         return
       }
 
-      let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                idToken: idTokenString,
-                                                rawNonce: nonce)
-
-      Auth.auth().signIn(with: credential) { [weak self] (autoResult, error) in
+      let credential = OAuthProvider.credential(
+        withProviderID: "apple.com",
+        idToken: idTokenString,
+        rawNonce: nonce)
+      Auth.auth().signIn(with: credential) { autoResult, error in
         if let error = error {
           print(error.localizedDescription)
           return
         }
 
-        UserDefaults.standard.set(autoResult?.user.uid,
-                     forKey: UserDefaults.Keys.uid.rawValue)
-        UserDefaults.standard.set(autoResult?.user.email,
-                     forKey: UserDefaults.Keys.email.rawValue)
+        UserDefaults.standard.set(
+          autoResult?.user.uid,
+          forKey: UserDefaults.Keys.uid.rawValue)
+        UserDefaults.standard.set(
+          autoResult?.user.email,
+          forKey: UserDefaults.Keys.email.rawValue)
 
-        self?.performSegue(withIdentifier: "main", sender: self)
+        if let mainViewController = UIStoryboard.main.instantiateInitialViewController() {
+          UIApplication.shared.windows[0].rootViewController = mainViewController
+        }
       }
     }
   }
-  
+
   func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
     print(error)
   }
-  
+
   func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-    return self.view.window!
+    return  UIApplication.shared.windows[0]
   }
 }
 
 extension LoginViewController: WKNavigationDelegate {
-
-  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+  func webView(
+    _ webView: WKWebView,
+    didFailProvisionalNavigation navigation: WKNavigation,
+    withError error: Error
+  ) {
     print(error.localizedDescription)
   }
 }

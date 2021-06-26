@@ -9,10 +9,9 @@ import UIKit
 import Firebase
 
 class AddEventViewController: UIViewController {
-
   @IBOutlet var searchTextField: UITextField! {
     didSet {
-      searchTextField.delegate = self
+//      searchTextField.delegate = self
       searchTextField.layer.cornerRadius = searchTextField.frame.height / 2
       searchTextField.layer.masksToBounds = true
       searchTextField.layer.borderWidth = 1
@@ -27,7 +26,7 @@ class AddEventViewController: UIViewController {
   @IBOutlet var filterView: FilterView!
   @IBOutlet var filterHeightConstraint: NSLayoutConstraint!
 
-  // MARK: Buttons.
+  // MARK: Buttons and tableView
   @IBOutlet var featureTableView: AddFeatureTableView! {
     didSet {
       featureTableView.featureDelagate = self
@@ -44,112 +43,52 @@ class AddEventViewController: UIViewController {
       commentTextView.delegate = self
     }
   }
+
+  // MARK: Headers ( With tip button )
   @IBOutlet var relationHeader: RelationTableHeaderCell!
   @IBOutlet var detailHeader: RelationTableHeaderCell!
   @IBOutlet var featureHeader: RelationTableHeaderCell!
 
   // MARK: Initial information
-  var editingEvent: Event?
+  var isEditingEvent = false
+  var event = Event.getEmptyEvent() {
+    didSet {
+      setButtonContent()
+    }
+  }
 
   let commentPlaceholder = "備註"
   let commentPlaceholderColor: UIColor = .secondaryLabel
-
-  let selectedColor: UIColor = .button
-
-  let lottieView = LottieWrapper()
 
   var userViewModel = UserViewModel()
   var eventViewModel = EventViewModel()
   let featureViewModel = FeatureViewModel()
   let relationViewModel = RelationViewModel()
 
-  var relations = [Relation]()
+  var relations: [Relation] = []
 
-  let selectFloatViewController: SelectFloatViewController = {
-    let vc = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent") as! SelectFloatViewController
-
-    return vc
-  }()
+  let selectFloatViewController = UIStoryboard.lobby.instantiateViewController(identifier: "selectEvent")
+    as! SelectFloatViewController
   let setCategoryView = SetCategoryStyleView()
 
   // MARK: Event datas initial.
-  var relationCategories: [Category] = []
-  var imageLink: String?
-  var mood = 2
-  var event: Category? {
-    didSet {
-      if let event = event {
-        eventButton.titleLabel?.textColor = .button
-        eventButton.setTitle(event.title, for: .normal)
-      } else {
-        eventButton.titleLabel?.textColor = .buttonDisable
-        eventButton.setTitle("事件", for: .normal)
-      }
-    }
-  }
-  var location: GeoPoint? {
-    didSet {
-      if location != nil {
-        locationButton.titleLabel?.textColor = .button
-      } else {
-        locationButton.titleLabel?.textColor = .buttonDisable
-      }
-    }
-  }
-  var locationName: String? {
-    didSet {
-      if let name = locationName {
-        locationButton.setTitle(name, for: .normal)
-        locationButton.titleLabel?.textColor = .button
-      } else {
-        locationButton.setTitle("地點", for: .normal)
-        locationButton.titleLabel?.textColor = .buttonDisable
-      }
-    }
-  }
-  var date = Date() {
-    didSet {
-      dayButton.setTitle(date.getDayString(type: .day), for: .normal)
-      timeButton.setTitle(date.getDayString(type: .time), for: .normal)
-    }
-  }
-
-  var features = [Feature]()
+  var relationCategory: Category?
+  var features: [Feature] = []
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     userViewModel.user.bind { [weak self] user in
+      guard let user = user,
+            let uid = user.uid else { return }
 
-      guard let user = user else { return }
+      self?.setButtonContent()
 
+      self?.event.owner = uid
       self?.filterView.setUp(type: .relation)
-
-      if let event = self?.editingEvent,
-         let strongSelf = self,
-         let subRelation = user.relationSet.sub.first(where: { event.relations.contains( $0.id ) }) {
-
-        strongSelf.relationCategories = [subRelation]
-        strongSelf.imageLink = event.imageLink
-        strongSelf.mood = event.mood
-        strongSelf.event = event.category
-        strongSelf.location = event.location
-        strongSelf.locationName = event.locationName
-        strongSelf.date = event.time.dateValue()
-        strongSelf.commentTextView.text = event.comment
-
-        if let imageLink = strongSelf.imageLink {
-          UIImage.loadImage(imageLink) { image in
-            strongSelf.imageButton.setImage(image, for: .normal)
-          }
-        }
-
-        strongSelf.filterView.onInitialWithTarget = {
-          return (user.relationSet.main.first(where: { $0.id == subRelation.superIndex })!, subRelation)
-        }
-      }
     }
+
+    filterView.delegate = self
 
     relationViewModel.relations.bind { [weak self] relations in
       self?.relations = relations
@@ -157,19 +96,18 @@ class AddEventViewController: UIViewController {
 
     featureTableView.separatorColor = .clear
 
-    setCategoryView.delegate = self
-
     userViewModel.fetchUserDate()
     relationViewModel.fetchRelations()
 
-    relationFilterSetup()
     selectionViewSetup()
 
-    date = Date()
+    if isEditingEvent {
+      event.time = Timestamp(date: Date())
+//      didSelectedCategory(category: event.category)
+    }
   }
 
   override func viewWillAppear(_ animated: Bool) {
-
     super.viewWillAppear(true)
 
     relationHeader.tips = {
@@ -195,134 +133,82 @@ class AddEventViewController: UIViewController {
 
     featureHeader.tips = {
       PopTipManager.shared
-        .addPopTip(at: self.featureHeader, text: "這次互動中你更了解了對方？", direction: .up, attributes: PopTipManager.Style.defaultStyle)
-        .addPopTip(at: self.featureTableView, text: "點擊此處新增對方的特徵！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
-        .addPopTip(at: self.featureTableView, text: "例如個人資料、興趣喜好或紀念人！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
-        .addPopTip(at: self.featureTableView, text: "之後可在關係詳情中查看，避免忘記趕快添加吧！", direction: .up, attributes: PopTipManager.Style.defaultStyle)
+        .addPopTip(at: self.featureHeader, text: "這次互動中你更了解了對方？", direction: .up)
+        .addPopTip(at: self.featureTableView, text: "點擊此處新增對方的特徵！", direction: .up)
+        .addPopTip(at: self.featureTableView, text: "例如個人資料、興趣喜好或紀念人！", direction: .up)
+        .addPopTip(at: self.featureTableView, text: "之後可在關係詳情中查看，避免忘記趕快添加吧！", direction: .up)
         .show()
     }
 
     LKProgressHUD.dismiss()
   }
 
-  private func relationFilterSetup() {
-
-    view.layoutIfNeeded()
-
-    filterView.onSelected = { categories in
-      self.relationCategories = categories
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        self.filterHeightConstraint.constant /= 2.66
-        self.view.layoutIfNeeded()
-      }
-    }
-
-    filterView.onStartEdit = {
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        self.filterHeightConstraint.constant *= 2.66
-        self.view.layoutIfNeeded()
-      }
-    }
-
-    filterView.onAddCategory = { type, hierarchy, superIndex in
-
-      self.setCategoryView.show(
-        self.view,
-        type: type, hierarchy: hierarchy, superIndex: superIndex)
-    }
-  }
-
   private func selectionViewSetup() {
-
     view.addSubview(selectFloatViewController.view)
-
-    selectFloatViewController.view.addConstarint(
-      top: view.topAnchor, left: view.leftAnchor,
-      bottom: view.bottomAnchor, right: view.rightAnchor)
+    selectFloatViewController.view.addConstarint(fill: view)
 
     selectFloatViewController.onEventSelected = { event in
-      self.event = event
+      self.event.category = event
     }
 
     selectFloatViewController.onDateSelected = { type, date in
       switch type {
       case .time, .day:
-        self.date = date
+        self.event.time = Timestamp(date: date)
       default:
         return
       }
     }
 
     selectFloatViewController.onLocationSelected = { geoPoint, name in
-      self.location = geoPoint
-      self.locationName = name
+      self.event.location = geoPoint
+      self.event.locationName = name
     }
 
     selectFloatViewController.onAddCategorySelected = { type, hierarchy, superIndex in
-
       self.setCategoryView.show(self.view, type: type, hierarchy: hierarchy, superIndex: superIndex)
     }
   }
 
   // MARK: - IBOutlets
-
   @IBAction func confirm(_ sender: UIButton) {
-
-    guard let event = event else {
+    guard event.category.isInitialed() else {
       PopTipManager.shared
-        .addPopTip(at: eventButton, text: "請選擇互動事件類型", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
+        .addPopTip(at: eventButton, text: "請選擇互動事件類型", direction: .up, duration: 3, style: .normal)
         .show(isBlur: false)
       return
     }
 
-    guard relationCategories.count > 0 else {
+    guard !event.relations.isEmpty else {
       PopTipManager.shared
-        .addPopTip(at: filterView, text: "請選擇互動對象", direction: .up, duration: 3, attributes: PopTipManager.Style.alertStyle)
+        .addPopTip(at: filterView, text: "請選擇互動對象", direction: .up, duration: 3, style: .normal)
         .show(isBlur: false)
 
       return
     }
 
-    guard let userID = userViewModel.user.value?.uid else { return }
+    guard event.isInitialed() else { return }
 
     let comment: String = commentTextView.text == "備註" ? .empty : commentTextView.text
 
-    var newEvent = Event(docID: "",
-                         owner: userID,
-                         relations: relationCategories.map { $0.id },
-                         imageLink: imageLink ?? nil,
-                         mood: mood,
-                         category: event,
-                         location: location,
-                         locationName: locationName,
-                         time: Timestamp(date: date),
-                         subEvents: [],
-                         comment: comment)
+    event.comment = comment
 
+    if isEditingEvent {
+      eventViewModel.updateEvent(event: event)
+    } else {
+      eventViewModel.addEvent(event: event) { result in
+        switch result {
+        case .success(let docId):
+          self.event.docId = docId
 
-    if let editingEvent = editingEvent {
-
-      newEvent.docID = editingEvent.docID!
-
-      eventViewModel.updateEvent(event: newEvent)
-
-      dismiss(animated: true)
-      return
-    }
-
-    eventViewModel.addEvent(event: newEvent) { result in
-      switch result {
-      case .success(let docID):
-        newEvent.docID = docID
-
-      case .failure(let error):
-        print("\(error.localizedDescription)")
+        case .failure(let error):
+          print("\(error.localizedDescription)")
+        }
       }
     }
 
-    if features.count > 0 {
-
-      guard let relation = relations.first(where: { $0.categoryIndex == relationCategories[0].id }) else { return }
+    if !features.isEmpty {
+      guard let relation = relations.first(where: { $0.categoryIndex == event.relations[0] }) else { return }
 
       self.featureViewModel.addFeatures(relation: relation, features: self.features)
     }
@@ -335,27 +221,25 @@ class AddEventViewController: UIViewController {
   }
 
   @IBAction func showLocation(_ sender: UIButton) {
-
     selectFloatViewController.display(type: .location)
   }
 
   @IBAction func showChangeMood(_ sender: UIButton) {
-
     let moodSelectView = MoodSelectView()
     moodSelectView.cornerRadius = 16
     let blurView = view.addBlurView()
     view.addSubview(moodSelectView)
 
     moodSelectView.addConstarint(
-      left: view.leftAnchor, right: view.rightAnchor,
+      left: view.leftAnchor,
+      right: view.rightAnchor,
       centerY: view.centerYAnchor,
-      paddingLeft: 16, paddingRight: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
       height: 200)
 
-    moodSelectView.onSelected = { [weak self] (index, image, color) in
-      self?.mood = index
-      self?.moodButton.setImage(image, for: .normal)
-      self?.moodButton.backgroundColor = color
+    moodSelectView.onSelected = { [weak self] index, image, color in
+      self?.event.mood = index
       blurView.removeFromSuperview()
     }
   }
@@ -379,24 +263,65 @@ class AddEventViewController: UIViewController {
   }
 }
 
-extension AddEventViewController: UITextFieldDelegate {
-  
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    print(textField.text!)
+// MARK: - Private
+extension AddEventViewController {
+  private func setButtonContent() {
+    guard eventButton != nil else { return }
+
+    if event.category.isInitialed() {
+      eventButton.titleLabel?.textColor = .button
+      eventButton.setTitle(event.category.title, for: .normal)
+    } else {
+      eventButton.titleLabel?.textColor = .buttonDisable
+      eventButton.setTitle("事件", for: .normal)
+    }
+
+    if event.location != nil {
+      locationButton.titleLabel?.textColor = .button
+    } else {
+      locationButton.titleLabel?.textColor = .buttonDisable
+    }
+
+    if let name = event.locationName {
+      locationButton.setTitle(name, for: .normal)
+      locationButton.titleLabel?.textColor = .button
+    } else {
+      locationButton.setTitle("地點", for: .normal)
+      locationButton.titleLabel?.textColor = .buttonDisable
+    }
+
+    dayButton.setTitle(event.time.dateValue().getDayString(type: .day), for: .normal)
+    timeButton.setTitle(event.time.dateValue().getDayString(type: .time), for: .normal)
+
+    if event.imageLink != .empty {
+      UIImage.loadImage(event.imageLink) { image in
+        self.imageButton.setImage(image, for: .normal)
+      }
+    }
+
+    let moodDate = UserViewModel.moodData[event.mood]
+    moodButton.setImage(moodDate.image, for: .normal)
+    moodButton.backgroundColor = UIColor.UIColorFromString(string: moodDate.colorString)
+
+    if event.comment == .empty {
+      commentTextView.text = "備忘"
+      commentTextView.textColor = commentPlaceholderColor
+    } else {
+      commentTextView.text = event.comment
+      commentTextView.textColor = .button
+    }
   }
 }
 
 // MARK: SCLAlert wrapper delegate
 extension AddEventViewController: SCLAlertViewProviderDelegate {
-
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
-
     imageButton.setImage(image, for: .normal)
 
     FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
       switch result {
       case .success(let url):
-        self?.imageLink = url.absoluteString
+        self?.event.imageLink = url.absoluteString
       case .failure(let error):
         print("\(error.localizedDescription)")
       }
@@ -404,42 +329,59 @@ extension AddEventViewController: SCLAlertViewProviderDelegate {
   }
 }
 
-// MARK: Add category delegate
-extension AddEventViewController: CategoryStyleViewDelegate {
-
-  func categoryStyleView(
-    styleView: SetCategoryStyleView,
-    isCropped: Bool, name: String,
-    backgroundColor: UIColor,
-    image: UIImage, imageString: String) {
-  }
-
-  func iconType(styleView: SetCategoryStyleView) -> CategoryType? {
-    .relation
-  }
-}
-
 // MARK: TextFiled Delegate
 extension AddEventViewController: UITextViewDelegate {
-
   func textViewDidBeginEditing(_ textView: UITextView) {
     if textView.textColor == commentPlaceholderColor {
       textView.text = nil
-      textView.textColor = selectedColor
+      textView.textColor = .button
     }
   }
 
   func textViewDidEndEditing(_ textView: UITextView) {
-    if textView.text.isEmpty {
-      textView.text = commentPlaceholder
-      textView.textColor = commentPlaceholderColor
-    }
+    event.comment = textView.text
   }
 }
 
 extension AddEventViewController: AddFeatureTableViewDelegate {
-
   func featureTableView(tableView: AddFeatureTableView, features: [Feature]) {
     self.features = features
+  }
+}
+
+extension AddEventViewController: CategorySelectionDelegate {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)? {
+    if let user = userViewModel.user.value,
+       let subRelation = user.relationSet.sub.first(where: { event.relations.contains( $0.id ) }),
+       let mainRelation = user.relationSet.main.first(where: { $0.id == subRelation.superIndex }) {
+      return (mainRelation, subRelation)
+    }
+    return nil
+  }
+
+  func didSelectedCategory(category: Category) {
+    event.relations = [category.id]
+    relationCategory = category
+    view.layoutIfNeeded()
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.filterHeightConstraint.constant /= 2.66
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func didStartEdit(pageIndex: Int) {
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
+      self.filterHeightConstraint.constant *= 2.66
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
+    setCategoryView.show(
+      self.view,
+      type: type,
+      hierarchy: hierarchy,
+      superIndex: superIndex,
+      initialColor: categoryColor)
   }
 }

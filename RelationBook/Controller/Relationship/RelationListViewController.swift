@@ -18,7 +18,7 @@ class RelationListViewController: UIViewController {
     }
   }
 
-  private var matchedRelations = [Category]() {
+  private var matchedRelations: [Category] = [] {
     didSet {
       tableView.reloadData()
     }
@@ -32,7 +32,7 @@ class RelationListViewController: UIViewController {
       tableView.backgroundColor = .background
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 60
-      tableView.lk_registerCellWithNib(
+      tableView.registerCellWithNib(
         identifier: String(describing: RelationListTableCell.self),
         bundle: nil)
     }
@@ -47,7 +47,6 @@ class RelationListViewController: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     tableView.separatorColor = .clear
@@ -55,7 +54,6 @@ class RelationListViewController: UIViewController {
     guard superCategoryID != nil else { return }
 
     userViewModel.user.bind { [weak self] user in
-
       guard let index = self?.superCategoryID,
             let user = user else { return }
 
@@ -67,45 +65,36 @@ class RelationListViewController: UIViewController {
 }
 
 extension RelationListViewController: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
-
-    if matchedRelations.count == 0 {
-
+    if matchedRelations.isEmpty {
       tableView.addPlaceholder(
         image: UIImage.getPlaceholder(
           .friend,
           style: traitCollection.userInterfaceStyle),
         description: "沒有符合的對象")
       return 0
-
     } else {
-
       tableView.removePlaceholder()
       return 1
     }
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
     return matchedRelations.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: String(describing: RelationListTableCell.self),
-      for: indexPath)
-
-    if let cell = cell as? RelationListTableCell {
-       cell.relation = matchedRelations[indexPath.row]
+    guard let cell = tableView.dequeueReusableCell(cell: RelationListTableCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return RelationListTableCell()
     }
+
+    cell.relation = matchedRelations[indexPath.row]
 
     return cell
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
     tableView.cellForRow(at: indexPath)?.isSelected = false
     selectedIndex = indexPath.row
 

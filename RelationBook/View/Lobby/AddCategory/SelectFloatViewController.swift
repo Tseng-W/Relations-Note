@@ -11,7 +11,6 @@ import GooglePlaces
 import Firebase
 
 class SelectFloatViewController: FloatingViewController {
-
   enum SelectType: String {
     case event = "事件"
     case day = "日期"
@@ -24,7 +23,6 @@ class SelectFloatViewController: FloatingViewController {
   @IBOutlet var filterView: FilterView!
   @IBOutlet var mapView: GoogleMapView! {
     didSet {
-
       mapView.delegate = self
 
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(autocompleteClicked(tapGesture:)))
@@ -50,39 +48,29 @@ class SelectFloatViewController: FloatingViewController {
   var dateDate = Date()
   var type: SelectType = .event {
     didSet {
-      titleLabel.text = type.rawValue
-      datePicker.isHidden = true
-      filterView.isHidden = true
-      mapView.isHidden = true
-      resetButton.isHidden = true
-      cancelButton.superview!.isHidden = true
+      guard let buttonView = cancelButton.superview else { return }
+      titleLabel.text = type == .location ? "互動地點" : type.rawValue
+      datePicker.datePickerMode = type == .day ? .date : .time
+
+      filterView.isHidden = ![.event].contains { $0 == type }
+      datePicker.isHidden = ![.day, .time].contains { $0 == type }
+      resetButton.isHidden = ![.day, .time, .location].contains { $0 == type }
+      buttonView.isHidden = ![.day, .time, .location].contains { $0 == type }
+      mapView.isHidden = ![.location].contains { $0 == type }
 
       switch type {
-      case .event:
-        filterView.isHidden = false
-      case .day, .time :
-        resetButton.isHidden = false
-        datePicker.isHidden = false
-        cancelButton.superview!.isHidden = false
-
-        if type == .day {
-          resetButton.setTitle("今天", for: .normal)
-          datePicker.datePickerMode = .date
-        } else {
-          resetButton.setTitle("現在", for: .normal)
-          datePicker.datePickerMode = .time
-        }
+      case .day:
+        resetButton.setTitle("今天", for: .normal)
+      case .time :
+        resetButton.setTitle("現在", for: .normal)
       case .location:
-        titleLabel.text = "互動地點"
-        resetButton.isHidden = false
-        cancelButton.superview!.isHidden = false
-        mapView.isHidden = false
         resetButton.setTitle("現在位置", for: .normal)
+      default:
+        break
       }
     }
   }
   var locationInfo: (location: CLLocationCoordinate2D, name: String)?
-
 
   func display(type: SelectType) {
     self.type = type
@@ -92,22 +80,15 @@ class SelectFloatViewController: FloatingViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
+
+    filterView.delegate = self
 
     filterView.setUp(type: .event)
     googleMapSetup()
 
     filterView.canScrollBeHidden = false
 
-    filterView.onSelected = { categories in
-      self.onEventSelected?(categories.last!)
-      self.isVisable = false
-    }
-
-    filterView.onAddCategory = { [weak self] type, hierarchy, superIndex in
-      self?.onAddCategorySelected?(type, hierarchy, superIndex)
-    }
     setBlurBackground()
   }
 
@@ -117,7 +98,6 @@ class SelectFloatViewController: FloatingViewController {
 
   @objc private func onResetButtonTapped(sender: UIButton) {
     switch type {
-
     case .time, .day:
       dateDate = Date()
       datePicker.setDate(dateDate, animated: true)
@@ -132,9 +112,7 @@ class SelectFloatViewController: FloatingViewController {
 
   @IBAction func onConfirmButtonTapped(_ sender: UIButton) {
     if sender == confirmButton {
-
       switch type {
-
       case .day, .time:
         print(datePicker.date)
         dateDate = datePicker.date
@@ -142,10 +120,10 @@ class SelectFloatViewController: FloatingViewController {
 
       case .location:
         if let info = locationInfo {
-
-          let gp = GeoPoint(latitude: info.location.latitude,
-                            longitude: info.location.longitude)
-          onLocationSelected?(gp, info.name)
+          let geoPoint = GeoPoint(
+            latitude: info.location.latitude,
+            longitude: info.location.longitude)
+          onLocationSelected?(geoPoint, info.name)
         }
 
       default:
@@ -158,17 +136,17 @@ class SelectFloatViewController: FloatingViewController {
 
 // MARK: Google Map
 extension SelectFloatViewController {
-
   @objc func autocompleteClicked(tapGesture: UITapGestureRecognizer) {
+    guard let mapView = mapView.mapView else { return }
 
-    let visibleRegion = mapView.mapView!.projection.visibleRegion()
+    let visibleRegion = mapView.projection.visibleRegion()
     let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
 
     let autocompleteController = GMSAutocompleteViewController()
 
     autocompleteController.delegate = self
 
-    let fields: GMSPlaceField = GMSPlaceField(
+    let fields = GMSPlaceField(
       rawValue:
         UInt(GMSPlaceField.name.rawValue) |
         UInt(GMSPlaceField.coordinate.rawValue)
@@ -186,13 +164,11 @@ extension SelectFloatViewController {
 
 // MARK: Google Map & Custom Map View
 extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, GoogleMapViewDelegate {
-
   func didSelectAt(location: CLLocationCoordinate2D, name: String) {
     locationInfo = (location, name)
   }
 
   func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-
     mapView.centerLocation(center: place.coordinate, name: place.name)
 
     dismiss(animated: true, completion: nil)
@@ -206,13 +182,18 @@ extension SelectFloatViewController: GMSAutocompleteViewControllerDelegate, Goog
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     dismiss(animated: true, completion: nil)
   }
+}
 
-  // Turn the network activity indicator on and off again.
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+extension SelectFloatViewController: CategorySelectionDelegate {
+  func didSelectedCategory(category: Category) {
+    onEventSelected?(category)
+    isVisable = false
   }
 
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+  func didStartEdit(pageIndex: Int) {
+  }
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
+    onAddCategorySelected?(type, hierarchy, superIndex)
   }
 }

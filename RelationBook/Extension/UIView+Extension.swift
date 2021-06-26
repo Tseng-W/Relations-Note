@@ -10,7 +10,7 @@ import UIKit
 extension UIView {
 
   static var rootView: UIView {
-    let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+    let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
 
     if let topController = keyWindow?.rootViewController {
       while let presentedViewController = topController.presentedViewController {
@@ -26,7 +26,6 @@ extension UIView {
   }
 
   func addBlurView() -> UIVisualEffectView {
-
     let blurEffect = UIBlurEffect(style: .dark)
     let blurView = UIVisualEffectView(effect: blurEffect)
     addSubview(blurView)
@@ -39,19 +38,51 @@ extension UIView {
     return blurView
   }
 
-  func addConstarint(top: NSLayoutYAxisAnchor? = nil,
-                     left: NSLayoutXAxisAnchor? = nil,
-                     bottom: NSLayoutYAxisAnchor? = nil,
-                     right: NSLayoutXAxisAnchor? = nil,
-                     centerX: NSLayoutXAxisAnchor? = nil,
-                     centerY: NSLayoutYAxisAnchor? = nil,
-                     paddingTop: CGFloat = 0,
-                     paddingLeft: CGFloat = 0,
-                     paddingBottom: CGFloat = 0,
-                     paddingRight: CGFloat = 0,
-                     width: CGFloat = 0,
-                     height: CGFloat = 0) {
-    
+  func addConstarint(fill view: UIView) {
+    addConstarint(
+      top: view.topAnchor,
+      left: view.leftAnchor,
+      bottom: view.bottomAnchor,
+      right: view.rightAnchor
+    )
+  }
+
+  func addConstarint(
+    relatedBy: UIView,
+    widthMultiplier wMultiplier: CGFloat? = nil,
+    widthConstant wConstant: CGFloat = 0,
+    heightMultiplier hMultiplier: CGFloat? = nil,
+    heightConstant hConstant: CGFloat = 0
+  ) {
+    if let wMultiplier = wMultiplier {
+      self.widthAnchor.constraint(
+        equalTo: relatedBy.widthAnchor,
+        multiplier: wMultiplier,
+        constant: wConstant).isActive = true
+    }
+
+    if let hMultiplier = hMultiplier {
+      heightAnchor.constraint(
+        equalTo: relatedBy.heightAnchor,
+        multiplier: hMultiplier,
+        constant: hConstant).isActive = true
+    }
+  }
+
+  func addConstarint(
+    top: NSLayoutYAxisAnchor? = nil,
+    left: NSLayoutXAxisAnchor? = nil,
+    bottom: NSLayoutYAxisAnchor? = nil,
+    right: NSLayoutXAxisAnchor? = nil,
+    centerX: NSLayoutXAxisAnchor? = nil,
+    centerY: NSLayoutYAxisAnchor? = nil,
+    paddingTop: CGFloat = 0,
+    paddingLeft: CGFloat = 0,
+    paddingBottom: CGFloat = 0,
+    paddingRight: CGFloat = 0,
+    width: CGFloat = 0,
+    height: CGFloat = 0
+  ) {
     translatesAutoresizingMaskIntoConstraints = false
     // Use the top parameter to set the top constarint
     if let top = top {
@@ -91,8 +122,7 @@ extension UIView {
   }
 
   func addPlaceholder(image: UIImage, description: String) {
-
-    if let placeholder = subviews.first(where: { $0.tag == 999 }) {
+    if subviews.first(where: { $0.tag == 999 }) != nil {
       return
     }
 
@@ -109,27 +139,25 @@ extension UIView {
     addSubview(label)
 
     imageView.addConstarint(
-      centerX: centerXAnchor, centerY: centerYAnchor,
-      width: frame.width / 3, height: frame.width / 3)
+      centerX: centerXAnchor,
+      centerY: centerYAnchor,
+      width: frame.width / 3,
+      height: frame.width / 3)
     label.addConstarint(
       top: imageView.bottomAnchor, centerX: centerXAnchor, paddingTop: 16, width: frame.width, height: 30)
   }
 
   func removePlaceholder() {
-
     subviews.forEach { view in
       if view.tag == 999 {
         view.removeFromSuperview()
       }
     }
   }
-
-
 }
 
 @IBDesignable
 extension UIView {
-
   @IBInspectable var isCornerd: Bool {
     set {
       layer.cornerRadius = newValue ? frame.size.height / 2 : 0
@@ -139,9 +167,8 @@ extension UIView {
       return layer.cornerRadius > 0
     }
   }
-  
-  @IBInspectable var cornerRadius: CGFloat {
 
+  @IBInspectable var cornerRadius: CGFloat {
     set {
       layer.cornerRadius = newValue
       layer.masksToBounds = newValue > 0

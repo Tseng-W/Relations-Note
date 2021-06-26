@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIFont {
-
   static func creamfont(size: CGFloat) -> UIFont {
     return UIFont(name: "creamfont-2.0", size: size)!
   }
@@ -17,4 +16,3 @@ extension UIFont {
     return UIFont(name: "PingFangTC-Regular", size: size)!
   }
 }
-

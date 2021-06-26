@@ -12,23 +12,19 @@ protocol TabBarTapDelegate: AnyObject {
 }
 
 private enum Tab {
-
   case profiles
   case relationship
   case lobby
 
   func controller() -> UIViewController {
-
     var controller: UIViewController
 
     switch self {
-
     case .profiles: controller = UIStoryboard.profile.instantiateInitialViewController()!
 
     case .relationship: controller = UIStoryboard.relationship.instantiateInitialViewController()!
 
     case .lobby: controller = UIStoryboard.lobby.instantiateInitialViewController()!
-
     }
 
     controller.tabBarItem = tabBarItem()
@@ -38,9 +34,7 @@ private enum Tab {
   }
 
   func tabBarItem() -> UITabBarItem {
-
     switch self {
-
     case .profiles:
       return UITabBarItem(
         title: nil,
@@ -67,10 +61,12 @@ private enum Tab {
   func images() -> (icon: UIImage, add: UIImage)? {
     switch self {
     case .lobby:
-//      return (UIImage.asset(ImageAsset.icon)!,
-//              UIImage.asset(ImageAsset.pen)!)
-      return (UIImage.asset(ImageAsset.icon)!,
-              UIImage.assetSystem(SysetmAsset.add)!)
+      if let icon = UIImage.asset(ImageAsset.icon),
+         let add = UIImage.assetSystem(SysetmAsset.add) {
+        return (icon, add)
+      } else {
+        return nil
+      }
     default:
       return nil
     }
@@ -78,20 +74,21 @@ private enum Tab {
 }
 
 class PBTabBarViewController: UITabBarController {
-
   private var tabs: [Tab] = [.relationship, .lobby, .profiles]
 
   var iconImageButton: IconView = {
-
     let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
 
-    iconView.setIcon(isCropped: false,
-                     image: Tab.lobby.images()?.add,
-                     bgColor: .background,
-                     borderWidth: 3, borderColor: .button,
-                     tintColor: .buttonDisable,
-                     multiple: 0.8)
+    iconView.accessibilityIdentifier = "addEventButton"
 
+    iconView.setIcon(
+      isCropped: false,
+      image: Tab.lobby.images()?.add,
+      bgColor: .background,
+      borderWidth: 3,
+      borderColor: .button,
+      tintColor: .buttonDisable,
+      multiple: 0.8)
     iconView.isUserInteractionEnabled = true
 
     return iconView
@@ -100,7 +97,6 @@ class PBTabBarViewController: UITabBarController {
   weak var tabBarDelegate: TabBarTapDelegate?
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     lobbyButtonInit()
@@ -109,10 +105,10 @@ class PBTabBarViewController: UITabBarController {
     tabBar.barTintColor = .secondaryBackground
     tabBar.unselectedItemTintColor = .buttonDisable
 
-    viewControllers = tabs.map{ $0.controller() }
+    viewControllers = tabs.map { $0.controller() }
 
-    viewControllers?.forEach { vc in
-      if let navVC = vc as? UINavigationController,
+    viewControllers?.forEach { viewController in
+      if let navVC = viewController as? UINavigationController,
          let lobbyVC = navVC.viewControllers.first as? LobbyViewController {
         tabBarDelegate = lobbyVC
       }
@@ -124,7 +120,6 @@ class PBTabBarViewController: UITabBarController {
   }
 
   private func lobbyButtonInit() {
-
     var center = tabBar.center
     center.y -= iconImageButton.frame.height / 2
     iconImageButton.center = center
@@ -140,8 +135,7 @@ class PBTabBarViewController: UITabBarController {
   }
 
   @objc func onLobbyButtonTap(tapGestureRecognizer: UITapGestureRecognizer) {
-
-    guard let tappedImage   = tapGestureRecognizer.view as? IconView else { return }
+    guard let tappedImage = tapGestureRecognizer.view as? IconView else { return }
 
     if selectedIndex == 1 {
       tabBarDelegate?.tabBarTapped(self, index: 2)
@@ -153,16 +147,13 @@ class PBTabBarViewController: UITabBarController {
 }
 
 extension PBTabBarViewController: UITabBarControllerDelegate {
-
   func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-
     let index = viewControllers?.firstIndex(of: viewController)
 
     return index != 1
   }
 
   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-
     iconImageButton.setIcon(isCropped: true, image: Tab.lobby.images()?.icon, borderWidth: 0, multiple: 0.8)
   }
 }

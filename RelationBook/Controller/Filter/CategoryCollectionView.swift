@@ -7,18 +7,32 @@
 
 import UIKit
 
-class CategoryCollectionView: UICollectionView {
+protocol CategorySelectionDelegate: AnyObject {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)?
 
+  func didSelectedCategory(category: Category)
+
+  func didStartEdit(pageIndex: Int)
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor)
+}
+
+extension CategorySelectionDelegate {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)? {
+    return nil
+  }
+}
+
+class CategoryCollectionView: UICollectionView {
   enum Status {
     case mainCategory
     case subCategory
     case selected
   }
 
-  // MARK: Closures
-  var onSelectedSubCategory: ((Category?) -> [Category])?
-  var onContinueEdit: ((Int) -> Void)?
-  var onAddCategory: ((CategoryType, CategoryHierarchy, Int) -> Void)?
+  // MARK: Delegate and closure
+  weak var selectionDelegate: CategorySelectionDelegate?
+  var onStatusChanged: ((Status) -> Void)?
 
   // MARK: Types
   var type: CategoryType?
@@ -26,11 +40,11 @@ class CategoryCollectionView: UICollectionView {
   var index: Int?
   var initialTarget: (main: Category, sub: Category)?
 
-
   // MARK: Status
   var status: Status = .mainCategory {
     didSet {
       reloadData()
+      onStatusChanged?(status)
     }
   }
   var selectedIndex: Int? {
@@ -58,16 +72,34 @@ class CategoryCollectionView: UICollectionView {
 
   var subCategories: [[Category]] = []
 
-  var selectedCategories: [Category] = [] {
+  var selectedCategory: Category? {
     didSet {
-      status = selectedCategories.count > 0 ? .selected : .mainCategory
+      status = selectedCategory == nil ? .mainCategory : .selected
       reloadData()
     }
   }
 
+  override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    super.init(frame: frame, collectionViewLayout: layout)
+  }
+
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+
+  convenience init(frame: CGRect) {
+    let layout = UICollectionViewFlowLayout()
+    layout.itemSize = CGSize(width: 60, height: 76)
+    layout.minimumInteritemSpacing = 8
+    layout.minimumLineSpacing = 8
+    layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+
+    self.init(frame: frame, collectionViewLayout: layout)
+  }
+
+
   // MARK: Functions
   func setUp(index: Int, type: CategoryType, isMainOnly: Bool = false) {
-
     userViewModel.user.bind { [weak self] user in
       guard let user = user,
             let index = self?.index,
@@ -85,7 +117,7 @@ class CategoryCollectionView: UICollectionView {
     dataSource = self
     backgroundColor = .background
 
-    lk_registerCellWithNib(
+    registerCellWithNib(
       identifier: String(describing: CategoryCollectionCell.self),
       bundle: nil)
 
@@ -96,15 +128,14 @@ class CategoryCollectionView: UICollectionView {
 
   func selectAt(main: Category, sub: Category) {
     status = .selected
-    selectedIndex = mainCategories.firstIndex(where: { $0.id == main.id })
-    selectedCategories = onSelectedSubCategory?(sub) ?? [sub]
+    selectedIndex = mainCategories.firstIndex { $0.id == main.id }
+    selectedCategory = sub
+    selectionDelegate?.didSelectedCategory(category: sub)
   }
 }
 
 extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
-
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
     switch status {
     case .mainCategory:
       return mainCategories.count + 1
@@ -112,55 +143,47 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
       guard let index = selectedIndex else { return 0 }
       return subCategories[index].count + 2
     case .selected:
-      return selectedCategories.count
+      return 1
     }
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = dequeueReusableCell(
+            cell: CategoryCollectionCell.self, indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return CategoryCollectionCell()
+    }
 
-    let cell = dequeueReusableCell(
-      withReuseIdentifier: String(describing: CategoryCollectionCell.self),
-      for: indexPath)
-
-    if let cell = cell as? CategoryCollectionCell {
-
-
-      switch status {
-      case .mainCategory:
-        if indexPath.row == mainCategories.count {
-          cell.defaultType = .add
-          return cell
-        } else {
-          cell.category = mainCategories[indexPath.row]
-        }
-      case .subCategory:
-        if indexPath.row == 0 {
-          cell.defaultType = .back
-        } else if indexPath.row == subCategories[selectedIndex!].count + 1 {
-          cell.defaultType = .add
-        } else {
-          cell.category = subCategories[selectedIndex!][indexPath.row - 1]
-        }
-      case .selected:
-        cell.category = selectedCategories[indexPath.row]
-//        if indexPath.row == selectedCategories.count {
-//          cell.defaultType = .add
-//        } else {
-//          cell.category = selectedCategories[indexPath.row]
-//        }
+    switch status {
+    case .mainCategory:
+      if indexPath.row == mainCategories.count {
+        cell.defaultType = .add
+        return cell
+      } else {
+        cell.category = mainCategories[indexPath.row]
       }
+    case .subCategory:
+      guard let selectedIndex = selectedIndex else { return cell }
+      if indexPath.row == 0 {
+        cell.defaultType = .back
+      } else if indexPath.row == subCategories[selectedIndex].count + 1 {
+        cell.defaultType = .add
+      } else {
+        cell.category = subCategories[selectedIndex][indexPath.row - 1]
+      }
+    case .selected:
+      cell.category = selectedCategory
     }
     return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     switch status {
-
     case .mainCategory:  // 主分類頁，最後按鈕為新增主 分類，點其他進入子分類
       if indexPath.row < mainCategories.count {
         if isMainOnly || !mainCategories[indexPath.row].isSubEnable {
-          selectedCategories = onSelectedSubCategory?(mainCategories[indexPath.row]) ?? []
+          selectedCategory = mainCategories[indexPath.row]
+          selectionDelegate?.didSelectedCategory(category: mainCategories[indexPath.row])
         } else {
           selectedIndex = indexPath.row
           selectedID = mainCategories[indexPath.row
@@ -169,9 +192,13 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         }
       } else {
         // 新增選項
-        guard let superIndex = mainCategories.first?.superIndex,
+        guard let mainCategory = mainCategories.first,
               let type = type else { return }
-        onAddCategory?(type, .main, superIndex)
+        selectionDelegate?.addCategory(
+          type: type,
+          hierarchy: .main,
+          superIndex: mainCategory.superIndex,
+          categoryColor: mainCategory.getColor())
         break
       }
     case .subCategory:  // 子分類頁，第一個按鈕為返回
@@ -184,20 +211,18 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
         // 新增選項
         guard let type = type,
               let id = selectedID else { return }
-        onAddCategory?(type, .sub, id)
+        selectionDelegate?.addCategory(
+          type: type,
+          hierarchy: .sub,
+          superIndex: id,
+          categoryColor: mainCategories[selectedMainIndex].getColor())
       } else {
-        selectedCategories = onSelectedSubCategory?(subCategories[selectedMainIndex][indexPath.row - 1]) ?? []
+        selectedCategory = subCategories[selectedMainIndex][indexPath.row - 1]
+        selectionDelegate?.didSelectedCategory(category: subCategories[selectedMainIndex][indexPath.row - 1])
       }
     case .selected:
-      if indexPath.row == selectedCategories.count {
-        // 新增項目
-        onContinueEdit?(-1)
-        status = .mainCategory
-      } else {
-        // 修改
-        onContinueEdit?(indexPath.row)
-        status = .mainCategory
-      }
+      status = .mainCategory
+      selectionDelegate?.didStartEdit(pageIndex: indexPath.row)
     }
   }
 
@@ -205,7 +230,7 @@ extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDe
     cell.alpha = 0
     layoutIfNeeded()
 
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0.2, options: .curveLinear) {
+    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear) {
       cell.alpha = 1
       self.layoutIfNeeded()
     }

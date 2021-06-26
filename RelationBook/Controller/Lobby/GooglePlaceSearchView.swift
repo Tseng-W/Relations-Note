@@ -9,8 +9,8 @@ import UIKit
 import GooglePlaces
 
 class GooglePlaceSearchView: UIViewController {
-
   override func viewDidLoad() {
+    super.viewDidLoad()
     makeButton()
   }
 
@@ -20,7 +20,7 @@ class GooglePlaceSearchView: UIViewController {
     autocompleteController.delegate = self
 
     // Specify the place data types to return.
-    let fields: GMSPlaceField = GMSPlaceField(
+    let fields = GMSPlaceField(
       rawValue: UInt(GMSPlaceField.name.rawValue) |
         UInt(GMSPlaceField.placeID.rawValue))
     autocompleteController.placeFields = fields
@@ -42,16 +42,11 @@ class GooglePlaceSearchView: UIViewController {
     btnLaunchAc.addTarget(self, action: #selector(autocompleteClicked), for: .touchUpInside)
     self.view.addSubview(btnLaunchAc)
   }
-
 }
 
 extension GooglePlaceSearchView: GMSAutocompleteViewControllerDelegate {
-
   // Handle the user's selection.
   func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-    print("Place name: \(place.name)")
-    print("Place ID: \(place.placeID)")
-    print("Place attributions: \(place.attributions)")
     dismiss(animated: true, completion: nil)
   }
 
@@ -64,14 +59,4 @@ extension GooglePlaceSearchView: GMSAutocompleteViewControllerDelegate {
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     dismiss(animated: true, completion: nil)
   }
-
-  // Turn the network activity indicator on and off again.
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-  }
-
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-  }
-
 }

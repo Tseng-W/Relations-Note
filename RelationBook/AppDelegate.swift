@@ -17,13 +17,11 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
   static let shared = UIApplication.shared.delegate as! AppDelegate
 
   var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
     FirebaseApp.configure()
     GMSServices.provideAPIKey(Bundle.valueForString(key: "Google map api key"))
     GMSPlacesClient.provideAPIKey(Bundle.valueForString(key: "Google map api key"))
@@ -32,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     UITabBar.appearance().tintColor = .button
 
-    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.button]
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.button]
     UINavigationBar.appearance().barTintColor = .background
     UINavigationBar.appearance().tintColor = .button
     UINavigationBar.appearance().isTranslucent = false
@@ -41,13 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    registerForPushNotifications()
 
     if #available(iOS 10.0, *) {
-
       UNUserNotificationCenter.current().delegate = self
 
       let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
       UNUserNotificationCenter.current().requestAuthorization(
-        options: authOptions,
-        completionHandler: {_, _ in })
+        options: authOptions) { _, _ in }
     } else {
       let settings: UIUserNotificationSettings =
         UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -60,14 +56,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
-  
+
   // MARK: UISceneSession Lifecycle
-  
   @available(iOS 13.0, *)
   func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
     return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
   }
-  
+
   @available(iOS 13.0, *)
   func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
   }
@@ -87,11 +82,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // MARK: - Push notification
 
   func registerForPushNotifications() {
-
     UNUserNotificationCenter.current()
       .requestAuthorization(
         options: [.alert, .sound, .badge]) { [weak self] granted, _ in
-
         print("Permission granted: \(granted)")
 
         guard granted else { return }
@@ -101,7 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
     let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
     let token = tokenParts.joined()
 
@@ -114,21 +106,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   ) {
     print("Failed to register: \(error)")
   }
-  
+
   // MARK: - Core Data stack
-  
   lazy var persistentContainer: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "PersonBook")
-    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+    container.loadPersistentStores { _, error in
       if let error = error as NSError? {
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
-    })
+    }
     return container
   }()
-  
+
   // MARK: - Core Data Saving support
-  
   func saveContext () {
     let context = persistentContainer.viewContext
     if context.hasChanges {
@@ -144,10 +134,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
-
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-
-    let dataDict:[String: String] = ["token": fcmToken ]
+    let dataDict: [String: String] = ["token": fcmToken]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
 
     Messaging.messaging().token { token, error in
@@ -159,9 +147,11 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
     }
   }
 
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              willPresent notification: UNNotification,
-                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+  func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    willPresent notification: UNNotification,
+    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+  ) {
     let userInfo = notification.request.content.userInfo
 
     print(userInfo)
@@ -169,14 +159,15 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
     completionHandler([[.alert, .sound, .badge]])
   }
 
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              didReceive response: UNNotificationResponse,
-                              withCompletionHandler completionHandler: @escaping () -> Void) {
+  func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    didReceive response: UNNotificationResponse,
+    withCompletionHandler completionHandler: @escaping () -> Void
+  ) {
     let userInfo = response.notification.request.content.userInfo
 
     print(userInfo)
 
     completionHandler()
   }
-
 }

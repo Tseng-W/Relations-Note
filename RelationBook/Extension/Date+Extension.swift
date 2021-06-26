@@ -8,7 +8,6 @@
 import Foundation
 
 extension Date {
-
   enum OutputType {
     case day
     case time
@@ -20,23 +19,23 @@ extension Date {
   var tomorrow: Date { return Date().dayAfter }
 
   var dayBefore: Date {
-    return Calendar.current.date(byAdding: .day, value: -1, to: midnight)!
+    return Calendar.current.date(byAdding: .day, value: -1, to: midnight) ?? self
   }
 
   var dayAfter: Date {
-    return Calendar.current.date(byAdding: .day, value: 1, to: midnight)!
+    return Calendar.current.date(byAdding: .day, value: 1, to: midnight) ?? self
   }
 
   var midnight: Date {
-    return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
+    return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self
   }
 
   var month: Int {
-    return Calendar.current.component(.month,  from: self)
+    return Calendar.current.component(.month, from: self)
   }
 
   var day: Int {
-    return Calendar.current.component(.day,  from: self)
+    return Calendar.current.component(.day, from: self)
   }
 
   var week: Int {
@@ -52,13 +51,21 @@ extension Date {
   }
 
   var isWeekend: Bool {
-    return NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!.isDateInWeekend(self)
+    if let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) {
+      return calendar.isDateInWeekend(self)
+    }
+
+    return false
   }
 
   var isFirstDay: Bool {
     let calendar = Calendar(identifier: .gregorian)
     let components = calendar.dateComponents([.year, .month], from: self)
-    return self == calendar.date(from: components)!
+
+    if let firstDay = calendar.date(from: components) {
+      return self == firstDay
+    }
+    return false
   }
 
   init(milliseconds: Int64) {
@@ -66,20 +73,17 @@ extension Date {
   }
 
   static var dateFormatter: DateFormatter {
-
     let formatter = DateFormatter()
 
     formatter.dateFormat = "yyyy.MM.dd HH:mm"
 
     return formatter
-
   }
 
   func getDayString(type: OutputType) -> String {
     let dateFormatter = DateFormatter()
 
     dateFormatter.locale = Locale(identifier: "zh_Hant_TW")
-    
 
     switch type {
     case .day:

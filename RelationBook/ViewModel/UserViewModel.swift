@@ -8,7 +8,6 @@
 import UIKit
 
 enum CategoryType {
-
   case event
 
   case relation
@@ -24,27 +23,25 @@ enum CategoryHierarchy {
 }
 
 class UserViewModel {
-  
   var user: Box<User?> = Box(nil)
 
   func fetchUserDate() {
-
-    FirebaseManager.shared.fetchUser() { [weak self] user in
+    FirebaseManager.shared.fetchUser { [weak self] user in
       self?.user.value = user
     }
   }
 }
 
 extension UserViewModel {
-  static var moodData: [(title: String, imageName: String, colorString: String)] = [
-    ("憤怒", EmojiIcon.emojiAngry.rawValue, UIColor.systemRed.StringFromUIColor()),
-    ("傷心", EmojiIcon.emojiSad.rawValue, UIColor.systemBlue.StringFromUIColor()),
-    ("無言", EmojiIcon.emojiWaiting.rawValue, UIColor.systemPurple.StringFromUIColor()),
-    ("困惑", EmojiIcon.emojiConfused.rawValue, UIColor.systemTeal.StringFromUIColor()),
-    ("無聊", EmojiIcon.emojiSleeping.rawValue, UIColor.systemYellow.StringFromUIColor()),
-    ("快樂", EmojiIcon.emojiHappy.rawValue, UIColor.systemOrange.StringFromUIColor()),
-    ("興奮", EmojiIcon.emojiGrin.rawValue, UIColor.systemGreen.StringFromUIColor()),
-    ("期待", EmojiIcon.emojiWinking.rawValue, UIColor.systemIndigo.StringFromUIColor()),
-    ("著迷", EmojiIcon.emojiLove.rawValue, UIColor.systemPink.StringFromUIColor())
+  static var moodData: [(image: UIImage, colorString: String)] = [
+    (iconEmoji[0], UIColor.systemRed.stringFromUIColor()),
+    (iconEmoji[1], UIColor.systemBlue.stringFromUIColor()),
+    (iconEmoji[2], UIColor.systemPurple.stringFromUIColor()),
+    (iconEmoji[3], UIColor.systemTeal.stringFromUIColor()),
+    (iconEmoji[4], UIColor.systemYellow.stringFromUIColor()),
+    (iconEmoji[5], UIColor.systemOrange.stringFromUIColor()),
+    (iconEmoji[6], UIColor.systemGreen.stringFromUIColor()),
+    (iconEmoji[7], UIColor.systemIndigo.stringFromUIColor()),
+    (iconEmoji[8], UIColor.systemPink.stringFromUIColor())
   ]
 }

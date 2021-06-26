@@ -15,7 +15,6 @@ protocol EventDetailDelegate: AnyObject {
 }
 
 class EventDetailView: UIView, NibLoadable {
-
   let userViewModel = UserViewModel()
 
   @IBOutlet var eventImage: UIImageView!
@@ -30,10 +29,13 @@ class EventDetailView: UIView, NibLoadable {
   @IBOutlet var commentBackgroundView: UIView!
 
   weak var delegate: EventDetailDelegate?
+
   var onDismiss: (() -> Void)?
 
   var event: Event?
-  var relations = [Category]()
+  var relations: [Category] = []
+
+  var blueView: UIVisualEffectView?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -45,8 +47,24 @@ class EventDetailView: UIView, NibLoadable {
     customInit()
   }
 
-  func setUp(event: Event, relations: [Category]) {
+  func show(view: UIView) {
+    blueView = view.addBlurView()
+    view.addSubview(self)
 
+    addConstarint(
+      left: view.leftAnchor,
+      right: view.rightAnchor,
+      centerY: view.centerYAnchor,
+      paddingLeft: 16,
+      paddingRight: 16,
+      height: view.frame.height / 1.5)
+
+    cornerRadius = frame.width * 0.05
+
+    view.layoutIfNeeded()
+  }
+
+  func setUp(event: Event, relations: [Category]) {
     self.event = event
     self.relations = relations
 
@@ -68,7 +86,14 @@ class EventDetailView: UIView, NibLoadable {
     }
 
     let categoryBGColor = UIColor.UIColorFromString(string: event.category.backgroundColor)
-    categoryIconView.setIcon(isCropped: true, bgColor: categoryBGColor, borderWidth: 3, borderColor: .white, tintColor: .white, multiple: 0.5)
+    categoryIconView.setIcon(
+      isCropped: true,
+      bgColor: categoryBGColor,
+      borderWidth: 3,
+      borderColor: .white,
+      tintColor: .white,
+      multiple: 0.5
+    )
 
     // MARK: Relation data set
     let mainRelation = relations.first!
@@ -78,7 +103,13 @@ class EventDetailView: UIView, NibLoadable {
       self?.relationIconView.setIcon(isCropped: true, image: image)
     }
 
-    relationIconView.setIcon(isCropped: true, bgColor: mainRelation.getColor(), borderWidth: 2, borderColor: .white, tintColor: .white)
+    relationIconView.setIcon(
+      isCropped: true,
+      bgColor: mainRelation.getColor(),
+      borderWidth: 2,
+      borderColor: .white,
+      tintColor: .white
+    )
 
     relationName.text = mainRelation.title
     if let geoPoint = event.location {
@@ -88,7 +119,6 @@ class EventDetailView: UIView, NibLoadable {
       } else {
         locaionLabel.text = "\(geoPoint.longitude.rounded()), \(geoPoint.latitude.rounded())"
       }
-
     } else {
       locaionLabel.text = "-"
     }
@@ -97,33 +127,36 @@ class EventDetailView: UIView, NibLoadable {
 
     let moodData = UserViewModel.moodData[event.mood]
 
-    if let image = UIImage(named: moodData.imageName) {
-      moodImage.image = image
-      moodImage.backgroundColor = UIColor.UIColorFromString(string: moodData.colorString)
-    }
+    moodImage.image = moodData.image
+    moodImage.backgroundColor = UIColor.UIColorFromString(string: moodData.colorString)
 
     moodImage.isCornerd = true
 
     commentTextView.text = event.comment
-    
+
     if event.comment == .empty {
       commentBackgroundView.isHidden = true
     }
   }
 
   func backgroundSet(event: Event) {
-
     if let eventImageLink = event.imageLink {
       UIImage.loadImage(eventImageLink) { [weak self] image in
         self?.eventImage.image = image
       }
       categoryIconView.isHidden = true
-
     } else {
       eventImage.isHidden = true
       eventBackground.backgroundColor = event.getColor()
       event.category.getImage {  [weak self] image in
-        self?.categoryIconView.setIcon(isCropped: true, image: image, bgColor: event.getColor(), borderWidth: 4, borderColor: .white, multiple: 0.5)
+        self?.categoryIconView.setIcon(
+          isCropped: true,
+          image: image,
+          bgColor: event.getColor(),
+          borderWidth: 4,
+          borderColor: .white,
+          multiple: 0.5
+        )
       }
     }
   }
@@ -133,15 +166,18 @@ class EventDetailView: UIView, NibLoadable {
   }
 
   @IBAction func onTapDismiss(_ sender: UIButton) {
+    blueView?.removeFromSuperview()
     removeFromSuperview()
     onDismiss?()
   }
 
   @IBAction func onTapEdit(_ sender: UIButton) {
-    delegate?.eventDetalView(view: self, onEditEvent: event!)
+    guard let event = event else { return }
+    delegate?.eventDetalView(view: self, onEditEvent: event)
   }
 
   @IBAction func onTapDelete(_ sender: UIButton) {
-    delegate?.eventDetalView(view: self, onDeleteEvent: event!)
+    guard let event = event else { return }
+    delegate?.eventDetalView(view: self, onDeleteEvent: event)
   }
 }

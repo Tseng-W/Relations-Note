@@ -40,7 +40,6 @@ class AddFeatureTableCell: UITableViewCell {
       editButton.isUserInteractionEnabled = status != .trigger
 
       if status == .trigger {
-
         let switchView = UISwitch(frame: .zero)
 
         switchView.onTintColor = .button
@@ -75,7 +74,7 @@ class AddFeatureTableCell: UITableViewCell {
     titleLabel.text = title
     editButton.setTitle(subTitle, for: .normal)
   }
-  
+
   @objc func onSwitchTapped(_ sender: UISwitch) {
     window?.overrideUserInterfaceStyle = sender.isOn ? .dark : .light
 
@@ -88,6 +87,5 @@ class AddFeatureTableCell: UITableViewCell {
         "light",
         forKey: UserDefaults.Keys.style.rawValue)
     }
-
   }
 }

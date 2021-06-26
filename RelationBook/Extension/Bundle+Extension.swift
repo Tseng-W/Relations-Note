@@ -10,6 +10,8 @@ import UIKit
 extension Bundle {
 
   static func valueForString(key: String) -> String {
-    return Bundle.main.infoDictionary![key] as! String
+    guard let dict = Bundle.main.infoDictionary,
+          let value = dict[key] as? String else { return .empty }
+    return value
   }
 }

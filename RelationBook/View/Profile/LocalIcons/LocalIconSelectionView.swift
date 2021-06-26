@@ -13,12 +13,10 @@ protocol LocalIconSelectionDelegate: AnyObject {
 }
 
 extension LocalIconSelectionDelegate {
-
   func selectionView(selectionView: LocalIconSelectionView, didSelected image: UIImage, named: String) {}
 }
 
 class LocalIconSelectionView: UIViewController {
-
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
@@ -28,7 +26,6 @@ class LocalIconSelectionView: UIViewController {
   }
 
   convenience init(type: CategoryType, hierachy: CategoryHierarchy? = nil) {
-
     self.init(nibName: nil, bundle: nil)
 
     iconViewModel = IconViewModel(type: type, hierachy: hierachy)
@@ -45,7 +42,6 @@ class LocalIconSelectionView: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     view.backgroundColor = .background
@@ -54,55 +50,45 @@ class LocalIconSelectionView: UIViewController {
     collectionView.dataSource = self
 
     view.addSubview(collectionView)
-    collectionView.addConstarint(
-      top: view.topAnchor, left: view.leftAnchor,
-      bottom: view.bottomAnchor, right: view.rightAnchor)
+    collectionView.addConstarint(fill: view)
   }
 }
 
 extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewDataSource {
-
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-
     guard let iconViewModel = iconViewModel else { return 0 }
 
     return iconViewModel.iconSets.count
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
     guard let iconViewModel = iconViewModel else { return 0 }
 
     return iconViewModel.iconSets[section].images.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(cell: LocalIconSelectionViewCell.self, indexPath: indexPath),
+          let iconViewModel = iconViewModel else {
+      String.trackFailure("dequeueReusableCell failures")
+      return LocalIconSelectionViewCell()
+    }
 
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self), for: indexPath)
-
-    guard let iconViewModel = iconViewModel else { return  cell }
-
-    if let cell = cell as? LocalIconSelectionViewCell {
-
-      if var image = iconViewModel.searchIconImage(
-          set: indexPath.section,
-          index: indexPath.row) {
-
-        if indexPath.section == 0 {
-          image = image.withTintColor(.label)
-        }
-
-        cell.setImage(image: image)
+    if var image = iconViewModel.searchIconImage(
+        set: indexPath.section,
+        index: indexPath.row) {
+      if indexPath.section == 0 {
+        image = image.withTintColor(.label)
       }
+
+      cell.setImage(image: image)
     }
 
     return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
     switch kind {
-
     case UICollectionView.elementKindSectionHeader:
 
       let header = collectionView.dequeueReusableSupplementaryView(
@@ -110,7 +96,9 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
         withReuseIdentifier: String(describing: LocalIconSelectionViewHeader.self),
         for: indexPath)
 
-      header.subviews.first!.backgroundColor = .background
+      if let headerSuperView = header.subviews.first {
+        headerSuperView.backgroundColor = .background
+      }
 
       if let header = header as? LocalIconSelectionViewHeader,
          let iconViewModel = iconViewModel {
@@ -127,7 +115,6 @@ extension LocalIconSelectionView: UICollectionViewDelegate, UICollectionViewData
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     let iconImage = iconViewModel?.searchIconImage(indexPath: indexPath)
 
     guard let image = iconImage else { return }

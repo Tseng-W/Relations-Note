@@ -12,19 +12,17 @@ import FirebaseStorageSwift
 import FirebaseFirestoreSwift
 
 class FirebaseManager {
-
   static let shared = FirebaseManager()
 
-  var userShared: User? = nil
-  var relations = [Relation]()
-  var events = [Event]()
+  var userShared: User?
+  var relations: [Relation] = []
+  var events: [Event] = []
 
-  let db = Firestore.firestore()
+  let dataBase = Firestore.firestore()
 
   // MARK: - Fetch
 
   func fetchUser(completion: @escaping (User) -> Void) {
-
     guard let uid = UserDefaults.standard.getString(key: .uid) else {
       print("Can't get firebase uid.")
       return
@@ -35,8 +33,9 @@ class FirebaseManager {
       case .success(let user):
         guard let user = user else {
           let email = UserDefaults.standard.getString(key: .email) ?? ""
-          let newUser = User(uid: uid,
-                             email: email)
+          let newUser = User(
+            uid: uid,
+            email: email)
           self.addUser(user: newUser)
           return
         }
@@ -49,17 +48,16 @@ class FirebaseManager {
   }
 
   func fetchRelations(uid: String, index: Int? = nil, completion: @escaping (([Relation]) -> Void)) {
+    var docRef = dataBase.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
 
-    let docRef = index == nil ?
-      db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid) :
-      db.collection(Collections.relation.rawValue).whereField("owner", isEqualTo: uid)
-      .whereField("categoryIndex", isEqualTo: index!)
+    if let index = index {
+      docRef = docRef.whereField("categoryIndex", isEqualTo: index)
+    }
 
     docRef.addSnapshotListener { snapShot, error in
-
       if let error = error { print(error) }
 
-      snapShot?.documentChanges.forEach({ diff in
+      snapShot?.documentChanges.forEach { diff in
         guard let relation = try? diff.document.data(as: Relation.self) else { return }
 
         switch diff.type {
@@ -74,46 +72,43 @@ class FirebaseManager {
         case.removed:
           self.relations.removeAll(where: { $0.id == relation.id })
         }
-      })
+      }
 
       completion(self.relations)
     }
   }
 
   func fetchEvents(uid: String, completion: @escaping (([Event]) -> Void)) {
-
-    let docRef = db.collection(Collections.event.rawValue).whereField("owner", in: [uid])
+    let docRef = dataBase.collection(Collections.event.rawValue).whereField("owner", in: [uid])
 
     docRef.addSnapshotListener { snapShot, error in
-
       if let error = error { print(error) }
 
-      snapShot?.documentChanges.forEach({ diff in
+      snapShot?.documentChanges.forEach { diff in
         guard let event = try? diff.document.data(as: Event.self) else { return }
 
         switch diff.type {
         case .added:
-          if !self.events.contains(where: { $0.docID == event.docID }) {
+          if !self.events.contains(where: { $0.docId == event.docId }) {
             self.events.append(event)
           }
         case.modified:
-          if let index = self.events.firstIndex(where: { $0.docID == event.docID }) {
+          if let index = self.events.firstIndex(where: { $0.docId == event.docId }) {
             self.events[index] = event
           }
         case.removed:
-          self.events.removeAll(where: { $0.docID == event.docID })
+          self.events.removeAll(where: { $0.docId == event.docId })
         }
-      })
+      }
 
       completion(self.events)
     }
   }
 
   func fetchUser(uid: String, completion: @escaping (Result<User?, Error>) -> Void) {
+    let docRef = dataBase.collection(Collections.user.rawValue).document(uid)
 
-    let docRef = db.collection(Collections.user.rawValue).document(uid)
-
-    docRef.addSnapshotListener { document, error in
+    docRef.addSnapshotListener { document, _ in
       if let document = document, document.exists {
         let user = try? document.data(as: User.self)
         completion(.success(user))
@@ -126,7 +121,9 @@ class FirebaseManager {
   // MARK: - Add
 
   func addUser(user: User) {
-    let document = db.collection(Collections.user.rawValue).document(user.uid!)
+    guard let uid = user.uid else { return }
+
+    let document = dataBase.collection(Collections.user.rawValue).document(uid)
     try? document.setData(from: user) { error in
       if let error = error {
         print("Set data error \(error.localizedDescription)")
@@ -134,9 +131,14 @@ class FirebaseManager {
     }
   }
 
-  func addUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
-
-    guard let user = userShared else { return }
+  func addUserCategory(
+    type: CategoryType,
+    hierarchy: CategoryHierarchy,
+    category: inout Category ,
+    completion: @escaping ((Error?) -> Void) = { _ in }
+  ) {
+    guard let user = userShared,
+          let uid = user.uid else { return }
 
     let categories = type == .event ? user.eventSet :
       type == .feature ? user.featureSet : user.relationSet
@@ -152,13 +154,13 @@ class FirebaseManager {
       categories.sub.append(category)
     }
 
-    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
-      if let error = error { completion(error); return}
+    updateUser(uid: uid, dict: [categories.type.rawValue: categories.toDict()]) { error in
+      if let error = error { completion(error); return }
     }
   }
 
-  func addRelation(userID: String, data: Relation, completion: @escaping ((String)->Void) = { _ in }) {
-    let docRef = try? db.collection(Collections.relation.rawValue).addDocument(from: data) { error in
+  func addRelation(userID: String, data: Relation, completion: @escaping ((String) -> Void) = { _ in }) {
+    let docRef = try? dataBase.collection(Collections.relation.rawValue).addDocument(from: data) { error in
       if let error = error {
         print("addRelation error: \(error.localizedDescription)")
       }
@@ -168,10 +170,13 @@ class FirebaseManager {
     completion(docID.documentID)
   }
 
-  func addEvent(data: Event, completion: @escaping (Result<String, Error>) -> Void = {_ in }) {
-    let newEvent = try? db.collection(Collections.event.rawValue).addDocument(from: data) { error in
+  func addEvent(data: Event, completion: @escaping (Result<String, Error>) -> Void = { _ in }) {
+    let newEvent = try? dataBase.collection(Collections.event.rawValue).addDocument(from: data) { error in
       if let error = error { completion(.failure(error)) }
     }
+
+//    guard let newEvent = newEvent else { return }
+
     completion(.success(newEvent!.documentID))
   }
 
@@ -179,8 +184,7 @@ class FirebaseManager {
 
   func updateRelation(relation: Relation, completion: @escaping () -> Void) {
     if let docID = relation.id {
-
-      let doc = db.collection(Collections.relation.rawValue)
+      let doc = dataBase.collection(Collections.relation.rawValue)
         .document(docID)
 
       doc.updateData(relation.toDict())
@@ -188,18 +192,22 @@ class FirebaseManager {
   }
 
   func updateEvent(event: Event, completion: @escaping () -> Void = {}) {
-    if let docID = event.docID {
-
-      let doc = db.collection(Collections.event.rawValue)
+    if let docID = event.docId {
+      let doc = dataBase.collection(Collections.event.rawValue)
         .document(docID)
 
       doc.updateData(event.toDict())
     }
   }
 
-  func updateUserCategory(type: CategoryType, hierarchy: CategoryHierarchy, category: inout Category ,completion: @escaping ((Error?)->Void) = {_ in}) {
-
-    guard let user = userShared else { return }
+  func updateUserCategory(
+    type: CategoryType,
+    hierarchy: CategoryHierarchy,
+    category: inout Category ,
+    completion: @escaping ((Error?) -> Void) = { _ in }
+  ) {
+    guard let user = userShared,
+          let uid = user.uid else { return }
 
     let categories = type == .event ? user.eventSet :
       type == .feature ? user.featureSet : user.relationSet
@@ -213,25 +221,23 @@ class FirebaseManager {
       categories.sub.insert(category, at: category.id)
     }
 
-    updateUser(uid: user.uid!, dict: [categories.type.rawValue : categories.toDict()]) { error in
-      if let error = error { completion(error); return}
+    updateUser(uid: uid, dict: [categories.type.rawValue: categories.toDict()]) { error in
+      if let error = error { completion(error); return }
     }
   }
 
   func updateUser(uid: String, dict: [String: Any], completion: @escaping (Error?) -> Void) {
-
-    let userDoc = db.collection(Collections.user.rawValue).document(uid)
+    let userDoc = dataBase.collection(Collections.user.rawValue).document(uid)
     userDoc.updateData(dict) { error in
       if let error = error { completion(error) ; return }
       completion(nil)
     }
   }
 
-  func updateRelation(categoryIndex index: Int, dict: [String: Any], completion: @escaping () -> Void = { } ) {
-
+  func updateRelation(categoryIndex index: Int, dict: [String: Any], completion: @escaping () -> Void = {}) {
     guard let userID = UserDefaults.standard.getString(key: .uid) else { return }
 
-    db.collection(Collections.relation.rawValue)
+    dataBase.collection(Collections.relation.rawValue)
       .whereField("owner", isEqualTo: userID)
       .whereField("categoryIndex", isEqualTo: index)
       .getDocuments { [weak self] snapshot, error in
@@ -240,8 +246,10 @@ class FirebaseManager {
           completion()
         }
 
-        for documenet in snapshot!.documents {
-          self?.db.collection(Collections.relation.rawValue)
+        guard let snapshot = snapshot else { return }
+
+        for documenet in snapshot.documents {
+          self?.dataBase.collection(Collections.relation.rawValue)
             .document(documenet.documentID)
             .updateData(dict) { error in
               if let error = error {
@@ -255,8 +263,8 @@ class FirebaseManager {
   }
 
   func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
-
     let fileRef = Storage.storage().reference().child(UUID().uuidString + ".jpg")
+
     if let data = image.jpegData(compressionQuality: 0.9) {
       fileRef.putData(data) { result in
         switch result {
@@ -278,13 +286,12 @@ class FirebaseManager {
 
   // MARK: - Delete
 
-  func deleteEvent(event: Event, completion: @escaping (Bool) -> Void = { _ in}) {
-
-    if let docID = event.docID {
-      let docRef = db.collection(Collections.event.rawValue)
+  func deleteEvent(event: Event, completion: @escaping (Bool) -> Void = { _ in }) {
+    if let docID = event.docId {
+      let docRef = dataBase.collection(Collections.event.rawValue)
         .document(docID)
 
-      docRef.delete() { error in
+      docRef.delete { error in
         if let error = error {
           print(error.localizedDescription)
           completion(false)
@@ -293,6 +300,5 @@ class FirebaseManager {
         }
       }
     }
-
   }
 }

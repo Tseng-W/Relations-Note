@@ -12,17 +12,16 @@ import FSCalendar
 
 
 class LobbyViewController: UIViewController {
-
   let userViewModel = UserViewModel()
   let relationViewModel = RelationViewModel()
   let eventViewModel = EventViewModel()
   let lottieView = LottieWrapper()
 
-  var popViews = [UIView]()
+  var popViews: [UIView] = []
 
   var editingEvent: Event?
-  
-  fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
+
+  lazy var scopeGesture: UIPanGestureRecognizer = {
     [unowned self] in
     let panGesture = UIPanGestureRecognizer(
       target: calendar,
@@ -33,7 +32,7 @@ class LobbyViewController: UIViewController {
     panGesture.maximumNumberOfTouches = 2
     return panGesture
   }()
-  
+
   @IBOutlet var calendar: FSCalendar! {
     didSet {
       calendar.delegate = self
@@ -41,43 +40,44 @@ class LobbyViewController: UIViewController {
       calendar.locale = Locale.init(identifier: "zh-tw")
     }
   }
-  
+
   @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
-  
+
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.delegate = self
       tableView.dataSource = self
-      tableView.lk_registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
+      tableView.registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 60
     }
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
     if let addEventView = segue.destination as? AddEventViewController {
-      addEventView.editingEvent = editingEvent
+      if let event = editingEvent {
+        addEventView.event = event
+        addEventView.isEditingEvent = true
+      }
     }
 
     editingEvent = nil
 
     lottieView.dismiss()
   }
-  
+
   override func viewDidLoad() {
-    
     super.viewDidLoad()
-    
+
     calendar.select(Date())
 
     tableView.separatorColor = .clear
 
     navigationItem.title = Date().getDayString(type: .day)
 
-    userViewModel.user.bind { value in
+    userViewModel.user.bind { user in
+      guard user != nil else { return }
 
-      guard let _ = value else { return }
       self.eventViewModel.fetchEvents()
       self.relationViewModel.fetchRelations()
       self.tableView.reloadData()
@@ -86,16 +86,14 @@ class LobbyViewController: UIViewController {
       self.lottieView.leave()
     }
 
-    eventViewModel.events.bind { events in
-
+    eventViewModel.events.bind { _ in
       self.tableView.reloadData()
       self.calendar.reloadData()
 
       self.lottieView.leave()
     }
 
-    relationViewModel.relations.bind { relations in
-
+    relationViewModel.relations.bind { _ in
       self.tableView.reloadData()
       self.calendar.reloadData()
 
@@ -110,27 +108,27 @@ class LobbyViewController: UIViewController {
   }
 
   override func viewWillDisappear(_ animated: Bool) {
-
     super.viewWillDisappear(true)
 
     popViews.forEach { $0.removeFromSuperview() }
   }
 
   @IBAction func logout(_ sender: UIBarButtonItem) {
-//    try? Auth.auth().signOut()
+    try? Auth.auth().signOut()
   }
 }
 
 // MARK: - calendar delegate / datasource
-extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance, UIGestureRecognizerDelegate {
-
+extension LobbyViewController: FSCalendarDelegate,
+                               FSCalendarDataSource,
+                               FSCalendarDelegateAppearance,
+                               UIGestureRecognizerDelegate {
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     navigationItem.title = date.getDayString(type: .day)
     tableView.reloadData()
   }
 
   func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-    
     calendarHeightConstraint.constant = bounds.height
     view.layoutIfNeeded()
   }
@@ -138,11 +136,10 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
   //  func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
   // MARK: 每月第一週置頂
   //  }
-  
-  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     let shouldBegin = tableView.contentOffset.y <= -tableView.contentInset.top
-    
+
     if shouldBegin {
       let velocity = scopeGesture.velocity(in: view)
       switch calendar.scope {
@@ -158,20 +155,19 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
   }
 
   func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-
     let events = eventViewModel.events.value
     let todayEvents = events.filter { event in
       date.isSameDay(date: event.time.dateValue())
     }
 
     if date.week == 1 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .redB1 : .redB2
+      return !todayEvents.isEmpty ? .redB1 : .redB2
     } else if date.week == 7 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .greenB1 : .greenB2
+      return !todayEvents.isEmpty ? .greenB1 : .greenB2
     } else if date.isSameDay(date: Date()) {
-      return todayEvents.count > 0 ? .systemBackground : .secondaryBackground
+      return !todayEvents.isEmpty ? .systemBackground : .secondaryBackground
     } else {
-      return todayEvents.count > 0 ? .button : . buttonDisable
+      return !todayEvents.isEmpty ? .button : . buttonDisable
     }
   }
 
@@ -189,13 +185,13 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
     }
 
     if date.week == 1 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .redB1 : .redB2
+      return !todayEvents.isEmpty ? .redB1 : .redB2
     } else if date.week == 7 && date.month == calendar.currentPage.month {
-      return todayEvents.count > 0 ? .greenB1 : .greenB2
+      return !todayEvents.isEmpty ? .greenB1 : .greenB2
     } else if date.isSameDay(date: Date()) {
       return .systemGray6
     } else {
-      return todayEvents.count > 0 ? .button : .buttonDisable
+      return !todayEvents.isEmpty ? .button : .buttonDisable
     }
   }
 
@@ -210,21 +206,17 @@ extension LobbyViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalen
 
 // MARK: - tableView delegate / datasource
 extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
-
     guard let selectedDate = calendar.selectedDate else { return 0 }
 
     return eventViewModel.fetchEventIn(date: selectedDate).count
   }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
     let header = UIView()
 
     header.backgroundColor = .clear
@@ -235,20 +227,22 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 10
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LobbyEventCell.self), for: indexPath)
-
-    guard let selectedDate = calendar.selectedDate,
-          let user = userViewModel.user.value else { return cell }
-
-    if let cell = cell as? LobbyEventCell {
-
-      let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
-
-      cell.cellSetup(type: .lobby, event: event, relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
+    guard let cell = tableView.dequeueReusableCell(cell: LobbyEventCell.self, indexPath: indexPath),
+          let selectedDate = calendar.selectedDate,
+          let user = userViewModel.user.value else {
+      String.trackFailure("dequeueReusableCell failures")
+      return LobbyEventCell()
     }
+
+    let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
+
+    cell.cellSetup(
+      type: .lobby,
+      event: event,
+      relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
+
 
     cell.updateConstraintsIfNeeded()
 
@@ -260,36 +254,16 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    guard let user = userViewModel.user.value,
+    guard userViewModel.user.value != nil,
           let cell = tableView.cellForRow(at: indexPath) as? LobbyEventCell else { return }
-
     cell.isSelected = false
 
     guard let event = cell.event else { return }
 
-    let relations = cell.relations
-
     let detailVC = EventDetailView()
     detailVC.delegate = self
-
-    let blurView = view.addBlurView()
-
-    view.addSubview(detailVC)
-
-    detailVC.addConstarint(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, paddingLeft: 16, paddingRight: 16, height: view.frame.height / 1.5)
-    detailVC.cornerRadius = detailVC.frame.width * 0.05
-
-    view.layoutIfNeeded()
-
-    detailVC.setUp(event: event, relations: relations)
-
-    detailVC.onDismiss = {
-      blurView.removeFromSuperview()
-    }
-
-    popViews.append(detailVC)
-    popViews.append(blurView)
+    detailVC.show(view: self.view)
+    detailVC.setUp(event: event, relations: cell.relations)
   }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -299,16 +273,13 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - custom tab bar delegate
 extension LobbyViewController: TabBarTapDelegate {
-
   func tabBarTapped(_ controller: PBTabBarViewController, index: Int) {
-
     LKProgressHUD.show()
     performSegue(withIdentifier: "addEvent", sender: self)
   }
 }
 
 extension LobbyViewController: EventDetailDelegate {
-
   func eventDetalView(view: EventDetailView, onEditEvent event: Event) {
     editingEvent = event
 
@@ -316,10 +287,9 @@ extension LobbyViewController: EventDetailDelegate {
   }
 
   func eventDetalView(view: EventDetailView, onDeleteEvent event: Event) {
-
     let provider = SCLAlertViewProvider()
 
-    provider.setConfirmAction {self.eventViewModel.deleteEvent(event: event)}
+    provider.setConfirmAction { self.eventViewModel.deleteEvent(event: event) }
       .showAlert(type: .delete)
   }
 }

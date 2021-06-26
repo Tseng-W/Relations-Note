@@ -11,7 +11,7 @@ class Box<T> {
 
   typealias Listener = (T) -> Void
 
-  var listeners = [Listener?]()
+  var listeners: [Listener?] = []
 
   init(_ value: T) {
     self.value = value

@@ -10,7 +10,7 @@ import UIKit
 @IBDesignable
 class IconSelectView: UIView, NibLoadable {
 
-  @IBOutlet var iconView: IconView!  {
+  @IBOutlet var iconView: IconView! {
     didSet {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped(tapGesture:)))
       tapGesture.numberOfTapsRequired = 1
@@ -88,14 +88,15 @@ class IconSelectView: UIView, NibLoadable {
     loadNibContent()
   }
 
-  func setUp(isCropped: Bool? = false,
-             text: String? = nil,
-             image: UIImage? = UIImage.assetSystem(SysetmAsset.camera),
-             backgroundColor: UIColor? = .button,
-             borderWidth: CGFloat = 0,
-             borderColor: UIColor? = nil,
-             tintColor: UIColor? = .background) {
-
+  func setUp(
+    isCropped: Bool? = false,
+    text: String? = nil,
+    image: UIImage? = UIImage.assetSystem(SysetmAsset.camera),
+    backgroundColor: UIColor? = .button,
+    borderWidth: CGFloat = 0,
+    borderColor: UIColor? = nil,
+    tintColor: UIColor? = .background
+  ) {
     if let text = text {
       textField.text = text
     }
@@ -106,7 +107,7 @@ class IconSelectView: UIView, NibLoadable {
 
     layoutIfNeeded()
     iconView.setIcon(
-      isCropped: isCropped!,
+      isCropped: isCropped ?? false,
       image: image,
       bgColor: backgroundColor,
       borderWidth: borderWidth,
@@ -114,8 +115,8 @@ class IconSelectView: UIView, NibLoadable {
       tintColor: tintColor)
   }
 
-  func initial(placeholder: String) {
-    setUp(isCropped: false, text: placeholder)
+  func initial(placeholder: String, backgroundColor: UIColor?) {
+    setUp(isCropped: false, text: placeholder, backgroundColor: backgroundColor)
   }
 
   @objc func iconTapped(tapGesture: UITapGestureRecognizer) {
@@ -124,9 +125,7 @@ class IconSelectView: UIView, NibLoadable {
 }
 
 extension IconSelectView: UITextFieldDelegate {
-
   func textFieldDidEndEditing(_ textField: UITextField) {
-
     guard let text = textField.text,
           text != String.empty else { return }
 

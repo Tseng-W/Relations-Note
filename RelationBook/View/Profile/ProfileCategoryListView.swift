@@ -34,11 +34,11 @@ class ProfileCategoryListView: UIViewController {
       scrollView.showsVerticalScrollIndicator = false
       scrollView.showsHorizontalScrollIndicator = false
 
-      scrollView.delegate = self
+      scrollView.delegate = selectionView
     }
   }
 
-  var categories = [Category]() {
+  var categories: [Category] = [] {
     didSet {
       scrollView.subviews.forEach { view in
         if let view = view as? UITableView {
@@ -49,19 +49,18 @@ class ProfileCategoryListView: UIViewController {
   }
 
   override func viewDidLoad() {
-
     super.viewDidLoad()
 
     guard type != nil else { navigationController?.popViewController(animated: false); return }
 
     setCategoryStyleView.delegate = self
+    selectionView.matchedScrollView = scrollView
 
     userViewModel.user.bind { [weak self] user in
-
       guard let user = user,
             let type = self?.type else { return }
 
-      if self?.scrollView.subviews.count == 0 {
+      if self?.scrollView.subviews.isEmpty ?? false {
         self?.scrollViewInitial()
       }
 
@@ -70,16 +69,14 @@ class ProfileCategoryListView: UIViewController {
       self?.selectionView.reloadDate()
     }
 
-    eventViewModel.events.bind { [weak self] event in
-//      self?.selectionView.reloadDate()
+    eventViewModel.events.bind { [weak self] _ in
       self?.scrollView.subviews.forEach { view in
         guard let view = view as? UITableView else { return }
         view.reloadData()
       }
     }
 
-    relationViewModel.relations.bind { [weak self] relation in
-//      self?.selectionView.reloadDate()
+    relationViewModel.relations.bind { [weak self] _ in
       self?.scrollView.subviews.forEach { view in
         guard let view = view as? UITableView else { return }
         view.reloadData()
@@ -92,7 +89,6 @@ class ProfileCategoryListView: UIViewController {
   }
 
   private func scrollViewInitial() {
-
     guard let user = userViewModel.user.value,
           let type = type else { return }
 
@@ -105,14 +101,13 @@ class ProfileCategoryListView: UIViewController {
     pageCount = user.getFilter(type: type).count
 
     for index in 0..<pageCount {
-
       let tableView = UITableView()
       tableView.delegate = self
       tableView.dataSource = self
       tableView.tag = index
       tableView.separatorColor = .clear
       tableView.backgroundColor = .background
-      tableView.lk_registerCellWithNib(
+      tableView.registerCellWithNib(
         identifier: String(describing: ProfileCategoryTableCell.self),
         bundle: nil)
 
@@ -137,25 +132,14 @@ class ProfileCategoryListView: UIViewController {
 
 // MARK: - Selection View Delegate
 extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasource, UIScrollViewDelegate {
-
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
     if scrollView != self.scrollView { return }
 
     let paging = scrollView.contentOffset.x / scrollView.frame.width
 
     selectionView.moveIndicatorToIndex(index: Int(paging))
   }
-
-  func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-      self.scrollView.contentOffset = CGPoint(x: self.scrollView.frame.width * CGFloat(index), y: 0)
-      self.view.layoutIfNeeded()
-    }
-  }
-
   func numberOfButton(_ selectionView: SelectionView) -> Int {
-
     guard let user = userViewModel.user.value else { return 0 }
 
     switch type {
@@ -171,7 +155,6 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
   }
 
   func selectionView(_ selectionView: SelectionView, titleForButtonAt index: Int) -> String {
-
     guard let user = userViewModel.user.value else { return .empty }
 
     switch type {
@@ -197,7 +180,6 @@ extension ProfileCategoryListView: SelectionViewDelegate, SelectionViewDatasourc
 
 // MARK: - Table View Delegate ( For Categories )
 extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
-
   func numberOfSections(in tableView: UITableView) -> Int {
     categories.filter { $0.superIndex == tableView.tag }.count
   }
@@ -207,28 +189,29 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(cell: ProfileCategoryTableCell.self, indexPath: indexPath),
+          let type = type else {
+      String.trackFailure("dequeueReusableCell failures")
+      return ProfileCategoryTableCell()
+    }
 
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: String(describing: ProfileCategoryTableCell.self),
-      for: indexPath)
+    cell.category = categories.filter { $0.superIndex == tableView.tag } [indexPath.section]
+    cell.onEdit = { category in
+      self.editingCategory = category
 
-    if let cell = cell as? ProfileCategoryTableCell {
-
-      cell.category = categories.filter { $0.superIndex == tableView.tag } [indexPath.section]
-
-      cell.onEdit = { category in
-
-        self.editingCategory = category
-
-        self.setCategoryStyleView.show(self.view, type: self.type!, hierarchy: .main, superIndex: category.superIndex, noSubmit: true)
-      }
+      self.setCategoryStyleView.show(
+        self.view,
+        type: type,
+        hierarchy: .main,
+        superIndex: category.superIndex,
+        submitWhenConfirm: true
+      )
     }
 
     return cell
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
     let header = UIView()
 
     header.backgroundColor = .clear
@@ -246,19 +229,25 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ProfileCategoryListView: CategoryStyleViewDelegate {
-
-  func categoryStyleView(styleView: SetCategoryStyleView, isCropped: Bool, name: String, backgroundColor: UIColor, image: UIImage, imageString: String) {
-
-    guard let user = userViewModel.user.value,
-          var category = editingCategory else { return }
+  func categoryStyleView(
+    styleView: SetCategoryStyleView,
+    isCropped: Bool,
+    name: String,
+    backgroundColor: UIColor,
+    image: UIImage,
+    imageString: String
+  ) {
+    guard userViewModel.user.value != nil,
+          var category = editingCategory,
+          let type = type else { return }
 
     category.isCustom = isCropped
     category.title = name
-    category.backgroundColor = backgroundColor.StringFromUIColor()
+    category.backgroundColor = backgroundColor.stringFromUIColor()
     category.imageLink = imageString
 
     FirebaseManager.shared.updateUserCategory(
-      type: type!,
+      type: type,
       hierarchy: .main,
       category: &category)
   }

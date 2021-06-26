@@ -23,9 +23,8 @@ class MoodSelectView: UIView {
   }
 
   private func setUp() {
-
     addSubview(collectionView)
-    collectionView.addConstarint(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+    collectionView.addConstarint(fill: self)
     collectionView.delegate = self
     collectionView.dataSource = self
 
@@ -33,40 +32,40 @@ class MoodSelectView: UIView {
   }
 
   @objc private func onTap(_ sender: UIButton) {
-
   }
 }
 
 extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
-
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     1
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    iconViewModel.iconSets.first!.images.count
+    if let titledImage = iconViewModel.iconSets.first {
+      return titledImage.images.count
+    }
+    return 0
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LocalIconSelectionViewCell.self), for: indexPath)
-
-    if let cell = cell as? LocalIconSelectionViewCell,
-       let image = UIImage.asset(EmojiIcon(rawValue: iconDetail[indexPath.row].imageName)!) {
-
-      cell.iconView.setIcon(
-        isCropped: false,
-        image: image,
-        bgColor: UIColor.UIColorFromString(string: iconDetail[indexPath.row].colorString))
+    guard let cell = collectionView.dequeueReusableCell(
+            cell: LocalIconSelectionViewCell.self,
+            indexPath: indexPath) else {
+      String.trackFailure("dequeueReusableCell failures")
+      return LocalIconSelectionViewCell()
     }
+
+    cell.iconView.setIcon(
+      isCropped: false,
+      image: iconDetail[indexPath.row].image,
+      bgColor: UIColor.UIColorFromString(string: iconDetail[indexPath.row].colorString)
+    )
 
     return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
     switch kind {
-
     case UICollectionView.elementKindSectionHeader:
 
       let header = collectionView.dequeueReusableSupplementaryView(
@@ -74,8 +73,11 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
         withReuseIdentifier: String(describing: LocalIconSelectionViewHeader.self),
         for: indexPath)
 
+      if let headerSuperView = header.subviews.first {
+        headerSuperView.backgroundColor = .background
+      }
+
       if let header = header as? LocalIconSelectionViewHeader {
-        header.subviews.first!.backgroundColor = .background
         header.titleLabel.text = iconViewModel.iconSets[indexPath.section].title
       }
 
@@ -89,12 +91,11 @@ extension MoodSelectView: UICollectionViewDelegate, UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionsView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     collectionView.cellForItem(at: indexPath)?.isSelected = false
 
     let moodDetail = iconDetail[indexPath.row]
 
-    onSelected?(indexPath.row, UIImage(named: moodDetail.imageName)!, UIColor.UIColorFromString(string: moodDetail.colorString))
+    onSelected?(indexPath.row, moodDetail.image, UIColor.UIColorFromString(string: moodDetail.colorString))
 
     removeFromSuperview()
   }

@@ -10,8 +10,7 @@ import SCLAlertView
 import CropViewController
 import FirebaseStorage
 
-protocol SCLAlertViewProviderDelegate:  LocalIconSelectionDelegate {
-
+protocol SCLAlertViewProviderDelegate: LocalIconSelectionDelegate {
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String)
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage)
@@ -22,12 +21,10 @@ protocol SCLAlertViewProviderDelegate:  LocalIconSelectionDelegate {
 }
 
 extension SCLAlertViewProviderDelegate {
-
   func alertIconHiierarchy(provider: SCLAlertViewProvider) -> CategoryHierarchy? { return nil }
 }
 
 extension SCLAlertViewProviderDelegate {
-
   func alertIconType(provider: SCLAlertViewProvider) -> CategoryType? {
     return nil
   }
@@ -35,20 +32,16 @@ extension SCLAlertViewProviderDelegate {
   func alertProvider(provider: SCLAlertViewProvider, symbolName: String) {}
 
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {}
-
 }
 
 class SCLAlertViewProvider: NSObject {
-
   typealias SCLProviderDelegate = SCLAlertViewProviderDelegate
   typealias FullDelegate = SCLAlertViewProviderDelegate & CropViewControllerDelegate
 
   enum AlertType {
-
     case roundedImage, rectImage, delete
 
     var appearance: SCLAlertView.SCLAppearance {
-
       switch self {
       case .roundedImage, .rectImage:
         return SCLAlertView.SCLAppearance(
@@ -116,10 +109,10 @@ class SCLAlertViewProvider: NSObject {
     var icon: UIImage {
       switch self {
       case .roundedImage, .rectImage:
-        let icon = UIImage(systemName: "camera")!
+        let icon = UIImage(systemName: "camera") ?? UIImage()
         return icon.withTintColor(.label)
       case .delete:
-        let icon = UIImage(systemName: "trash")!
+        let icon = UIImage(systemName: "trash") ?? UIImage()
         return icon.withTintColor(.label)
       }
     }
@@ -153,26 +146,32 @@ class SCLAlertViewProvider: NSObject {
   }
 
   func showAlert(type: AlertType) {
-
     self.type = type
 
     alertView = SCLAlertView(appearance: type.appearance)
 
-    alertView?.iconTintColor = .systemGray6
+    guard let alertView = alertView else { return }
+
+    alertView.iconTintColor = .systemGray6
 
     type.buttons.forEach { button in
-      alertView!.addButton(button.title, backgroundColor: .button, textColor: .systemGray6, showTimeout: nil, target: self, selector: button.action)
+      alertView.addButton(
+        button.title,
+        backgroundColor: .button,
+        textColor: .systemGray6,
+        showTimeout: nil,
+        target: self,
+        selector: button.action
+      )
     }
 
-    alertView!.showCustom(type.title, subTitle: type.subTitle, color: .button, icon: type.icon)
+    alertView.showCustom(type.title, subTitle: type.subTitle, color: .button, icon: type.icon)
   }
 }
 
 // MARK: - Private functions
 extension SCLAlertViewProvider {
-
   @objc private func loadLocalIcon() {
-
     guard let iconType = alertDelegate?.alertIconType(provider: self) else { alertView?.hideView(); return }
 
     let hierachy = alertDelegate?.alertIconHiierarchy(provider: self)
@@ -189,7 +188,6 @@ extension SCLAlertViewProvider {
   }
 
   @objc private func loadPicture() {
-
     guard let alertView = alertView else { return }
 
     let provider = CameraProvider(delegate: self)
@@ -205,7 +203,6 @@ extension SCLAlertViewProvider {
   }
 
   @objc private func loadCamera() {
-
     guard let alertView = alertView else { return }
 
     let provider = CameraProvider(delegate: self)
@@ -230,13 +227,12 @@ extension SCLAlertViewProvider {
 }
 
 extension SCLAlertViewProvider: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
     picker.dismiss(animated: true, completion: nil)
 
     guard let image = (
-            info[UIImagePickerController.InfoKey.editedImage] as? UIImage ?? info[UIImagePickerController.InfoKey.originalImage] as? UIImage) else { return }
+            info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+              ?? info[UIImagePickerController.InfoKey.originalImage] as? UIImage) else { return }
 
     switch type {
     case .roundedImage:

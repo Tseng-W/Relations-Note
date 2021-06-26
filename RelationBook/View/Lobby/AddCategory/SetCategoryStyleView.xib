@@ -138,7 +138,7 @@
                     <rect key="frame" x="0.0" y="247" width="414" height="113"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-tL-nDb" customClass="RectangularPaletteControl" customModule="FlexColorPicker">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+                            <rect key="frame" x="-16" y="-16" width="446" height="145"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -154,7 +154,7 @@
                     <rect key="frame" x="82" y="203" width="332" height="28"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZ5-Me-W5z" customClass="BrightnessSliderControl" customModule="FlexColorPicker">
-                            <rect key="frame" x="0.0" y="4" width="332" height="20"/>
+                            <rect key="frame" x="-16" y="-12" width="364" height="52"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="hm5-p7-WeE"/>
@@ -216,6 +216,11 @@
             <point key="canvasLocation" x="-181.15942028985509" y="-720.53571428571422"/>
         </view>
     </objects>
+    <designables>
+        <designable name="uZ5-Me-W5z">
+            <size key="intrinsicContentSize" width="414" height="15"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
