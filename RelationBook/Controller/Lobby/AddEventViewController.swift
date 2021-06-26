@@ -362,6 +362,7 @@ extension AddEventViewController: CategorySelectionDelegate {
   func didSelectedCategory(category: Category) {
     event.relations = [category.id]
     relationCategory = category
+    view.layoutIfNeeded()
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
       self.filterHeightConstraint.constant /= 2.66
       self.view.layoutIfNeeded()

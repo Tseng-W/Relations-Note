@@ -261,7 +261,7 @@ extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
 
     let detailVC = EventDetailView()
     detailVC.delegate = self
-
+    detailVC.show(view: self.view)
     detailVC.setUp(event: event, relations: cell.relations)
   }
 

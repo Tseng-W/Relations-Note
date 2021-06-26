@@ -138,6 +138,7 @@ class FilterView: UIView {
   }
 
   private func hiddenFilterScroll(isHidden: Bool) {
+    guard selectionView.indicatorView.isHidden != isHidden else { return }
     selectionHeightConstraint?.constant = isHidden ? 0 : 40
     selectionView.indicatorView.isHidden = isHidden
     categoryScrollView.isScrollEnabled = !isHidden
