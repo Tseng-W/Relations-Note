@@ -6,9 +6,9 @@
 <img src="https://i.imgur.com/Qggkk9z.png" width="200" height="120"/>
 </p>
 
-<p align="center">
+<p align="center"><a href="https://apps.apple.com/tw/app/%E8%A8%98%E4%BA%BA%E6%9C%AC/id1571497698">
 <img src="https://i.imgur.com/X9tPvTS.png" width="120" height="40"/>
-</p>
+</a></p>
 
 
 <p align="center">
