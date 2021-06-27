@@ -84,6 +84,18 @@ class SelectionView: UIView {
 
   weak var delegate: SelectionViewDelegate?
 
+  func moveScrollViewToIndex(index: Int) {
+    if let scrollView = matchedScrollView {
+      UIViewPropertyAnimator.runningPropertyAnimator(
+        withDuration: 0.3,
+        delay: 0,
+        options: .curveLinear) {
+        scrollView.contentOffset.x = scrollView.frame.width * CGFloat(index)
+        self.layoutIfNeeded()
+      }
+    }
+  }
+
   func moveIndicatorToIndex(index: Int) {
     guard index < buttons.count else { return }
 
@@ -127,13 +139,7 @@ class SelectionView: UIView {
     guard let delegate = delegate,
           let index = self.subviews.first?.subviews.firstIndex(of: sender) else { return }
     moveIndicatorView(reference: sender)
-
-    if let scrollView = matchedScrollView {
-      UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear) {
-        scrollView.contentOffset.x = scrollView.frame.width * CGFloat(sender.tag)
-        self.layoutIfNeeded()
-      }
-    }
+    moveScrollViewToIndex(index: sender.tag)
 
     delegate.didSelectedButton(self, at: index)
   }
@@ -148,20 +154,18 @@ class SelectionView: UIView {
 
     let buttonLocate = (width: reference.frame.width, originX: reference.frame.origin.x)
     let scrollLocate = (width: scrollView.frame.width, offset: scrollView.contentOffset.x)
+    var targetOffsetX = scrollView.contentOffset.x
 
     if scrollLocate.width > 0 {
       if scrollLocate.offset > buttonLocate.originX {
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseOut) {
-          self.scrollView.contentOffset.x = buttonLocate.originX
-        }
+        targetOffsetX = buttonLocate.originX
       } else if abs(buttonLocate.originX + buttonLocate.width - scrollLocate.offset) > scrollLocate.width {
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveEaseOut) {
-          self.scrollView.contentOffset.x = buttonLocate.originX - scrollLocate.width + buttonLocate.width
-        }
+        targetOffsetX = buttonLocate.originX - scrollLocate.width + buttonLocate.width
       }
     }
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: duration, delay: 0, options: .curveLinear) {
+      self.scrollView.contentOffset.x = targetOffsetX
       self.layoutIfNeeded()
     }
   }

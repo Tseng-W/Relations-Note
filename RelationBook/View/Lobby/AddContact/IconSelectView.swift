@@ -92,7 +92,7 @@ class IconSelectView: UIView, NibLoadable {
     isCropped: Bool? = false,
     text: String? = nil,
     image: UIImage? = UIImage.assetSystem(SysetmAsset.camera),
-    backgroundColor: UIColor? = .button,
+    backgroundColor: UIColor? = nil,
     borderWidth: CGFloat = 0,
     borderColor: UIColor? = nil,
     tintColor: UIColor? = .background
