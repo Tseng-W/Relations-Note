@@ -26,17 +26,17 @@
 
 透過 `Firestore AuthCredential` 串連 `Sign In with Apple` 實做用戶登入並確保安全性
 
-<!-- <p>
+<p>
 <img src="https://imgur.com/coTM11c.png" width="200" height="400"/>
 <img src="https://imgur.com/0PqiF5r.png" width="200" height="400"/>
-</p> -->
+</p>
 
 ### 紀錄互動事件
 
 #### 畫面跳轉
 點擊主畫面下方中央按鈕可進入新增事件頁面
 
-<!-- <img src="https://imgur.com/beilAjE.gif" width="200" height="400"/> -->
+<img src="https://imgur.com/beilAjE.gif" width="200" height="400"/>
 
 以 `ImageView` 配合 `tapGesture` 實作客製化按鈕
 
@@ -65,9 +65,9 @@ private func lobbyButtonInit() {
 `新增圖示`彈窗支援`自定義分類`，可自相簿、拍照上傳圖片，或選擇本地圖示並設置個人化配色
 
 <p>
-<!-- <img src="https://imgur.com/cWyMqHp.gif" width="200" height="400"/>
+<img src="https://imgur.com/cWyMqHp.gif" width="200" height="400"/>
 <img src="https://imgur.com/dCpyCfa.gif" width="200" height="400"/>
-<img src="https://imgur.com/lrVQMfE.gif" width="200" height="400"/> -->
+<img src="https://imgur.com/lrVQMfE.gif" width="200" height="400"/>
 </p>
 
 ##### 設置互動主題與添加對象資訊
@@ -192,7 +192,7 @@ protocol CategorySelectionDelegate: AnyObject {
 
 點擊欄位右側的？圖示便會顯示引導訊息
 
-<!-- <img src="https://imgur.com/H6MxZTu.gif" width="200" height="400"/> -->
+<img src="https://imgur.com/H6MxZTu.gif" width="200" height="400"/>
 
 實作方式為封裝`AMPopTip`，達成腳本化撰寫減少維護與開發成本
 
@@ -239,9 +239,9 @@ enum Style {
 主畫面左側可查閱所有關係分類與對象詳情，包含歷史事件、個人特徵分類清單等
 
 <p>
-<!-- <img src="https://imgur.com/xmiwfon.gif" width="200" height="400"/>
+<img src="https://imgur.com/xmiwfon.gif" width="200" height="400"/>
 <img src="https://imgur.com/i1q2MtR.gif" width="200" height="400"/>
-<img src="https://imgur.com/Ix6gAmF.gif" width="200" height="400"/> -->
+<img src="https://imgur.com/Ix6gAmF.gif" width="200" height="400"/>
 </p>
   
 ### 分類編輯
