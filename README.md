@@ -26,15 +26,17 @@
 
 透過 `Firestore AuthCredential` 串連 `Sign In with Apple` 實做用戶登入並確保安全性
 
-![Imgur](https://imgur.com/coTM11c.png "AppleSignIn" =200x400)
-![Imgur](https://imgur.com/0PqiF5r.png "AppleSignIn" =200x400)
+<!-- <p>
+<img src="https://imgur.com/coTM11c.png" width="200" height="400"/>
+<img src="https://imgur.com/0PqiF5r.png" width="200" height="400"/>
+</p> -->
 
 ### 紀錄互動事件
 
 #### 畫面跳轉
 點擊主畫面下方中央按鈕可進入新增事件頁面
 
-![Imgur](https://imgur.com/beilAjE.gif "新增關係" =200x400)
+<!-- <img src="https://imgur.com/beilAjE.gif" width="200" height="400"/> -->
 
 以 `ImageView` 配合 `tapGesture` 實作客製化按鈕
 
@@ -62,45 +64,127 @@ private func lobbyButtonInit() {
 
 `新增圖示`彈窗支援`自定義分類`，可自相簿、拍照上傳圖片，或選擇本地圖示並設置個人化配色
 
-![Imgur](https://imgur.com/cWyMqHp.gif "關係篩選" =200x400)
-![Imgur](https://imgur.com/cNqRDmP.gif "新增關係" =200x400)
-![Imgur](https://imgur.com/TOP1HY6.gif "新增關係" =200x400)
+<p>
+<!-- <img src="https://imgur.com/cWyMqHp.gif" width="200" height="400"/>
+<img src="https://imgur.com/dCpyCfa.gif" width="200" height="400"/>
+<img src="https://imgur.com/lrVQMfE.gif" width="200" height="400"/> -->
+</p>
 
-##### 設置互動主題
+##### 設置互動主題與添加對象資訊
 
-設置本次互動事件的主要類型，諸如閒聊、會議或聚會等
+設置本次互動事件的主要類型，諸如閒聊、會議或聚會等，操作方式與`選擇互動對象`雷同，亦支援添加`自定義分類`
 
-操作方式與`選擇互動對象`雷同，亦支援添加`自定義分類`
+可在事件中添加交流中得知的對方個人特徵、興趣與過往經歷等資訊，用戶可自定義新增分類，添加後可在個人詳情中查看所有過往紀錄
 
-![Imgur](https://imgur.com/lSqy37O.gif "選擇事件" =200x400)
-![Imgur](https://imgur.com/OuTxDgU.gif "新增事件" =200x400)
+<p>
+<img src="https://imgur.com/lSqy37O.gif" width="200" height="400"/>
+<img src="https://imgur.com/ykAsiaP.gif" width="200" height="400"/>
+</p>
+
+#### 滑動多層選單實作
+程式內所有標籤滑動選單皆共用自定義的 FilterView，為區別各來源差異以 `Enum` 初始化選單類型
+```swift
+class FilterView: UIView {
+  func setUp(type: CategoryType, isMainOnly: Bool = false) {
+    ...
+    userViewModel.user.bind { [weak self] user in
+      guard let user = user else { return }
+
+      self?.filterSource = user.getFilter(type: type)
+
+      if let categoryViews = self?.categoryViews,
+         categoryViews.isEmpty {
+        self?.initialFilterView()
+      }
+    }
+    ...
+  }
+
+  private func initialFilterView() {
+    layoutIfNeeded()
+    addFilterBar()
+    addScrollView()
+
+    layoutIfNeeded()
+    guard let type = type else { return }
+    addCategoryCollectionViews(type: type)
+  }
+}
+```
+
+上方滑動按鈕選單以自定義 Selection View 實作，透過 Delegate 與 FilterView 連動按鈕內容與點擊事件
+```swift
+protocol SelectionViewDatasource: AnyObject {
+  func numberOfButton(_ selectionView: SelectionView) -> Int
+
+  func selectionView(_ selectionView: SelectionView, titleForButtonAt index: Int) -> String
+  ...
+}
+
+protocol SelectionViewDelegate: AnyObject {
+  func didSelectedButton(_ selectionView: SelectionView, at index: Int)
+
+  func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool
+}
+```
+
+下方清單則以 ScrollView 動態生成自定義 CollectionView 後定位，以實作滑動效果
+```swift
+private func addCategoryCollectionViews(type: CategoryType) {
+  ...
+  let viewWidth = categoryScrollView.frame.width
+  let viewHeight = categoryScrollView.frame.height
+  var x: CGFloat = 0
+
+  for index in 0..<filterSource.count {
+    let collectionView = CategoryCollectionView(
+      frame: CGRect(x: x, y: 0, width: viewWidth, height: viewHeight))
+    ...
+    collectionView.setUp(index: index, type: type, isMainOnly: isMainOnly)
+
+    categoryScrollView.addSubview(collectionView)
+    categoryViews.append(collectionView)
+    x = collectionView.frame.origin.x + viewWidth
+
+    collectionView.selectionDelegate = delegate
+  }
+  ...
+}
+```
+
+封裝的 FilterView 即可快速初始化，實作接口後可取得觸發事件參數進行後續處理
+```swift
+filterView.setUp(type: .relation)
+filterView.delegate = self
+...
+
+protocol CategorySelectionDelegate: AnyObject {
+  func initialTarget() -> (mainCategory: Category, subCategory: Category)?
+
+  func didSelectedCategory(category: Category)
+
+  func didStartEdit(pageIndex: Int)
+
+  func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor)
+}
+```
 
 ##### 設置互動地點
 
 可選擇當前定位位置，或搜尋地標位置進行定位，此一位置將紀錄並顯示於事件詳情
 
-![Imgur](https://imgur.com/23nDs2L.gif "設置地點" =200x400)
+<img src="https://imgur.com/23nDs2L.gif" width="200" height="400"/>
 
-##### 新增互動對象資訊
-
-可在事件中添加交流中得知的對方個人特徵、興趣與過往經歷等資訊，用戶可自定義新增分類，
-
-添加後可在個人詳情中查看所有過往紀錄
-
-![Imgur](https://imgur.com/ykAsiaP.gif "新增特徵" =200x400)
-
-##### 情緒設定
-
-紀錄互動過程的情緒，可從顏色與圖示進行區分，並會在事件清單與詳情中顯示
-
-![Imgur](https://imgur.com/bGs0vZc.gif "情緒設定" =200x400)
-
-##### 設置事件主題圖片
+##### 設置事件主題圖片與情緒
 
 從相簿或相機設置事件專屬照片，添加後會於事件詳情內顯示
 
-![Imgur](https://imgur.com/i7EVJr6.gif "事件照片" =200x400)
-![Imgur](https://imgur.com/JTT70UV.png "事件照片" =200x400)
+紀錄互動過程的情緒，可從顏色與圖示進行區分，並會在事件清單與詳情中顯示
+
+<p>
+<img src="https://imgur.com/JTT70UV.gif" width="200" height="400"/>
+<img src="https://imgur.com/bGs0vZc.gif" width="200" height="400"/>
+</p>
 
 ##### 操作教學
 
@@ -108,7 +192,7 @@ private func lobbyButtonInit() {
 
 點擊欄位右側的？圖示便會顯示引導訊息
 
-![Imgur](https://imgur.com/H6MxZTu.gif "操作教學" =200x400)
+<!-- <img src="https://imgur.com/H6MxZTu.gif" width="200" height="400"/> -->
 
 實作方式為封裝`AMPopTip`，達成腳本化撰寫減少維護與開發成本
 
@@ -148,63 +232,78 @@ enum Style {
 
 在首頁行事曆中依照當日是否有互動事件高亮日期，點擊可查看當日互動列表
 
-![Imgur](https://imgur.com/tGezMKg.png "詳情查閱" =200x400)
+<img src="https://imgur.com/tGezMKg.gif" width="200" height="400"/>
 
 ### 個人資訊
 
 主畫面左側可查閱所有關係分類與對象詳情，包含歷史事件、個人特徵分類清單等
 
-![Imgur](https://imgur.com/xmiwfon.png "詳情查閱" =200x400)
-![Imgur](https://imgur.com/i1q2MtR.png "詳情查閱" =200x400)
-![Imgur](https://imgur.com/Ix6gAmF.gif "詳情查閱" =200x400)
-
+<p>
+<!-- <img src="https://imgur.com/xmiwfon.gif" width="200" height="400"/>
+<img src="https://imgur.com/i1q2MtR.gif" width="200" height="400"/>
+<img src="https://imgur.com/Ix6gAmF.gif" width="200" height="400"/> -->
+</p>
+  
 ### 分類編輯
 
 設置頁可瀏覽當前所有標籤，並可編輯名稱、圖示與顏色等，變更結果將套用於過往事件。
 
-![Imgur](https://imgur.com/IG5dOuf.png "分類編輯" =200x400)
-![Imgur](https://imgur.com/1zDSY7m.gif "分類編輯" =200x400)
-
+<p>
+<img src="https://imgur.com/IG5dOuf.gif" width="200" height="400"/>
+<img src="https://imgur.com/bkHedux.gif" width="200" height="400"/>
+</p>
+  
 ### 深色模式
 
 可於設置頁切換白模式／深色模式，並紀錄設置於下次開啟時套用
 
-![Imgur](https://imgur.com/yZgidAL.gif "深色模式切換" =200x400)
+<img src="https://imgur.com/oKMPoB4.gif" width="200" height="400"/>
 
 ---
 
-## 開發架構
+## 技術亮點
+
+* 使用 `MVVM` 架構開發，各區塊職責分工明確
+* 大部分 View 皆以 `Nibs` 開發，易於共用並減少重複代碼
+* 靈活運用 `Extension` 減少冗餘代碼同時將參數改為強型別，強化可讀與穩定性
+* 針對 `SCLAlertView`、`Lottie`、`AMPopTip` 等三方套件進行封裝，減少冗贅代碼同時將變數轉為強型別，加強程式碼可讀性
+* 使用 `Firestore`、`Storage` 以存取用戶個人數據與照片
+* 使用 `Auto Layout` (`Interface Builder`、`programmatically`) 匹配各式 iOS 裝置尺寸比例
+* 透過 `Sign In with Apple` 與 `Firebase Authentication` 實作用戶登入並確保帳戶安全性
+* 客製化 `FSCalendar` 以更符合中文使用者使用習慣 
+* 導入 `Crashlytics` 以取得用戶異常反饋並予以優化
 
 ---
 
 ## 第三方套件
 
-*  SwiftLint
-*  MJRefresh
-*  IQKeyboardManagerSwift
-*  Kingfisher
-*  JGProgressHUD'
-*  FSCalendar
-*  TagListView
-*  Firebase
-*  Firebase/Core
-*  Firebase/Auth
-*  Firebase/Messaging
-*  Firebase/Firestore
-*  Firebase/Storage
-*  FirebaseFirestoreSwift
-*  FirebaseStorageSwift
-*  AMPopTip
-*  GoogleMaps
-*  FlexColorPicker
-*  SCLAlertView
-*  GooglePlaces
-*  lottie-ios
-*  CropViewController
-*  Firebase/Crashlytics
+*  [SwiftLint](https://github.com/realm/SwiftLint) - 程式碼規範檢查
+*  [MJRefresh](https://github.com/CoderMJLee/MJRefresh) - TableView 手動刷新客製化
+*  [IQKeyboardManagerSwift](https://github.com/hackiftekhar/IQKeyboardManager) - 鍵盤收放體驗優化
+*  [Kingfisher](https://github.com/onevcat/Kingfisher) - 圖片下載與快取
+*  [JGProgressHUD](https://github.com/JonasGessner/JGProgressHUD) - 讀取中、成功、失敗提示彈窗
+*  [FSCalendar](https://github.com/WenchaoD/FSCalendar) - 行事曆顯示與日期篩選
+*  [TagListView](https://github.com/ElaWorkshop/TagListView) - 顯示事件分類 Tag 標記
+*  [AMPopTip](https://github.com/andreamazz/AMPopTip) - 顯示指定位置浮窗提示，用於新手教學功能
+*  [GooglePlaces](https://cocoapods.org/pods/GooglePlaces) - 用於搜索地標並取得座標
+*  [GoogleMaps](https://cocoapods.org/pods/GoogleMaps) - 用於取得指定座標周邊地圖數據
+*  [FlexColorPicker](https://github.com/RastislavMirek/FlexColorPicker) - 自定義圖標時顏色修改操作
+*  [SCLAlertView](https://github.com/vikmeup/SCLAlertView-Swift) - 於新增分類時提供自定義多功能浮窗
+*  [lottie-ios](https://github.com/airbnb/lottie-ios) - 提供顯示 Lottie 動畫，用於開啟 App 長時間讀取與圖標照片讀取時使用
+*  [CropViewController](https://github.com/TimOliver/TOCropViewController) - 將照片裁切成圓形
+*  [Firebase](https://firebase.google.com/docs/ios/setup)
+    *  Auth: 用於 Sign In with Apple
+    *  Firesotre: 用於存儲用戶數據如事件與關係人
+    *  Storage: 用於存儲用戶上傳個人照片
+    *  Crashlytics: 用於收集用戶崩潰數據
+---
+
+## 環境需求
+* Xcode 12.4 
+* iOS 13.4
 
 ---
 
-## 開發環境版本
+## 聯繫資訊
 
----
+Wun Tseng / twayne0618@gmail.com
