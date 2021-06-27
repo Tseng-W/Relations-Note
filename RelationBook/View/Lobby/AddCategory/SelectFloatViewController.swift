@@ -194,6 +194,12 @@ extension SelectFloatViewController: CategorySelectionDelegate {
   }
 
   func addCategory(type: CategoryType, hierarchy: CategoryHierarchy, superIndex: Int, categoryColor: UIColor) {
-    onAddCategorySelected?(type, hierarchy, superIndex)
+    let setCategoryView = SetCategoryStyleView()
+    setCategoryView.show(
+      self.view,
+      type: type,
+      hierarchy: hierarchy,
+      superIndex: superIndex,
+      initialColor: categoryColor)
   }
 }

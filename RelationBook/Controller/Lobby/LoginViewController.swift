@@ -93,7 +93,7 @@ private extension LoginViewController {
     case .dark:
       loginButtonView.subviews.forEach { $0.removeFromSuperview() }
       loginButtonView.addSubview(whiteButton)
-      loginButtonView.addConstarint(fill: loginButtonView)
+      whiteButton.addConstarint(fill: loginButtonView)
       whiteButton.layer.cornerRadius = cornerRadius
       whiteButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
 

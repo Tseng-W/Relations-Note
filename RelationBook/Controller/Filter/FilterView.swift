@@ -151,7 +151,7 @@ class FilterView: UIView {
   func scrollTo(main: Category, sub: Category) {
     guard categoryViews.count > main.superIndex else { return }
 
-    didSelectedButton(selectionView, at: main.superIndex)
+    selectionView.moveScrollViewToIndex(index: main.superIndex)
 
     categoryViews[main.superIndex].initialTarget = (main, sub)
   }

@@ -204,7 +204,8 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
         type: type,
         hierarchy: .main,
         superIndex: category.superIndex,
-        submitWhenConfirm: true
+        submitWhenConfirm: false,
+        initialColor: category.getColor()
       )
     }
 
@@ -230,7 +231,6 @@ extension ProfileCategoryListView: UITableViewDelegate, UITableViewDataSource {
 
 extension ProfileCategoryListView: CategoryStyleViewDelegate {
   func categoryStyleView(
-    styleView: SetCategoryStyleView,
     isCropped: Bool,
     name: String,
     backgroundColor: UIColor,

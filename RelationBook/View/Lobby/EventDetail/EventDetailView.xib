@@ -185,7 +185,7 @@
                                 <constraint firstAttribute="width" secondItem="5cb-y8-mck" secondAttribute="height" multiplier="1:1" id="wGh-GC-OMP"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg2-6p-6J4">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg2-6p-6J4">
                             <rect key="frame" x="38" y="5" width="72" height="20"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
                             <color key="textColor" name="Button"/>
@@ -195,6 +195,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Qg2-6p-6J4" firstAttribute="centerY" secondItem="MTs-WG-Uc8" secondAttribute="centerY" id="1tj-Em-iq5"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qg2-6p-6J4" secondAttribute="trailing" constant="16" id="5Vh-kC-Xdb"/>
                         <constraint firstItem="Qg2-6p-6J4" firstAttribute="leading" secondItem="5cb-y8-mck" secondAttribute="trailing" constant="8" id="BPb-nz-StV"/>
                         <constraint firstAttribute="bottom" secondItem="5cb-y8-mck" secondAttribute="bottom" id="NY8-uD-JLc"/>
                         <constraint firstItem="5cb-y8-mck" firstAttribute="top" secondItem="MTs-WG-Uc8" secondAttribute="top" id="P4e-3u-5UJ"/>
@@ -246,8 +247,8 @@
                                 <constraint firstAttribute="width" secondItem="uGQ-pE-Lbf" secondAttribute="height" multiplier="1:1" id="TZ6-Gd-Pm7"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJu-aP-xKB">
-                            <rect key="frame" x="38" y="5" width="96.5" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJu-aP-xKB">
+                            <rect key="frame" x="38" y="5" width="243.5" height="20"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="14"/>
                             <color key="textColor" name="Button"/>
                             <nil key="highlightedColor"/>
@@ -277,6 +278,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MTs-WG-Uc8" secondAttribute="trailing" constant="16" id="BJL-rM-YJ9"/>
                 <constraint firstItem="TDQ-Sc-Ry5" firstAttribute="top" secondItem="9BW-zY-PeD" secondAttribute="bottom" constant="8" id="BuG-7T-P5P"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="35j-Qs-1G0" secondAttribute="trailing" id="DuO-14-rVK"/>
+                <constraint firstItem="5cb-y8-mck" firstAttribute="leading" secondItem="qJu-aP-xKB" secondAttribute="trailing" constant="16" id="Eg3-k7-kwN"/>
                 <constraint firstItem="ReZ-qp-6c8" firstAttribute="bottom" secondItem="FoT-pU-f6e" secondAttribute="bottom" id="J4m-B4-tB7"/>
                 <constraint firstItem="TDQ-Sc-Ry5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="JRn-tN-W8D"/>
                 <constraint firstItem="PdA-SS-XBc" firstAttribute="width" secondItem="MTs-WG-Uc8" secondAttribute="width" id="Jh3-4h-QCn"/>
@@ -303,6 +305,11 @@
             <point key="canvasLocation" x="148.55072463768118" y="27.790178571428569"/>
         </view>
     </objects>
+    <designables>
+        <designable name="xWN-6H-LOV">
+            <size key="intrinsicContentSize" width="434.5" height="16"/>
+        </designable>
+    </designables>
     <resources>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="pin" catalog="system" width="119" height="128"/>

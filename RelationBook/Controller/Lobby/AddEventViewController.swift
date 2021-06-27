@@ -317,11 +317,13 @@ extension AddEventViewController {
 extension AddEventViewController: SCLAlertViewProviderDelegate {
   func alertProvider(provider: SCLAlertViewProvider, rectImage image: UIImage) {
     imageButton.setImage(image, for: .normal)
+    LKProgressHUD.show()
 
     FirebaseManager.shared.uploadPhoto(image: image) { [weak self] result in
       switch result {
       case .success(let url):
         self?.event.imageLink = url.absoluteString
+        LKProgressHUD.dismiss()
       case .failure(let error):
         print("\(error.localizedDescription)")
       }
