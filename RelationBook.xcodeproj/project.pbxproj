@@ -1305,7 +1305,7 @@
 				CODE_SIGN_ENTITLEMENTS = RelationBook/RelationBook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = AF543CM7YC;
 				INFOPLIST_FILE = RelationBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1330,7 +1330,7 @@
 				CODE_SIGN_ENTITLEMENTS = RelationBook/RelationBook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = AF543CM7YC;
 				INFOPLIST_FILE = RelationBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

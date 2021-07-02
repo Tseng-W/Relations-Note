@@ -269,25 +269,23 @@ extension AddEventViewController {
     guard eventButton != nil else { return }
 
     if event.category.isInitialed() {
-      eventButton.titleLabel?.textColor = .button
+      eventButton.setTitleColor(.button, for: .normal)
       eventButton.setTitle(event.category.title, for: .normal)
     } else {
-      eventButton.titleLabel?.textColor = .buttonDisable
+      eventButton.setTitleColor(.buttonDisable, for: .normal)
       eventButton.setTitle("事件", for: .normal)
     }
 
     if event.location != nil {
-      locationButton.titleLabel?.textColor = .button
+      locationButton.setTitleColor(.button, for: .normal)
     } else {
-      locationButton.titleLabel?.textColor = .buttonDisable
+      locationButton.setTitleColor(.buttonDisable, for: .normal)
     }
 
     if let name = event.locationName {
       locationButton.setTitle(name, for: .normal)
-      locationButton.titleLabel?.textColor = .button
     } else {
       locationButton.setTitle("地點", for: .normal)
-      locationButton.titleLabel?.textColor = .buttonDisable
     }
 
     dayButton.setTitle(event.time.dateValue().getDayString(type: .day), for: .normal)
