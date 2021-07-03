@@ -140,15 +140,22 @@ class EventDetailView: UIView, NibLoadable {
   }
 
   func backgroundSet(event: Event) {
-    if let eventImageLink = event.imageLink {
-      UIImage.loadImage(eventImageLink) { [weak self] image in
-        self?.eventImage.image = image
+    if event.imageLink != .empty {
+      LKProgressHUD.show()
+      let loadImage = DispatchQueue(label: "fetch Image", qos: .userInitiated)
+      loadImage.async {
+        UIImage.loadImage(event.imageLink) { [weak self] image in
+          DispatchQueue.main.async {
+            self?.eventImage.image = image
+            LKProgressHUD.dismiss()
+          }
+        }
       }
       categoryIconView.isHidden = true
     } else {
       eventImage.isHidden = true
       eventBackground.backgroundColor = event.getColor()
-      event.category.getImage {  [weak self] image in
+      event.category.getImage { [weak self] image in
         self?.categoryIconView.setIcon(
           isCropped: true,
           image: image,
