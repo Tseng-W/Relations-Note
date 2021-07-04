@@ -93,11 +93,6 @@ extension RelationViewContoller: UITableViewDelegate, UITableViewDataSource {
 
     headerView.tagTitleLabel.text = "- \(user.getFilter(type: .relation)[section])"
 
-    let tapGesture = UITapGestureRecognizer()
-    tapGesture.numberOfTapsRequired = 1
-    tapGesture.addTarget(headerView, action: #selector(didSelectHeaderAt(tapGesture:)))
-    headerView.addGestureRecognizer(tapGesture)
-
     return headerView
   }
 
@@ -112,8 +107,5 @@ extension RelationViewContoller: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     70
-  }
-
-  @objc private func didSelectHeaderAt(tapGesture: UITapGestureRecognizer) {
   }
 }
