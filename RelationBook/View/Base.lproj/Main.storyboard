@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JeI-kH-QtU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8QE-3V-DG8">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -24,64 +24,32 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="103.79464285714285"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Launch Animation View Controller-->
         <scene sceneID="22d-oP-Z0B">
             <objects>
-                <viewController id="8QE-3V-DG8" customClass="LoginViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8QE-3V-DG8" customClass="LaunchAnimationViewController" customModule="RelationBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K74-Ng-y4a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5O-CL-Rfd">
-                                <rect key="frame" x="62" y="712" width="290" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="zMV-ep-ykW"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="建立帳戶及表示您同意我們的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rm-Eo-dLG">
-                                <rect key="frame" x="86" y="785" width="182" height="17"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QrQ-ae-aEi">
-                                <rect key="frame" x="272" y="778" width="65" height="31"/>
-                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="13"/>
-                                <state key="normal" title="隱私權政策"/>
-                                <connections>
-                                    <action selector="onTapPrivacy:" destination="8QE-3V-DG8" eventType="touchUpInside" id="y3t-ij-yRQ"/>
-                                </connections>
-                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_1024px_icon_nobg" translatesAutoresizingMaskIntoConstraints="NO" id="vTv-w2-RII">
                                 <rect key="frame" x="155.5" y="396.5" width="103.5" height="103.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="vTv-w2-RII" secondAttribute="height" multiplier="1:1" id="apT-es-g1x"/>
+                                    <constraint firstAttribute="width" secondItem="vTv-w2-RII" secondAttribute="height" multiplier="1:1" id="JlC-BC-1Hg"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ecb-va-NXM"/>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
-                            <constraint firstItem="ecb-va-NXM" firstAttribute="bottom" secondItem="4rm-Eo-dLG" secondAttribute="bottom" constant="60" id="0o5-mg-gr7"/>
-                            <constraint firstItem="vTv-w2-RII" firstAttribute="centerX" secondItem="K74-Ng-y4a" secondAttribute="centerX" id="58S-yI-0Xl"/>
-                            <constraint firstItem="vTv-w2-RII" firstAttribute="width" secondItem="K74-Ng-y4a" secondAttribute="width" multiplier="0.25" id="PQ6-0v-hRe"/>
-                            <constraint firstItem="QrQ-ae-aEi" firstAttribute="leading" secondItem="4rm-Eo-dLG" secondAttribute="trailing" constant="4" id="RGN-RZ-c8c"/>
-                            <constraint firstItem="QrQ-ae-aEi" firstAttribute="centerY" secondItem="4rm-Eo-dLG" secondAttribute="centerY" id="Z83-DX-JRH"/>
-                            <constraint firstItem="z5O-CL-Rfd" firstAttribute="centerX" secondItem="K74-Ng-y4a" secondAttribute="centerX" id="cx1-cT-Yx2"/>
-                            <constraint firstItem="z5O-CL-Rfd" firstAttribute="centerX" secondItem="K74-Ng-y4a" secondAttribute="centerX" id="lUA-gB-amV"/>
-                            <constraint firstItem="vTv-w2-RII" firstAttribute="centerY" secondItem="K74-Ng-y4a" secondAttribute="centerY" id="m00-Zl-0L5"/>
-                            <constraint firstItem="4rm-Eo-dLG" firstAttribute="centerX" secondItem="K74-Ng-y4a" secondAttribute="centerX" constant="-30" id="nHp-vV-zD0"/>
-                            <constraint firstItem="z5O-CL-Rfd" firstAttribute="width" secondItem="K74-Ng-y4a" secondAttribute="width" multiplier="0.7" id="nfm-PA-mZg"/>
-                            <constraint firstItem="QrQ-ae-aEi" firstAttribute="top" secondItem="z5O-CL-Rfd" secondAttribute="bottom" constant="16" id="qRL-t7-cYc"/>
+                            <constraint firstItem="vTv-w2-RII" firstAttribute="width" secondItem="K74-Ng-y4a" secondAttribute="width" multiplier="0.25" id="4dt-KG-Q4b"/>
+                            <constraint firstItem="vTv-w2-RII" firstAttribute="centerY" secondItem="K74-Ng-y4a" secondAttribute="centerY" id="OmE-rr-OTQ"/>
+                            <constraint firstItem="vTv-w2-RII" firstAttribute="centerX" secondItem="K74-Ng-y4a" secondAttribute="centerX" id="q4U-bJ-RQO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0qq-tt-Wcy"/>
                     <connections>
-                        <outlet property="iconCenterYAnchor" destination="m00-Zl-0L5" id="DXb-aa-qZY"/>
-                        <outlet property="loginButtonView" destination="z5O-CL-Rfd" id="xZh-68-1zr"/>
-                        <outlet property="privacyButton" destination="QrQ-ae-aEi" id="McQ-d3-HhV"/>
-                        <outlet property="privacyLabel" destination="4rm-Eo-dLG" id="Swm-PB-rmn"/>
+                        <outlet property="iconView" destination="vTv-w2-RII" id="AWa-ll-bJs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lr5-Rc-cyq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -44,10 +44,16 @@
                                     <constraint firstAttribute="width" secondItem="zbx-0Y-AMD" secondAttribute="height" multiplier="1:1" id="alc-8W-R9v"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2e-OW-1Md">
+                                <rect key="frame" x="32" y="532" width="350" height="148"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1ql-7F-gZi"/>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
+                            <constraint firstItem="S2e-OW-1Md" firstAttribute="top" secondItem="zbx-0Y-AMD" secondAttribute="bottom" constant="32" id="1yy-ry-2FY"/>
+                            <constraint firstItem="1ql-7F-gZi" firstAttribute="trailing" secondItem="S2e-OW-1Md" secondAttribute="trailing" constant="32" id="23C-d8-i7b"/>
                             <constraint firstItem="zbx-0Y-AMD" firstAttribute="centerY" secondItem="oOW-Pd-ptP" secondAttribute="centerY" id="7OJ-4T-8kS"/>
                             <constraint firstItem="u5B-p2-TqG" firstAttribute="centerY" secondItem="Ob0-Fw-2SL" secondAttribute="centerY" id="C2u-uq-BhR"/>
                             <constraint firstItem="Ob0-Fw-2SL" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" constant="-30" id="GOz-nk-Vkb"/>
@@ -57,7 +63,10 @@
                             <constraint firstItem="u5B-p2-TqG" firstAttribute="leading" secondItem="Ob0-Fw-2SL" secondAttribute="trailing" constant="4" id="VDW-Fc-TgT"/>
                             <constraint firstItem="VUc-Cw-Fv1" firstAttribute="width" secondItem="oOW-Pd-ptP" secondAttribute="width" multiplier="0.7" id="Y4X-2M-hQx"/>
                             <constraint firstItem="VUc-Cw-Fv1" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" id="b7y-GX-LIC"/>
+                            <constraint firstItem="S2e-OW-1Md" firstAttribute="leading" secondItem="1ql-7F-gZi" secondAttribute="leading" constant="32" id="eP0-pF-NuD"/>
+                            <constraint firstItem="S2e-OW-1Md" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" id="lm2-fa-xgL"/>
                             <constraint firstItem="VUc-Cw-Fv1" firstAttribute="centerX" secondItem="oOW-Pd-ptP" secondAttribute="centerX" id="qTB-xY-Nhr"/>
+                            <constraint firstItem="VUc-Cw-Fv1" firstAttribute="top" secondItem="S2e-OW-1Md" secondAttribute="bottom" constant="32" id="sNO-e5-RFV"/>
                             <constraint firstItem="1ql-7F-gZi" firstAttribute="bottom" secondItem="Ob0-Fw-2SL" secondAttribute="bottom" constant="60" id="zye-1m-G37"/>
                         </constraints>
                     </view>
@@ -65,6 +74,7 @@
                     <connections>
                         <outlet property="iconCenterYAnchor" destination="7OJ-4T-8kS" id="heN-FP-OnF"/>
                         <outlet property="loginButtonView" destination="VUc-Cw-Fv1" id="rGl-RO-2hz"/>
+                        <outlet property="lottieView" destination="S2e-OW-1Md" id="0zD-yF-0GD"/>
                         <outlet property="privacyButton" destination="u5B-p2-TqG" id="LUT-Pa-8gj"/>
                         <outlet property="privacyLabel" destination="Ob0-Fw-2SL" id="dVa-G1-bhk"/>
                     </connections>

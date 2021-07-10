@@ -21,6 +21,7 @@ class LottieWrapper: NSObject {
     case people = "people"
     case profile = "personalProfile"
     case talking = "talking"
+    case book = "book"
 
     var loopMode: LottieLoopMode {
       switch self {

@@ -100,11 +100,14 @@ class LobbyViewController: UIViewController {
       self.lottieView.leave()
     }
 
-    userViewModel.fetchUserDate()
-    lottieView.show(animation: .mail, jobs: 3)
-
     view.addGestureRecognizer(scopeGesture)
     tableView.panGestureRecognizer.require(toFail: scopeGesture)
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidDisappear(true)
+    userViewModel.fetchUserDate()
+    lottieView.show(animation: .mail, jobs: 3)
   }
 
   override func viewWillDisappear(_ animated: Bool) {

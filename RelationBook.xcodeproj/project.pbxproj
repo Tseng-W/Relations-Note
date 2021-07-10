@@ -47,6 +47,8 @@
 		47538EFF266E7E850066C91A /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 47538EFD266E7E850066C91A /* loading.json */; };
 		47538F00266E7E850066C91A /* mailSend.json in Resources */ = {isa = PBXBuildFile; fileRef = 47538EFE266E7E850066C91A /* mailSend.json */; };
 		47538F02266E86C70066C91A /* LottieWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47538F01266E86C70066C91A /* LottieWrapper.swift */; };
+		47586C622699596E00940C12 /* LaunchAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47586C612699596E00940C12 /* LaunchAnimationViewController.swift */; };
+		47586C6426996BEC00940C12 /* book.json in Resources */ = {isa = PBXBuildFile; fileRef = 47586C6326996BEC00940C12 /* book.json */; };
 		475907EB2696F0BB00B6965F /* TutorialContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475907EA2696F0BB00B6965F /* TutorialContentView.xib */; };
 		475907ED2696F0D900B6965F /* TutorialContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475907EC2696F0D900B6965F /* TutorialContentView.swift */; };
 		475907F52696F1B000B6965F /* createNote.json in Resources */ = {isa = PBXBuildFile; fileRef = 475907EE2696F1AF00B6965F /* createNote.json */; };
@@ -194,6 +196,8 @@
 		47538EFD266E7E850066C91A /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		47538EFE266E7E850066C91A /* mailSend.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mailSend.json; sourceTree = "<group>"; };
 		47538F01266E86C70066C91A /* LottieWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieWrapper.swift; sourceTree = "<group>"; };
+		47586C612699596E00940C12 /* LaunchAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimationViewController.swift; sourceTree = "<group>"; };
+		47586C6326996BEC00940C12 /* book.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = book.json; sourceTree = "<group>"; };
 		475907EA2696F0BB00B6965F /* TutorialContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialContentView.xib; sourceTree = "<group>"; };
 		475907EC2696F0D900B6965F /* TutorialContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentView.swift; sourceTree = "<group>"; };
 		475907EE2696F1AF00B6965F /* createNote.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = createNote.json; sourceTree = "<group>"; };
@@ -448,6 +452,7 @@
 		47339E9E263C33580092860F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				47586C602699591400940C12 /* Launch */,
 				472D136F264CD1DC001F3B85 /* Filter */,
 				47E6EF12263D7320000172DC /* Lobby */,
 				47339EED263C422D0092860F /* Profile */,
@@ -472,6 +477,7 @@
 		47339EB7263C3A8C0092860F /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4713AF012696CEAB0067A778 /* TutorialViewController.swift */,
 				47339EB8263C3ABC0092860F /* PBTabBarViewController.swift */,
 				47B6B90F2653C2E20090218C /* FloatingView.swift */,
 			);
@@ -528,6 +534,7 @@
 		47538EFC266E7E6B0066C91A /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				47586C6326996BEC00940C12 /* book.json */,
 				4759080526982C3C00B6965F /* personalProfile.json */,
 				475907FD2696F77A00B6965F /* people.json */,
 				475907FE2696F77A00B6965F /* person.json */,
@@ -538,6 +545,23 @@
 				47538EFE266E7E850066C91A /* mailSend.json */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		47586C5F2699590000940C12 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				475907EA2696F0BB00B6965F /* TutorialContentView.xib */,
+				475907EC2696F0D900B6965F /* TutorialContentView.swift */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		47586C602699591400940C12 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				47586C612699596E00940C12 /* LaunchAnimationViewController.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		475BF56C2669183D00AD5441 /* RelationList */ = {
@@ -637,14 +661,12 @@
 		47A217EE265A716D0096149C /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				47586C5F2699590000940C12 /* Tutorial */,
 				47D17899267B389B002D9A15 /* RBScrollView.swift */,
 				47A217EF265A71840096149C /* NibLoadable.swift */,
 				475D33842661064200A697DB /* IconView.swift */,
 				47FDEA062668D79500F5A2BA /* IconSelectionView.swift */,
 				47739863267745080034E368 /* GradientView.swift */,
-				4713AF012696CEAB0067A778 /* TutorialViewController.swift */,
-				475907EA2696F0BB00B6965F /* TutorialContentView.xib */,
-				475907EC2696F0D900B6965F /* TutorialContentView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -869,6 +891,7 @@
 				47B7D7182670522100F05FE7 /* ColorPicker.xib in Resources */,
 				47339EA9263C374F0092860F /* Profile.storyboard in Resources */,
 				475907F52696F1B000B6965F /* createNote.json in Resources */,
+				47586C6426996BEC00940C12 /* book.json in Resources */,
 				47779E7C26676E8600972194 /* LocalIconSelectionViewHeader.xib in Resources */,
 				47339E52263C2D710092860F /* Assets.xcassets in Resources */,
 				47779E7826676BE500972194 /* LocalIconSelectionViewCell.xib in Resources */,
@@ -1090,6 +1113,7 @@
 				476D2EC6264B8E2800A9200A /* FirebaseManager.swift in Sources */,
 				476CF846266B4F4E000B5DC9 /* RelationProfileCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
+				47586C622699596E00940C12 /* LaunchAnimationViewController.swift in Sources */,
 				475D33852661064200A697DB /* IconView.swift in Sources */,
 				47D1789A267B389B002D9A15 /* RBScrollView.swift in Sources */,
 				479A8A6D2667B6D900962751 /* CaseIterable+Extension.swift in Sources */,

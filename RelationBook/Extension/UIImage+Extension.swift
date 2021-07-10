@@ -10,6 +10,9 @@ import UIKit
 enum ImageAsset: String {
   // MARK: Main Icons
   case icon = "icon_1024px_icon_nobg"
+  case iconWord1 = "icon_1024px_icon_nobg_1"
+  case iconWord2 = "icon_1024px_icon_nobg_2"
+  case iconWord3 = "icon_1024px_icon_nobg_3"
   case pen = "icon_24px_pen"
   case note = "icon_24px_note"
   case category = "icon_24px_category"

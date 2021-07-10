@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
   @IBOutlet var iconCenterYAnchor: NSLayoutConstraint!
   @IBOutlet var privacyLabel: UILabel!
   @IBOutlet var privacyButton: UIButton!
+  @IBOutlet var lottieView: UIView!
 
   var currentNonce: String?
 
@@ -41,8 +42,10 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
 
     setupButton()
+  }
 
-    view.layoutIfNeeded()
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(true)
 
     UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
       self.iconCenterYAnchor.constant = -200
@@ -53,6 +56,7 @@ class LoginViewController: UIViewController {
         self.privacyLabel.alpha = 1
         self.privacyButton.alpha = 1
       }
+      LottieWrapper.shared.show(self.lottieView, animation: .book)
     })
   }
 
@@ -210,9 +214,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate,
           autoResult?.user.email,
           forKey: UserDefaults.Keys.email.rawValue)
 
-        if let mainViewController = UIStoryboard.main.instantiateInitialViewController() {
-          UIApplication.shared.windows[0].rootViewController = mainViewController
-        }
+        let mainViewController = UIStoryboard.main.instantiateViewController(identifier: "main")
+        UIApplication.shared.windows[0].rootViewController = mainViewController
       }
     }
   }

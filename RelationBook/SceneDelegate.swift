@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     UserDefaults.standard.setValue("wYfB9hMVHXQQ2ZPBdjsCBdalUZe2", forKey: UserDefaults.Keys.uid.rawValue)
     UserDefaults.standard.setValue("mockEmail2", forKey: UserDefaults.Keys.email.rawValue)
 
-    if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
+    if let mainVC = UIStoryboard.main.instantiateInitialViewController() {
       window?.rootViewController = mainVC
     } else {
       print("Can't initial main tab bar view controller.")
@@ -52,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
       UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
 
-      if let mainVC = UIStoryboard.main.instantiateViewController(identifier: "main") as? PBTabBarViewController {
+      if let mainVC = UIStoryboard.main.instantiateInitialViewController() {
         window?.rootViewController = mainVC
       } else {
         print("Can't initial main tab bar view controller.")
