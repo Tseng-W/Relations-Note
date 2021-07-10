@@ -73,11 +73,12 @@ class LaunchAnimationViewController: UIViewController {
       self.iconImageViews.forEach { $0.alpha = 1 }
       self.view.layoutIfNeeded()
     } completion: { _ in
-      sleep(1)
-      let controller = UIStoryboard.main.instantiateViewController(identifier: "main")
-      controller.modalTransitionStyle = .crossDissolve
-      controller.modalPresentationStyle = .fullScreen
-      self.present(controller, animated: true)
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        let controller = UIStoryboard.main.instantiateViewController(identifier: "main")
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+      }
     }
   }
 }

@@ -89,18 +89,33 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-t2-INF">
+                                <rect key="frame" x="186.5" y="387" width="41" height="4"/>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="cOu-P1-SjX"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hzP-Uk-PeN"/>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
+                            <constraint firstItem="cTc-t2-INF" firstAttribute="width" secondItem="u0Y-tb-iLI" secondAttribute="width" multiplier="0.1" id="6HF-9T-CVb"/>
                             <constraint firstItem="hzP-Uk-PeN" firstAttribute="bottom" secondItem="zGk-jS-jSG" secondAttribute="bottom" id="9y2-c4-awy"/>
                             <constraint firstItem="hzP-Uk-PeN" firstAttribute="trailing" secondItem="ATx-iw-HYq" secondAttribute="trailing" id="AoM-13-JPd"/>
                             <constraint firstItem="ATx-iw-HYq" firstAttribute="top" secondItem="hzP-Uk-PeN" secondAttribute="top" constant="8" id="Bdi-Cm-DPf"/>
                             <constraint firstItem="ATx-iw-HYq" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="J0x-Ns-t8d"/>
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="top" secondItem="ATx-iw-HYq" secondAttribute="bottom" id="Mvc-kE-sE6"/>
+                            <constraint firstItem="cTc-t2-INF" firstAttribute="centerX" secondItem="u0Y-tb-iLI" secondAttribute="centerX" id="RaR-Z8-Pq2"/>
                             <constraint firstItem="hzP-Uk-PeN" firstAttribute="trailing" secondItem="zGk-jS-jSG" secondAttribute="trailing" id="VVf-dm-qdF"/>
                             <constraint firstItem="PUn-Mk-rNH" firstAttribute="bottom" secondItem="ATx-iw-HYq" secondAttribute="bottom" constant="-5" id="aom-bX-5Rz"/>
                             <constraint firstItem="PUn-Mk-rNH" firstAttribute="centerX" secondItem="u0Y-tb-iLI" secondAttribute="centerX" id="awH-yx-QJk"/>
+                            <constraint firstItem="cTc-t2-INF" firstAttribute="bottom" secondItem="ATx-iw-HYq" secondAttribute="bottom" constant="-5" id="jY8-G3-TGU"/>
                             <constraint firstItem="zGk-jS-jSG" firstAttribute="leading" secondItem="hzP-Uk-PeN" secondAttribute="leading" id="jjQ-WY-PYS"/>
                         </constraints>
                     </view>
@@ -718,6 +733,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
