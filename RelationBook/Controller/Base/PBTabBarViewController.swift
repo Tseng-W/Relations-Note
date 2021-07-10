@@ -119,6 +119,15 @@ class PBTabBarViewController: UITabBarController {
     selectedIndex = 1
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(true)
+    if UserDefaults.standard.getString(key: .firstLaunch) == nil {
+      let tutorialViewController = TutorialViewController()
+      tutorialViewController.isModalInPresentation = true
+      present(tutorialViewController, animated: true)
+    }
+  }
+
   private func lobbyButtonInit() {
     var center = tabBar.center
     center.y -= iconImageButton.frame.height / 2

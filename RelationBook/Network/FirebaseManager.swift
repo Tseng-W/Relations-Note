@@ -31,12 +31,9 @@ class FirebaseManager {
     fetchUser(uid: uid) { result in
       switch result {
       case .success(let user):
+        print("Uid: \(uid), User:\(user)")
         guard let user = user else {
-          let email = UserDefaults.standard.getString(key: .email) ?? ""
-          let newUser = User(
-            uid: uid,
-            email: email)
-          self.addUser(user: newUser)
+          self.fetchUser(completion: completion)
           return
         }
         self.userShared = user
@@ -106,9 +103,15 @@ class FirebaseManager {
   }
 
   func fetchUser(uid: String, completion: @escaping (Result<User?, Error>) -> Void) {
+    print("fetchUser called.")
     let docRef = dataBase.collection(Collections.user.rawValue).document(uid)
 
-    docRef.addSnapshotListener { document, _ in
+    docRef.addSnapshotListener { document, error in
+      if let error = error {
+        print(error.localizedDescription)
+        return
+      }
+      print("docRef returned. doc: \(document)")
       if let document = document, document.exists {
         let user = try? document.data(as: User.self)
         completion(.success(user))

@@ -15,6 +15,21 @@ class LottieWrapper: NSObject {
   enum Animation: String {
     case mail = "mailSend"
     case loading = "loading"
+    case search = "search"
+    case createNote = "createNote"
+    case person = "person"
+    case people = "people"
+    case profile = "personalProfile"
+    case talking = "talking"
+
+    var loopMode: LottieLoopMode {
+      switch self {
+      case .people, .profile:
+        return .autoReverse
+      default:
+        return .loop
+      }
+    }
   }
 
   var view: UIView {
@@ -27,27 +42,33 @@ class LottieWrapper: NSObject {
   var jobsCount: Int = 1
 
   func show(animation: Animation, jobs: Int = 1, isCorned: Bool = false) {
-    show(view, animation: animation, jobs: jobs, isCorned: isCorned)
+    show(view, animation: animation, jobs: jobs, useBlur: true, isCorned: isCorned)
   }
 
-  func show(_ view: UIView, animation: Animation, jobs: Int = 1, isCorned: Bool = false) {
+  func show(
+    _ view: UIView,
+    animation: Animation,
+    jobs: Int = 1,
+    useBlur: Bool = false,
+    isCorned: Bool = false,
+    multiple: CGFloat = 1,
+    maxWidth: CGFloat = 0,
+    maxHeight: CGFloat = 0
+  ) {
     jobsCount = jobs
 
-    blurView = view.addBlurView()
+    if useBlur { blurView = view.addBlurView() }
 
     animationView = AnimationView.init(name: animation.rawValue)
-
-    animationView.loopMode = .loop
+    animationView.loopMode = animation.loopMode
     animationView.contentMode = .scaleAspectFit
-//    animationView.animationSpeed = 1.0
 
     view.addSubview(animationView)
-
     animationView.addConstarint(
       centerX: view.centerXAnchor,
       centerY: view.centerYAnchor,
-      width: max(50, view.frame.width / 3),
-      height: max(50, view.frame.width / 3)
+      width: max(maxWidth, view.frame.width * multiple),
+      height: max(maxHeight, view.frame.width * multiple)
     )
 
     view.isCornerd = isCorned

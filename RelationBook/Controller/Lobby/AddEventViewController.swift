@@ -143,6 +143,11 @@ class AddEventViewController: UIViewController {
     LKProgressHUD.dismiss()
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(true)
+    navigationController?.popToRootViewController(animated: true)
+  }
+
   private func selectionViewSetup() {
     view.addSubview(selectFloatViewController.view)
     selectFloatViewController.view.addConstarint(fill: view)

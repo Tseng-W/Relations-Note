@@ -12,6 +12,7 @@ extension UserDefaults {
     case style
     case uid
     case email
+    case firstLaunch
   }
 
   func getString(key: Keys) -> String? {

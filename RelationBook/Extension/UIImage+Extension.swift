@@ -51,7 +51,11 @@ extension UIImage {
 
   static func loadAssetImagesSequence(name: String, range: ClosedRange<Int>) -> [UIImage] {
     return range.map { index in
-      return UIImage(named: name + "\(index)") ?? UIImage()
+      if let image = UIImage(named: name + "\(index)") {
+        image.accessibilityIdentifier = name + "\(index)"
+        return image
+      }
+      return UIImage()
     }
   }
 

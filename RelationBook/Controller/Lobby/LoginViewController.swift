@@ -194,6 +194,15 @@ extension LoginViewController: ASAuthorizationControllerDelegate,
           return
         }
 
+        if let result = autoResult,
+           let info = result.additionalUserInfo,
+           info.isNewUser {
+          let newUser = User(
+            uid: result.user.uid,
+            email: result.user.email ?? .empty)
+          FirebaseManager.shared.addUser(user: newUser)
+        }
+
         UserDefaults.standard.set(
           autoResult?.user.uid,
           forKey: UserDefaults.Keys.uid.rawValue)

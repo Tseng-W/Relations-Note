@@ -181,7 +181,7 @@ class RelationDetailViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(true)
 
-    navigationController?.backToRoot()
+    navigationController?.popToRootViewController(animated: true)
   }
 }
 

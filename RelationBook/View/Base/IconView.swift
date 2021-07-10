@@ -36,19 +36,19 @@ class IconView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    animationView.show(self, animation: .loading, isCorned: true)
+    animationView.show(self, animation: .loading, isCorned: true, multiple: 0.4)
   }
 
   convenience init() {
     self.init(frame: CGRect())
 
-    animationView.show(self, animation: .loading, isCorned: true)
+    animationView.show(self, animation: .loading, isCorned: true, multiple: 0.4)
   }
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
 
-    animationView.show(self, animation: .loading, isCorned: true)
+    animationView.show(self, animation: .loading, isCorned: true, multiple: 0.4)
   }
 
   func setIcon(
