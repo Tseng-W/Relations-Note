@@ -75,9 +75,10 @@ class LaunchAnimationViewController: UIViewController {
     } completion: { _ in
       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         let controller = UIStoryboard.main.instantiateViewController(identifier: "main")
-        controller.modalTransitionStyle = .crossDissolve
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        UIApplication.shared.windows[0].rootViewController = controller
+//        controller.modalTransitionStyle = .crossDissolve
+//        controller.modalPresentationStyle = .fullScreen
+//        self.present(controller, animated: true)
       }
     }
   }
