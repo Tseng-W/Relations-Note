@@ -50,9 +50,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       application.registerUserNotificationSettings(settings)
     }
 
+    if let style = UserDefaults.standard.getString(key: .style) {
+      if style == "dark" {
+        window?.overrideUserInterfaceStyle = .dark
+      } else if style == "light" {
+        window?.overrideUserInterfaceStyle = .light
+      }
+    }
+
     application.registerForRemoteNotifications()
 
     Messaging.messaging().delegate = self
+
+    #if targetEnvironment(simulator)
+    simulator()
+
+    #else
+    loginTokenCheck()
+    #endif
 
     return true
   }
@@ -132,6 +147,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 }
 
+extension AppDelegate {
+  private func simulator() {
+    UserDefaults.standard.setValue("wYfB9hMVHXQQ2ZPBdjsCBdalUZe2", forKey: UserDefaults.Keys.uid.rawValue)
+    UserDefaults.standard.setValue("mockEmail2", forKey: UserDefaults.Keys.email.rawValue)
+
+    if let mainVC = UIStoryboard.main.instantiateInitialViewController() {
+      window?.rootViewController = mainVC
+    } else {
+      print("Can't initial main tab bar view controller.")
+    }
+  }
+
+  private func loginTokenCheck() {
+    if let user = Auth.auth().currentUser {
+      UserDefaults.standard.setValue(user.email, forKey: UserDefaults.Keys.email.rawValue)
+      UserDefaults.standard.setValue(user.uid, forKey: UserDefaults.Keys.uid.rawValue)
+
+      if let mainVC = UIStoryboard.main.instantiateInitialViewController() {
+        window?.rootViewController = mainVC
+      } else {
+        print("Can't initial main tab bar view controller.")
+      }
+    } else {
+      if let loginViewController = UIStoryboard.login.instantiateViewController(identifier: "login") as? LoginViewController {
+        window?.rootViewController = loginViewController
+      } else {
+        print("Can't initial main tab bar view controller.")
+      }
+    }
+  }
+}
 
 extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
