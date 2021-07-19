@@ -194,7 +194,7 @@ class AddEventViewController: UIViewController {
 
     guard event.isInitialed() else { return }
 
-    let comment: String = commentTextView.text == "備註" ? .empty : commentTextView.text
+    let comment: String = commentTextView.text == eventViewModel.commentPlaceholder ? .empty : commentTextView.text
 
     event.comment = comment
 
@@ -307,7 +307,7 @@ extension AddEventViewController {
     moodButton.backgroundColor = UIColor.UIColorFromString(string: moodDate.colorString)
 
     if event.comment == .empty {
-      commentTextView.text = "備忘"
+      commentTextView.text = eventViewModel.commentPlaceholder
       commentTextView.textColor = commentPlaceholderColor
     } else {
       commentTextView.text = event.comment

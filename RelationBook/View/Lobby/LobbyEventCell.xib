@@ -114,6 +114,11 @@
             <point key="canvasLocation" x="131.8840579710145" y="145.64732142857142"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="dTo-RY-dP1">
+            <size key="intrinsicContentSize" width="207" height="16"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="Background">
             <color red="0.82745098039215681" green="0.81568627450980391" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -89,6 +89,7 @@ class IconView: UIView {
       imageView.tintColor = tintColor
     }
 
+    setNeedsLayout()
     layoutIfNeeded()
 
     let defaultMultiple: CGFloat = isCropped ? 1 : 0.6
@@ -105,6 +106,7 @@ class IconView: UIView {
 
     animationView.leave()
 
+    setNeedsLayout()
     layoutIfNeeded()
   }
 }

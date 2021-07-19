@@ -38,18 +38,25 @@ class LobbyViewController: UIViewController {
       calendar.delegate = self
       calendar.dataSource = self
       calendar.locale = Locale.init(identifier: "zh-tw")
+
+      calendar.layer.masksToBounds = false
+      calendar.layer.shadowColor = UIColor.black.cgColor
+      calendar.layer.shadowOffset = CGSize(width: 1, height: 1)
+      calendar.layer.shadowOpacity = 1
     }
   }
 
   @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
 
-  @IBOutlet var tableView: UITableView! {
+  @IBOutlet var waterfallView: UICollectionView! {
     didSet {
-      tableView.delegate = self
-      tableView.dataSource = self
-      tableView.registerCellWithNib(identifier: String(describing: LobbyEventCell.self), bundle: nil)
-      tableView.rowHeight = UITableView.automaticDimension
-      tableView.estimatedRowHeight = 60
+      (waterfallView.collectionViewLayout as? WaterfallLayout)?.delegate = self
+      waterfallView.delegate = self
+      waterfallView.dataSource = self
+      waterfallView.registerCellWithNib(
+        identifier: String(describing: LobbyCollectionCell.self),
+        bundle: nil
+      )
     }
   }
 
@@ -71,37 +78,31 @@ class LobbyViewController: UIViewController {
 
     calendar.select(Date())
 
-    tableView.separatorColor = .clear
-
     navigationItem.title = Date().getDayString(type: .day)
 
-    userViewModel.user.bind { user in
+    userViewModel.user.bind { [weak self] user in
       guard user != nil else { return }
 
-      self.eventViewModel.fetchEvents()
-      self.relationViewModel.fetchRelations()
-      self.tableView.reloadData()
-      self.calendar.reloadData()
-
-      self.lottieView.leave()
+      self?.eventViewModel.fetchEvents()
+      self?.relationViewModel.fetchRelations()
+      self?.calendar.reloadData()
+      self?.waterfallView.reloadData()
+      self?.lottieView.leave()
     }
 
-    eventViewModel.events.bind { _ in
-      self.tableView.reloadData()
-      self.calendar.reloadData()
-
-      self.lottieView.leave()
+    eventViewModel.events.bind { [weak self] _ in
+      self?.calendar.reloadData()
+      self?.waterfallView.reloadData()
+      self?.lottieView.leave()
     }
 
-    relationViewModel.relations.bind { _ in
-      self.tableView.reloadData()
-      self.calendar.reloadData()
-
-      self.lottieView.leave()
+    relationViewModel.relations.bind { [weak self] _ in
+      self?.calendar.reloadData()
+      self?.waterfallView.reloadData()
+      self?.lottieView.leave()
     }
 
     view.addGestureRecognizer(scopeGesture)
-    tableView.panGestureRecognizer.require(toFail: scopeGesture)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -116,6 +117,12 @@ class LobbyViewController: UIViewController {
     popViews.forEach { $0.removeFromSuperview() }
   }
 
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    let bottomOffest = tabBarController?.tabBar.frame.height ?? 0
+    waterfallView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomOffest, right: 0)
+  }
+
   @IBAction func logout(_ sender: UIBarButtonItem) {
     try? Auth.auth().signOut()
   }
@@ -128,7 +135,7 @@ extension LobbyViewController: FSCalendarDelegate,
                                UIGestureRecognizerDelegate {
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     navigationItem.title = date.getDayString(type: .day)
-    tableView.reloadData()
+    waterfallView.reloadData()
   }
 
   func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -141,7 +148,8 @@ extension LobbyViewController: FSCalendarDelegate,
   //  }
 
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    let shouldBegin = tableView.contentOffset.y <= -tableView.contentInset.top
+    let shouldBegin = waterfallView.contentOffset.y <= -waterfallView.contentInset.top
+//    let shouldBegin = false
 
     if shouldBegin {
       let velocity = scopeGesture.velocity(in: view)
@@ -207,73 +215,6 @@ extension LobbyViewController: FSCalendarDelegate,
   }
 }
 
-// MARK: - tableView delegate / datasource
-extension LobbyViewController: UITableViewDelegate, UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    guard let selectedDate = calendar.selectedDate else { return 0 }
-
-    return eventViewModel.fetchEventIn(date: selectedDate).count
-  }
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
-  }
-
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let header = UIView()
-
-    header.backgroundColor = .clear
-
-    return header
-  }
-
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 10
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(cell: LobbyEventCell.self, indexPath: indexPath),
-          let selectedDate = calendar.selectedDate,
-          let user = userViewModel.user.value else {
-      String.trackFailure("dequeueReusableCell failures")
-      return LobbyEventCell()
-    }
-
-    let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.section]
-
-    cell.cellSetup(
-      type: .lobby,
-      event: event,
-      relations: user.getCategoriesWithSuperIndex(subType: .relation).filter { event.relations.contains($0.id) })
-
-
-    cell.updateConstraintsIfNeeded()
-
-    return cell
-  }
-
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    60
-  }
-
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard userViewModel.user.value != nil,
-          let cell = tableView.cellForRow(at: indexPath) as? LobbyEventCell else { return }
-    cell.isSelected = false
-
-    guard let event = cell.event else { return }
-
-    let detailVC = EventDetailView()
-    detailVC.delegate = self
-    detailVC.show(view: self.view)
-    detailVC.setUp(event: event, relations: cell.relations)
-  }
-
-  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 70
-  }
-}
-
 // MARK: - custom tab bar delegate
 extension LobbyViewController: TabBarTapDelegate {
   func tabBarTapped(_ controller: PBTabBarViewController, index: Int) {
@@ -294,5 +235,79 @@ extension LobbyViewController: EventDetailDelegate {
 
     provider.setConfirmAction { self.eventViewModel.deleteEvent(event: event) }
       .showAlert(type: .delete)
+  }
+}
+
+extension LobbyViewController: UICollectionViewDelegate, UICollectionViewDataSource, WaterfallLayoutDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard userViewModel.user.value != nil,
+          let cell = collectionView.cellForItem(at: indexPath) as? LobbyCollectionCell else { return }
+    cell.isSelected = false
+
+    guard let event = cell.event else { return }
+
+    let detailVC = EventDetailView()
+    detailVC.delegate = self
+    detailVC.show(view: self.view)
+    detailVC.setUp(event: event, relations: [cell.category!])
+  }
+
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    guard let selectedDate = calendar.selectedDate else { return 0 }
+
+    return eventViewModel.fetchEventIn(date: selectedDate).count
+  }
+
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(
+            cell: LobbyCollectionCell.self,
+            indexPath: indexPath),
+          let selectedDate = calendar.selectedDate else {
+      String.trackFailure("dequeueReusableCell failures.")
+      return LobbyCollectionCell()
+    }
+
+    let event = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.row]
+    if let relation = userViewModel.getCategory(type: .relation, event: event) {
+      cell.setUp(relation: relation, event: event)
+    }
+    return cell
+  }
+
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    let radius = cell.contentView.layer.cornerRadius
+    cell.contentView.layer.masksToBounds = true
+    cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+  }
+
+  func columnOfWaterfall(_ collectionView: UICollectionView) -> Int {
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      return 2
+    } else {
+      return 3
+    }
+  }
+
+  func waterfall(_ collectionView: UICollectionView, layout waterfallLayout: WaterfallLayout, heightForItemAt indexPath: IndexPath) -> CGFloat {
+    let baseHeight = view.frame.height / 4
+    var commentHeight: CGFloat = 0
+
+    guard let selectedDate = calendar.selectedDate,
+          let comment = eventViewModel.fetchEventIn(date: selectedDate)[indexPath.row].comment as NSString? else { return baseHeight }
+    if comment != "" {
+      commentHeight = comment.boundingRect(
+        with: CGSize(
+          width: view.frame.width / 2,
+          height: view.frame.height / 2),
+        options: [.usesFontLeading, .usesLineFragmentOrigin],
+        attributes: [.font: UIFont.systemFont(ofSize: 14)],
+        context: .none).height
+    }
+
+    return baseHeight + commentHeight
+  }
+
+  func waterfall(_ collectionView: UICollectionView, layout waterfallLayout: WaterfallLayout, heightForSupplementaryView indexPath: IndexPath) -> CGFloat {
+    40
   }
 }

@@ -13,6 +13,10 @@ class EventViewModel {
     case date
   }
 
+  var commentPlaceholder: String {
+    get { return "備註" }
+  }
+
   let events = Box([Event]())
 
   func addEvent(event: Event, completion: @escaping ((Result<String, Error>) -> Void)) {

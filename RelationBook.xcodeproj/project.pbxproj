@@ -21,6 +21,9 @@
 		471FD4F1265C980F003CF46F /* AddFeatureFloatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FD4F0265C980F003CF46F /* AddFeatureFloatView.swift */; };
 		471FD4F6265CA3F2003CF46F /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FD4F5265CA3F2003CF46F /* FeatureViewModel.swift */; };
 		472D1371264CD1ED001F3B85 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */; };
+		472E878426A184A900D94900 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E878326A184A900D94900 /* WaterfallLayout.swift */; };
+		472E878626A1A39000D94900 /* LobbyCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472E878526A1A39000D94900 /* LobbyCollectionCell.xib */; };
+		472E878826A1AAB600D94900 /* LobbyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E878726A1AAB600D94900 /* LobbyCollectionCell.swift */; };
 		47339E46263C2D6F0092860F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E45263C2D6F0092860F /* AppDelegate.swift */; };
 		47339E48263C2D6F0092860F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E47263C2D6F0092860F /* SceneDelegate.swift */; };
 		47339E4A263C2D6F0092860F /* RelationViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47339E49263C2D6F0092860F /* RelationViewContoller.swift */; };
@@ -164,6 +167,9 @@
 		471FD4F0265C980F003CF46F /* AddFeatureFloatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeatureFloatView.swift; sourceTree = "<group>"; };
 		471FD4F5265CA3F2003CF46F /* FeatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureViewModel.swift; sourceTree = "<group>"; };
 		472D1370264CD1ED001F3B85 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
+		472E878326A184A900D94900 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
+		472E878526A1A39000D94900 /* LobbyCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LobbyCollectionCell.xib; sourceTree = "<group>"; };
+		472E878726A1AAB600D94900 /* LobbyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyCollectionCell.swift; sourceTree = "<group>"; };
 		47339E42263C2D6F0092860F /* RelationBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47339E45263C2D6F0092860F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47339E47263C2D6F0092860F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -667,6 +673,7 @@
 				475D33842661064200A697DB /* IconView.swift */,
 				47FDEA062668D79500F5A2BA /* IconSelectionView.swift */,
 				47739863267745080034E368 /* GradientView.swift */,
+				472E878326A184A900D94900 /* WaterfallLayout.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -689,6 +696,8 @@
 				47A217E5265A2E360096149C /* AddCategory */,
 				47B6D6D026673C040070E277 /* LobbyEventCell.xib */,
 				47B6D6D226673C3B0070E277 /* LobbyEventCell.swift */,
+				472E878526A1A39000D94900 /* LobbyCollectionCell.xib */,
+				472E878726A1AAB600D94900 /* LobbyCollectionCell.swift */,
 			);
 			path = Lobby;
 			sourceTree = "<group>";
@@ -883,6 +892,7 @@
 				47538EFF266E7E850066C91A /* loading.json in Resources */,
 				47ECF075265B49B60063E294 /* AddFeatureTableCell.xib in Resources */,
 				475907F72696F1B000B6965F /* search.json in Resources */,
+				472E878626A1A39000D94900 /* LobbyCollectionCell.xib in Resources */,
 				476D2ED7264BDD4200A9200A /* CategoryCollectionCell.xib in Resources */,
 				47538EF9266E557E0066C91A /* ProfileCategoryTableCell.xib in Resources */,
 				47339EB3263C37D30092860F /* Relationship.storyboard in Resources */,
@@ -1111,6 +1121,7 @@
 				47E7032726464AB000C82A9C /* UIColor+Extension.swift in Sources */,
 				47101B992655366C00D7D171 /* GoogleMapViewController.swift in Sources */,
 				476D2EC6264B8E2800A9200A /* FirebaseManager.swift in Sources */,
+				472E878826A1AAB600D94900 /* LobbyCollectionCell.swift in Sources */,
 				476CF846266B4F4E000B5DC9 /* RelationProfileCell.swift in Sources */,
 				478693042651F2E800BFA750 /* SelectFloatViewController.swift in Sources */,
 				47586C622699596E00940C12 /* LaunchAnimationViewController.swift in Sources */,
@@ -1129,6 +1140,7 @@
 				47339EC2263C3C140092860F /* UIStoryboard+Extension.swift in Sources */,
 				47739864267745080034E368 /* GradientView.swift in Sources */,
 				47339E50263C2D700092860F /* PersonBook.xcdatamodeld in Sources */,
+				472E878426A184A900D94900 /* WaterfallLayout.swift in Sources */,
 				47951F732671FB790075A135 /* JGProgressHUDWrapper.swift in Sources */,
 				4712C23426526D16008D8386 /* RelationTableCell.swift in Sources */,
 				476D2ED5264BDD3700A9200A /* CategoryCollectionCell.swift in Sources */,

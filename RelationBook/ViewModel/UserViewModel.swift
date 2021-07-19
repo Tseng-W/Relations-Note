@@ -30,6 +30,21 @@ class UserViewModel {
       self?.user.value = user
     }
   }
+
+  func getCategory(type: CategoryType, event: Event) -> Category? {
+    guard let user = user.value,
+          type != .mood else { return nil }
+    switch type {
+    case .event:
+      return nil
+    case .feature:
+      return nil
+    case .relation:
+      return user.getCategoriesWithSuperIndex(subType: .relation).first { event.relations.contains($0.id) }
+    default:
+      return nil
+    }
+  }
 }
 
 extension UserViewModel {
